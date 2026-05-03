@@ -29,7 +29,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame. Stay out of reducing flames to prevent dulling or gray streaking.",
-    strikingNotes: "Stable color. Not sensitive to flame atmosphere."
+    strikingNotes: "Stable color. Not sensitive to flame atmosphere.",
+    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=300&fit=crop"
   },
   {
     id: "ns-020",

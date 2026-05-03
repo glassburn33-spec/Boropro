@@ -16,12 +16,21 @@ type TabType = "studio" | "equipment" | "calculator" | "colors";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("studio");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleTabChange = (tab: TabType) => {
     try {
       setActiveTab(tab);
     } catch (error) {
       console.error("Error changing tab:", error);
+    }
+  };
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      // Search across all tabs - show results in Equipment tab by default
+      setActiveTab("equipment");
+      // You can expand this to search in other tabs as well
     }
   };
 
@@ -36,8 +45,11 @@ export default function Home() {
             <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
           </div>
           <Input
-            placeholder="Search equipment, schedules, colors..."
+            placeholder="Search equipment, schedules, colors... (Press Enter)"
             className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
         </div>
       </header>
