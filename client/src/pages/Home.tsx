@@ -81,68 +81,111 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const [headerImage, setHeaderImage] = useState<string>("");
+
+  const handleHeaderImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setHeaderImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
-      {/* HEADER */}
-      <header className="sticky top-0 z-50 bg-stone-900 border-b border-amber-700/30 px-4 py-3">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 mb-4">
-            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-48 w-48" />
-            <h1 className="text-lg font-bold text-white">BoroPro</h1>
-            <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
+      {/* STICKY HEADER */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30">
+        <div className="flex items-center h-48 px-4">
+          {/* Logo on left */}
+          <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0" />
+          
+          {/* Header image placeholder on right */}
+          <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
+            {headerImage ? (
+              <img src={headerImage} alt="Header" className="w-full h-full object-contain" />
+            ) : (
+              <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
+                <span className="text-stone-400 text-sm">Click to add header image</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleHeaderImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
+            {headerImage && (
+              <button
+                onClick={() => setHeaderImage("")}
+                className="absolute top-2 right-2 bg-stone-900/80 hover:bg-stone-900 text-stone-300 px-2 py-1 text-xs rounded"
+              >
+                Remove
+              </button>
+            )}
           </div>
-          <div className="flex gap-2">
-            <Input
-              placeholder="Search equipment, schedules, colors... (Cmd+K)"
-              className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
-              value={searchQuery}
-              onChange={(e) => handleSearchInput(e.target.value)}
-              onKeyDown={handleSearch}
-            />
-            <Button
-              onClick={() => {
-                if (searchQuery.trim()) {
-                  const results = searchContent(searchQuery);
-                  setSearchResults(results);
-                  setShowSearchResults(true);
-                }
-              }}
-              className="bg-amber-700 hover:bg-amber-600 text-white px-4 h-9"
-            >
-              Search
-            </Button>
+        </div>
+
+        {/* STICKY NAVIGATION TABS */}
+        <div className="sticky top-48 z-40 bg-stone-900 border-t border-amber-700/30 px-4 py-3">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex gap-2 mb-3">
+              <Input
+                placeholder="Search equipment, schedules, colors... (Cmd+K)"
+                className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
+                value={searchQuery}
+                onChange={(e) => handleSearchInput(e.target.value)}
+                onKeyDown={handleSearch}
+              />
+              <Button
+                onClick={() => {
+                  if (searchQuery.trim()) {
+                    const results = searchContent(searchQuery);
+                    setSearchResults(results);
+                    setShowSearchResults(true);
+                  }
+                }}
+                className="bg-amber-700 hover:bg-amber-600 text-white px-4 h-9"
+              >
+                Search
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
-      <main className="max-w-6xl mx-auto px-4 py-6">
-        {/* QUICK ACTIONS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          <QuickActionCard
-            icon={<HomeIcon className="w-5 h-5" />}
-            label="Studio"
-            active={activeTab === "studio"}
-            onClick={() => handleTabChange("studio")}
-          />
-          <QuickActionCard
-            icon={<Zap className="w-5 h-5" />}
-            label="Equipment"
-            active={activeTab === "equipment"}
-            onClick={() => handleTabChange("equipment")}
-          />
-          <QuickActionCard
-            icon={<Calculator className="w-5 h-5" />}
-            label="Calculator"
-            active={activeTab === "calculator"}
-            onClick={() => handleTabChange("calculator")}
-          />
-          <QuickActionCard
-            icon={<Palette className="w-5 h-5" />}
-            label="Colors"
-            active={activeTab === "colors"}
-            onClick={() => handleTabChange("colors")}
-          />
+      {/* MAIN CONTENT - Add margin to account for fixed header */}
+      <main className="max-w-6xl mx-auto px-4 py-6 mt-64">
+        {/* QUICK ACTIONS - STICKY NAVIGATION */}
+        <div className="sticky top-64 z-30 bg-stone-950 pb-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <QuickActionCard
+              icon={<HomeIcon className="w-5 h-5" />}
+              label="Studio"
+              active={activeTab === "studio"}
+              onClick={() => handleTabChange("studio")}
+            />
+            <QuickActionCard
+              icon={<Zap className="w-5 h-5" />}
+              label="Equipment"
+              active={activeTab === "equipment"}
+              onClick={() => handleTabChange("equipment")}
+            />
+            <QuickActionCard
+              icon={<Calculator className="w-5 h-5" />}
+              label="Calculator"
+              active={activeTab === "calculator"}
+              onClick={() => handleTabChange("calculator")}
+            />
+            <QuickActionCard
+              icon={<Palette className="w-5 h-5" />}
+              label="Colors"
+              active={activeTab === "colors"}
+              onClick={() => handleTabChange("colors")}
+            />
+          </div>
         </div>
 
         {/* TAB CONTENT */}
