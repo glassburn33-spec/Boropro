@@ -81,7 +81,7 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const [headerImage, setHeaderImage] = useState<string>("");
+  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_c4yvpac4yvpac4yv(1)_6eb6caaf.png");
 
   const handleHeaderImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -106,7 +106,7 @@ export default function Home() {
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
             {headerImage ? (
-              <img src={headerImage} alt="Header" className="w-full h-full object-contain" />
+              <img src={headerImage} alt="Header" className="w-full h-full object-cover" />
             ) : (
               <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
                 <span className="text-stone-400 text-sm">Click to add header image</span>
