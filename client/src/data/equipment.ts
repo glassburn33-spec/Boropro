@@ -7,6 +7,7 @@ export interface Equipment {
   specs: Record<string, string | number>;
   schedules?: string[]; // IDs of associated schedules
   notes?: string;
+  image?: string; // URL to product image
 }
 
 export const equipment: Equipment[] = [
@@ -24,6 +25,7 @@ export const equipment: Equipment[] = [
       "Power": "240V",
     },
     notes: "Popular for borosilicate annealing. Excellent temperature control.",
+    image: "/manus-storage/skutt_kilnmaster_1227_1f3c63e8.jpg",
   },
   {
     id: "paragon-xpress",
@@ -68,7 +70,22 @@ export const equipment: Equipment[] = [
     notes: "Reliable mid-range option. Good temperature consistency.",
   },
 
-  // TORCHES
+  // TORCHES - First torch is GTT Lynx (with product image)
+  {
+    id: "torch-gtt-lynx",
+    name: "GTT Lynx (7 Jet)",
+    type: "torch",
+    category: "Hand Torch",
+    specs: {
+      "Manufacturer": "GTT Glass Torch Technologies",
+      "Max Temperature": "~2600°F",
+      "Borosilicate Capacity": "2\" solid maximum",
+      "Flame Width": "Pinpoint to 1/4\"",
+      "Fuel Consumption": "~1.5 LPM",
+    },
+    notes: "Perfect for lampworkers who need precision and control. Excellent for both soft and borosilicate glass.",
+    image: "/manus-storage/gtt_lynx_torch_4be0fc88.png",
+  },
   {
     id: "torch-minor",
     name: "Minor Torch (Single Fuel)",
