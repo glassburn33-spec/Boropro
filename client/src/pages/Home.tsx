@@ -820,7 +820,7 @@ function EquipmentCard({
     <Card className="bg-stone-800 border-stone-700 p-3 overflow-hidden">
       {image && (
         <div className="mb-2 -mx-3 -mt-3 bg-stone-900 p-2">
-          <img src={image} alt={name} className="w-full h-32 object-cover rounded" />
+          <img src={image} alt={name} className="w-full h-48 object-cover object-center rounded" style={{ objectFit: 'cover', objectPosition: 'center' }} />
         </div>
       )}
       <h4 className="font-bold text-amber-300 text-sm mb-2">{name}</h4>
@@ -852,7 +852,7 @@ function TorchCard({ torch }: { torch: (typeof torchDatabase)[0] }) {
     <Card className="bg-stone-800 border-stone-700 p-3 overflow-hidden">
       {torch.image && (
         <div className="mb-2 -mx-3 -mt-3 bg-stone-900 p-2">
-          <img src={torch.image} alt={torch.name} className="w-full h-32 object-cover rounded" />
+          <img src={torch.image} alt={torch.name} className="w-full h-48 object-cover object-center rounded" style={{ objectFit: 'cover', objectPosition: 'center' }} />
         </div>
       )}
       <h4 className="font-bold text-amber-300 text-sm mb-1">{torch.name}</h4>
