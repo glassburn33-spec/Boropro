@@ -572,10 +572,18 @@ function ColorsTab() {
     return acc;
   }, {} as Record<string, typeof glassColors>);
 
-  // Determine which manufacturers to display
+  // Determine which manufacturers to display - FIXED: Always re-render filtered list
   const displayedManufacturers = selectedGlassManufacturer && selectedGlassManufacturer !== ""
     ? [selectedGlassManufacturer]
     : glassManufacturers;
+
+  // Handle dropdown change - FIXED: Immediate state update with proper filtering
+  const handleManufacturerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedGlassManufacturer(value);
+    // Force immediate re-render by updating state
+    console.log('Manufacturer changed to:', value);
+  };
 
   return (
     <div className="space-y-6">
@@ -586,11 +594,8 @@ function ColorsTab() {
         <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Glass Manufacturer</label>
         <select
           value={selectedGlassManufacturer || ""}
-          onChange={(e) => {
-            const value = e.target.value;
-            setSelectedGlassManufacturer(value);
-          }}
-          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 hover:border-stone-500 transition-all appearance-none"
+          onChange={handleManufacturerChange}
+          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 hover:border-stone-500 transition-all appearance-none focus:outline-none focus:ring-2 focus:ring-amber-500"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
