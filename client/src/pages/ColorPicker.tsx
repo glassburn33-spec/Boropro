@@ -5,6 +5,7 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 
 import { useState, useMemo } from "react";
 import { Sparkles, AlertTriangle, CheckCircle2, Download } from "lucide-react";
+import { generateSchedulePDF, downloadPDF, SchedulePDFData } from "@/lib/pdfUtils";
 
 interface ColorMetadata {
   name: string;
@@ -422,12 +423,34 @@ Generated from Borosilicate Kiln Research Platform
                     </div>
                   )}
 
-                  <button
-                    onClick={handleExport}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors"
-                  >
-                    <Download size={16} /> Copy Schedule
-                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleExport}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      <Download size={16} /> Copy Schedule
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (!combinedSchedule) return;
+                        const pdfData: SchedulePDFData = {
+                          title: `Schedule for ${selectedColors.join(", ")}`,
+                          colors: selectedColors,
+                          annealTemp: combinedSchedule.annealTemp,
+                          strainTemp: combinedSchedule.strainTemp,
+                          coolingRate: 300,
+                          warnings: combinedSchedule.warnings,
+                          rationale: combinedSchedule.rationale,
+                          generatedDate: new Date().toLocaleDateString(),
+                        };
+                        const doc = generateSchedulePDF(pdfData);
+                        downloadPDF(doc, `boro-schedule-${Date.now()}.pdf`);
+                      }}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-amber-500 hover:bg-amber-500/20 text-amber-500 font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      <Download size={16} /> Download PDF
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
