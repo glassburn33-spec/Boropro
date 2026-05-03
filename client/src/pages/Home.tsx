@@ -566,10 +566,16 @@ function ColorsTab() {
   // Dynamically get unique glass manufacturers from color data
   const glassManufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
 
-  let filteredColors = glassColors;
-  if (selectedGlassManufacturer && selectedGlassManufacturer !== "") {
-    filteredColors = filteredColors.filter(c => c.manufacturer === selectedGlassManufacturer);
-  }
+  // Group colors by manufacturer
+  const colorsByManufacturer = glassManufacturers.reduce((acc, mfg) => {
+    acc[mfg] = glassColors.filter(c => c.manufacturer === mfg);
+    return acc;
+  }, {} as Record<string, typeof glassColors>);
+
+  // Determine which manufacturers to display
+  const displayedManufacturers = selectedGlassManufacturer && selectedGlassManufacturer !== ""
+    ? [selectedGlassManufacturer]
+    : glassManufacturers;
 
   return (
     <div className="space-y-6">
@@ -594,18 +600,47 @@ function ColorsTab() {
         </select>
       </div>
 
-      {/* COLOR CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {filteredColors.map((color) => (
-          <GlassColorCard key={color.id} color={color} />
-        ))}
-      </div>
+      {/* MANUFACTURER SECTIONS */}
+      <div className="space-y-8">
+        {displayedManufacturers.map((mfg) => {
+          const manufacturerColors = colorsByManufacturer[mfg];
+          if (!manufacturerColors || manufacturerColors.length === 0) return null;
 
-      {filteredColors.length === 0 && (
-        <div className="text-center py-8 text-stone-400">
-          <p>No colors match your filters. Try adjusting your selection.</p>
-        </div>
-      )}
+          // Group colors by family within manufacturer
+          const colorsByFamily = manufacturerColors.reduce((acc, color) => {
+            if (!acc[color.colorFamily]) {
+              acc[color.colorFamily] = [];
+            }
+            acc[color.colorFamily].push(color);
+            return acc;
+          }, {} as Record<string, typeof glassColors>);
+
+          const families = Object.keys(colorsByFamily).sort();
+
+          return (
+            <div key={mfg} className="space-y-4">
+              <div className="border-b border-amber-700/30 pb-3">
+                <h3 className="text-lg font-bold text-amber-300">{mfg}</h3>
+                <p className="text-xs text-stone-400 mt-1">{manufacturerColors.length} colors available</p>
+              </div>
+
+              {/* COLOR FAMILIES */}
+              <div className="space-y-6">
+                {families.map((family) => (
+                  <div key={`${mfg}-${family}`} className="space-y-3">
+                    <h4 className="text-sm font-bold text-amber-200 uppercase tracking-wide">{family} Based</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {colorsByFamily[family].map((color) => (
+                        <GlassColorCard key={color.id} color={color} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
