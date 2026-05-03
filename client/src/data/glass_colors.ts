@@ -57,7 +57,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Heavily oxidizing flame to prevent graying.",
-    strikingNotes: "Requires careful flame control for best results."
+    strikingNotes: "Requires careful flame control for best results.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_turbo_cobalt_ns033-h3GiQ6b5T9uRNRm3rQ33CZ.webp"
   },
   {
     id: "ns-019",
@@ -70,7 +71,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Not sensitive to flame atmosphere.",
-    strikingNotes: "Easy to work with for beginners."
+    strikingNotes: "Easy to work with for beginners.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_light_cobalt_ns019-HjPzddTiWQa8tmP9JpNyeY.webp"
   },
 
   // ============ NORTHSTAR GLASSWORKS - COPPER (RUBY) ============
@@ -115,7 +117,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Cool oxidizing flame. Kiln strike at 1050°F or gentle bushy neutral flame.",
-    strikingNotes: "Best for moderately thick coil-potted blown work and sculptural applications."
+    strikingNotes: "Best for moderately thick coil-potted blown work and sculptural applications.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_silver_amethyst_ns124-Xv3PTq3MjXPn4B9L89yeDj.webp"
   },
 
   // ============ GLASS ALCHEMY - COBALT ============
@@ -206,7 +209,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame for best saturation.",
-    strikingNotes: "Professional-grade cobalt. Excellent for production."
+    strikingNotes: "Professional-grade cobalt. Excellent for production.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_heavy_blue_leprechaun_tag030-V4KCkpthgwVwtghZ6fHMTf.webp"
   },
   {
     id: "tag-031",
@@ -219,7 +223,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Neutral to oxidizing flame.",
-    strikingNotes: "Sparkle effect best when used in back of flame."
+    strikingNotes: "Sparkle effect best when used in back of flame.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_blue_stardust_tag031-QJivgibx3igswi82qmNRm2.webp"
   },
 
   // ============ TAG (TRAUTMAN ART GLASS) - COPPER ============
@@ -234,7 +239,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame. Kiln striking recommended.",
-    strikingNotes: "Reactive copper color. Requires careful temperature management."
+    strikingNotes: "Reactive copper color. Requires careful temperature management.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_red_blizzard_tag015-JfMeXDvBBNP6phKotZn7a7.webp"
   },
   {
     id: "tag-010",
@@ -263,7 +269,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Neutral flame. Reduction produces metallic effects.",
-    strikingNotes: "Striking color. Responds well to flame manipulation."
+    strikingNotes: "Striking color. Responds well to flame manipulation.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_blue_slyme_tag062-GVf8H7rcSS4vTuoVtzbB9U.webp"
   },
   {
     id: "tag-054",
@@ -276,7 +283,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Neutral to reducing flame for color development.",
-    strikingNotes: "Heavy striking color. Requires careful temperature control."
+    strikingNotes: "Heavy striking color. Requires careful temperature control.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_pink_slyme_tag054-WDAcnMVwN38tC3xQQYfyvv.webp"
   },
   {
     id: "tag-040",
@@ -289,7 +297,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Neutral to reducing flame for striking.",
-    strikingNotes: "Professional striking color. Excellent for advanced work."
+    strikingNotes: "Professional striking color. Excellent for advanced work.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_mega_mai_tai_tag040-6xAvEfvr99k2T8DU73z2Cb.webp"
   }
 ];
 
