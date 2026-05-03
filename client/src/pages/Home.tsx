@@ -96,8 +96,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
-      {/* STICKY HEADER */}
+      {/* UNIFIED FIXED HEADER BLOCK */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30">
+        {/* ROW 1: Logo and Header Image */}
         <div className="flex items-center h-48 px-4">
           {/* Logo on left */}
           <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0" />
@@ -128,9 +129,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* STICKY NAVIGATION TABS */}
-        <div className="sticky top-48 z-40 bg-stone-900 border-t border-amber-700/30 px-4 py-3">
+        {/* ROW 2: Navigation Tabs and Search - Embedded in Fixed Header */}
+        <div className="bg-stone-900 border-t border-amber-700/30 px-4 py-3">
           <div className="max-w-6xl mx-auto">
+            {/* Search Bar */}
             <div className="flex gap-2 mb-3">
               <Input
                 placeholder="Search equipment, schedules, colors... (Cmd+K)"
@@ -152,42 +154,40 @@ export default function Home() {
                 Search
               </Button>
             </div>
+            
+            {/* Navigation Tabs */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <QuickActionCard
+                icon={<HomeIcon className="w-5 h-5" />}
+                label="Studio"
+                active={activeTab === "studio"}
+                onClick={() => handleTabChange("studio")}
+              />
+              <QuickActionCard
+                icon={<Zap className="w-5 h-5" />}
+                label="Equipment"
+                active={activeTab === "equipment"}
+                onClick={() => handleTabChange("equipment")}
+              />
+              <QuickActionCard
+                icon={<Calculator className="w-5 h-5" />}
+                label="Calculator"
+                active={activeTab === "calculator"}
+                onClick={() => handleTabChange("calculator")}
+              />
+              <QuickActionCard
+                icon={<Palette className="w-5 h-5" />}
+                label="Colors"
+                active={activeTab === "colors"}
+                onClick={() => handleTabChange("colors")}
+              />
+            </div>
           </div>
         </div>
       </header>
 
-      {/* MAIN CONTENT - Add margin to account for fixed header */}
-      <main className="max-w-6xl mx-auto px-4 py-6 mt-64">
-        {/* QUICK ACTIONS - STICKY NAVIGATION */}
-        <div className="sticky top-64 z-30 bg-stone-950 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <QuickActionCard
-              icon={<HomeIcon className="w-5 h-5" />}
-              label="Studio"
-              active={activeTab === "studio"}
-              onClick={() => handleTabChange("studio")}
-            />
-            <QuickActionCard
-              icon={<Zap className="w-5 h-5" />}
-              label="Equipment"
-              active={activeTab === "equipment"}
-              onClick={() => handleTabChange("equipment")}
-            />
-            <QuickActionCard
-              icon={<Calculator className="w-5 h-5" />}
-              label="Calculator"
-              active={activeTab === "calculator"}
-              onClick={() => handleTabChange("calculator")}
-            />
-            <QuickActionCard
-              icon={<Palette className="w-5 h-5" />}
-              label="Colors"
-              active={activeTab === "colors"}
-              onClick={() => handleTabChange("colors")}
-            />
-          </div>
-        </div>
-
+      {/* MAIN CONTENT - Margin accounts for fixed header (logo row + nav row) */}
+      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '280px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
