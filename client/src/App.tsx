@@ -5,12 +5,18 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import FlameSimulator from "./pages/FlameSimulator";
+import ColorPicker from "./pages/ColorPicker";
+import FiringTracker from "./pages/FiringTracker";
 
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/flame-simulator"} component={FlameSimulator} />
+      <Route path={"/color-picker"} component={ColorPicker} />
+      <Route path={"/firing-tracker"} component={FiringTracker} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
