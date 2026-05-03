@@ -604,50 +604,110 @@ function CalculatorCard({
 
 // ============ COLORS TAB ============
 function ColorsTab() {
-  const [selectedGlassManufacturer, setSelectedGlassManufacturer] = useState<string>("");
 
-  // Dynamically get unique glass manufacturers from color data
-  const glassManufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
+  // STATE: Selected manufacturer — empty string means show all
+  const [selectedManufacturer, setSelectedManufacturer] = useState<string>("");
 
-  // Group colors by manufacturer
-  const colorsByManufacturer = glassManufacturers.reduce((acc, mfg) => {
-    acc[mfg] = glassColors.filter(c => c.manufacturer === mfg);
-    return acc;
-  }, {} as Record<string, typeof glassColors>);
+  // STATE: Search query
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Determine which manufacturers to display - FIXED: Always re-render filtered list
-  const displayedManufacturers = selectedGlassManufacturer && selectedGlassManufacturer !== ""
-    ? [selectedGlassManufacturer]
-    : glassManufacturers;
+  // Get unique sorted manufacturer names from the database
+  const allManufacturers = Array.from(
+    new Set(glassColors.map((c) => c.manufacturer))
+  ).sort();
 
-  // Handle dropdown change - FIXED: Immediate state update with proper filtering
+  // ---- DROPDOWN CHANGE HANDLER ----
+  // Bug fix: use e.target.value directly and set state immediately.
+  // Do not debounce, do not use onClick, always use onChange.
   const handleManufacturerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedGlassManufacturer(value);
-    // Force immediate re-render by updating state
-    console.log('Manufacturer changed to:', value);
+    setSelectedManufacturer(e.target.value);
   };
 
+  // ---- SEARCH HANDLER ----
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // ---- FILTER LOGIC ----
+  // Step 1: filter by manufacturer
+  const manufacturerFiltered =
+    selectedManufacturer === ""
+      ? glassColors
+      : glassColors.filter((c) => c.manufacturer === selectedManufacturer);
+
+  // Step 2: filter by search query across all text fields
+  const q = searchQuery.toLowerCase().trim();
+  const filtered = !q
+    ? manufacturerFiltered
+    : manufacturerFiltered.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          c.colorCode.toLowerCase().includes(q) ||
+          c.description.toLowerCase().includes(q) ||
+          c.strikingNotes.toLowerCase().includes(q) ||
+          c.flameRecommendation.toLowerCase().includes(q) ||
+          c.colorFamily.toLowerCase().includes(q)
+      );
+
+  // ---- DETERMINE WHICH MANUFACTURERS TO DISPLAY ----
+  const displayedManufacturers =
+    selectedManufacturer !== ""
+      ? [selectedManufacturer]
+      : allManufacturers;
+
+  // ---- GROUP FILTERED COLORS BY MANUFACTURER THEN FAMILY ----
+  const grouped: Record<string, Record<string, typeof glassColors>> = {};
+  for (const mfg of displayedManufacturers) {
+    const mfgColors = filtered.filter((c) => c.manufacturer === mfg);
+    if (mfgColors.length === 0) continue;
+    grouped[mfg] = {};
+    const families = Array.from(new Set(mfgColors.map((c) => c.colorFamily))).sort();
+    for (const family of families) {
+      grouped[mfg][family] = mfgColors.filter((c) => c.colorFamily === family);
+    }
+  }
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
+
+      {/* PAGE TITLE */}
       <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
 
-      {/* GLASS MANUFACTURER FILTER */}
+      {/* ---- GLOBAL SEARCH BAR ---- */}
       <div>
-        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Glass Manufacturer</label>
+        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">
+          Search Colors
+        </label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search by name, code, description, notes..."
+          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-stone-500 transition-all"
+        />
+      </div>
+
+      {/* ---- MANUFACTURER DROPDOWN ---- */}
+      {/* Bug fix: value is bound to selectedManufacturer state.        */}
+      {/* onChange calls handleManufacturerChange which sets state.     */}
+      {/* appearance-none + custom SVG arrow keeps styling consistent.  */}
+      <div>
+        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">
+          Glass Manufacturer
+        </label>
         <select
-          value={selectedGlassManufacturer || ""}
+          value={selectedManufacturer}
           onChange={handleManufacturerChange}
           className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 hover:border-stone-500 transition-all appearance-none focus:outline-none focus:ring-2 focus:ring-amber-500"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 8px center',
-            paddingRight: '32px'
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right 10px center",
+            paddingRight: "32px",
           }}
         >
           <option value="">All Glass Manufacturers</option>
-          {glassManufacturers.map((mfg) => (
+          {allManufacturers.map((mfg) => (
             <option key={mfg} value={mfg}>
               {mfg}
             </option>
@@ -655,90 +715,100 @@ function ColorsTab() {
         </select>
       </div>
 
-      {/* MANUFACTURER SECTIONS */}
-      <div className="space-y-8">
-        {displayedManufacturers.map((mfg) => {
-          const manufacturerColors = colorsByManufacturer[mfg];
-          if (!manufacturerColors || manufacturerColors.length === 0) return null;
+      {/* ---- RESULT COUNT ---- */}
+      <p className="text-xs text-stone-500">
+        {filtered.length} color{filtered.length !== 1 ? "s" : ""} found
+      </p>
 
-          // Group colors by family within manufacturer
-          const colorsByFamily = manufacturerColors.reduce((acc, color) => {
-            if (!acc[color.colorFamily]) {
-              acc[color.colorFamily] = [];
-            }
-            acc[color.colorFamily].push(color);
-            return acc;
-          }, {} as Record<string, typeof glassColors>);
+      {/* ---- MANUFACTURER SECTIONS ---- */}
+      <div className="space-y-10">
+        {Object.keys(grouped).length === 0 && (
+          <p className="text-center text-stone-500 text-sm pt-8">
+            No colors match your search.
+          </p>
+        )}
 
-          const families = Object.keys(colorsByFamily).sort();
+        {Object.entries(grouped).map(([mfg, families]) => (
+          <div key={mfg} className="space-y-4">
 
-          return (
-            <div key={mfg} className="space-y-4">
-              <div className="border-b border-amber-700/30 pb-3">
-                <h3 className="text-lg font-bold text-amber-300">{mfg}</h3>
-                <p className="text-xs text-stone-400 mt-1">{manufacturerColors.length} colors available</p>
-              </div>
-
-              {/* COLOR FAMILIES */}
-              <div className="space-y-6">
-                {families.map((family) => (
-                  <div key={`${mfg}-${family}`} className="space-y-3">
-                    <h4 className="text-sm font-bold text-amber-200 uppercase tracking-wide">{family} Based</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {colorsByFamily[family].map((color) => (
-                        <GlassColorCard key={color.id} color={color} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* MANUFACTURER HEADER */}
+            <div className="border-b border-amber-700/30 pb-3">
+              <h3 className="text-lg font-bold text-amber-300">{mfg}</h3>
+              <p className="text-xs text-stone-400 mt-1">
+                {Object.values(families).flat().length} color
+                {Object.values(families).flat().length !== 1 ? "s" : ""} available
+              </p>
             </div>
-          );
-        })}
+
+            {/* COLOR FAMILIES */}
+            <div className="space-y-6">
+              {Object.entries(families).map(([family, colors]) => (
+                <div key={`${mfg}-${family}`} className="space-y-3">
+
+                  {/* FAMILY HEADING */}
+                  <h4 className="text-sm font-bold text-amber-200 uppercase tracking-wide">
+                    {family} Based
+                  </h4>
+
+                  {/* COLOR CARDS GRID */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {colors.map((color) => (
+                      <GlassColorCard key={color.id} color={color} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function GlassColorCard({
-  color,
-}: {
-  color: typeof glassColors[0];
-}) {
-  const handleCopy = () => {
-    const text = `${color.name} (${color.colorCode})\nManufacturer: ${color.manufacturer}\nMetal: ${color.metalComposition}\nFamily: ${color.colorFamily}\nAnneal: ${color.annealingTemp}\nWorking: ${color.workingTemp}\nFlame: ${color.flameRecommendation}\nStriking: ${color.strikingNotes}\n\n${color.description}`;
-    navigator.clipboard.writeText(text);
-  };
-
+function GlassColorCard({ color }: { color: typeof glassColors[0] }) {
   return (
-    <Card className="bg-stone-800 border-stone-700 p-3 overflow-hidden">
+    <div className="bg-stone-800 border border-stone-600 rounded-lg p-4 space-y-2 hover:border-amber-600 transition-all">
+
+      {/* COLOR IMAGE */}
       {color.image && (
-        <div className="mb-3 -mx-3 -mt-3 bg-stone-900 aspect-video flex items-center justify-center overflow-hidden rounded-t">
-          <img src={color.image} alt={color.name} className="w-full h-full object-contain" />
+        <div className="w-full h-32 rounded overflow-hidden">
+          <img
+            src={color.image}
+            alt={color.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
+            }}
+          />
         </div>
       )}
-      <div className="flex items-start justify-between mb-2">
-        <div>
-          <h4 className="font-bold text-amber-300 text-sm">{color.name}</h4>
-          <p className="text-xs text-stone-400">{color.colorCode} • {color.manufacturer}</p>
-        </div>
-        <span className="text-xs font-bold text-amber-400 bg-stone-900 px-2 py-1 rounded">{color.colorFamily}</span>
+
+      {/* COLOR NAME + CODE */}
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-sm font-bold text-white leading-tight">{color.name}</p>
+        <span className="text-xs font-mono text-amber-400 whitespace-nowrap">{color.colorCode}</span>
       </div>
-      <p className="text-xs text-stone-300 mb-2">{color.description}</p>
-      <div className="text-xs text-stone-400 space-y-1 mb-2">
-        <div>• Metal: {color.metalComposition}</div>
-        <div>• Anneal: {color.annealingTemp}</div>
-        <div>• Flame: {color.flameRecommendation}</div>
-        <div>• Striking: {color.strikingNotes}</div>
+
+      {/* FAMILY BADGE */}
+      <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-stone-700 text-stone-300">
+        {color.colorFamily}
+      </span>
+
+      {/* DESCRIPTION */}
+      <p className="text-xs text-stone-400 leading-relaxed">{color.description}</p>
+
+      {/* SPECS */}
+      <div className="text-xs text-stone-500 space-y-0.5 pt-1 border-t border-stone-700">
+        <p><span className="text-stone-400 font-medium">Anneal:</span> {color.annealingTemp}</p>
+        <p><span className="text-stone-400 font-medium">Working:</span> {color.workingTemp}</p>
+        <p><span className="text-stone-400 font-medium">Flame:</span> {color.flameRecommendation}</p>
+        <p><span className="text-stone-400 font-medium">Notes:</span> {color.strikingNotes}</p>
       </div>
-      <Button
-        onClick={handleCopy}
-        size="sm"
-        className="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs"
-      >
-        Copy Specs
-      </Button>
-    </Card>
+    </div>
   );
 }
 
