@@ -585,11 +585,18 @@ function ColorsTab() {
       <div>
         <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Glass Manufacturer</label>
         <select
-          value={selectedGlassManufacturer}
+          value={selectedGlassManufacturer || ""}
           onChange={(e) => {
-            setSelectedGlassManufacturer(e.target.value);
+            const value = e.target.value;
+            setSelectedGlassManufacturer(value);
           }}
-          className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
+          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 hover:border-stone-500 transition-all appearance-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 8px center',
+            paddingRight: '32px'
+          }}
         >
           <option value="">All Glass Manufacturers</option>
           {glassManufacturers.map((mfg) => (
