@@ -31,7 +31,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-stone-900 border-b border-amber-700/30 px-4 py-3">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-8 w-8" />
+            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-24 w-24" />
             <h1 className="text-lg font-bold text-white">BoroPro</h1>
             <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
           </div>
@@ -118,7 +118,7 @@ function HomeTab() {
     <div className="space-y-6">
       {/* LOGO & TITLE */}
       <div className="text-center py-8">
-        <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-32 w-32 mx-auto mb-4" />
+        <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-96 w-96 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-white mb-2">BoroPro</h1>
         <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
       </div>
@@ -512,15 +512,18 @@ function ColorsTab() {
       <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
 
       {/* FILTERS */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
           <select
-            value={selectedManufacturer || "all"}
-            onChange={(e) => setSelectedManufacturer(e.target.value === "all" ? null : e.target.value)}
-            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
+            value={selectedManufacturer || ""}
+            onChange={(e) => {
+              const val = e.target.value;
+              setSelectedManufacturer(val === "" ? null : val);
+            }}
+            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
           >
-            <option value="all">All Manufacturers</option>
+            <option value="">All Manufacturers</option>
             {manufacturers.map((mfg) => (
               <option key={mfg} value={mfg}>
                 {mfg}
@@ -531,11 +534,14 @@ function ColorsTab() {
         <div>
           <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Metal Composition</label>
           <select
-            value={selectedComposition || "all"}
-            onChange={(e) => setSelectedComposition(e.target.value === "all" ? null : e.target.value)}
-            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
+            value={selectedComposition || ""}
+            onChange={(e) => {
+              const val = e.target.value;
+              setSelectedComposition(val === "" ? null : val);
+            }}
+            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
           >
-            <option value="all">All Compositions</option>
+            <option value="">All Compositions</option>
             {compositions.map((comp) => (
               <option key={comp} value={comp}>
                 {comp}
