@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.borokiln.research',
-  appName: 'Boro Kiln Research',
+  appId: 'com.boropro.app',
+  appName: 'BoroPro',
   webDir: 'dist/public'
 };
 

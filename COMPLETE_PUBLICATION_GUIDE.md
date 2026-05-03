@@ -297,7 +297,7 @@ File should be 30-50 MB in size.
 
 1. Go to https://play.google.com/console
 2. Click "Create app"
-3. Enter app name: `Boro Kiln Research`
+3. Enter app name: `BoroPro`
 4. Select default language: `English`
 5. Select category: `Education` or `Productivity`
 6. Select content rating: `Everyone`
@@ -307,7 +307,7 @@ File should be 30-50 MB in size.
 
 ### Step 5.2: Fill in App Information
 
-**Go to:** All apps → Boro Kiln Research → Store listing
+**Go to:** All apps → BoroPro → Store listing
 
 **Fill in these fields:**
 
@@ -408,7 +408,7 @@ Create a circular app icon with:
 
 ### Step 5.3: Add Content Rating
 
-**Go to:** All apps → Boro Kiln Research → Content rating
+**Go to:** All apps → BoroPro → Content rating
 
 1. Click "Set up content rating"
 2. Select category: `Education`
@@ -419,7 +419,7 @@ Create a circular app icon with:
 
 ### Step 5.4: Add Privacy Policy
 
-**Go to:** All apps → Boro Kiln Research → Store listing → Privacy policy
+**Go to:** All apps → BoroPro → Store listing → Privacy policy
 
 **Link to privacy policy:**
 ```
@@ -456,7 +456,7 @@ The App does not integrate with third-party analytics or advertising services.
 **Link:** https://play.google.com/console
 
 1. Go to https://play.google.com/console
-2. Select "Boro Kiln Research" app
+2. Select "BoroPro" app
 3. Go to Release → Production (left sidebar)
 
 ---

@@ -1,7 +1,7 @@
 # Google Play Store Listing
 
 ## App Title
-**Boro Kiln Research**
+**BoroPro**
 
 ## Short Description (80 characters max)
 ```
@@ -10,7 +10,7 @@ Master borosilicate kiln annealing with interactive flame chemistry and schedule
 
 ## Full Description (4000 characters max)
 ```
-Boro Kiln Research is a comprehensive educational platform for borosilicate glass artists learning kiln annealing, color striking, and flame chemistry.
+BoroPro is a comprehensive educational platform for borosilicate glass artists learning kiln annealing, color striking, and flame chemistry.
 
 FEATURES:
 

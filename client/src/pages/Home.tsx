@@ -399,7 +399,7 @@ export default function Home() {
             <div className="h-8 w-8 rounded-full border-2 border-amber-500 flex items-center justify-center">
               <span className="text-xs font-bold text-amber-500">◆</span>
             </div>
-            <span className="font-mono text-sm font-bold uppercase tracking-wider text-white">BORO KILN EVIDENCE CONSOLE</span>
+            <span className="font-mono text-sm font-bold uppercase tracking-wider text-white">BOROPRO</span>
           </a>
           <nav className="hidden md:flex items-center gap-8">
             <a href="#landscape" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">LANDSCAPE</a>
