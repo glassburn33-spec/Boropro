@@ -670,8 +670,8 @@ function GlassColorCard({
   return (
     <Card className="bg-stone-800 border-stone-700 p-3 overflow-hidden">
       {color.image && (
-        <div className="mb-2 -mx-3 -mt-3 bg-stone-900 p-2">
-          <img src={color.image} alt={color.name} className="w-full h-32 object-cover rounded" />
+        <div className="mb-3 -mx-3 -mt-3 bg-stone-900 aspect-video flex items-center justify-center overflow-hidden rounded-t">
+          <img src={color.image} alt={color.name} className="w-full h-full object-contain" />
         </div>
       )}
       <div className="flex items-start justify-between mb-2">

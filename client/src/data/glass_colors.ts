@@ -30,7 +30,7 @@ export const glassColors: GlassColor[] = [
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame. Stay out of reducing flames to prevent dulling or gray streaking.",
     strikingNotes: "Stable color. Not sensitive to flame atmosphere.",
-    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=300&fit=crop"
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_cobalt_ns001-YANxGrjSb6eHVKz6bCnByv.webp"
   },
   {
     id: "ns-020",
@@ -43,7 +43,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame to prevent dulling or graying.",
-    strikingNotes: "Excellent for blown applications."
+    strikingNotes: "Excellent for blown applications.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_cobalt_ns020-UpmWmAmExPki6gsJCWB7kX.webp"
   },
   {
     id: "ns-033",
@@ -84,7 +85,8 @@ export const glassColors: GlassColor[] = [
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing environment for blues and purples. Reduction produces silvery haze.",
-    strikingNotes: "Easy to work, forgiving striking color. Good for blown work and sculpture."
+    strikingNotes: "Easy to work, forgiving striking color. Good for blown work and sculpture.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_copper_ns030-GgKnGzoiZN4J9Yi7ZiZE79.webp"
   },
 
   // ============ NORTHSTAR GLASSWORKS - SILVER ============
@@ -98,6 +100,7 @@ export const glassColors: GlassColor[] = [
     description: "Dark cobalt blue with silver by Northstar Glassworks. Yields bright metallic blues in oxidizing flame, bright hazy greens in neutral flame, ash gray in reducing flame.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/northstar_silver_ns050-VPr6M5KPdMUBkbRMNw7cBw.webp",
     flameRecommendation: "Oxidizing for blues, neutral for greens, reducing for gray.",
     strikingNotes: "Excellent for stringer application, blown work, and sculpture."
   },
@@ -117,75 +120,80 @@ export const glassColors: GlassColor[] = [
 
   // ============ GLASS ALCHEMY - COBALT ============
   {
-    id: "ga-511",
+    id: "ca-001",
     name: "Cobalt-1",
     manufacturer: "Glass Alchemy",
-    colorCode: "GA-511",
+    colorCode: "GA-001",
     metalComposition: "Cobalt Oxide (finely milled)",
     colorFamily: "Cobalt",
-    description: "Bright cobalt blue by Glass Alchemy. Made from finely milled cobalt mixed using three separate processes for even distribution.",
+    description: "Bright cobalt blue by Glass Alchemy. Made from finely milled cobalt mixed using three separate processes for superior distribution.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame. Avoid reduction to prevent dulling.",
-    strikingNotes: "Consistent color saturation. Excellent for all applications."
+    strikingNotes: "Consistent color saturation. Professional grade cobalt.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glassalchemy_cobalt_ca001-Qfk7e7MiyfJSN5dBirsUcU.webp"
   },
   {
-    id: "ga-515",
+    id: "ca-005",
     name: "Cobalt-5",
     manufacturer: "Glass Alchemy",
-    colorCode: "GA-515",
+    colorCode: "GA-005",
     metalComposition: "Cobalt Oxide (finely milled)",
     colorFamily: "Cobalt",
-    description: "Deep saturated cobalt blue by Glass Alchemy. Premium cobalt formulation with superior color consistency.",
+    description: "Deep saturated Cobalt blue by Glass Alchemy. Premium cobalt formulation with superior color consistency.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
     flameRecommendation: "Oxidizing flame for best results.",
-    strikingNotes: "Professional grade cobalt. Ideal for production work."
+    strikingNotes: "Professional grade cobalt. Ideal for production work.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glassalchemy_cobalt_ca005-UTQkDbb8Ce6ufm6HmsBaVg.webp"
   },
 
   // ============ GLASS ALCHEMY - COPPER ============
   {
-    id: "ga-610",
-    name: "Copper Red",
+    id: "ca-010",
+    name: "Copper-1",
     manufacturer: "Glass Alchemy",
-    colorCode: "GA-610",
+    colorCode: "GA-010",
     metalComposition: "Copper Oxide",
     colorFamily: "Copper",
-    description: "Striking copper-based red by Glass Alchemy. Requires careful temperature control for color development.",
+    description: "Warm copper orange color by Glass Alchemy. Versatile for flame work and sculpture.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
-    flameRecommendation: "Oxidizing flame. Kiln striking recommended for best results.",
-    strikingNotes: "Heat-sensitive. Requires kiln annealing at 1225°F for optimal color."
+    flameRecommendation: "Neutral to oxidizing flame.",
+    strikingNotes: "Stable color. Easy to work with.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glassalchemy_copper_ca010-gDpr9Rn5a9z59AXUR6JPMZ.webp"
   },
 
   // ============ GLASS ALCHEMY - SILVER ============
   {
-    id: "ga-710",
-    name: "Silver Blue",
+    id: "ca-020",
+    name: "Silver-1",
     manufacturer: "Glass Alchemy",
-    colorCode: "GA-710",
-    metalComposition: "Silver with Cobalt",
+    colorCode: "GA-020",
+    metalComposition: "Silver",
     colorFamily: "Silver",
-    description: "Striking silver-based blue by Glass Alchemy. Develops metallic luster when properly annealed.",
+    description: "Clear borosilicate glass with silver striking properties by Glass Alchemy. Produces metallic effects in reducing flame.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
-    flameRecommendation: "Neutral to slightly oxidizing flame.",
-    strikingNotes: "Metallic luster develops with proper kiln annealing."
+    flameRecommendation: "Reducing flame for silver effects.",
+    strikingNotes: "Requires reduction to develop color. Striking glass.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glassalchemy_silver_ca020-ceSvKf2jTqxp5Jyj4FXfwp.webp"
   },
 
   // ============ TAG (TRAUTMAN ART GLASS) - COBALT ============
   {
-    id: "tag-013",
-    name: "Blue Blizzard",
+    id: "tag-001",
+    name: "Cobalt",
     manufacturer: "TAG",
-    colorCode: "TAG-013",
+    colorCode: "TAG-Cobalt",
     metalComposition: "Cobalt Oxide",
     colorFamily: "Cobalt",
-    description: "Deep cobalt blue with reactive properties by TAG (Trautman Art Glass). Creates striking effects when worked properly.",
+    description: "Rich cobalt blue by Trautman Art Glass (TAG). Borosilicate 33 COE glass.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
-    flameRecommendation: "Oxidizing flame. Avoid reduction.",
-    strikingNotes: "Reactive color. Responds well to temperature changes."
+    flameRecommendation: "Oxidizing flame recommended.",
+    strikingNotes: "Stable color. Professional quality.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_cobalt_tc001-FhdnSiMH7ZfS9zCtj8uWMw.webp"
   },
   {
     id: "tag-030",
@@ -229,17 +237,18 @@ export const glassColors: GlassColor[] = [
     strikingNotes: "Reactive copper color. Requires careful temperature management."
   },
   {
-    id: "tag-001",
-    name: "Elvis Red",
+    id: "tag-010",
+    name: "Copper",
     manufacturer: "TAG",
-    colorCode: "TAG-001",
+    colorCode: "TAG-Copper",
     metalComposition: "Copper Oxide",
     colorFamily: "Copper",
-    description: "Bright striking red by TAG (Trautman Art Glass). Named for its vibrant appearance.",
+    description: "Warm copper orange-red color by Trautman Art Glass (TAG). Made in the USA.",
     annealingTemp: "1050°F",
     workingTemp: "2228°F",
-    flameRecommendation: "Oxidizing flame. Kiln strike at 1050°F.",
-    strikingNotes: "Heat-sensitive. Requires proper annealing for color development."
+    flameRecommendation: "Neutral to oxidizing flame.",
+    strikingNotes: "Stable and forgiving.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/tag_copper_tc010-7stfN279QXwFqYdVuHKCWV.webp"
   },
 
   // ============ TAG (TRAUTMAN ART GLASS) - SILVER ============
