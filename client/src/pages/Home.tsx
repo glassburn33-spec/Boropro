@@ -30,9 +30,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-stone-900 border-b border-amber-700/30 px-4 py-3">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-8 w-8 rounded-full border-2 border-amber-500 flex items-center justify-center">
-              <span className="text-xs font-bold text-amber-500">◆</span>
-            </div>
+            <img src="/manus-storage/Boroprologo_48fdf7c5.png" alt="BoroPro Logo" className="h-8 w-8" />
             <h1 className="text-lg font-bold text-white">BoroPro</h1>
             <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
           </div>
@@ -119,9 +117,7 @@ function HomeTab() {
     <div className="space-y-6">
       {/* LOGO & TITLE */}
       <div className="text-center py-8">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full border-4 border-amber-500 mb-4">
-          <span className="text-4xl font-bold text-amber-500">◆</span>
-        </div>
+        <img src="/manus-storage/Boroprologo_48fdf7c5.png" alt="BoroPro Logo" className="h-32 w-32 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-white mb-2">BoroPro</h1>
         <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
       </div>
@@ -288,7 +284,11 @@ function EquipmentTab() {
 // ============ CALCULATOR TAB (with Schedules at bottom) ============
 function CalculatorTab() {
   const [formType, setFormType] = useState<"solid" | "hollow">("solid");
-  const [thickness, setThickness] = useState<number>(2);
+  const [solidThickness, setSolidThickness] = useState<number>(2);
+  const [hollowThickness, setHollowThickness] = useState<number>(1);
+
+  // Use the appropriate thickness based on form type
+  const thickness = formType === "solid" ? solidThickness : hollowThickness;
 
   // Calculate hold temperature based on thickness (1050-1200°F range)
   const calculateHoldTemp = (): number => {
@@ -342,19 +342,35 @@ function CalculatorTab() {
             </div>
           </div>
 
-          {/* Thickness Input */}
-          <div>
-            <label className="text-xs font-bold text-stone-300 uppercase">Wall Thickness: {thickness}mm</label>
-            <input
-              type="range"
-              min="0.5"
-              max="4"
-              step="0.5"
-              value={thickness}
-              onChange={(e) => setThickness(parseFloat(e.target.value))}
-              className="w-full mt-2"
-            />
-          </div>
+          {/* Thickness Input - Separate sliders for solid and hollow */}
+          {formType === "solid" && (
+            <div>
+              <label className="text-xs font-bold text-stone-300 uppercase">Solid Glass Thickness: {solidThickness}mm</label>
+              <input
+                type="range"
+                min="0.5"
+                max="4"
+                step="0.5"
+                value={solidThickness}
+                onChange={(e) => setSolidThickness(parseFloat(e.target.value))}
+                className="w-full mt-2"
+              />
+            </div>
+          )}
+          {formType === "hollow" && (
+            <div>
+              <label className="text-xs font-bold text-stone-300 uppercase">Hollow Wall Thickness: {hollowThickness}mm</label>
+              <input
+                type="range"
+                min="0.5"
+                max="4"
+                step="0.5"
+                value={hollowThickness}
+                onChange={(e) => setHollowThickness(parseFloat(e.target.value))}
+                className="w-full mt-2"
+              />
+            </div>
+          )}
 
           {/* RESULTS */}
           <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-stone-700">
