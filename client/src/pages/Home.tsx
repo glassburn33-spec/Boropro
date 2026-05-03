@@ -4,19 +4,23 @@ Design: Studio-focused, minimal reading, maximum usability
 Dark theme for studio environment, large touch targets for gloved hands
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { torchDatabase } from "@/data/torches_expanded";
 import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/glass_colors";
+import { searchContent, SearchResult } from "@/lib/searchIndex";
+import { SearchResults } from "@/components/SearchResults";
 
 type TabType = "studio" | "equipment" | "calculator" | "colors";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("studio");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const handleTabChange = (tab: TabType) => {
     try {
@@ -26,13 +30,56 @@ export default function Home() {
     }
   };
 
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery.trim()) {
-      // Search across all tabs - show results in Equipment tab by default
-      setActiveTab("equipment");
-      // You can expand this to search in other tabs as well
+  const handleSearchInput = (value: string) => {
+    setSearchQuery(value);
+    if (value.trim()) {
+      const results = searchContent(value);
+      setSearchResults(results);
+      setShowSearchResults(true);
+    } else {
+      setShowSearchResults(false);
     }
   };
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      const results = searchContent(searchQuery);
+      setSearchResults(results);
+      setShowSearchResults(true);
+    } else if (e.key === "Escape") {
+      setShowSearchResults(false);
+    }
+  };
+
+  const handleSelectResult = (result: SearchResult) => {
+    // Navigate to appropriate tab based on result type
+    if (result.type === "torch" || result.type === "kiln") {
+      setActiveTab("equipment");
+    } else if (result.type === "color") {
+      setActiveTab("colors");
+    } else if (result.type === "schedule") {
+      setActiveTab("calculator");
+    }
+  };
+
+  // Keyboard shortcut: Cmd/Ctrl + K to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        const searchInput = document.querySelector(
+          "input[placeholder*='Search']"
+        ) as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+        }
+      } else if (e.key === "Escape") {
+        setShowSearchResults(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
@@ -46,16 +93,18 @@ export default function Home() {
           </div>
           <div className="flex gap-2">
             <Input
-              placeholder="Search equipment, schedules, colors..."
+              placeholder="Search equipment, schedules, colors... (Cmd+K)"
               className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchInput(e.target.value)}
               onKeyDown={handleSearch}
             />
             <Button
               onClick={() => {
                 if (searchQuery.trim()) {
-                  setActiveTab("equipment");
+                  const results = searchContent(searchQuery);
+                  setSearchResults(results);
+                  setShowSearchResults(true);
                 }
               }}
               className="bg-amber-700 hover:bg-amber-600 text-white px-4 h-9"
@@ -102,6 +151,16 @@ export default function Home() {
         {activeTab === "calculator" && <CalculatorTab />}
         {activeTab === "colors" && <ColorsTab />}
       </main>
+
+      {/* GLOBAL SEARCH RESULTS */}
+      {showSearchResults && (
+        <SearchResults
+          results={searchResults}
+          query={searchQuery}
+          onClose={() => setShowSearchResults(false)}
+          onSelectResult={handleSelectResult}
+        />
+      )}
 
       {/* BOTTOM NAVIGATION */}
       <nav className="fixed bottom-0 left-0 right-0 bg-stone-900 border-t border-amber-700/30 px-4 py-3">
