@@ -493,18 +493,18 @@ function CalculatorCard({
 
 // ============ COLORS TAB ============
 function ColorsTab() {
-  const [selectedManufacturer, setSelectedManufacturer] = useState<string | null>(null);
-  const [selectedComposition, setSelectedComposition] = useState<string | null>(null);
+  const [selectedManufacturer, setSelectedManufacturer] = useState<string>("");
+  const [selectedComposition, setSelectedComposition] = useState<string>("");
 
   // Dynamically get unique manufacturers and compositions from color data
   const manufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
   const compositions = Array.from(new Set(glassColors.map(c => c.colorFamily))).sort();
 
   let filteredColors = glassColors;
-  if (selectedManufacturer) {
+  if (selectedManufacturer && selectedManufacturer !== "") {
     filteredColors = filteredColors.filter(c => c.manufacturer === selectedManufacturer);
   }
-  if (selectedComposition) {
+  if (selectedComposition && selectedComposition !== "") {
     filteredColors = filteredColors.filter(c => c.colorFamily === selectedComposition);
   }
 
@@ -517,10 +517,9 @@ function ColorsTab() {
         <div>
           <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
           <select
-            value={selectedManufacturer || ""}
+            value={selectedManufacturer}
             onChange={(e) => {
-              const val = e.target.value;
-              setSelectedManufacturer(val === "" ? null : val);
+              setSelectedManufacturer(e.target.value);
             }}
             className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
           >
@@ -535,10 +534,9 @@ function ColorsTab() {
         <div>
           <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Metal Composition</label>
           <select
-            value={selectedComposition || ""}
+            value={selectedComposition}
             onChange={(e) => {
-              const val = e.target.value;
-              setSelectedComposition(val === "" ? null : val);
+              setSelectedComposition(e.target.value);
             }}
             className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
           >
