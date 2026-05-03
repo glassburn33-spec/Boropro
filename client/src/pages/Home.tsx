@@ -195,17 +195,13 @@ function FeatureCard({ title, description }: { title: string; description: strin
 
 // ============ EQUIPMENT TAB ============
 function EquipmentTab() {
-  const [torchBrandFilter, setTorchBrandFilter] = useState<string>("all");
-  const [torchTypeFilter, setTorchTypeFilter] = useState<string>("all");
+  const [torchManufacturerFilter, setTorchManufacturerFilter] = useState<string>("all");
 
   const filteredTorches = torchDatabase.filter((torch) => {
-    const brandMatch = torchBrandFilter === "all" || torch.brand === torchBrandFilter;
-    const typeMatch = torchTypeFilter === "all" || torch.type === torchTypeFilter;
-    return brandMatch && typeMatch;
+    return torchManufacturerFilter === "all" || torch.brand === torchManufacturerFilter;
   });
 
-  const torchBrands = Array.from(new Set(torchDatabase.map((t) => t.brand)));
-  const torchTypes = Array.from(new Set(torchDatabase.map((t) => t.type)));
+  const torchManufacturers = Array.from(new Set(torchDatabase.map((t) => t.brand))).sort();
 
   return (
     <div className="space-y-6">
@@ -243,29 +239,18 @@ function EquipmentTab() {
       <div>
         <h3 className="text-sm font-bold text-stone-300 uppercase tracking-wider mb-3">Torches ({filteredTorches.length})</h3>
 
-        {/* FILTERS */}
-        <div className="grid grid-cols-2 gap-2 mb-4">
+        {/* MANUFACTURER FILTER */}
+        <div className="mb-4">
+          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
           <select
-            value={torchBrandFilter}
-            onChange={(e) => setTorchBrandFilter(e.target.value)}
-            className="bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
+            value={torchManufacturerFilter}
+            onChange={(e) => setTorchManufacturerFilter(e.target.value)}
+            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
           >
-            <option value="all">All Brands</option>
-            {torchBrands.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
-          <select
-            value={torchTypeFilter}
-            onChange={(e) => setTorchTypeFilter(e.target.value)}
-            className="bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
-          >
-            <option value="all">All Types</option>
-            {torchTypes.map((type) => (
-              <option key={type} value={type}>
-                {type.charAt(0).toUpperCase() + type.slice(1)}
+            <option value="all">All Manufacturers</option>
+            {torchManufacturers.map((manufacturer) => (
+              <option key={manufacturer} value={manufacturer}>
+                {manufacturer}
               </option>
             ))}
           </select>
@@ -493,61 +478,37 @@ function CalculatorCard({
 
 // ============ COLORS TAB ============
 function ColorsTab() {
-  const [selectedManufacturer, setSelectedManufacturer] = useState<string>("");
-  const [selectedComposition, setSelectedComposition] = useState<string>("");
+  const [selectedGlassManufacturer, setSelectedGlassManufacturer] = useState<string>("");
 
-  // Dynamically get unique manufacturers and compositions from color data
-  const manufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
-  const compositions = Array.from(new Set(glassColors.map(c => c.colorFamily))).sort();
+  // Dynamically get unique glass manufacturers from color data
+  const glassManufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
 
   let filteredColors = glassColors;
-  if (selectedManufacturer && selectedManufacturer !== "") {
-    filteredColors = filteredColors.filter(c => c.manufacturer === selectedManufacturer);
-  }
-  if (selectedComposition && selectedComposition !== "") {
-    filteredColors = filteredColors.filter(c => c.colorFamily === selectedComposition);
+  if (selectedGlassManufacturer && selectedGlassManufacturer !== "") {
+    filteredColors = filteredColors.filter(c => c.manufacturer === selectedGlassManufacturer);
   }
 
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
 
-      {/* FILTERS */}
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
-          <select
-            value={selectedManufacturer}
-            onChange={(e) => {
-              setSelectedManufacturer(e.target.value);
-            }}
-            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
-          >
-            <option value="">All Manufacturers</option>
-            {manufacturers.map((mfg) => (
-              <option key={mfg} value={mfg}>
-                {mfg}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Metal Composition</label>
-          <select
-            value={selectedComposition}
-            onChange={(e) => {
-              setSelectedComposition(e.target.value);
-            }}
-            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
-          >
-            <option value="">All Compositions</option>
-            {compositions.map((comp) => (
-              <option key={comp} value={comp}>
-                {comp}
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* GLASS MANUFACTURER FILTER */}
+      <div>
+        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Glass Manufacturer</label>
+        <select
+          value={selectedGlassManufacturer}
+          onChange={(e) => {
+            setSelectedGlassManufacturer(e.target.value);
+          }}
+          className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
+        >
+          <option value="">All Glass Manufacturers</option>
+          {glassManufacturers.map((mfg) => (
+            <option key={mfg} value={mfg}>
+              {mfg}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* COLOR CARDS */}
