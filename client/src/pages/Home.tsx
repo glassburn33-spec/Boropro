@@ -12,10 +12,10 @@ import { Card } from "@/components/ui/card";
 import { torchDatabase } from "@/data/torches_expanded";
 import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/glass_colors";
 
-type TabType = "home" | "equipment" | "calculator" | "colors";
+type TabType = "studio" | "equipment" | "calculator" | "colors";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabType>("home");
+  const [activeTab, setActiveTab] = useState<TabType>("studio");
 
   const handleTabChange = (tab: TabType) => {
     try {
@@ -48,9 +48,9 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           <QuickActionCard
             icon={<HomeIcon className="w-5 h-5" />}
-            label="Home"
-            active={activeTab === "home"}
-            onClick={() => handleTabChange("home")}
+            label="Studio"
+            active={activeTab === "studio"}
+            onClick={() => handleTabChange("studio")}
           />
           <QuickActionCard
             icon={<Zap className="w-5 h-5" />}
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* TAB CONTENT */}
-        {activeTab === "home" && <HomeTab />}
+        {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
         {activeTab === "calculator" && <CalculatorTab />}
         {activeTab === "colors" && <ColorsTab />}
@@ -84,9 +84,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex gap-2">
           <NavButton
             icon={<HomeIcon className="w-5 h-5" />}
-            label="Home"
-            active={activeTab === "home"}
-            onClick={() => handleTabChange("home")}
+            label="Studio"
+            active={activeTab === "studio"}
+            onClick={() => handleTabChange("studio")}
           />
           <NavButton
             icon={<Zap className="w-5 h-5" />}
@@ -112,8 +112,8 @@ export default function Home() {
   );
 }
 
-// ============ HOME TAB ============
-function HomeTab() {
+// ============ STUDIO TAB ============
+function StudioTab() {
   return (
     <div className="space-y-6">
       {/* LOGO & TITLE */}
@@ -496,8 +496,9 @@ function ColorsTab() {
   const [selectedManufacturer, setSelectedManufacturer] = useState<string | null>(null);
   const [selectedComposition, setSelectedComposition] = useState<string | null>(null);
 
-  const manufacturers = getManufacturers();
-  const compositions = ["Cobalt", "Copper", "Silver"];
+  // Dynamically get unique manufacturers and compositions from color data
+  const manufacturers = Array.from(new Set(glassColors.map(c => c.manufacturer))).sort();
+  const compositions = Array.from(new Set(glassColors.map(c => c.colorFamily))).sort();
 
   let filteredColors = glassColors;
   if (selectedManufacturer) {
