@@ -18,7 +18,7 @@ export function SearchResults({
 }: SearchResultsProps) {
   if (results.length === 0) {
     return (
-      <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center">
+      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
         <Card className="bg-stone-800 border-stone-700 p-6 w-full max-w-2xl mx-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-white">Search Results</h2>
@@ -39,7 +39,7 @@ export function SearchResults({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center overflow-y-auto">
       <Card className="bg-stone-800 border-stone-700 p-6 w-full max-w-2xl mx-4 my-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-white">
