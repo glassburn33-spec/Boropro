@@ -605,23 +605,8 @@ function CalculatorCard({
 // ============ COLORS TAB ============
 function ColorsTab() {
 
-  // STATE: Selected manufacturer — empty string means show all
-  const [selectedManufacturer, setSelectedManufacturer] = useState<string>("");
-
   // STATE: Search query
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  // Get unique sorted manufacturer names from the database
-  const allManufacturers = Array.from(
-    new Set(glassColors.map((c) => c.manufacturer))
-  ).sort();
-
-  // ---- DROPDOWN CHANGE HANDLER ----
-  // Bug fix: use e.target.value directly and set state immediately.
-  // Do not debounce, do not use onClick, always use onChange.
-  const handleManufacturerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedManufacturer(e.target.value);
-  };
 
   // ---- SEARCH HANDLER ----
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -629,35 +614,29 @@ function ColorsTab() {
   };
 
   // ---- FILTER LOGIC ----
-  // Step 1: filter by manufacturer
-  const manufacturerFiltered =
-    selectedManufacturer === ""
-      ? glassColors
-      : glassColors.filter((c) => c.manufacturer === selectedManufacturer);
-
-  // Step 2: filter by search query across all text fields
+  // Filter colors by search query across all text fields
   const q = searchQuery.toLowerCase().trim();
   const filtered = !q
-    ? manufacturerFiltered
-    : manufacturerFiltered.filter(
+    ? glassColors
+    : glassColors.filter(
         (c) =>
           c.name.toLowerCase().includes(q) ||
           c.colorCode.toLowerCase().includes(q) ||
           c.description.toLowerCase().includes(q) ||
           c.strikingNotes.toLowerCase().includes(q) ||
           c.flameRecommendation.toLowerCase().includes(q) ||
-          c.colorFamily.toLowerCase().includes(q)
+          c.colorFamily.toLowerCase().includes(q) ||
+          c.manufacturer.toLowerCase().includes(q)
       );
 
-  // ---- DETERMINE WHICH MANUFACTURERS TO DISPLAY ----
-  const displayedManufacturers =
-    selectedManufacturer !== ""
-      ? [selectedManufacturer]
-      : allManufacturers;
+  // ---- GET ALL MANUFACTURERS FROM FILTERED RESULTS ----
+  const allManufacturers = Array.from(
+    new Set(filtered.map((c) => c.manufacturer))
+  ).sort();
 
   // ---- GROUP FILTERED COLORS BY MANUFACTURER THEN FAMILY ----
   const grouped: Record<string, Record<string, typeof glassColors>> = {};
-  for (const mfg of displayedManufacturers) {
+  for (const mfg of allManufacturers) {
     const mfgColors = filtered.filter((c) => c.manufacturer === mfg);
     if (mfgColors.length === 0) continue;
     grouped[mfg] = {};
@@ -687,33 +666,7 @@ function ColorsTab() {
         />
       </div>
 
-      {/* ---- MANUFACTURER DROPDOWN ---- */}
-      {/* Bug fix: value is bound to selectedManufacturer state.        */}
-      {/* onChange calls handleManufacturerChange which sets state.     */}
-      {/* appearance-none + custom SVG arrow keeps styling consistent.  */}
-      <div>
-        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">
-          Glass Manufacturer
-        </label>
-        <select
-          value={selectedManufacturer}
-          onChange={handleManufacturerChange}
-          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 hover:border-stone-500 transition-all appearance-none focus:outline-none focus:ring-2 focus:ring-amber-500"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 10px center",
-            paddingRight: "32px",
-          }}
-        >
-          <option value="">All Glass Manufacturers</option>
-          {allManufacturers.map((mfg) => (
-            <option key={mfg} value={mfg}>
-              {mfg}
-            </option>
-          ))}
-        </select>
-      </div>
+
 
       {/* ---- RESULT COUNT ---- */}
       <p className="text-xs text-stone-500">
