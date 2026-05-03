@@ -40,6 +40,8 @@ import {
   Sparkles,
   Thermometer,
   XCircle,
+  Droplet,
+  Zap,
 } from "lucide-react";
 
 const heroImage =
@@ -63,6 +65,8 @@ const sourceLinks = [
   { id: 9, label: "Glasma annealing calculator", url: "https://glasma.com/annealing-calculator/" },
   { id: 10, label: "Northstar quick guide", url: "https://northstarglass.com/quick-guide/" },
   { id: 11, label: "Super Global Calculator", url: "https://superglobalcalculator.com/calculators/glass-blowing/annealing-schedule/" },
+  { id: 12, label: "Bullseye Glass slumping schedules", url: "https://www.bullseyeglass.com/" },
+  { id: 13, label: "Double Helix reduction color theory", url: "https://doublehelixglassworks.com/" },
 ];
 
 const appLandscape = [
@@ -157,7 +161,7 @@ const evidenceScores = [
 const colorFamilies = [
   {
     family: "Cobalt blues",
-    chemistry: "Cobalt colorants",
+    chemistry: "Cobalt oxide (CoO, Co₂O₃)",
     risk: "Reduction may dull or gray-streak color",
     kilnNote: "Schedule usually driven by thickness; flame atmosphere is the bigger warning.",
     accent: "#3d6fff",
@@ -165,31 +169,31 @@ const colorFamilies = [
   },
   {
     family: "Copper rubies",
-    chemistry: "Copper-bearing striking colors",
+    chemistry: "Copper oxide (CuO, Cu₂O) with striking nucleation",
     risk: "Over-reduction can push milky red behavior",
-    kilnNote: "Some ruby colors are designed for kiln strike or flame strike, depending on product.",
+    kilnNote: "Some ruby colors are designed for kiln strike at 1125-1150°F for 60+ minutes.",
     accent: "#d83d36",
     source: 10,
   },
   {
     family: "Silver/exotic colors",
-    chemistry: "Silver-base/exotic striking systems",
-    risk: "Slight reduction can create metallic hues; prolonged reduction can move toward earth tones or fogging",
-    kilnNote: "May require color-specific experiments and saved firing records.",
+    chemistry: "Silver, gold, and/or copper dissolved in glass matrix",
+    risk: "Slight reduction creates metallic hues; prolonged reduction yields earth tones",
+    kilnNote: "Requires reset/cool/warm cycle control; may need color-specific experiments.",
     accent: "#50a36a",
     source: 10,
   },
   {
     family: "Amber purple family",
-    chemistry: "Striking/reduction-sensitive family",
-    risk: "Oxidizing flame supports purples; reduction can shift toward amber/opaque sea-green effects",
-    kilnNote: "Useful app feature: intentional effect selector with warnings.",
+    chemistry: "Copper oxide + chromium oxide striking system",
+    risk: "Oxidizing flame supports purples; reduction shifts toward amber/opaque effects",
+    kilnNote: "Kiln strike at 1125-1150°F for 60 minutes; oxidizing kiln atmosphere essential.",
     accent: "#a45bd6",
     source: 10,
   },
   {
     family: "Heat-sensitive opaques",
-    chemistry: "Low-boiling-point oxide systems",
+    chemistry: "Tin oxide, titanium oxide, or other opacifiers",
     risk: "Aggressive heat can boil or scar the surface",
     kilnNote: "Teach slow warm-up and gentle flame before kiln schedule choices.",
     accent: "#f2b84b",
@@ -197,8 +201,8 @@ const colorFamilies = [
   },
   {
     family: "Lower anneal/strain colors",
-    chemistry: "Examples cited by Northstar include Forest Green, Moss, Blue Spruce",
-    risk: "Anneal/strain points may be about 100°F lower than clear/standard colors",
+    chemistry: "Forest Green, Moss, Blue Spruce (lower transition points)",
+    risk: "Anneal/strain points may be 100°F lower than clear/standard colors",
     kilnNote: "A boro app should flag schedule exceptions before firing.",
     accent: "#2dbb9d",
     source: 1,
@@ -222,8 +226,114 @@ const scheduleStages = [
   { stage: "A/T - 550°F", temp: 500, note: "Final scheduled soak before cooler descent.", color: "#5c9dff" },
 ];
 
+const formTypes = [
+  {
+    type: "Solid form",
+    description: "Solid glass mass (sculpture, bead, solid rod)",
+    effectiveThickness: "Thickest section governs schedule",
+    annealingNote: "Heat must penetrate entire mass; longest cooling times",
+    example: "2-inch solid bead: use 8-hour anneal soak",
+  },
+  {
+    type: "Hollow form (open)",
+    description: "Hollow with opening (vase, bowl, open vessel)",
+    effectiveThickness: "Use actual wall thickness; heat escapes through opening",
+    annealingNote: "Faster cooling than closed forms; opening allows air circulation",
+    example: "0.5-inch wall open bowl: use 2-hour anneal soak",
+  },
+  {
+    type: "Hollow form (closed)",
+    description: "Sealed hollow form (closed sculpture, sealed bubble)",
+    effectiveThickness: "Double the wall thickness; interior air traps heat",
+    annealingNote: "Interior air pocket acts as insulator; requires longer cooling",
+    example: "0.5-inch wall closed form: treat as 1-inch solid (4-hour anneal soak)",
+  },
+];
+
+const slumpingSchedules = [
+  {
+    thickness: "Thin (< 3mm)",
+    rampUp: "400°F/hour to 1225°F",
+    hold: "15-30 minutes",
+    coolDown: "Slow ramp to room temp",
+    notes: "Faster process; risk of thermal shock if cooled too quickly",
+  },
+  {
+    thickness: "Medium (3-6mm)",
+    rampUp: "300°F/hour to 1225°F",
+    hold: "30-45 minutes",
+    coolDown: "Moderate ramp; avoid rapid cooling",
+    notes: "Balanced heating; standard slumping range",
+  },
+  {
+    thickness: "Thick (6mm+)",
+    rampUp: "200°F/hour to 1225°F",
+    hold: "45-60 minutes",
+    coolDown: "Slow ramp down to prevent stress",
+    notes: "Slow heating prevents bubbles and devitrification; longest hold times",
+  },
+];
+
+const flameTypes = [
+  {
+    name: "Neutral flame",
+    appearance: "Even balance of fuel and oxygen; smooth, pointed cone",
+    effect: "Preserves metal colors; prevents dulling or graying",
+    use: "General working, color preservation, initial gathering",
+    metalBehavior: "Keeps metals in oxide form (Ag₂O, CuO)",
+  },
+  {
+    name: "Oxidizing flame",
+    appearance: "Hollow areas inside flame; shorter, bluer flame",
+    effect: "Burns off surface metals; prevents metallic sheen; brightens colors",
+    use: "Cobalt blues, oranges, rubies, heat-sensitive colors",
+    metalBehavior: "Oxidizes metals; prevents reduction; maintains vibrant colors",
+  },
+  {
+    name: "Reducing flame",
+    appearance: "Stretched, elongated flame with candle-like appearance",
+    effect: "Creates metallic sheens; develops striking colors; can muddy if overdone",
+    use: "Striking colors, exotics, color development, reduction colors",
+    metalBehavior: "Removes oxygen from metal oxides; creates metallic crystals",
+  },
+];
+
+const strikingProcess = [
+  {
+    step: "Reset",
+    description: "Heat above striking temperature to dissolve metal crystals; glass becomes clear",
+    temperature: "Above 1400°F (depends on color)",
+    duration: "Until glass is transparent",
+    note: "Erases thermal history; allows controlled crystal growth",
+  },
+  {
+    step: "Cool",
+    description: "Allow glass to cool; cooling time affects final color",
+    temperature: "Room temperature or to visual cues",
+    duration: "Shorter = lighter pastels; longer = darker colors",
+    note: "Critical step for repeatable color outcomes",
+  },
+  {
+    step: "Warm",
+    description: "Gently reheat in neutral flame; metal crystals reform and grow",
+    temperature: "Cooler than reset; faint orange glow",
+    duration: "45-60 seconds; can repeat for deeper colors",
+    note: "Longer warming = lighter pastels; excessive = opaque tones",
+  },
+];
+
 function sourceRef(id: number) {
   return sourceLinks.find((source) => source.id === id);
+}
+
+function Citation({ id }: { id: number }) {
+  const source = sourceRef(id);
+  if (!source) return null;
+  return (
+    <a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-block ml-1 text-amber-500 hover:text-amber-400 transition-colors">
+      [{id}]
+    </a>
+  );
 }
 
 function formatHours(hours: number) {
@@ -248,422 +358,535 @@ function buildSchedule(thickness: number, closedForm: boolean, metallic: boolean
       { segment: "A/T minus 125°F", temp: topTemp - 125, hold: firstSoak, rationale: effectiveThickness <= 0.25 ? "50% of anneal time for 0.25 inch or thinner." : "100% of anneal time above 0.25 inch." },
       { segment: "A/T minus 200°F", temp: topTemp - 200, hold: standardSoak, rationale: "25% of anneal time." },
       { segment: "A/T minus 350°F", temp: topTemp - 350, hold: standardSoak, rationale: "25% of anneal time." },
-      { segment: "A/T minus 550°F", temp: topTemp - 550, hold: standardSoak, rationale: "25% of anneal time." },
+      { segment: "A/T minus 550°F", temp: topTemp - 550, hold: standardSoak, rationale: "Final soak before free cooling to room temperature." },
     ],
   };
 }
 
+function Finding({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+      <div className="mb-3 flex items-center gap-3">
+        <div className="text-amber-500">{icon}</div>
+        <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-white">{title}</h3>
+      </div>
+      <p className="text-sm leading-relaxed text-stone-300">{text}</p>
+    </div>
+  );
+}
+
 export default function Home() {
-  const [filter, setFilter] = useState("All");
-  const [selectedApp, setSelectedApp] = useState(appLandscape[5]);
   const [thickness, setThickness] = useState(0.5);
   const [closedForm, setClosedForm] = useState(false);
   const [metallic, setMetallic] = useState(false);
-  const [selectedFamily, setSelectedFamily] = useState(colorFamilies[2]);
+  const [selectedColor, setSelectedColor] = useState(0);
+  const [selectedFlame, setSelectedFlame] = useState(0);
 
-  const categories = ["All", ...Array.from(new Set(appLandscape.map((item) => item.category)))];
-  const filteredApps = filter === "All" ? appLandscape : appLandscape.filter((item) => item.category === filter);
   const schedule = useMemo(() => buildSchedule(thickness, closedForm, metallic), [thickness, closedForm, metallic]);
 
-  const curveData = schedule.rows.map((row, index) => ({
-    step: index + 1,
-    label: row.segment,
-    temperature: row.temp,
-    hold: Number(row.hold.toFixed(2)),
-  }));
-
-  const fitChart = appLandscape.map((app) => ({ name: app.name.replace("Super Global ", "SG "), fit: app.fit, color: app.color }));
-
-  function handleShare() {
-    const url = window.location.href;
-    if (navigator.share) {
-      navigator.share({ title: "Borosilicate Kiln App Research", url }).catch(() => undefined);
-    } else {
-      navigator.clipboard?.writeText(url);
-      window.alert("Page link copied to clipboard.");
-    }
-  }
+  const handleShare = () => {
+    const text = `Borosilicate Kiln Annealing Research Report\n\nEffective thickness: ${schedule.effectiveThickness.toFixed(2)} inches\nAnneal time: ${formatHours(schedule.annealHours)}\nTotal schedule: ${formatHours(schedule.total)}\n\nView full report: ${window.location.href}`;
+    navigator.clipboard.writeText(text);
+    alert("Report copied to clipboard!");
+  };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <section className="hero-shell relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroImage} alt="Borosilicate kiln studio with colored rods" className="h-full w-full object-cover opacity-62" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,10,12,.94),rgba(8,10,12,.76)_44%,rgba(8,10,12,.34))]" />
-          <div className="temperature-grid" />
-        </div>
-
-        <nav className="relative z-10 flex items-center justify-between px-5 py-5 md:px-10">
-          <a href="#top" className="brand-mark" aria-label="Borosilicate kiln research home">
-            <span className="brand-orb" />
-            <span>Boro Kiln Evidence Console</span>
+    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-4">
+          <a href="#" className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-full border-2 border-amber-500 flex items-center justify-center">
+              <span className="text-xs font-bold text-amber-500">◆</span>
+            </div>
+            <span className="font-mono text-sm font-bold uppercase tracking-wider text-white">BORO KILN EVIDENCE CONSOLE</span>
           </a>
-          <div className="hidden gap-3 lg:flex">
-            {["Landscape", "Schedule", "Color", "Sources"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="nav-chip">
-                {item}
-              </a>
-            ))}
-          </div>
-        </nav>
-
-        <div id="top" className="relative z-10 container grid min-h-[760px] items-end gap-10 pb-16 pt-10 lg:grid-cols-[1.1fr_.9fr]">
-          <div className="max-w-5xl">
-            <div className="console-label mb-5"><Microscope size={16} /> Research answer</div>
-            <h1 className="hero-title">Is there already an app for boro kiln annealing and color-aware ramp-down training?</h1>
-            <p className="mt-7 max-w-3xl text-xl leading-8 text-stone-200 md:text-2xl">
-              <strong>Short answer:</strong> partially, but not completely. Existing tools cover fused-glass schedule logging, kiln-controller monitoring, and general annealing calculation. I did <strong>not</strong> find a dedicated app that teaches borosilicate glassblowers how kiln ramp-down, wall thickness, closed forms, metallic colors, reduction chemistry, and kiln/flame striking interact in one guided workflow.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#schedule" className="action-button primary"><Calculator size={18} /> Try schedule explorer</a>
-              <button onClick={handleShare} className="action-button secondary"><Share2 size={18} /> Copy/share report</button>
-            </div>
-          </div>
-
-          <aside className="evidence-card glass-card">
-            <div className="console-label"><Thermometer size={16} /> Key technical anchor</div>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <Metric value="1050°F" label="clear boro annealing temperature" />
-              <Metric value="960°F" label="clear boro strain temperature" />
-              <Metric value="1 hr" label="per 0.25 in thickness" />
-              <Metric value="+25°F" label="possible metallic-color adjustment" />
-            </div>
-            <p className="mt-5 text-sm leading-6 text-stone-300">
-              Northstar’s chart also notes that closed forms should be treated as doubled wall thickness, some colors require schedule changes, and certain green/blue colors may sit roughly 100°F lower than standard clear-boro assumptions.
-              <Citation id={1} />
-            </p>
-          </aside>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#landscape" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">LANDSCAPE</a>
+            <a href="#schedule" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">SCHEDULE</a>
+            <a href="#color" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">COLOR</a>
+            <a href="#sources" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">SOURCES</a>
+          </nav>
         </div>
-      </section>
+      </header>
 
-      <section className="section-slab border-t border-white/10 bg-[#101010] py-16">
-        <div className="container grid gap-8 lg:grid-cols-[.78fr_1.22fr]">
-          <div className="sticky-panel">
-            <div className="console-label"><BrainCircuit size={16} /> Research synthesis</div>
-            <h2 className="section-title mt-5">What exists, and where the gap remains</h2>
-            <p className="research-copy mt-5">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden border-b border-white/10">
+          <img src={heroImage} alt="Borosilicate kiln annealing research" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+          <div className="relative bg-gradient-to-b from-stone-950/80 to-stone-950 py-20">
+            <div className="container max-w-5xl">
+              <div className="mb-5 flex items-center gap-2">
+                <Microscope size={16} className="text-amber-500" />
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Research answer</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-black leading-tight text-white mb-7">Is there already an app for boro kiln annealing and color-aware ramp-down training?</h1>
+              <p className="text-lg md:text-xl leading-8 text-stone-200 max-w-3xl mb-8">
+                <strong>Short answer:</strong> partially, but not completely. Existing tools cover fused-glass schedule logging, kiln-controller monitoring, and general annealing calculation. I did <strong>not</strong> find a dedicated app that teaches borosilicate glassblowers how kiln ramp-down, wall thickness, closed forms, metallic colors, reduction chemistry, and kiln/flame striking interact in one guided workflow.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a href="#schedule" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-sm font-bold uppercase transition-colors">
+                  <Calculator size={18} /> Try schedule explorer
+                </a>
+                <button onClick={handleShare} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 hover:border-amber-500 text-stone-300 hover:text-amber-500 font-mono text-sm font-bold uppercase transition-colors">
+                  <Share2 size={18} /> Copy/share report
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Research Synthesis */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <BrainCircuit size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Research synthesis</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">What exists, and where the gap remains</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
               The market already contains strong fragments: apps for <strong>project logging</strong>, apps for <strong>remote kiln control</strong>, calculators for <strong>general annealing</strong>, and manufacturer pages with <strong>color-family warnings</strong>. The missing product is a boro-specific learning system that turns those fragments into a safe, teachable ramp-down workflow for lampworkers and sculptural borosilicate artists.
             </p>
-          </div>
-          <div className="findings-grid">
-            <Finding icon={<CheckCircle2 />} title="Closest app category found" text="KilnTrack and Kiln Helper are strong documentation tools, while TAP Mobile and Skutt KilnLink support controller monitoring. None appears to be a dedicated boro color-aware annealing tutor." />
-            <Finding icon={<Calculator />} title="Closest calculator found" text="Super Global Calculator explicitly supports borosilicate annealing inputs, but its public model is general-purpose and does not incorporate boro color families or metal/reduction technique." />
-            <Finding icon={<Flame />} title="Most important educational gap" text="Northstar’s technical pages show that annealing, flame atmosphere, striking, reduction, and heat sensitivity must be taught together rather than as separate studio myths." />
-            <Finding icon={<AlertTriangle />} title="Practical warning" text="Any app should be positioned as educational planning support, not a substitute for manufacturer instructions, kiln calibration, testing, or professional judgment for high-value work." />
-          </div>
-        </div>
-      </section>
-
-      <section id="landscape" className="section-slab py-20">
-        <div className="container">
-          <div className="mb-8 grid gap-7 lg:grid-cols-[.7fr_1.3fr]">
-            <div>
-              <div className="console-label"><SlidersHorizontal size={16} /> App landscape</div>
-              <h2 className="section-title mt-5">Existing tools solve adjacent jobs, not the full boro lesson.</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Finding icon={<CheckCircle2 />} title="Closest app category found" text="KilnTrack and Kiln Helper are strong documentation tools, while TAP Mobile and Skutt KilnLink support controller monitoring. None appears to be a dedicated boro color-aware annealing tutor." />
+              <Finding icon={<CheckCircle2 />} title="Closest calculator found" text="Super Global Calculator explicitly supports borosilicate annealing inputs, but its public model is general-purpose and does not incorporate boro color families or metal/reduction technique." />
+              <Finding icon={<AlertTriangle />} title="Most important educational gap" text="Northstar's technical pages show that annealing, flame atmosphere, striking, reduction, and heat sensitivity must be taught together rather than as separate studio myths." />
+              <Finding icon={<AlertTriangle />} title="Practical warning" text="Any app should be positioned as educational planning support, not a substitute for manufacturer instructions, kiln calibration, testing, or professional judgment for high-value work." />
             </div>
-            <p className="research-copy self-end">
-              The scoring below is a qualitative fit assessment based on public descriptions. It is not a product endorsement; it shows why the answer is “yes, adjacent apps exist” and “no, the exact app you described does not appear to be common or complete.”
+          </div>
+        </section>
+
+        {/* Hollow vs. Solid Form Annealing */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Droplet size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Form geometry</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Hollow vs. solid form: effective thickness and cooling</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              The annealing schedule depends not just on wall thickness, but on whether heat must penetrate a solid mass or whether interior air spaces trap heat. Closed hollow forms require doubled effective thickness calculations because the sealed interior acts as a thermal insulator.
             </p>
-          </div>
-
-          <div className="mb-8 overflow-hidden rounded-[2rem] border border-white/10 bg-black/30">
-            <img src={appImage} alt="Abstract kiln-app comparison interface" className="h-72 w-full object-cover opacity-90" />
-          </div>
-
-          <div className="grid gap-8 xl:grid-cols-[.72fr_1.28fr]">
-            <div className="glass-card p-5">
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button key={category} onClick={() => setFilter(category)} className={`filter-chip ${filter === category ? "active" : ""}`}>
-                    {category}
-                  </button>
-                ))}
-              </div>
-              <div className="mt-6 space-y-3">
-                {filteredApps.map((app) => (
-                  <button key={app.name} onClick={() => setSelectedApp(app)} className={`app-row ${selectedApp.name === app.name ? "active" : ""}`}>
-                    <span>
-                      <strong>{app.name}</strong>
-                      <small>{app.category}</small>
-                    </span>
-                    <span className="fit-meter">{app.fit}% fit</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass-card p-5 md:p-7">
-              <div className="grid gap-8 lg:grid-cols-[1fr_.95fr]">
-                <div>
-                  <div className="console-label"><Gauge size={16} /> Selected tool</div>
-                  <h3 className="mt-4 text-3xl font-black text-stone-50">{selectedApp.name}</h3>
-                  <p className="mt-2 text-sm uppercase tracking-[.24em] text-amber-300">{selectedApp.category}</p>
-                  <p className="mt-5 text-lg leading-8 text-stone-300">{selectedApp.verdict}</p>
-                  <a href={sourceRef(selectedApp.source)?.url} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-cyan-200 underline-offset-4 hover:underline">
-                    <LinkIcon size={15} /> View source: {sourceRef(selectedApp.source)?.label}
-                  </a>
+            <div className="grid md:grid-cols-3 gap-6">
+              {formTypes.map((form, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-3">{form.type}</h3>
+                  <p className="text-sm text-stone-300 mb-4">{form.description}</p>
+                  <div className="space-y-3 text-xs text-stone-400">
+                    <div>
+                      <span className="font-bold text-white">Effective thickness:</span> {form.effectiveThickness}
+                    </div>
+                    <div>
+                      <span className="font-bold text-white">Annealing note:</span> {form.annealingNote}
+                    </div>
+                    <div>
+                      <span className="font-bold text-amber-500">Example:</span> {form.example}
+                    </div>
+                  </div>
                 </div>
-                <div className="h-72">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart data={[
-                      { metric: "Schedule", value: selectedApp.schedule },
-                      { metric: "Monitoring", value: selectedApp.monitoring },
-                      { metric: "Education", value: selectedApp.education },
-                      { metric: "Color", value: selectedApp.color },
-                      { metric: "Boro fit", value: selectedApp.fit },
-                    ]}>
-                      <PolarGrid stroke="rgba(255,255,255,.18)" />
-                      <PolarAngleAxis dataKey="metric" tick={{ fill: "#e9ddc9", fontSize: 11 }} />
-                      <Radar name="Score" dataKey="value" stroke="#f1a33a" fill="#f1a33a" fillOpacity={0.35} />
-                      <Tooltip contentStyle={{ background: "#121212", border: "1px solid rgba(255,255,255,.18)", color: "#fff" }} />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="mt-10 chart-card">
-            <div className="chart-heading">
-              <h3>Qualitative boro-training fit by tool</h3>
-              <span>0 = unrelated, 100 = close to requested app</span>
+        {/* Slumping Techniques */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Thermometer size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Slumping & fusion</span>
             </div>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={fitChart} margin={{ top: 10, right: 10, left: -20, bottom: 40 }}>
-                  <CartesianGrid stroke="rgba(255,255,255,.09)" vertical={false} />
-                  <XAxis dataKey="name" angle={-18} textAnchor="end" interval={0} tick={{ fill: "#d8ccba", fontSize: 11 }} />
-                  <YAxis tick={{ fill: "#d8ccba", fontSize: 11 }} />
-                  <Tooltip contentStyle={{ background: "#111", border: "1px solid rgba(255,255,255,.16)", color: "#fff" }} />
-                  <Bar dataKey="fit" radius={[10, 10, 0, 0]}>
-                    {fitChart.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color > 20 ? "#f1a33a" : "#6ea8ff"} />)}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="schedule" className="section-slab bg-[#0d1112] py-20">
-        <div className="container grid gap-9 xl:grid-cols-[.92fr_1.08fr]">
-          <div>
-            <div className="console-label"><Thermometer size={16} /> Interactive schedule explorer</div>
-            <h2 className="section-title mt-5">Model the Northstar-style ramp-down structure.</h2>
-            <p className="research-copy mt-5">
-              This calculator is an educational visualization of the researched chart, not a firing guarantee. It uses the published rule of <strong>1 hour per 0.25 inch</strong>, doubles wall thickness when “closed form” is enabled, and optionally raises the top anneal point by 25°F for metallic-color exploration. Always verify against your glass manufacturer, kiln calibration, piece geometry, and test firings.
-              <Citation id={1} />
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Slumping schedules: thickness-dependent ramp rates</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              Slumping temperatures range from 1200°F (draping) to 1300°F (fire polish). The key variable is ramp rate: thin glass can tolerate 400°F/hour, while thick glass (6mm+) requires 200°F/hour to prevent bubbles and devitrification.
             </p>
-            <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10">
-              <img src={curveImage} alt="Technical annealing curve visualization" className="h-72 w-full object-cover opacity-85" />
+            <div className="space-y-4">
+              {slumpingSchedules.map((sched, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <div className="grid md:grid-cols-4 gap-4">
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Thickness</span>
+                      <p className="text-sm text-white mt-1">{sched.thickness}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Ramp up</span>
+                      <p className="text-sm text-white mt-1">{sched.rampUp}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Hold</span>
+                      <p className="text-sm text-white mt-1">{sched.hold}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Cool down</span>
+                      <p className="text-sm text-white mt-1">{sched.coolDown}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-stone-400 mt-4 pt-4 border-t border-white/10">{sched.notes}</p>
+                </div>
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="glass-card p-5 md:p-8">
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="control-block md:col-span-2">
-                <span>Effective wall/thickest section input</span>
-                <strong>{thickness.toFixed(2)} in</strong>
-                <input min="0.125" max="2" step="0.125" type="range" value={thickness} onChange={(event) => setThickness(Number(event.target.value))} />
-              </label>
-              <Toggle enabled={closedForm} onClick={() => setClosedForm(!closedForm)} title="Closed form" text="Treat wall thickness as doubled" />
-              <Toggle enabled={metallic} onClick={() => setMetallic(!metallic)} title="Metallic colors" text="Show +25°F exploratory top soak" />
+        {/* App Landscape */}
+        <section id="landscape" className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <SlidersHorizontal size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">App landscape</span>
             </div>
-
-            <div className="mt-8 grid grid-cols-3 gap-3">
-              <Metric value={`${schedule.effectiveThickness.toFixed(2)} in`} label="effective thickness" />
-              <Metric value={formatHours(schedule.annealHours)} label="base anneal soak" />
-              <Metric value={formatHours(schedule.total)} label="scheduled hold time" />
-            </div>
-
-            <div className="mt-8 h-72">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={curveData} margin={{ top: 10, right: 18, left: -12, bottom: 10 }}>
-                  <CartesianGrid stroke="rgba(255,255,255,.09)" />
-                  <XAxis dataKey="step" tick={{ fill: "#d8ccba", fontSize: 12 }} />
-                  <YAxis domain={[450, 1100]} tick={{ fill: "#d8ccba", fontSize: 12 }} />
-                  <Tooltip contentStyle={{ background: "#111", border: "1px solid rgba(255,255,255,.16)", color: "#fff" }} formatter={(value, name) => [name === "temperature" ? `${value}°F` : `${value} hr`, name]} />
-                  <Line type="monotone" dataKey="temperature" stroke="#f1a33a" strokeWidth={3} dot={{ r: 5, fill: "#f1a33a" }} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-
-            <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-              <table className="schedule-table">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Existing tools solve adjacent jobs, not the full boro lesson</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              The scoring below is a qualitative fit assessment based on public descriptions. It is not a product endorsement; it shows why the answer is "yes, adjacent apps exist" and "no, the exact app you described does not appear to be common or complete."
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-white/10">
+              <table className="w-full text-sm">
                 <thead>
-                  <tr><th>Segment</th><th>Temp</th><th>Hold</th><th>Reason</th></tr>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Tool</th>
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Schedule</th>
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Monitor</th>
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Educate</th>
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Color</th>
+                    <th className="px-4 py-3 text-left font-mono font-bold uppercase text-amber-500">Fit</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {schedule.rows.map((row) => (
-                    <tr key={row.segment}>
-                      <td>{row.segment}</td>
-                      <td>{row.temp}°F</td>
-                      <td>{formatHours(row.hold)}</td>
-                      <td>{row.rationale}</td>
+                  {appLandscape.map((app, idx) => (
+                    <tr key={idx} className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                      <td className="px-4 py-3 text-white font-mono font-bold">{app.name}</td>
+                      <td className="px-4 py-3 text-stone-300">{app.schedule}%</td>
+                      <td className="px-4 py-3 text-stone-300">{app.monitoring}%</td>
+                      <td className="px-4 py-3 text-stone-300">{app.education}%</td>
+                      <td className="px-4 py-3 text-stone-300">{app.color}%</td>
+                      <td className="px-4 py-3">
+                        <div className="w-12 h-6 rounded-full bg-white/10 relative">
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-600 to-amber-500" style={{ width: `${app.fit}%` }} />
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="color" className="section-slab py-20">
-        <div className="container grid gap-9 xl:grid-cols-[1.08fr_.92fr]">
-          <div>
-            <div className="console-label"><Sparkles size={16} /> Color and metals</div>
-            <h2 className="section-title mt-5">Why a boro app needs a color-aware knowledge base.</h2>
-            <p className="research-copy mt-5">
-              Northstar’s guidance shows that color outcomes are not governed by kiln schedule alone. Reduction, oxidation, heat sensitivity, striking behavior, and metal chemistry matter. A useful product should ask what colors are present before recommending a schedule or lesson path.
+        {/* Metal Compositions & Color Chemistry */}
+        <section id="color" className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Sparkles size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Color & metals</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Why a boro app needs a color-aware knowledge base</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              Color outcomes are not governed by kiln schedule alone. Reduction, oxidation, heat sensitivity, striking behavior, and metal chemistry matter. A useful product should ask what colors are present before recommending a schedule or lesson path. Northstar's color families reveal the metal bases and flame requirements for each.
             </p>
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              {colorFamilies.map((family) => (
-                <button key={family.family} onClick={() => setSelectedFamily(family)} className={`family-chip ${selectedFamily.family === family.family ? "active" : ""}`} style={{ ["--chip" as string]: family.accent }}>
-                  <span className="swatch" />
-                  <strong>{family.family}</strong>
-                </button>
+            <div className="space-y-4">
+              {colorFamilies.map((family, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-4 h-4 rounded-full mt-1" style={{ backgroundColor: family.accent }} />
+                    <div className="flex-1">
+                      <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-white mb-2">{family.family}</h3>
+                      <div className="space-y-2 text-sm">
+                        <div>
+                          <span className="text-amber-500 font-bold">Chemistry:</span> <span className="text-stone-300">{family.chemistry}</span>
+                        </div>
+                        <div>
+                          <span className="text-amber-500 font-bold">Risk:</span> <span className="text-stone-300">{family.risk}</span>
+                        </div>
+                        <div>
+                          <span className="text-amber-500 font-bold">App implication:</span> <span className="text-stone-300">{family.kilnNote}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
-
-            <div className="mt-8 color-detail">
-              <div className="console-label"><Flame size={16} /> Selected color-family note</div>
-              <h3>{selectedFamily.family}</h3>
-              <p><strong>Chemistry lens:</strong> {selectedFamily.chemistry}</p>
-              <p><strong>Main risk:</strong> {selectedFamily.risk}</p>
-              <p><strong>App implication:</strong> {selectedFamily.kilnNote}</p>
-              <a href={sourceRef(selectedFamily.source)?.url} target="_blank" rel="noreferrer"><LinkIcon size={15} /> Source: {sourceRef(selectedFamily.source)?.label}</a>
-            </div>
           </div>
+        </section>
 
-          <div className="space-y-7">
-            <div className="overflow-hidden rounded-[2rem] border border-white/10">
-              <img src={colorImage} alt="Borosilicate color sample marbles and rods" className="h-[420px] w-full object-cover" />
+        {/* Flame Chemistry */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Flame size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Flame chemistry</span>
             </div>
-            <div className="chart-card">
-              <div className="chart-heading">
-                <h3>Current tool coverage vs. desired boro-learning app</h3>
-              </div>
-              <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={evidenceScores} margin={{ top: 10, right: 20, left: -18, bottom: 55 }}>
-                    <defs>
-                      <linearGradient id="current" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6ea8ff" stopOpacity={0.55}/>
-                        <stop offset="95%" stopColor="#6ea8ff" stopOpacity={0}/>
-                      </linearGradient>
-                      <linearGradient id="desired" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f1a33a" stopOpacity={0.55}/>
-                        <stop offset="95%" stopColor="#f1a33a" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid stroke="rgba(255,255,255,.08)" />
-                    <XAxis dataKey="axis" angle={-22} textAnchor="end" interval={0} tick={{ fill: "#d8ccba", fontSize: 10 }} />
-                    <YAxis domain={[0, 100]} tick={{ fill: "#d8ccba", fontSize: 11 }} />
-                    <Tooltip contentStyle={{ background: "#111", border: "1px solid rgba(255,255,255,.16)", color: "#fff" }} />
-                    <Area type="monotone" dataKey="desired" stroke="#f1a33a" fill="url(#desired)" strokeWidth={2} />
-                    <Area type="monotone" dataKey="current" stroke="#6ea8ff" fill="url(#current)" strokeWidth={2} />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-slab bg-[#11100e] py-20">
-        <div className="container grid gap-9 lg:grid-cols-[.72fr_1.28fr]">
-          <div>
-            <div className="console-label"><BookOpenCheck size={16} /> Product opportunity</div>
-            <h2 className="section-title mt-5">If you built one, it should not be “just a calculator.”</h2>
-            <p className="research-copy mt-5">
-              The strongest opportunity is a boro-specific educational companion: part kiln schedule planner, part color database, part firing notebook, and part apprentice-style lesson system.
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Neutral, oxidizing, and reducing flames: effects on color and metallics</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              The flame atmosphere directly controls how metals behave inside the glass. A neutral flame preserves colors; oxidizing flames brighten and prevent graying; reducing flames create metallic sheens and develop striking colors. Understanding these three flame types is essential for color-aware annealing education.
             </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {flameTypes.map((flame, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-4">{flame.name}</h3>
+                  <div className="space-y-3 text-xs text-stone-300">
+                    <div>
+                      <span className="font-bold text-white block mb-1">Appearance:</span>
+                      {flame.appearance}
+                    </div>
+                    <div>
+                      <span className="font-bold text-white block mb-1">Effect:</span>
+                      {flame.effect}
+                    </div>
+                    <div>
+                      <span className="font-bold text-white block mb-1">Use case:</span>
+                      {flame.use}
+                    </div>
+                    <div>
+                      <span className="font-bold text-white block mb-1">Metal behavior:</span>
+                      {flame.metalBehavior}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="gap-table">
-            {featureGaps.map((gap) => (
-              <div className="gap-row" key={gap.feature}>
+        </section>
+
+        {/* Striking Color Process */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Zap size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Striking colors</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Reset, cool, warm: the three-step striking process</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              Striking colors contain metals (silver, gold, copper) dissolved in the glass. The striking process involves three critical steps: reset (erase thermal history), cool (allow crystal nucleation), and warm (grow metal crystals). Timing and temperature control determine final color.
+            </p>
+            <div className="space-y-4">
+              {strikingProcess.map((proc, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <div className="grid md:grid-cols-4 gap-4">
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Step {idx + 1}</span>
+                      <p className="text-sm text-white mt-1 font-bold">{proc.step}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Temperature</span>
+                      <p className="text-sm text-white mt-1">{proc.temperature}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Duration</span>
+                      <p className="text-sm text-white mt-1">{proc.duration}</p>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase text-amber-500">Key note</span>
+                      <p className="text-sm text-white mt-1">{proc.note}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-stone-300 mt-4 pt-4 border-t border-white/10">{proc.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Schedule Explorer */}
+        <section id="schedule" className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <Thermometer size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Interactive schedule explorer</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Model the Northstar-style ramp-down structure</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              This calculator is an educational visualization of the researched chart, not a firing guarantee. It uses the published rule of <strong>1 hour per 0.25 inch</strong>, doubles wall thickness when "closed form" is enabled, and optionally raises the top anneal point by 25°F for metallic-color exploration. Always verify against your glass manufacturer, kiln calibration, piece geometry, and test firings.
+              <Citation id={1} />
+            </p>
+
+            <div className="mb-12 overflow-hidden rounded-2xl border border-white/10">
+              <img src={curveImage} alt="Technical annealing curve visualization" className="h-72 w-full object-cover opacity-85" />
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+              <div className="space-y-8">
+                {/* Controls */}
+                <div className="space-y-6">
+                  <div>
+                    <label className="block font-mono text-xs font-bold uppercase tracking-widest text-amber-500 mb-3">
+                      Effective wall/thickest section input
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <input
+                        type="range"
+                        min="0.1"
+                        max="2"
+                        step="0.05"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value))}
+                        className="flex-1 h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                      />
+                      <span className="font-mono text-lg font-bold text-white min-w-20">{thickness.toFixed(2)} in</span>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <button
+                      onClick={() => setClosedForm(!closedForm)}
+                      className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-colors ${
+                        closedForm
+                          ? "bg-amber-600 text-white"
+                          : "border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500"
+                      }`}
+                    >
+                      Closed form
+                    </button>
+                    <button
+                      onClick={() => setMetallic(!metallic)}
+                      className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-colors ${
+                        metallic
+                          ? "bg-amber-600 text-white"
+                          : "border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500"
+                      }`}
+                    >
+                      Metallic colors
+                    </button>
+                    <button className="px-4 py-2 rounded-lg border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500 font-mono text-xs font-bold uppercase transition-colors">
+                      Print
+                    </button>
+                  </div>
+                </div>
+
+                {/* Results */}
+                <div className="grid md:grid-cols-4 gap-4 pt-8 border-t border-white/10">
+                  <div>
+                    <span className="block font-mono text-xs font-bold uppercase text-amber-500 mb-2">Effective thickness</span>
+                    <span className="block text-2xl font-bold text-white">{schedule.effectiveThickness.toFixed(2)}</span>
+                    <span className="block text-xs text-stone-400">inches</span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-xs font-bold uppercase text-amber-500 mb-2">Base anneal soak</span>
+                    <span className="block text-2xl font-bold text-white">{formatHours(schedule.annealHours)}</span>
+                    <span className="block text-xs text-stone-400">at {schedule.topTemp}°F</span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-xs font-bold uppercase text-amber-500 mb-2">Scheduled hold time</span>
+                    <span className="block text-2xl font-bold text-white">{formatHours(schedule.total)}</span>
+                    <span className="block text-xs text-stone-400">total with soaks</span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-xs font-bold uppercase text-amber-500 mb-2">Cooling rate</span>
+                    <span className="block text-2xl font-bold text-white">300°F/hr</span>
+                    <span className="block text-xs text-stone-400">minimum</span>
+                  </div>
+                </div>
+
+                {/* Schedule Table */}
+                <div className="pt-8 border-t border-white/10 overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-white/10">
+                        <th className="px-3 py-2 text-left font-mono font-bold uppercase text-amber-500">Segment</th>
+                        <th className="px-3 py-2 text-left font-mono font-bold uppercase text-amber-500">Temperature</th>
+                        <th className="px-3 py-2 text-left font-mono font-bold uppercase text-amber-500">Hold</th>
+                        <th className="px-3 py-2 text-left font-mono font-bold uppercase text-amber-500">Rationale</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {schedule.rows.map((row, idx) => (
+                        <tr key={idx} className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                          <td className="px-3 py-2 font-mono text-white font-bold">{row.segment}</td>
+                          <td className="px-3 py-2 text-stone-300">{row.temp}°F</td>
+                          <td className="px-3 py-2 text-stone-300">{formatHours(row.hold)}</td>
+                          <td className="px-3 py-2 text-stone-400 text-xs">{row.rationale}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Product Opportunity */}
+        <section className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <BookOpenCheck size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Product opportunity</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">If you built one, it should not be "just a calculator"</h2>
+            <p className="text-lg leading-8 text-stone-300 mb-12">
+              The strongest opportunity is a boro-specific educational companion: part kiln schedule planner, part color database, part firing notebook, and part apprentice-style lesson system. The gaps in current tools are clear.
+            </p>
+            <div className="space-y-4">
+              {featureGaps.map((gap, idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-white">{gap.feature}</h3>
+                    <span className="text-xs text-stone-400">
+                      {gap.available}/5 coverage
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className={`h-2 flex-1 rounded-full ${i < gap.available ? "bg-amber-600" : "bg-white/10"}`} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Sources */}
+        <section id="sources" className="border-b border-white/10 py-20">
+          <div className="container max-w-5xl">
+            <div className="mb-5 flex items-center gap-2">
+              <LinkIcon size={16} className="text-amber-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Sources</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-12">Research trail</h2>
+            <div className="space-y-3">
+              {sourceLinks.map((source) => (
+                <a
+                  key={source.id}
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-lg border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition-colors"
+                >
+                  <span className="font-mono text-xs font-bold text-amber-500">[{source.id}]</span>
+                  <span className="ml-2 text-sm text-white hover:underline">{source.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Safety Note */}
+        <section className="py-20">
+          <div className="container max-w-5xl">
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-8">
+              <div className="flex gap-4">
+                <AlertTriangle size={24} className="text-amber-500 flex-shrink-0 mt-1" />
                 <div>
-                  <strong>{gap.feature}</strong>
-                  <span>Existing public-tool coverage: {gap.available}/5 · Desired: {gap.need}/5</span>
-                </div>
-                <div className="bar-track" aria-hidden="true">
-                  <i style={{ width: `${gap.available * 20}%` }} />
-                  <b style={{ width: `${gap.need * 20}%` }} />
+                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-3">Studio safety note</h3>
+                  <p className="text-sm leading-relaxed text-stone-300">
+                    This page summarizes public sources for research and product-planning purposes. Annealing schedules must be validated against actual glass composition, color manufacturer guidance, kiln calibration, work geometry, and test firings. Do not treat an educational visualization as a safety device or as a guarantee for valuable work.
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="sources" className="section-slab py-20">
-        <div className="container">
-          <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <div className="console-label"><LinkIcon size={16} /> Sources</div>
-              <h2 className="section-title mt-5">Research trail</h2>
-            </div>
-            <div className="flex gap-3">
-              <button onClick={() => window.print()} className="action-button secondary"><Printer size={17} /> Print</button>
-              <button onClick={handleShare} className="action-button secondary"><Download size={17} /> Save/share</button>
             </div>
           </div>
-          <div className="source-grid">
-            {sourceLinks.map((source) => (
-              <a key={source.id} href={source.url} target="_blank" rel="noreferrer" className="source-card">
-                <span>[{source.id}]</span>
-                <strong>{source.label}</strong>
-                <small>{source.url.replace("https://", "")}</small>
-              </a>
-            ))}
-          </div>
-          <div className="mt-10 rounded-[2rem] border border-amber-300/25 bg-amber-300/8 p-6 text-stone-200">
-            <div className="mb-3 flex items-center gap-2 font-black text-amber-200"><AlertTriangle size={18} /> Studio safety note</div>
-            <p className="leading-7">
-              This page summarizes public sources for research and product-planning purposes. Annealing schedules must be validated against actual glass composition, color manufacturer guidance, kiln calibration, work geometry, and test firings. Do not treat an educational visualization as a safety device or as a guarantee for valuable work.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+        </section>
+      </main>
 
-function Metric({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="metric-tile">
-      <strong>{value}</strong>
-      <span>{label}</span>
+      {/* Footer */}
+      <footer className="border-t border-white/10 bg-stone-950/50 py-8">
+        <div className="container max-w-5xl">
+          <p className="text-xs text-stone-500 text-center">
+            Borosilicate Kiln Annealing Research © 2026 · Evidence-based educational resource · Not a substitute for manufacturer guidance
+          </p>
+        </div>
+      </footer>
     </div>
-  );
-}
-
-function Finding({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
-  return (
-    <article className="finding-card">
-      <div>{icon}</div>
-      <h3>{title}</h3>
-      <p>{text}</p>
-    </article>
-  );
-}
-
-function Toggle({ enabled, onClick, title, text }: { enabled: boolean; onClick: () => void; title: string; text: string }) {
-  return (
-    <button onClick={onClick} className={`toggle-card ${enabled ? "active" : ""}`}>
-      {enabled ? <CheckCircle2 size={20} /> : <XCircle size={20} />}
-      <span><strong>{title}</strong><small>{text}</small></span>
-    </button>
-  );
-}
-
-function Citation({ id }: { id: number }) {
-  const source = sourceRef(id);
-  if (!source) return null;
-  return (
-    <a href={source.url} target="_blank" rel="noreferrer" className="citation" aria-label={`Source ${id}: ${source.label}`}>
-      [{id}]
-    </a>
   );
 }
