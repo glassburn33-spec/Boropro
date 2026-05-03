@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { torchDatabase } from "@/data/torches_expanded";
+import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/glass_colors";
 
 type TabType = "home" | "equipment" | "calculator" | "colors";
 
@@ -30,7 +31,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-stone-900 border-b border-amber-700/30 px-4 py-3">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <img src="/manus-storage/Boroprologo_48fdf7c5.png" alt="BoroPro Logo" className="h-8 w-8" />
+            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-8 w-8" />
             <h1 className="text-lg font-bold text-white">BoroPro</h1>
             <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
           </div>
@@ -117,7 +118,7 @@ function HomeTab() {
     <div className="space-y-6">
       {/* LOGO & TITLE */}
       <div className="text-center py-8">
-        <img src="/manus-storage/Boroprologo_48fdf7c5.png" alt="BoroPro Logo" className="h-32 w-32 mx-auto mb-4" />
+        <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-32 w-32 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-white mb-2">BoroPro</h1>
         <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
       </div>
@@ -492,43 +493,113 @@ function CalculatorCard({
 
 // ============ COLORS TAB ============
 function ColorsTab() {
+  const [selectedManufacturer, setSelectedManufacturer] = useState<string | null>(null);
+  const [selectedComposition, setSelectedComposition] = useState<string | null>(null);
+
+  const manufacturers = getManufacturers();
+  const compositions = ["Cobalt", "Copper", "Silver"];
+
+  let filteredColors = glassColors;
+  if (selectedManufacturer) {
+    filteredColors = filteredColors.filter(c => c.manufacturer === selectedManufacturer);
+  }
+  if (selectedComposition) {
+    filteredColors = filteredColors.filter(c => c.colorFamily === selectedComposition);
+  }
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <ColorCard
-          name="Cobalt Blue"
-          specs={["Metal: Cobalt Oxide", "Anneal: 1050°F", "Striking: Reduction", "Soft & Boro"]}
-          notes="Deep blue. Striking color in reduction flame. Stable in kiln."
-        />
-        <ColorCard
-          name="Copper Ruby"
-          specs={["Metal: Copper Oxide", "Anneal: 1050°F", "Striking: Reduction", "Boro only"]}
-          notes="Rich red. Requires reduction. Heat-sensitive opaque."
-        />
-        <ColorCard
-          name="Amber Purple"
-          specs={["Metal: Gold & Selenium", "Anneal: 1050°F", "Striking: Neutral", "Boro only"]}
-          notes="Complex color. Striking color in neutral flame. Variable results."
-        />
-        <ColorCard
-          name="Yellow"
-          specs={["Metal: Cadmium/Selenium", "Anneal: 1000°F", "Striking: Oxidizing", "Soft & Boro"]}
-          notes="Heat-sensitive opaque. Lower anneal temp. Avoid reduction."
-        />
-        <ColorCard
-          name="Silver Exotic"
-          specs={["Metal: Silver Nitrate", "Anneal: 1050°F", "Striking: Reduction", "Boro only"]}
-          notes="Metallic effects. Striking color. Requires reduction work."
-        />
-        <ColorCard
-          name="Heat-Sensitive Opaque"
-          specs={["Metal: Various", "Anneal: 1000°F", "Striking: Neutral", "Boro only"]}
-          notes="Lower anneal point. Avoid high temps. Oxidizing flame preferred."
-        />
+      {/* FILTERS */}
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
+          <select
+            value={selectedManufacturer || "all"}
+            onChange={(e) => setSelectedManufacturer(e.target.value === "all" ? null : e.target.value)}
+            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
+          >
+            <option value="all">All Manufacturers</option>
+            {manufacturers.map((mfg) => (
+              <option key={mfg} value={mfg}>
+                {mfg}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Metal Composition</label>
+          <select
+            value={selectedComposition || "all"}
+            onChange={(e) => setSelectedComposition(e.target.value === "all" ? null : e.target.value)}
+            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded"
+          >
+            <option value="all">All Compositions</option>
+            {compositions.map((comp) => (
+              <option key={comp} value={comp}>
+                {comp}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+
+      {/* COLOR CARDS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {filteredColors.map((color) => (
+          <GlassColorCard key={color.id} color={color} />
+        ))}
+      </div>
+
+      {filteredColors.length === 0 && (
+        <div className="text-center py-8 text-stone-400">
+          <p>No colors match your filters. Try adjusting your selection.</p>
+        </div>
+      )}
     </div>
+  );
+}
+
+function GlassColorCard({
+  color,
+}: {
+  color: typeof glassColors[0];
+}) {
+  const handleCopy = () => {
+    const text = `${color.name} (${color.colorCode})\nManufacturer: ${color.manufacturer}\nMetal: ${color.metalComposition}\nFamily: ${color.colorFamily}\nAnneal: ${color.annealingTemp}\nWorking: ${color.workingTemp}\nFlame: ${color.flameRecommendation}\nStriking: ${color.strikingNotes}\n\n${color.description}`;
+    navigator.clipboard.writeText(text);
+  };
+
+  return (
+    <Card className="bg-stone-800 border-stone-700 p-3 overflow-hidden">
+      {color.image && (
+        <div className="mb-2 -mx-3 -mt-3 bg-stone-900 p-2">
+          <img src={color.image} alt={color.name} className="w-full h-32 object-cover rounded" />
+        </div>
+      )}
+      <div className="flex items-start justify-between mb-2">
+        <div>
+          <h4 className="font-bold text-amber-300 text-sm">{color.name}</h4>
+          <p className="text-xs text-stone-400">{color.colorCode} • {color.manufacturer}</p>
+        </div>
+        <span className="text-xs font-bold text-amber-400 bg-stone-900 px-2 py-1 rounded">{color.colorFamily}</span>
+      </div>
+      <p className="text-xs text-stone-300 mb-2">{color.description}</p>
+      <div className="text-xs text-stone-400 space-y-1 mb-2">
+        <div>• Metal: {color.metalComposition}</div>
+        <div>• Anneal: {color.annealingTemp}</div>
+        <div>• Flame: {color.flameRecommendation}</div>
+        <div>• Striking: {color.strikingNotes}</div>
+      </div>
+      <Button
+        onClick={handleCopy}
+        size="sm"
+        className="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs"
+      >
+        Copy Specs
+      </Button>
+    </Card>
   );
 }
 
