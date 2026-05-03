@@ -40,17 +40,29 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-stone-900 border-b border-amber-700/30 px-4 py-3">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-24 w-24" />
+            <img src="/manus-storage/Boroprologo_c1368bc1.png" alt="BoroPro Logo" className="h-48 w-48" />
             <h1 className="text-lg font-bold text-white">BoroPro</h1>
             <span className="text-xs text-stone-400 ml-auto">Studio Reference</span>
           </div>
-          <Input
-            placeholder="Search equipment, schedules, colors... (Press Enter)"
-            className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleSearch}
-          />
+          <div className="flex gap-2">
+            <Input
+              placeholder="Search equipment, schedules, colors..."
+              className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
+            />
+            <Button
+              onClick={() => {
+                if (searchQuery.trim()) {
+                  setActiveTab("equipment");
+                }
+              }}
+              className="bg-amber-700 hover:bg-amber-600 text-white px-4 h-9"
+            >
+              Search
+            </Button>
+          </div>
         </div>
       </header>
 
