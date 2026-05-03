@@ -93,10 +93,10 @@ export const glassColors: GlassColor[] = [
 
   // ============ NORTHSTAR GLASSWORKS - SILVER ============
   {
-    id: "ns-121",
+    id: "ns-050",
     name: "Blue Thunder",
     manufacturer: "Northstar",
-    colorCode: "NS-121",
+    colorCode: "NS-050",
     metalComposition: "Cobalt with Silver",
     colorFamily: "Silver",
     description: "Dark cobalt blue with silver by Northstar Glassworks. Yields bright metallic blues in oxidizing flame, bright hazy greens in neutral flame, ash gray in reducing flame.",
