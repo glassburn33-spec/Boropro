@@ -13,6 +13,7 @@ import { torchDatabase } from "@/data/torches_expanded";
 import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/glass_colors";
 import { searchContent, SearchResult } from "@/lib/searchIndex";
 import { SearchResults } from "@/components/SearchResults";
+import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
 
 type TabType = "studio" | "equipment" | "calculator" | "colors";
 
@@ -191,7 +192,7 @@ export default function Home() {
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
-        {activeTab === "calculator" && <CalculatorTab />}
+        {activeTab === "calculator" && <ThermalCalculatorTab />}
         {activeTab === "colors" && <ColorsTab />}
       </main>
 
