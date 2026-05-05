@@ -22,7 +22,7 @@
  * consistent with the MATLAB formulation.
  */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -389,12 +389,75 @@ export function CalculatorTab() {
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const originalTimeRef = useRef<number>(0);
 
   // Helper function to format working time as "X min Y sec"
   function formatTime(totalSeconds: number): string {
     const mins = Math.floor(totalSeconds / 60);
     const secs = Math.floor(totalSeconds % 60);
     return `${mins} min ${secs} sec`;
+  }
+
+  // Web Audio API beep function
+  function playBeeps(count: number = 3): void {
+    const AudioCtx = window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    for (let i = 0; i < count; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = 880;          // A5 — clear, attention-getting tone
+      gain.gain.setValueAtTime(0.4, ctx.currentTime + i * 0.45);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.45 + 0.3);
+      osc.start(ctx.currentTime + i * 0.45);
+      osc.stop(ctx.currentTime + i * 0.45 + 0.35);
+    }
+  }
+
+  // Timer control functions
+  function startTimer(): void {
+    if (timeRemaining === null || timeRemaining <= 0) return;
+    setTimerRunning(true);
+    intervalRef.current = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev === null || prev <= 1) {
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+          setTimerRunning(false);
+          playBeeps(3);
+          return originalTimeRef.current;   // reset to original value
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+
+  function stopTimer(): void {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setTimerRunning(false);
+  }
+
+  function resetTimer(): void {
+    stopTimer();
+    setTimeRemaining(originalTimeRef.current);
+  }
+
+  function handleStartStop(): void {
+    if (timerRunning) {
+      stopTimer();
+    } else {
+      startTimer();
+    }
   }
 
   function handleCalculate() {
@@ -409,6 +472,15 @@ export function CalculatorTab() {
       });
       setResults(res);
       setHasCalc(true);
+      // Sync timer when a new result arrives
+      const secs = Math.floor(res.workingTimeSeconds);
+      originalTimeRef.current = secs;
+      setTimeRemaining(secs);
+      setTimerRunning(false);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     } catch (e: unknown) {
       setError((e as Error).message || 'Calculation error. Check your inputs.');
     }
@@ -423,6 +495,10 @@ export function CalculatorTab() {
     setResults(null);
     setError('');
     setHasCalc(false);
+    // Cleanup timer
+    stopTimer();
+    setTimeRemaining(null);
+    originalTimeRef.current = 0;
   }
 
   const thicknessWarn =
@@ -586,6 +662,57 @@ export function CalculatorTab() {
               {formatTime(results.workingTimeSeconds)}
             </div>
           </Card>
+
+          {/* COUNTDOWN TIMER */}
+          {timeRemaining !== null && (
+            <Card className="bg-stone-800 border-stone-700 p-4">
+              <p className="text-sm font-semibold text-stone-300 mb-3">COUNTDOWN TIMER</p>
+
+              {/* Timer display */}
+              <div className={`text-5xl font-bold text-center mb-4 font-mono tracking-widest ${
+                timerRunning ? 'text-amber-300' : 'text-stone-200'
+              }`}>
+                {formatTime(timeRemaining)}
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full bg-stone-700 rounded-full h-2 mb-4">
+                <div
+                  className="bg-amber-500 h-2 rounded-full transition-all duration-1000"
+                  style={{
+                    width: originalTimeRef.current > 0
+                      ? `${(timeRemaining / originalTimeRef.current) * 100}%`
+                      : '0%',
+                  }}
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleStartStop}
+                  className={`flex-1 font-bold text-white ${
+                    timerRunning
+                      ? 'bg-red-700 hover:bg-red-600'
+                      : 'bg-green-700 hover:bg-green-600'
+                  }`}
+                >
+                  {timerRunning ? '⏸ Stop' : '▶ Start'}
+                </Button>
+                <Button
+                  onClick={resetTimer}
+                  variant="outline"
+                  className="flex-1 bg-stone-700 hover:bg-stone-600 border-stone-600 text-stone-300"
+                >
+                  ↺ Reset
+                </Button>
+              </div>
+
+              <p className="text-xs text-stone-500 mt-3 text-center">
+                Timer beeps 3× and resets automatically when it reaches zero.
+              </p>
+            </Card>
+          )}
 
           {/* THERMAL STRESS */}
           <Card className={`p-4 border-2 ${
