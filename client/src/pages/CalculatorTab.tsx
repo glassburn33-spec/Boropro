@@ -390,6 +390,13 @@ export function CalculatorTab() {
   const [error,     setError]     = useState<string>('');
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
 
+  // Helper function to format working time as "X min Y sec"
+  function formatTime(totalSeconds: number): string {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = Math.floor(totalSeconds % 60);
+    return `${mins} min ${secs} sec`;
+  }
+
   function handleCalculate() {
     setError('');
     try {
@@ -419,6 +426,10 @@ export function CalculatorTab() {
   }
 
   const thicknessWarn =
+    shape === 'cylinder' &&
+    parseFloat(thickness) >= parseFloat(radius);
+
+  const calcBlocked =
     shape === 'cylinder' &&
     parseFloat(thickness) >= parseFloat(radius);
 
@@ -542,7 +553,12 @@ export function CalculatorTab() {
         <div className="flex gap-2 pt-1">
           <Button
             onClick={handleCalculate}
-            className="flex-1 bg-amber-700 hover:bg-amber-600 text-white font-bold"
+            disabled={calcBlocked}
+            className={`flex-1 text-white font-bold transition-opacity ${
+              calcBlocked
+                ? 'bg-amber-900 opacity-40 cursor-not-allowed'
+                : 'bg-amber-700 hover:bg-amber-600'
+            }`}
           >
             Calculate
           </Button>
@@ -566,13 +582,9 @@ export function CalculatorTab() {
               AVAILABLE WORKING TIME
             </p>
             <p className="text-xs text-stone-400 mb-3">{results.shapeLabel}</p>
-            <div className="text-6xl font-bold text-amber-300 mb-1">
-              {results.workingTimeMinutes.toFixed(1)}
+            <div className="text-4xl font-bold text-amber-300 mb-1">
+              {formatTime(results.workingTimeSeconds)}
             </div>
-            <p className="text-sm text-amber-200">minutes</p>
-            <p className="text-xs text-stone-500 mt-1">
-              ({results.workingTimeSeconds.toFixed(0)} s)
-            </p>
           </Card>
 
           {/* THERMAL STRESS */}
