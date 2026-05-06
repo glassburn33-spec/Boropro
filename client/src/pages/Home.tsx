@@ -174,24 +174,28 @@ export default function Home() {
                 label="Studio Science"
                 active={activeTab === "studio"}
                 onClick={() => handleTabChange("studio")}
+                backgroundImage="/manus-storage/Gemini_Generated_Image_k4ln75k4ln75k4ln_8d47aba3.png"
               />
               <QuickActionCard
                 icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
                 label="Equipment"
                 active={activeTab === "equipment"}
                 onClick={() => handleTabChange("equipment")}
+                backgroundImage="/manus-storage/dewericon_499dfa4f.png"
               />
               <QuickActionCard
                 icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
                 label="Calculator"
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
+                backgroundImage="/manus-storage/calculatericon_8f9dad32.png"
               />
               <QuickActionCard
                 icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
                 label="Colors"
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
+                backgroundImage="/manus-storage/coloricon_fcd7e908.png"
               />
             </div>
           </div>
@@ -1315,12 +1319,30 @@ function QuickActionCard({
   label,
   active,
   onClick,
+  backgroundImage,
 }: {
   icon: React.ReactNode;
   label: string;
   active: boolean;
   onClick: () => void;
+  backgroundImage?: string;
 }) {
+  if (backgroundImage) {
+    return (
+      <button
+        onClick={onClick}
+        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 ${
+          active ? "ring-4 ring-amber-400 shadow-lg" : "shadow-md hover:shadow-lg"
+        }`}
+        style={{
+          backgroundImage: `url('${backgroundImage}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+    );
+  }
+  
   return (
     <button
       onClick={onClick}
