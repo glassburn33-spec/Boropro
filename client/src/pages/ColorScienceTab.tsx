@@ -145,6 +145,46 @@ export default function ColorScienceTab() {
             </li>
           </ul>
         </div>
+
+        {/* Redox Equilibria and Glass Coloration */}
+        <div className="border-l-4 border-amber-500 pl-6">
+          <h2 className="text-3xl font-bold text-amber-400 mb-2">Redox Equilibria and Glass Coloration</h2>
+          <p className="text-stone-300 text-sm mb-6">How oxidation states and redox reactions control color formation and permanence in borosilicate glass</p>
+        </div>
+
+        {/* Redox Content */}
+        <div className="bg-stone-800/50 backdrop-blur rounded-lg p-8 border border-stone-700/50">
+          <div className="space-y-6 text-stone-200 leading-relaxed">
+            <p>
+              The influence of the <span className="font-semibold">redox state</span> on glass color has been extensively investigated. For instance, <span className="text-yellow-300 font-semibold">chromium-bearing glasses</span> show a dramatic change in color from <span className="text-green-300 font-semibold">green to yellow</span> when melting conditions vary from reducing to oxidizing. This color shift is due to the formation of a <span className="text-yellow-400 font-semibold">chromate complex (CrO₄)²⁻</span> that produces a charge-transfer transition from oxygen to chromium located near 28,000 cm⁻¹ in oxidized glasses.
+            </p>
+
+            <p>
+              The tail of this intense absorption band extends from the ultraviolet into the visible spectrum, superimposing on the Cr³⁺ absorption bands. There is a considerable difference between the molar extinction coefficients of Cr³⁺ and Cr⁶⁺, which are <span className="text-amber-300 font-semibold">18–20 and 4,200 l/(cm/mol)</span>, respectively. As a result, optical spectroscopy measurements of the chromium redox state cannot be made on glasses containing relatively high concentrations of Cr⁶⁺. Wet chemical analysis or other spectroscopic methods must be performed instead.
+            </p>
+
+            <p>
+              The interaction between <span className="font-semibold">redox pairs</span> is widely exploited during glass fining. Manganese has traditionally been known as the <span className="text-amber-400 font-semibold">"glassmaker's soap"</span> because, when added to soda-lime-silica glass in the form of an oxide such as MnO₂, it reduces the green color arising from iron impurities by oxidizing Fe²⁺ into Fe³⁺:
+            </p>
+
+            <div className="bg-stone-900/50 rounded-lg p-4 border-l-2 border-amber-500 my-4 font-mono text-sm text-amber-200">
+              <p>Mn⁴⁺ + 2 Fe²⁺ → Mn²⁺ + 2 Fe³⁺</p>
+            </div>
+
+            <p>
+              Because only <span className="font-semibold">spin-forbidden transitions</span> are associated with the d⁵ configuration of both Mn²⁺ and Fe³⁺, their low absorption intensities result in <span className="text-stone-400 font-semibold">weakly colored glasses</span>. However, this effect is not permanent. Interaction with sunlight (a process called <span className="text-amber-400 font-semibold">solarization</span>) favors the reverse reactions:
+            </p>
+
+            <div className="bg-stone-900/50 rounded-lg p-4 border-l-2 border-amber-500 my-4 font-mono text-sm text-amber-200">
+              <p>Mn²⁺ + hν → Mn³⁺ + e⁻</p>
+              <p>Fe³⁺ + e⁻ → Fe²⁺</p>
+            </div>
+
+            <p>
+              As illustrated by old windows and doorknobs that have turned purple over centuries of exposure, this phenomenon is at the origin of the well-known <span className="text-purple-300 font-semibold">purple glass</span>, of which <span className="text-purple-400 font-semibold">desert amethyst glass</span> is a natural variety. This color change demonstrates how redox chemistry and light exposure interact to create dynamic, time-dependent color shifts in glass—a critical consideration for artists working with historically significant or light-sensitive compositions.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
