@@ -6,6 +6,10 @@ Dark theme for studio environment, large touch targets for gloved hands
 
 import { useState, useEffect, useRef } from "react";
 import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown } from "lucide-react";
+import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
+import { GlassRodsIcon } from "@/components/icons/GlassRodsIcon";
+import { CalculatorIcon } from "@/components/icons/CalculatorIcon";
+import { EquipmentIcon } from "@/components/icons/EquipmentIcon";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -166,25 +170,25 @@ export default function Home() {
             {/* Navigation Tabs */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <QuickActionCard
-                icon={<HomeIcon className="w-5 h-5" />}
-                label="Studio"
+                icon={<StudioScienceIcon className="w-5 h-5" isActive={activeTab === "studio"} />}
+                label="Studio Science"
                 active={activeTab === "studio"}
                 onClick={() => handleTabChange("studio")}
               />
               <QuickActionCard
-                icon={<Zap className="w-5 h-5" />}
+                icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
                 label="Equipment"
                 active={activeTab === "equipment"}
                 onClick={() => handleTabChange("equipment")}
               />
               <QuickActionCard
-                icon={<Calculator className="w-5 h-5" />}
+                icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
                 label="Calculator"
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
               />
               <QuickActionCard
-                icon={<Palette className="w-5 h-5" />}
+                icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
                 label="Colors"
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
