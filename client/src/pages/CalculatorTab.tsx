@@ -400,6 +400,7 @@ export function CalculatorTab() {
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   // Helper function to format working time as "X min Y sec"
   function formatTime(totalSeconds: number): string {
@@ -408,28 +409,44 @@ export function CalculatorTab() {
     return `${mins} min ${secs} sec`;
   }
 
-  // Web Audio API beep function
+  // Web Audio API beep function using persistent AudioContext
   function playBeeps(count: number = 3): void {
-    const AudioCtx = window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
-    for (let i = 0; i < count; i++) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.value = 880;          // A5 — clear, attention-getting tone
-      gain.gain.setValueAtTime(0.4, ctx.currentTime + i * 0.45);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.45 + 0.3);
-      osc.start(ctx.currentTime + i * 0.45);
-      osc.stop(ctx.currentTime + i * 0.45 + 0.35);
-    }
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+
+    const resume = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
+
+    resume.then(() => {
+      for (let i = 0; i < count; i++) {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.type            = 'sine';
+        osc.frequency.value = 880;
+
+        const startTime = ctx.currentTime + i * 0.5;
+        gain.gain.setValueAtTime(0.5, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+        osc.start(startTime);
+        osc.stop(startTime + 0.4);
+      }
+    });
   }
 
   // Timer control functions
   function startTimer(): void {
+    // Create / resume AudioContext on the user gesture (button press)
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext)();
+    }
+    if (audioCtxRef.current.state === 'suspended') {
+      audioCtxRef.current.resume();
+    }
+    
     if (timeRemaining === null || timeRemaining <= 0) return;
     setTimerRunning(true);
     intervalRef.current = setInterval(() => {
@@ -760,53 +777,7 @@ export function CalculatorTab() {
             </Card>
           )}
 
-          {/* THERMAL STRESS */}
-          <Card className={`p-4 border-2 ${
-            results.isSafe
-              ? 'bg-green-900/20 border-green-600'
-              : 'bg-red-900/20 border-red-600'
-          }`}>
-            <p className={`text-sm font-semibold mb-3 ${
-              results.isSafe ? 'text-green-400' : 'text-red-400'
-            }`}>
-              THERMAL STRESS ASSESSMENT
-            </p>
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="bg-stone-800/60 rounded p-2">
-                <p className="text-stone-400">Induced Stress</p>
-                <p className={`text-lg font-bold ${
-                  results.isSafe ? 'text-green-300' : 'text-red-300'
-                }`}>
-                  {results.sigma.toFixed(1)} MPa
-                </p>
-              </div>
-              <div className="bg-stone-800/60 rounded p-2">
-                <p className="text-stone-400">Tensile Limit</p>
-                <p className="text-lg font-bold text-stone-200">
-                  {GLASS.tensile_limit} MPa
-                </p>
-              </div>
-              <div className="bg-stone-800/60 rounded p-2">
-                <p className="text-stone-400">Cooling Rate</p>
-                <p className="text-base font-bold text-stone-200">
-                  {results.h_cool.toFixed(4)} °C/s
-                </p>
-              </div>
-              <div className="bg-stone-800/60 rounded p-2">
-                <p className="text-stone-400">Max Safe Rate</p>
-                <p className="text-base font-bold text-stone-200">
-                  {results.h_max.toFixed(4)} °C/s
-                </p>
-              </div>
-            </div>
-            <p className={`text-xs mt-3 font-semibold ${
-              results.isSafe ? 'text-green-400' : 'text-red-400'
-            }`}>
-              {results.isSafe
-                ? '✓ Stress is within safe limits'
-                : '✗ Thermal stress exceeds tensile limit — cracking risk'}
-            </p>
-          </Card>
+
 
           {/* HEAT TRANSFER DETAILS */}
           <Card className="bg-stone-800 border-stone-700 p-4">

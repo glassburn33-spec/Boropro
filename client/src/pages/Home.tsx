@@ -212,36 +212,6 @@ export default function Home() {
           onSelectResult={handleSelectResult}
         />
       )}
-
-      {/* BOTTOM NAVIGATION */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-stone-900 border-t border-amber-700/30 px-4 py-3">
-        <div className="max-w-6xl mx-auto flex gap-2">
-          <NavButton
-            icon={<HomeIcon className="w-5 h-5" />}
-            label="Studio"
-            active={activeTab === "studio"}
-            onClick={() => handleTabChange("studio")}
-          />
-          <NavButton
-            icon={<Zap className="w-5 h-5" />}
-            label="Equipment"
-            active={activeTab === "equipment"}
-            onClick={() => handleTabChange("equipment")}
-          />
-          <NavButton
-            icon={<Calculator className="w-5 h-5" />}
-            label="Calculator"
-            active={activeTab === "calculator"}
-            onClick={() => handleTabChange("calculator")}
-          />
-          <NavButton
-            icon={<Palette className="w-5 h-5" />}
-            label="Colors"
-            active={activeTab === "colors"}
-            onClick={() => handleTabChange("colors")}
-          />
-        </div>
-      </nav>
     </div>
   );
 }
