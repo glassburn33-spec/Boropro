@@ -50,9 +50,15 @@ const GLASS = {
 };
 
 // ============================================================
-// PART 2: AIR PROPERTIES LOOKUP TABLE — User-Verified 3-Point Table
-// Linear interpolation at film temperature
-// Source: user-verified values
+// PART 2: AIR PROPERTIES LOOKUP TABLE — Cengel Table A-15, 1 atm
+//
+// The film temperature for kiln inputs 565–650 °C with T_env = 25 °C
+// ranges from 295 °C to 337.5 °C.  The rows below bracket that entire
+// range (250 °C – 350 °C) and are the correct rows to interpolate from.
+//
+// Previous table used 500–700 °C rows which are OUTSIDE the film-
+// temperature range and caused clamping to wrong property values.
+//
 // IMPORTANT: These values are the sole source for all air properties
 // used in every calculation. Do not duplicate or hardcode these
 // values anywhere else in the file.
@@ -65,9 +71,9 @@ const AIR_TABLE: {
   nu: number;
   Pr: number;
 }[] = [
-  { T: 500, cp: 1093, k: 0.05572, nu: 7.806e-5, Pr: 0.6986 },
-  { T: 600, cp: 1115, k: 0.06093, nu: 9.515e-5, Pr: 0.7037 },
-  { T: 700, cp: 1135, k: 0.06581, nu: 1.133e-4,  Pr: 0.7092 },
+  { T: 250, cp: 1033, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
+  { T: 300, cp: 1044, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
+  { T: 350, cp: 1056, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
 ];
 
 /**
@@ -80,10 +86,13 @@ const AIR_TABLE: {
  * and h computations across all three shapes (plate, cylinder, sphere).
  *
  * Clamping behavior:
- *   T_C <= 500 °C  →  returns exact 500 °C row values
- *   T_C >= 700 °C  →  returns exact 700 °C row values
- *   500 < T_C < 600 →  interpolates between 500 and 600 °C rows
- *   600 < T_C < 700 →  interpolates between 600 and 700 °C rows
+ *   T_C <= 250 °C  →  returns exact 250 °C row values
+ *   T_C >= 350 °C  →  returns exact 350 °C row values
+ *   250 < T_C < 300 →  interpolates between 250 and 300 °C rows
+ *   300 < T_C < 350 →  interpolates between 300 and 350 °C rows
+ *
+ * Film temperature range for kiln 565–650 °C with T_env 25 °C:
+ *   T_film = 295 °C to 337.5 °C — fully bracketed by this table.
  *
  * Interpolation formula for each property P:
  *   f = (T_C - T_lo) / (T_hi - T_lo)
