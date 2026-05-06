@@ -280,6 +280,108 @@ function StudioTab() {
         </ul>
       </Card>
 
+      {/* GLASS SCIENCE SECTION */}
+      <div className="border-t border-stone-700 pt-8 mt-8">
+        <div className="w-full flex flex-col items-center mb-6">
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glass-structure-comparison-ZqjkF7jkXYuAaH7xeFCr6V.webp"
+            alt="Atomic structure comparison: crystalline quartz vs silica glass"
+            className="w-full max-w-2xl rounded-xl border border-stone-700 shadow-lg"
+          />
+          <p className="text-stone-500 text-xs italic text-center mt-3 max-w-xl">
+            Atomic structure comparison: crystalline quartz (ordered, periodic lattice) vs. silica glass (disordered, amorphous network). The absence of long-range order in glass is the origin of its unique thermal behavior.
+          </p>
+        </div>
+
+        <div className="max-w-2xl mx-auto space-y-4 pb-10 px-2">
+          <h2 className="text-xl font-bold text-amber-400 mb-4">
+            The Structure of Glass: Why It Behaves the Way It Does
+          </h2>
+
+          {/* SUBSECTION 1 */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
+            <h3 className="text-amber-400 font-bold text-base mb-2">
+              Glass Is Not a Solid in the Classical Sense
+            </h3>
+            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+              <p>
+                Most materials are either crystalline solids — in which atoms are arranged in a repeating, periodic lattice — or liquids, in which atoms move freely with no fixed arrangement. Glass occupies a unique intermediate state called an <span className="text-amber-300 font-semibold">amorphous solid</span> or a <span className="text-amber-300 font-semibold">supercooled liquid</span>. When molten silica (or borosilicate glass) cools, its atoms do not have time to organize into the ordered crystal structure that quartz would form. Instead, they freeze into a disordered, network-like arrangement — random and tangled, but rigid.
+              </p>
+              <p>
+                This disordered network is the fundamental reason glass behaves so differently from crystalline materials. Crystals have a sharp melting point at which the entire lattice collapses at once. Glass has no such point. Instead, it passes through a continuous range of viscosity states as temperature rises — from rigid solid, to increasingly pliable, to fully fluid — because there is no ordered structure to abruptly break down.
+              </p>
+            </div>
+          </div>
+
+          {/* SUBSECTION 2 */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
+            <h3 className="text-amber-400 font-bold text-base mb-2">
+              From Rigid to Pliable: The Glass Transition Temperature (Tg)
+            </h3>
+            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+              <p>
+                The <span className="text-amber-300 font-semibold">glass transition temperature (Tg)</span> is the temperature at which glass changes from a brittle, glassy state into a rubbery, supercooled liquid state. For borosilicate glass, Tg is approximately <span className="text-amber-300 font-semibold">565 °C</span>. Below this temperature the atomic network is locked — atoms vibrate in place but cannot rearrange. Above Tg, enough thermal energy exists to allow segments of the network to begin slowly shifting relative to one another. The glass does not instantly become soft; it becomes progressively less viscous as temperature rises.
+              </p>
+              <p>
+                This is why the glass transition temperature is also the <span className="text-amber-300 font-semibold">annealing point</span> — the temperature at which internal stresses introduced during working can be relieved as the network very slowly rearranges to a lower-energy state, without the glass being so fluid that it deforms under its own weight.
+              </p>
+            </div>
+          </div>
+
+          {/* SUBSECTION 3 */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
+            <h3 className="text-amber-400 font-bold text-base mb-2">
+              The Lower Boundary: Strain Point (~515 °C)
+            </h3>
+            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+              <p>
+                The <span className="text-amber-300 font-semibold">strain point</span> is the temperature below which the atomic network is effectively frozen on any practical timescale. Below this temperature, stresses locked into the glass during rapid cooling or working cannot be relieved — they are permanently fixed in the structure. This is the critical lower threshold that the BoroPro calculator tracks: once a piece of glass cools below 515 °C outside the kiln, its internal stress state is set, and no amount of subsequent slow cooling will change it. Pieces that pass through this threshold with high thermal gradients across their cross-section carry permanent internal stress and are at elevated risk of delayed fracture.
+              </p>
+            </div>
+          </div>
+
+          {/* SUBSECTION 4 */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
+            <h3 className="text-amber-400 font-bold text-base mb-2">
+              Where the Artist Works: Softening and Working Temperatures
+            </h3>
+            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+              <p>
+                As temperature continues to rise above Tg, the viscosity of the glass network drops progressively. Two key points define the working range.
+              </p>
+              <p>
+                <span className="text-amber-300 font-semibold">Softening Point (~820 °C for borosilicate):</span> The temperature at which glass is soft enough to deform measurably under its own weight. At this point viscosity has dropped to approximately 10⁷·⁶ Pa·s. The atomic network is mobile enough that large-scale shape changes occur with modest applied force.
+              </p>
+              <p>
+                <span className="text-amber-300 font-semibold">Working Point (~1050–1100 °C for borosilicate):</span> The temperature at which glass flows freely enough for most flameworking operations. Viscosity is approximately 10³ Pa·s. The network segments are sliding past one another with relative ease. At this viscosity glass can be pulled, blown, pressed, and joined. The key physical phenomenon is that the Si–O–Si and B–O–B network bonds are not breaking — they are thermally activated to rotate and slide within the disordered network. This is what allows glass to be shaped without the piece ever crystallizing or losing its optical clarity.
+              </p>
+              <p>
+                <span className="text-amber-300 font-semibold">Why the Working Range Is Forgiving:</span> Because glass has no fixed melting point and no abrupt structural transition in the working range, the artist has a window — not a single temperature — in which to work. The disordered structure is inherently forgiving of temperature gradients that would cause a crystal to crack or shatter along cleavage planes. The network distributes stress over a continuous, directionless tangle rather than concentrating it at crystallographic defect sites.
+              </p>
+            </div>
+          </div>
+
+          {/* SUBSECTION 5 */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
+            <h3 className="text-amber-400 font-bold text-base mb-2">
+              Why Cooling Rate Determines Survival
+            </h3>
+            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+              <p>
+                When a shaped piece leaves the flame or kiln, its surface cools faster than its interior. In a crystalline material, differential contraction would cause cracking along crystal planes. In glass, the same differential contraction produces internal stress — the surface wants to contract but is constrained by the still-warm interior. If the temperature gradient across the cross-section is large enough when the piece passes through the glass transition range (515–565 °C), those stresses become permanently frozen into the network at the strain point, and the piece carries a latent fracture risk that may not manifest for days, weeks, or years.
+              </p>
+              <p>
+                The maximum safe cooling rate is directly controlled by the cross-sectional geometry: thicker pieces build larger temperature gradients across their wall at any given surface cooling rate, which is why wall thickness and outer radius are the primary inputs to the working-time calculation. The physics the calculator encodes is exactly this relationship — how quickly the glass body as a whole approaches the strain point under natural convection cooling, and whether the thermal gradient that develops in doing so exceeds the tensile strength of the borosilicate network.
+              </p>
+            </div>
+          </div>
+
+          <p className="text-stone-500 text-xs italic mt-4">
+            All temperature values referenced above are for Pyrex-type borosilicate glass (33 × 10⁻⁷/°C expansion coefficient). Soda-lime, soft glass, and other borosilicate formulations have different transition temperatures and viscosity profiles. Never mix glass types in a single piece.
+          </p>
+        </div>
+      </div>
+
       {/* FOOTER NOTE */}
       <p className="text-xs text-stone-500 text-center">
         BoroPro v1.0 • Built for glass blowers, by glass enthusiasts
