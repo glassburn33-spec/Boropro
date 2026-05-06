@@ -50,18 +50,54 @@ const GLASS = {
 };
 
 // ============================================================
-// PART 2: AIR PROPERTIES AT FILM TEMPERATURE
-// Film temperature = (T_work + T_env) / 2
-// Values from Cengel Table A-15 at ~295 °C / 1 atm
-// T_film_C, T_film_K, and beta are now computed per-call inside runCalculation
+// PART 2: AIR PROPERTIES LOOKUP TABLE — Cengel Table A-15
+// Linear interpolation at film temperature
 // ============================================================
 
-const AIR = {
-  k:    0.04354,      // Thermal conductivity  [W/(m·K)]   at film T
-  nu:   4.7976e-5,    // Kinematic viscosity   [m²/s]      at film T
-  Pr:   0.6936,       // Prandtl number        [-]         at film T
-  // beta is now computed per-call inside runCalculation
-};
+const AIR_TABLE: { T: number; rho: number; k: number; nu: number; Pr: number }[] = [
+  { T:  200, rho: 0.7459, k: 0.03779, nu: 3.455e-5, Pr: 0.6974 },
+  { T:  250, rho: 0.6746, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
+  { T:  300, rho: 0.6158, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
+  { T:  350, rho: 0.5664, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
+  { T:  400, rho: 0.5243, k: 0.05015, nu: 6.219e-5, Pr: 0.6948 },
+  { T:  450, rho: 0.4880, k: 0.05298, nu: 6.997e-5, Pr: 0.6965 },
+  { T:  500, rho: 0.4565, k: 0.05572, nu: 7.806e-5, Pr: 0.6986 },
+  { T:  600, rho: 0.4042, k: 0.06093, nu: 9.515e-5, Pr: 0.7037 },
+  { T:  700, rho: 0.3627, k: 0.06581, nu: 1.133e-4,  Pr: 0.7092 },
+];
+
+function interpolateAirProps(T_C: number): {
+  k: number; nu: number; Pr: number; rho: number;
+} {
+  const table = AIR_TABLE;
+
+  if (T_C <= table[0].T) {
+    return { k: table[0].k, nu: table[0].nu, Pr: table[0].Pr, rho: table[0].rho };
+  }
+  if (T_C >= table[table.length - 1].T) {
+    const last = table[table.length - 1];
+    return { k: last.k, nu: last.nu, Pr: last.Pr, rho: last.rho };
+  }
+
+  let lo = table[0];
+  let hi = table[table.length - 1];
+  for (let i = 0; i < table.length - 1; i++) {
+    if (table[i].T <= T_C && T_C <= table[i + 1].T) {
+      lo = table[i];
+      hi = table[i + 1];
+      break;
+    }
+  }
+
+  const f = (T_C - lo.T) / (hi.T - lo.T);
+
+  return {
+    k:   lo.k   + f * (hi.k   - lo.k),
+    nu:  lo.nu  + f * (hi.nu  - lo.nu),
+    Pr:  lo.Pr  + f * (hi.Pr  - lo.Pr),
+    rho: lo.rho + f * (hi.rho - lo.rho),
+  };
+}
 
 // ============================================================
 // PART 3: NATURAL CONVECTION h — Churchill-Chu Correlations
@@ -77,9 +113,8 @@ const AIR = {
  *   h   = (k_air / L) · Nu
  * L = plate length [m], deltaT = T_work − T_strain [°C]
  */
-function calcH_plate(L: number, T_work: number, beta: number): number {
+function calcH_plate(L: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const { k, nu, Pr } = AIR;
   const deltaT = T_work - GLASS.T_strain;
   const cos60  = Math.cos((60 * Math.PI) / 180);   // = 0.5
 
@@ -98,9 +133,8 @@ function calcH_plate(L: number, T_work: number, beta: number): number {
  *   Nu  = { 0.6 + 0.387·Ra^(1/6) / [1+(0.559/Pr)^(9/16)]^(8/27) }²
  *   h   = (k_air / D) · Nu
  */
-function calcH_cylinder(D: number, T_work: number, beta: number): number {
+function calcH_cylinder(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const { k, nu, Pr } = AIR;
   const deltaT = T_work - GLASS.T_strain;
 
   // EDIT RAYLEIGH AND NUSSELT:
@@ -118,9 +152,8 @@ function calcH_cylinder(D: number, T_work: number, beta: number): number {
  *   Nu  = 2 + 0.589·Ra^(1/4) / [1+(0.469/Pr)^(9/16)]^(4/9)
  *   h   = (k_air / D) · Nu
  */
-function calcH_sphere(D: number, T_work: number, beta: number): number {
+function calcH_sphere(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const { k, nu, Pr } = AIR;
   const deltaT = T_work - GLASS.T_strain;
 
   // EDIT RAYLEIGH AND NUSSELT:
@@ -145,12 +178,15 @@ function getShapeParameters(inputs: {
   width:     number;   // mm
   T_work:    number;   // °C
   beta:      number;   // [1/K]
+  k:         number;
+  nu:        number;
+  Pr:        number;
 }) {
   const t  = inputs.thickness / 1000;   // [m]
   const r  = inputs.radius    / 1000;   // [m]
   const L  = inputs.length    / 1000;   // [m]
   const W  = inputs.width     / 1000;   // [m]
-  const { T_work, beta } = inputs;
+  const { T_work, beta, k, nu, Pr } = inputs;
   const { rho, cp, epsilon, sigma_sb, T_env, PI } = GLASS;
 
   const T_s_K   = T_work + 273.15;
@@ -164,7 +200,7 @@ function getShapeParameters(inputs: {
     // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
     // ----------------------------------------------------------
     case 'plate': {
-      const h_conv     = calcH_plate(L, T_work, beta);
+      const h_conv     = calcH_plate(L, T_work, beta, k, nu, Pr);
 
       // Geometry
       const V          = t * L * W;
@@ -202,7 +238,7 @@ function getShapeParameters(inputs: {
         `Wall thickness (${inputs.thickness} mm) must be less than radius (${inputs.radius} mm)`
       );
       const D          = 2 * r;
-      const h_conv     = calcH_cylinder(D, T_work, beta);
+      const h_conv     = calcH_cylinder(D, T_work, beta, k, nu, Pr);
 
       const r_inner    = r - t;
       const V          = PI * (r ** 2 - r_inner ** 2) * L;
@@ -239,7 +275,7 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     case 'sphere': {
       const D          = 2 * r;
-      const h_conv     = calcH_sphere(D, T_work, beta);
+      const h_conv     = calcH_sphere(D, T_work, beta, k, nu, Pr);
 
       const V          = (4 / 3) * PI * r ** 3;
       const A_surface  = 4 * PI * r ** 2;
@@ -349,7 +385,11 @@ function runCalculation(inputs: {
   const T_film_K = T_film_C + 273.15;
   const beta     = 1 / T_film_K;
 
-  const shape  = getShapeParameters({ ...inputs, T_work, beta });
+  // Interpolate air properties at film temperature
+  const airProps = interpolateAirProps(T_film_C);
+  const { k, nu, Pr } = airProps;
+
+  const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
   const t_sec  = calcWorkingTime(shape.tau, T_work);
   const { h_cool, h_max, sigma } = calcStressAndCooling(
@@ -377,7 +417,7 @@ function runCalculation(inputs: {
     // expose temperatures & air props for diagnostics panel
     T_work,
     T_film_C,
-    airProps:            AIR,
+    airProps:            { k, nu, Pr, rho: airProps.rho },
   };
 }
 
@@ -832,23 +872,49 @@ export function CalculatorTab() {
             </div>
           </Card>
 
-          {/* AIR PROPERTIES REFERENCE */}
+          {/* AIR PROPERTIES — interpolated at T_film */}
           <Card className="bg-stone-800 border-stone-700 p-4">
-            <p className="text-sm font-semibold text-stone-300 mb-3">
-              AIR PROPERTIES @ T<sub>film</sub> ≈ {results.T_film_C.toFixed(0)} °C
+            <p className="text-sm font-semibold text-stone-300 mb-1">
+              AIR PROPERTIES @ T-film ≈ {results.T_film_C.toFixed(0)} °C
+            </p>
+            <p className="text-xs text-stone-500 mb-3 italic">
+              Linearly interpolated from Cengel Table A-15 (1 atm)
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              {[
-                ['k_air',  `${AIR.k} W/(m·K)`],
-                ['ν_air',  `${AIR.nu.toExponential(4)} m²/s`],
-                ['Pr',     `${AIR.Pr}`],
-                ['β',      `${(1 / (results.T_film_C + 273.15)).toExponential(4)} 1/K`],
-              ].map(([label, val]) => (
-                <div key={label} className="bg-stone-900/60 rounded p-2">
-                  <p className="text-stone-400">{label}</p>
-                  <p className="text-stone-200 font-bold">{val}</p>
-                </div>
-              ))}
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">k (thermal cond.)</p>
+                <p className="text-stone-200 font-bold">
+                  {results.airProps.k.toFixed(5)} W/(m·K)
+                </p>
+              </div>
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">ν (kinematic visc.)</p>
+                <p className="text-stone-200 font-bold">
+                  {results.airProps.nu.toExponential(4)} m²/s
+                </p>
+              </div>
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">Pr (Prandtl)</p>
+                <p className="text-stone-200 font-bold">
+                  {results.airProps.Pr.toFixed(4)}
+                </p>
+              </div>
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">ρ_air (density)</p>
+                <p className="text-stone-200 font-bold">
+                  {results.airProps.rho.toFixed(4)} kg/m³
+                </p>
+              </div>
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">β (exp. coeff.)</p>
+                <p className="text-stone-200 font-bold">
+                  {(1 / (results.T_film_C + 273.15)).toExponential(4)} 1/K
+                </p>
+              </div>
+              <div className="bg-stone-900/60 rounded p-2">
+                <p className="text-stone-400">Kiln temp used</p>
+                <p className="text-stone-200 font-bold">{results.T_work} °C</p>
+              </div>
             </div>
           </Card>
 
