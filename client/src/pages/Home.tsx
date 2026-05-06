@@ -280,7 +280,7 @@ export default function Home() {
                 onClick={() => handleTabChange("colors")}
               />
               <TextOnlyTab
-                label="Color Science"
+                label="Color-Scie"
                 active={activeTab === "colorscience"}
                 onClick={() => handleTabChange("colorscience")}
               />
