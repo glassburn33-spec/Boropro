@@ -382,6 +382,64 @@ function StudioTab() {
         </div>
       </div>
 
+      {/* GLASS ANNEALING SCIENCE SECTION */}
+      <div className="border-t border-stone-700 pt-8 mt-8">
+        <h2 className="text-2xl font-bold text-center text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>The Science of Glass Annealing</h2>
+        
+        <div className="max-w-5xl mx-auto">
+          {/* TWO-COLUMN LAYOUT */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* LEFT COLUMN: IMAGE */}
+            <div className="flex flex-col items-center justify-start">
+              <div className="relative">
+                <img
+                  src="/manus-storage/Gemini_Generated_Image_rw8zeprw8zeprw8z(2)_e00e161e.png"
+                  alt="Viscosity-Temperature profile for common glass types"
+                  className="w-full max-w-sm rounded-lg border-2 border-amber-600 shadow-2xl" 
+                  style={{
+                    filter: "drop-shadow(0 0 20px rgba(200, 134, 10, 0.3))",
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(200, 134, 10, 0.1)"
+                  }}
+                />
+              </div>
+              <p className="text-center text-stone-400 text-xs mt-4 max-w-sm italic">
+                Viscosity–Temperature profile for common glass types. Blue band = critical annealing range.
+              </p>
+            </div>
+
+            {/* RIGHT COLUMN: CONTENT */}
+            <div className="space-y-6" style={{fontFamily: "'IBM Plex Mono', 'Source Sans Pro', sans-serif"}}>
+              {/* SUBSECTION 1: ANNEALING POINT */}
+              <div className="bg-stone-900/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-amber-600/30 border border-amber-600 rounded-full text-amber-300 text-xs font-bold">Annealing Point</span>
+                  <span className="text-amber-400 font-bold">η = 10<sup>12.4</sup> Pa·s</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  At this temperature, internal thermal stresses in the glass are relieved by viscous relaxation within <span className="text-amber-300 font-bold">15 minutes</span>. To relieve a glass product of internal stresses, it must be heated to just above the annealing point and subsequently cooled down slowly.
+                </p>
+              </div>
+
+              {/* GLOWING DIVIDER */}
+              <div className="h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent" style={{boxShadow: "0 0 10px rgba(200, 134, 10, 0.5)"}}></div>
+
+              {/* SUBSECTION 2: STRAIN POINT */}
+              <div className="bg-stone-900/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-amber-600/30 border border-amber-600 rounded-full text-amber-300 text-xs font-bold">Strain Point</span>
+                  <span className="text-amber-400 font-bold">η = 10<sup>13.5</sup> Pa·s</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed space-y-2">
+                  <span>Below this temperature, relieving internal stresses is practically impossible. At the strain point itself, stress relief may take up to <span className="text-amber-300 font-bold">15 hours</span>. Between the annealing point and strain point, glass must be cooled gradually, slowly, and uniformly to avoid internal stress formation caused by temperature gradients.</span>
+                  <br/>
+                  <span>Stresses acquired during cooling above the strain point are <span className="text-amber-300 font-bold">permanent stresses</span> unless annealed. Stresses acquired during cooling below the strain point are <span className="text-amber-300 font-bold">temporary stresses</span> but can still cause failure under thermal shock. The goal of annealing is to relieve the permanent stresses created by fast cooling that occurred during the forming process. To avoid permanent stress creation, cooling must be slow within the temperature and viscosity range between the annealing point and the strain point.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* FOOTER NOTE */}
       <p className="text-xs text-stone-500 text-center">
         BoroPro v1.0 • Built for glass blowers, by glass enthusiasts
