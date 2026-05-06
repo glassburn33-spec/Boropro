@@ -242,39 +242,27 @@ export default function Home() {
               </Button>
             </div>
             
-            {/* Navigation Tabs - Scaled Down to 1/4 Size */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <QuickActionCard
-                icon={<StudioScienceIcon className="w-5 h-5" isActive={activeTab === "studio"} />}
+            {/* Navigation Tabs - Text Only in Gold */}
+            <div className="flex gap-6 md:gap-8">
+              <TextOnlyTab
                 label="Studio Science"
                 active={activeTab === "studio"}
                 onClick={() => handleTabChange("studio")}
-                backgroundImage="/manus-storage/Gemini_Generated_Image_k4ln75k4ln75k4ln_cdf9d451.png"
-                scaled
               />
-              <QuickActionCard
-                icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
+              <TextOnlyTab
                 label="Equipment"
                 active={activeTab === "equipment"}
                 onClick={() => handleTabChange("equipment")}
-                backgroundImage="/manus-storage/dewericon_d850a6d4.png"
-                scaled
               />
-              <QuickActionCard
-                icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
+              <TextOnlyTab
                 label="Calculator"
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
-                backgroundImage="/manus-storage/calculatericon_1aa1ae9f.png"
-                scaled
               />
-              <QuickActionCard
-                icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
-                label="Colors"
+              <TextOnlyTab
+                label="Color"
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
-                backgroundImage="/manus-storage/coloricon_250e618e.png"
-                scaled
               />
             </div>
           </div>
@@ -1393,6 +1381,36 @@ function ScheduleCard({
 }
 
 // ============ UI COMPONENTS ============
+function TextOnlyTab({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative pb-2 transition-colors duration-200"
+      style={{
+        color: active ? '#c9a84c' : '#7a6830',
+        fontWeight: active ? '600' : '500',
+        fontSize: '1rem',
+      }}
+    >
+      {label}
+      {active && (
+        <div
+          className="absolute bottom-0 left-0 right-0 h-0.5"
+          style={{ backgroundColor: '#c9a84c' }}
+        />
+      )}
+    </button>
+  );
+}
+
 function DrawerNavItem({
   icon,
   label,
