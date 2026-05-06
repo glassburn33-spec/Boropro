@@ -20,7 +20,7 @@ import { SearchResults } from "@/components/SearchResults";
 import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
 import ColorScienceTab from "./ColorScienceTab";
 
-type TabType = "studio" | "equipment" | "calculator" | "colors" | "colorscience";
+type TabType = "studio" | "equipment" | "scieequip" | "calculator" | "colors" | "colorscience";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("studio");
@@ -265,6 +265,11 @@ export default function Home() {
                 onClick={() => handleTabChange("equipment")}
               />
               <TextOnlyTab
+                label="Scie-Equip"
+                active={activeTab === "scieequip"}
+                onClick={() => handleTabChange("scieequip")}
+              />
+              <TextOnlyTab
                 label="Calculator"
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
@@ -289,6 +294,7 @@ export default function Home() {
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
+        {activeTab === "scieequip" && <ScieEquipTab />}
         {activeTab === "calculator" && <ThermalCalculatorTab />}
         {activeTab === "colors" && <ColorsTab pendingExpandedColor={pendingExpandedColor} setPendingExpandedColor={setPendingExpandedColor} />}
         {activeTab === "colorscience" && <ColorScienceTab />}
@@ -1509,6 +1515,15 @@ function QuickActionCard({
       {icon}
       <span className="text-xs font-bold">{label}</span>
     </button>
+  );
+}
+
+function ScieEquipTab() {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-bold text-amber-400">Scientific Equipment</h2>
+      <p className="text-stone-400">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
+    </div>
   );
 }
 
