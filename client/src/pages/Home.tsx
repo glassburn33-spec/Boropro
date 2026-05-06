@@ -95,7 +95,7 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_c4yvpac4yvpac4yv(1)_6eb6caaf.png");
+  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
 
   const handleHeaderImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
