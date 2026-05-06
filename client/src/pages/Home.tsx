@@ -451,13 +451,9 @@ function StudioTab() {
             <div className="flex flex-col items-center justify-start">
               <div className="relative">
                 <img
-                  src="/manus-storage/Gemini_Generated_Image_wnzuo0wnzuo0wnzu_19ca671f.png"
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glass_heat_treatment_profile_cropped-YDTpRepcGV6oirG5nkrAwy.webp"
                   alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
-                  className="w-full max-w-sm rounded-lg border-2 border-amber-600 shadow-2xl" 
-                  style={{
-                    filter: "drop-shadow(0 0 20px rgba(200, 134, 10, 0.3))",
-                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(200, 134, 10, 0.1)"
-                  }}
+                  className="w-full max-w-sm rounded-lg" 
                 />
               </div>
               <p className="text-center text-stone-400 text-xs mt-4 max-w-sm italic">
