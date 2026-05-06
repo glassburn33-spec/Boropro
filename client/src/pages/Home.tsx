@@ -4,7 +4,7 @@ Design: Studio-focused, minimal reading, maximum usability
 Dark theme for studio environment, large touch targets for gloved hands
 */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [pendingExpandedColor, setPendingExpandedColor] = useState<typeof glassColors[0] | null>(null);
 
   const handleTabChange = (tab: TabType) => {
     try {
@@ -57,7 +58,13 @@ export default function Home() {
     if (result.type === "torch" || result.type === "kiln") {
       setActiveTab("equipment");
     } else if (result.type === "color") {
+      // Find the color object and set it as pending for expanded view
+      const color = glassColors.find(c => c.id === result.id || c.name.toLowerCase() === result.title.toLowerCase());
+      if (color) {
+        setPendingExpandedColor(color);
+      }
       setActiveTab("colors");
+      setShowSearchResults(false);
     } else if (result.type === "schedule") {
       setActiveTab("calculator");
     }
@@ -193,7 +200,7 @@ export default function Home() {
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
         {activeTab === "calculator" && <ThermalCalculatorTab />}
-        {activeTab === "colors" && <ColorsTab />}
+        {activeTab === "colors" && <ColorsTab pendingExpandedColor={pendingExpandedColor} setPendingExpandedColor={setPendingExpandedColor} />}
       </main>
 
       {/* GLOBAL SEARCH RESULTS */}
@@ -604,10 +611,49 @@ function CalculatorCard({
 }
 
 // ============ COLORS TAB ============
-function ColorsTab() {
-
+function ColorsTab({ pendingExpandedColor, setPendingExpandedColor }: { pendingExpandedColor: typeof glassColors[0] | null; setPendingExpandedColor: (color: typeof glassColors[0] | null) => void }) {
   // STATE: Search query
   const [searchQuery, setSearchQuery] = useState<string>("");
+  
+  // STATE: Expanded color overlay
+  const [expandedColor, setExpandedColor] = useState<typeof glassColors[0] | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
+  
+  // Handle Escape key to close expanded overlay
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') closeExpanded();
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+  
+  // Consume pending expanded color from search
+  useEffect(() => {
+    if (pendingExpandedColor) {
+      openExpanded(pendingExpandedColor);
+      setPendingExpandedColor(null);
+    }
+  }, [pendingExpandedColor]);
+  
+  // Open expanded color card
+  function openExpanded(color: typeof glassColors[0]) {
+    scrollPosRef.current = listRef.current?.scrollTop ?? window.scrollY;
+    setExpandedColor(color);
+  }
+  
+  // Close expanded color card
+  function closeExpanded() {
+    setExpandedColor(null);
+    requestAnimationFrame(() => {
+      if (listRef.current) {
+        listRef.current.scrollTop = scrollPosRef.current;
+      } else {
+        window.scrollTo(0, scrollPosRef.current);
+      }
+    });
+  };
 
   // ---- SEARCH HANDLER ----
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -648,7 +694,7 @@ function ColorsTab() {
   }
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-6 pb-8" ref={listRef}>
 
       {/* PAGE TITLE */}
       <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
@@ -707,7 +753,7 @@ function ColorsTab() {
                   {/* COLOR CARDS GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {colors.map((color) => (
-                      <GlassColorCard key={color.id} color={color} />
+                      <GlassColorCard key={color.id} color={color} onExpand={openExpanded} />
                     ))}
                   </div>
                 </div>
@@ -716,13 +762,155 @@ function ColorsTab() {
           </div>
         ))}
       </div>
+
+      {/* EXPANDED OVERLAY */}
+      {expandedColor && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/80 z-40 backdrop-blur-sm"
+            onClick={closeExpanded}
+          />
+
+          {/* Expanded card */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="relative bg-stone-900 border border-stone-600 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
+
+              {/* Close button */}
+              <button
+                onClick={closeExpanded}
+                className="absolute top-3 right-3 text-stone-400 hover:text-white bg-stone-800 hover:bg-stone-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold z-10"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+
+              {/* Full-size color swatch */}
+              {expandedColor.image && (
+                <div
+                  className="w-full h-48 rounded-t-2xl object-cover"
+                  style={{
+                    backgroundImage: `url(${expandedColor.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+              )}
+
+              {/* Detail fields */}
+              <div className="p-5 space-y-3">
+
+                {/* Name */}
+                <h2 className="text-xl font-bold text-white">
+                  {expandedColor.name}
+                </h2>
+
+                {/* Manufacturer */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Manufacturer</span>
+                  <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
+                    {expandedColor.manufacturer}
+                  </span>
+                </div>
+
+                {/* Color Code */}
+                {expandedColor.colorCode && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Code</span>
+                    <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
+                      {expandedColor.colorCode}
+                    </span>
+                  </div>
+                )}
+
+                {/* Color Family */}
+                {expandedColor.colorFamily && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Family</span>
+                    <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
+                      {expandedColor.colorFamily}
+                    </span>
+                  </div>
+                )}
+
+                {/* Metal Composition */}
+                {expandedColor.metalComposition && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Metal Composition</p>
+                    <p className="text-sm text-stone-300 leading-relaxed">
+                      {expandedColor.metalComposition}
+                    </p>
+                  </div>
+                )}
+
+                {/* Description */}
+                {expandedColor.description && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Description</p>
+                    <p className="text-sm text-stone-300 leading-relaxed">
+                      {expandedColor.description}
+                    </p>
+                  </div>
+                )}
+
+                {/* Annealing Temperature */}
+                {expandedColor.annealingTemp && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Annealing Temperature</p>
+                    <p className="text-sm text-stone-300">{expandedColor.annealingTemp}</p>
+                  </div>
+                )}
+
+                {/* Working Temperature */}
+                {expandedColor.workingTemp && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Working Temperature</p>
+                    <p className="text-sm text-stone-300">{expandedColor.workingTemp}</p>
+                  </div>
+                )}
+
+                {/* Flame Recommendation */}
+                {expandedColor.flameRecommendation && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Flame Recommendation</p>
+                    <p className="text-sm text-stone-300 leading-relaxed">
+                      {expandedColor.flameRecommendation}
+                    </p>
+                  </div>
+                )}
+
+                {/* Striking Notes */}
+                {expandedColor.strikingNotes && (
+                  <div>
+                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Striking Notes</p>
+                    <p className="text-sm text-stone-300 leading-relaxed">
+                      {expandedColor.strikingNotes}
+                    </p>
+                  </div>
+                )}
+
+                {/* Close button at bottom */}
+                <button
+                  onClick={closeExpanded}
+                  className="w-full mt-4 py-2 rounded-lg bg-stone-700 hover:bg-stone-600 text-stone-300 text-sm font-semibold"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-function GlassColorCard({ color }: { color: typeof glassColors[0] }) {
+function GlassColorCard({ color, onExpand }: { color: typeof glassColors[0]; onExpand: (color: typeof glassColors[0]) => void }) {
   return (
-    <div className="bg-stone-800 border border-stone-600 rounded-lg p-4 space-y-2 hover:border-amber-600 transition-all">
+    <div 
+      onClick={() => onExpand(color)}
+      className="bg-stone-800 border border-stone-600 rounded-lg p-4 space-y-2 hover:border-amber-600 transition-all cursor-pointer hover:ring-2 hover:ring-amber-400"
+    >
 
       {/* COLOR IMAGE */}
       {color.image && (
