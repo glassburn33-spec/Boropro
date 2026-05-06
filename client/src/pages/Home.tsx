@@ -451,7 +451,7 @@ function StudioTab() {
             <div className="flex flex-col items-center justify-start">
               <div className="relative">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glass_heat_treatment_profile_cropped-YDTpRepcGV6oirG5nkrAwy.webp"
+                  src="/manus-storage/aneelprof_bb8c9ac3.png"
                   alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
                   className="w-full max-w-sm rounded-lg" 
                 />
