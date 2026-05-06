@@ -18,8 +18,9 @@ import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/g
 import { searchContent, SearchResult } from "@/lib/searchIndex";
 import { SearchResults } from "@/components/SearchResults";
 import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
+import ColorScienceTab from "./ColorScienceTab";
 
-type TabType = "studio" | "equipment" | "calculator" | "colors";
+type TabType = "studio" | "equipment" | "calculator" | "colors" | "colorscience";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("studio");
@@ -172,6 +173,15 @@ export default function Home() {
               setShowDrawer(false);
             }}
           />
+          <DrawerNavItem
+            label="Color Science"
+            icon={<Palette className="w-5 h-5" />}
+            active={activeTab === "colorscience"}
+            onClick={() => {
+              handleTabChange("colorscience");
+              setShowDrawer(false);
+            }}
+          />
         </div>
       </div>
       
@@ -264,6 +274,11 @@ export default function Home() {
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
               />
+              <TextOnlyTab
+                label="Color Science"
+                active={activeTab === "colorscience"}
+                onClick={() => handleTabChange("colorscience")}
+              />
             </div>
           </div>
         </div>
@@ -276,6 +291,7 @@ export default function Home() {
         {activeTab === "equipment" && <EquipmentTab />}
         {activeTab === "calculator" && <ThermalCalculatorTab />}
         {activeTab === "colors" && <ColorsTab pendingExpandedColor={pendingExpandedColor} setPendingExpandedColor={setPendingExpandedColor} />}
+        {activeTab === "colorscience" && <ColorScienceTab />}
       </main>
 
       {/* GLOBAL SEARCH RESULTS */}
