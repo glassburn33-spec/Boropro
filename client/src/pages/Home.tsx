@@ -174,28 +174,28 @@ export default function Home() {
                 label="Studio Science"
                 active={activeTab === "studio"}
                 onClick={() => handleTabChange("studio")}
-                backgroundImage="/manus-storage/Gemini_Generated_Image_k4ln75k4ln75k4ln_8d47aba3.png"
+                backgroundImage="/manus-storage/Gemini_Generated_Image_k4ln75k4ln75k4ln_cdf9d451.png"
               />
               <QuickActionCard
                 icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
                 label="Equipment"
                 active={activeTab === "equipment"}
                 onClick={() => handleTabChange("equipment")}
-                backgroundImage="/manus-storage/dewericon_499dfa4f.png"
+                backgroundImage="/manus-storage/dewericon_d850a6d4.png"
               />
               <QuickActionCard
                 icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
                 label="Calculator"
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
-                backgroundImage="/manus-storage/calculatericon_8f9dad32.png"
+                backgroundImage="/manus-storage/calculatericon_1aa1ae9f.png"
               />
               <QuickActionCard
                 icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
                 label="Colors"
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
-                backgroundImage="/manus-storage/coloricon_fcd7e908.png"
+                backgroundImage="/manus-storage/coloricon_250e618e.png"
               />
             </div>
           </div>
@@ -1331,16 +1331,26 @@ function QuickActionCard({
     return (
       <button
         onClick={onClick}
-        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 bg-black ${
+        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 flex items-center justify-center ${
           active ? "ring-4 ring-amber-400 shadow-lg" : "shadow-md hover:shadow-lg"
         }`}
         style={{
-          backgroundImage: `url('${backgroundImage}')`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#000000',
         }}
-      />
+      >
+        <div
+          className="w-full h-full flex items-center justify-center"
+          style={{
+            backgroundImage: `url('${backgroundImage}')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            padding: '4px',
+            opacity: active ? 1 : 0.45,
+            transition: 'opacity 200ms ease-in-out',
+          }}
+        />
+      </button>
     );
   }
   
