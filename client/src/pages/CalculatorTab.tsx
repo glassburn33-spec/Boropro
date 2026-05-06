@@ -50,37 +50,72 @@ const GLASS = {
 };
 
 // ============================================================
-// PART 2: AIR PROPERTIES LOOKUP TABLE — Cengel Table A-15
+// PART 2: AIR PROPERTIES LOOKUP TABLE — User-Verified 3-Point Table
 // Linear interpolation at film temperature
+// Source: user-verified values
+// IMPORTANT: These values are the sole source for all air properties
+// used in every calculation. Do not duplicate or hardcode these
+// values anywhere else in the file.
 // ============================================================
 
-const AIR_TABLE: { T: number; rho: number; k: number; nu: number; Pr: number }[] = [
-  { T:  200, rho: 0.7459, k: 0.03779, nu: 3.455e-5, Pr: 0.6974 },
-  { T:  250, rho: 0.6746, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
-  { T:  300, rho: 0.6158, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
-  { T:  350, rho: 0.5664, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
-  { T:  400, rho: 0.5243, k: 0.05015, nu: 6.219e-5, Pr: 0.6948 },
-  { T:  450, rho: 0.4880, k: 0.05298, nu: 6.997e-5, Pr: 0.6965 },
-  { T:  500, rho: 0.4565, k: 0.05572, nu: 7.806e-5, Pr: 0.6986 },
-  { T:  600, rho: 0.4042, k: 0.06093, nu: 9.515e-5, Pr: 0.7037 },
-  { T:  700, rho: 0.3627, k: 0.06581, nu: 1.133e-4,  Pr: 0.7092 },
+const AIR_TABLE: {
+  T:  number;
+  cp: number;
+  k:  number;
+  nu: number;
+  Pr: number;
+}[] = [
+  { T: 500, cp: 1093, k: 0.05572, nu: 7.806e-5, Pr: 0.6986 },
+  { T: 600, cp: 1115, k: 0.06093, nu: 9.515e-5, Pr: 0.7037 },
+  { T: 700, cp: 1135, k: 0.06581, nu: 1.133e-4,  Pr: 0.7092 },
 ];
 
+/**
+ * interpolateAirProps
+ * Linearly interpolates cp, k, nu, and Pr from AIR_TABLE at the
+ * given film temperature T_C [°C].
+ *
+ * THIS FUNCTION MUST BE CALLED ON EVERY CALCULATION RUN.
+ * Its output is the sole source of k, nu, and Pr for all Ra, Nu,
+ * and h computations across all three shapes (plate, cylinder, sphere).
+ *
+ * Clamping behavior:
+ *   T_C <= 500 °C  →  returns exact 500 °C row values
+ *   T_C >= 700 °C  →  returns exact 700 °C row values
+ *   500 < T_C < 600 →  interpolates between 500 and 600 °C rows
+ *   600 < T_C < 700 →  interpolates between 600 and 700 °C rows
+ *
+ * Interpolation formula for each property P:
+ *   f = (T_C - T_lo) / (T_hi - T_lo)
+ *   P = P_lo + f * (P_hi - P_lo)
+ */
 function interpolateAirProps(T_C: number): {
-  k: number; nu: number; Pr: number; rho: number;
+  cp: number;
+  k:  number;
+  nu: number;
+  Pr: number;
 } {
   const table = AIR_TABLE;
 
+  // Clamp below lower bound (500 °C)
   if (T_C <= table[0].T) {
-    return { k: table[0].k, nu: table[0].nu, Pr: table[0].Pr, rho: table[0].rho };
-  }
-  if (T_C >= table[table.length - 1].T) {
-    const last = table[table.length - 1];
-    return { k: last.k, nu: last.nu, Pr: last.Pr, rho: last.rho };
+    return {
+      cp: table[0].cp,
+      k:  table[0].k,
+      nu: table[0].nu,
+      Pr: table[0].Pr,
+    };
   }
 
+  // Clamp above upper bound (700 °C)
+  if (T_C >= table[table.length - 1].T) {
+    const last = table[table.length - 1];
+    return { cp: last.cp, k: last.k, nu: last.nu, Pr: last.Pr };
+  }
+
+  // Find the two rows that bracket T_C
   let lo = table[0];
-  let hi = table[table.length - 1];
+  let hi = table[1];
   for (let i = 0; i < table.length - 1; i++) {
     if (table[i].T <= T_C && T_C <= table[i + 1].T) {
       lo = table[i];
@@ -89,13 +124,14 @@ function interpolateAirProps(T_C: number): {
     }
   }
 
+  // Linear interpolation factor
   const f = (T_C - lo.T) / (hi.T - lo.T);
 
   return {
-    k:   lo.k   + f * (hi.k   - lo.k),
-    nu:  lo.nu  + f * (hi.nu  - lo.nu),
-    Pr:  lo.Pr  + f * (hi.Pr  - lo.Pr),
-    rho: lo.rho + f * (hi.rho - lo.rho),
+    cp: lo.cp + f * (hi.cp - lo.cp),
+    k:  lo.k  + f * (hi.k  - lo.k),
+    nu: lo.nu + f * (hi.nu - lo.nu),
+    Pr: lo.Pr + f * (hi.Pr - lo.Pr),
   };
 }
 
@@ -387,7 +423,7 @@ function runCalculation(inputs: {
 
   // Interpolate air properties at film temperature
   const airProps = interpolateAirProps(T_film_C);
-  const { k, nu, Pr } = airProps;
+  const { cp: cp_air, k, nu, Pr } = airProps;
 
   const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
@@ -417,7 +453,7 @@ function runCalculation(inputs: {
     // expose temperatures & air props for diagnostics panel
     T_work,
     T_film_C,
-    airProps:            { k, nu, Pr, rho: airProps.rho },
+    airProps:            { cp: cp_air, k, nu, Pr },
   };
 }
 
@@ -899,12 +935,7 @@ export function CalculatorTab() {
                   {results.airProps.Pr.toFixed(4)}
                 </p>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">ρ_air (density)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.rho.toFixed(4)} kg/m³
-                </p>
-              </div>
+
               <div className="bg-stone-900/60 rounded p-2">
                 <p className="text-stone-400">β (exp. coeff.)</p>
                 <p className="text-stone-200 font-bold">
