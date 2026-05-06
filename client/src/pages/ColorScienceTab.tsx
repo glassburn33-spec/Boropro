@@ -167,7 +167,7 @@ export default function ColorScienceTab() {
             <div className="my-8 space-y-4">
               <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
                 <img 
-                  src="/manus-storage/Gemini_Generated_Image_37nw2z37nw2z37nw_b4ebfb6a.png" 
+                  src="/manus-storage/Gemini_Generated_Image_4idm924idm924idm_16acde46.png" 
                   alt="Chromium Absorption Spectra" 
                   className="w-full h-auto object-contain"
                 />
