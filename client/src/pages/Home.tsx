@@ -5,7 +5,7 @@ Dark theme for studio environment, large touch targets for gloved hands
 */
 
 import { useState, useEffect, useRef } from "react";
-import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown } from "lucide-react";
+import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X } from "lucide-react";
 import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
 import { GlassRodsIcon } from "@/components/icons/GlassRodsIcon";
 import { CalculatorIcon } from "@/components/icons/CalculatorIcon";
@@ -27,6 +27,7 @@ export default function Home() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [pendingExpandedColor, setPendingExpandedColor] = useState<typeof glassColors[0] | null>(null);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const handleTabChange = (tab: TabType) => {
     try {
@@ -108,10 +109,84 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
+      {/* DRAWER OVERLAY */}
+      {showDrawer && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 transition-opacity"
+          onClick={() => setShowDrawer(false)}
+        />
+      )}
+      
+      {/* SLIDE-OUT DRAWER */}
+      <div
+        className={`fixed left-0 top-0 h-full w-64 bg-stone-900 border-r border-amber-700/30 z-50 transform transition-transform duration-300 overflow-y-auto ${
+          showDrawer ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between p-4 border-b border-amber-700/30">
+          <h2 className="text-lg font-bold text-amber-400">Navigation</h2>
+          <button
+            onClick={() => setShowDrawer(false)}
+            className="p-2 hover:bg-stone-800 rounded transition"
+          >
+            <X className="w-5 h-5 text-stone-300" />
+          </button>
+        </div>
+        
+        {/* Drawer Navigation Items */}
+        <div className="p-4 space-y-2">
+          <DrawerNavItem
+            label="Studio Science"
+            icon={<StudioScienceIcon className="w-5 h-5" isActive={activeTab === "studio"} />}
+            active={activeTab === "studio"}
+            onClick={() => {
+              handleTabChange("studio");
+              setShowDrawer(false);
+            }}
+          />
+          <DrawerNavItem
+            label="Equipment"
+            icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
+            active={activeTab === "equipment"}
+            onClick={() => {
+              handleTabChange("equipment");
+              setShowDrawer(false);
+            }}
+          />
+          <DrawerNavItem
+            label="Calculator"
+            icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
+            active={activeTab === "calculator"}
+            onClick={() => {
+              handleTabChange("calculator");
+              setShowDrawer(false);
+            }}
+          />
+          <DrawerNavItem
+            label="Colors"
+            icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
+            active={activeTab === "colors"}
+            onClick={() => {
+              handleTabChange("colors");
+              setShowDrawer(false);
+            }}
+          />
+        </div>
+      </div>
+      
       {/* UNIFIED FIXED HEADER BLOCK */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30">
-        {/* ROW 1: Logo and Header Image */}
-        <div className="flex items-center h-56 px-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30 shadow-lg">
+        {/* ROW 1: Hamburger Menu, Logo and Header Image */}
+        <div className="flex items-center h-56 px-4 gap-2">
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setShowDrawer(!showDrawer)}
+            className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-6 h-6 text-stone-300" />
+          </button>
           {/* Logo on left */}
           <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0 object-contain" />
           
@@ -167,14 +242,15 @@ export default function Home() {
               </Button>
             </div>
             
-            {/* Navigation Tabs */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {/* Navigation Tabs - Scaled Down to 1/4 Size */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               <QuickActionCard
                 icon={<StudioScienceIcon className="w-5 h-5" isActive={activeTab === "studio"} />}
                 label="Studio Science"
                 active={activeTab === "studio"}
                 onClick={() => handleTabChange("studio")}
                 backgroundImage="/manus-storage/Gemini_Generated_Image_k4ln75k4ln75k4ln_cdf9d451.png"
+                scaled
               />
               <QuickActionCard
                 icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
@@ -182,6 +258,7 @@ export default function Home() {
                 active={activeTab === "equipment"}
                 onClick={() => handleTabChange("equipment")}
                 backgroundImage="/manus-storage/dewericon_d850a6d4.png"
+                scaled
               />
               <QuickActionCard
                 icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
@@ -189,6 +266,7 @@ export default function Home() {
                 active={activeTab === "calculator"}
                 onClick={() => handleTabChange("calculator")}
                 backgroundImage="/manus-storage/calculatericon_1aa1ae9f.png"
+                scaled
               />
               <QuickActionCard
                 icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
@@ -196,6 +274,7 @@ export default function Home() {
                 active={activeTab === "colors"}
                 onClick={() => handleTabChange("colors")}
                 backgroundImage="/manus-storage/coloricon_250e618e.png"
+                scaled
               />
             </div>
           </div>
@@ -1314,25 +1393,55 @@ function ScheduleCard({
 }
 
 // ============ UI COMPONENTS ============
+function DrawerNavItem({
+  icon,
+  label,
+  active,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-all ${
+        active
+          ? "bg-amber-900/30 border-l-2 border-amber-400 text-amber-400"
+          : "text-stone-300 hover:bg-stone-800"
+      }`}
+    >
+      <div className="w-5 h-5 flex-shrink-0">{icon}</div>
+      <span className="text-sm font-medium">{label}</span>
+    </button>
+  );
+}
+
 function QuickActionCard({
   icon,
   label,
   active,
   onClick,
   backgroundImage,
+  scaled = false,
 }: {
   icon: React.ReactNode;
   label: string;
   active: boolean;
   onClick: () => void;
   backgroundImage?: string;
+  scaled?: boolean;
 }) {
   if (backgroundImage) {
+    const height = scaled ? 'h-8' : 'h-32';
+    const ringClass = active ? "ring-2 ring-amber-400" : "";
     return (
       <button
         onClick={onClick}
-        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 flex items-center justify-center ${
-          active ? "ring-4 ring-amber-400 shadow-lg" : "shadow-md hover:shadow-lg"
+        className={`relative w-full ${height} rounded-2xl overflow-hidden transition-all transform hover:scale-105 flex items-center justify-center ${
+          active ? `${ringClass} shadow-lg` : "shadow-md hover:shadow-lg"
         }`}
         style={{
           backgroundColor: '#000000',
