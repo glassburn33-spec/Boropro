@@ -163,6 +163,23 @@ export default function ColorScienceTab() {
               The tail of this intense absorption band extends from the ultraviolet into the visible spectrum, superimposing on the Cr³⁺ absorption bands. There is a considerable difference between the molar extinction coefficients of Cr³⁺ and Cr⁶⁺, which are <span className="text-amber-300 font-semibold">18–20 and 4,200 l/(cm/mol)</span>, respectively. As a result, optical spectroscopy measurements of the chromium redox state cannot be made on glasses containing relatively high concentrations of Cr⁶⁺. Wet chemical analysis or other spectroscopic methods must be performed instead.
             </p>
 
+            {/* Chromium Absorption Spectra Image */}
+            <div className="my-8 space-y-4">
+              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+                <img 
+                  src="/manus-storage/Gemini_Generated_Image_37nw2z37nw2z37nw_b4ebfb6a.png" 
+                  alt="Chromium Absorption Spectra" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+              <div className="bg-stone-800/30 rounded-lg p-4 text-sm text-stone-300 space-y-3">
+                <p className="font-semibold text-amber-300">Linear Absorbance Spectra of Chromium Oxidation States</p>
+                <p>
+                  This spectral comparison shows the linear absorbance of Cr³⁺ and (CrO₄)²⁻ in soda-lime-silica (SCN) and sodium borosilicate (SBN and SBNox) glasses. The <span className="text-purple-300 font-semibold">Cr³⁺ absorption peak</span> appears around 15,000 cm⁻¹ (purple region), while the <span className="text-yellow-300 font-semibold">Cr⁶⁺ charge-transfer band</span> dominates near 28,000 cm⁻¹ (ultraviolet-visible boundary). The dramatic difference in peak heights illustrates why Cr⁶⁺ completely masks Cr³⁺ in optical measurements despite their distinct absorption regions.
+                </p>
+              </div>
+            </div>
+
             <p>
               The interaction between <span className="font-semibold">redox pairs</span> is widely exploited during glass fining. Manganese has traditionally been known as the <span className="text-amber-400 font-semibold">"glassmaker's soap"</span> because, when added to soda-lime-silica glass in the form of an oxide such as MnO₂, it reduces the green color arising from iron impurities by oxidizing Fe²⁺ into Fe³⁺:
             </p>
