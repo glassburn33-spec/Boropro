@@ -52,13 +52,11 @@ const GLASS = {
 // ============================================================
 // PART 2: AIR PROPERTIES LOOKUP TABLE — Cengel Table A-15, 1 atm
 //
-// The film temperature for kiln inputs 565–650 °C with T_env = 25 °C
-// ranges from 295 °C to 337.5 °C.  The rows below bracket that entire
-// range (250 °C – 350 °C) and are the correct rows to interpolate from.
+// The film temperature for kiln inputs 565–650 °C with room temperature inputs 0 -40 °C
+// ranging the film temperature to interpolate though the tables
 //
-// Previous table used 500–700 °C rows which are OUTSIDE the film-
-// temperature range and caused clamping to wrong property values.
-//
+
+// use uploaded tables to complete the regoinds to be interpolated through with changing room temp 
 // IMPORTANT: These values are the sole source for all air properties
 // used in every calculation. Do not duplicate or hardcode these
 // values anywhere else in the file.
@@ -183,11 +181,11 @@ function calcH_cylinder(D: number, T_work: number, beta: number, k: number, nu: 
   const deltaT = T_work - GLASS.T_strain;
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
+  const Ra = (g * beta * deltaT * (D/2) ** 3 / nu ** 2) * Pr;
   const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / D) * Nu;   // [W/(m²·K)]
+  return (k / (D/2)) * Nu;   // [W/(m²·K)]
 }
 
 /**
@@ -517,475 +515,311 @@ export function CalculatorTab() {
         osc.frequency.value = 880;
 
         const startTime = ctx.currentTime + i * 0.5;
-        gain.gain.setValueAtTime(0.5, startTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+        gain.gain.setValueAtTime(0.3, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.1);
+
         osc.start(startTime);
-        osc.stop(startTime + 0.4);
+        osc.stop(startTime + 0.1);
       }
     });
   }
 
-  // Timer control functions
-  function startTimer(): void {
-    // Create / resume AudioContext on the user gesture (button press)
+  // Initialize AudioContext on first user interaction
+  function initAudioContext(): void {
     if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext)();
+      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
-    if (audioCtxRef.current.state === 'suspended') {
-      audioCtxRef.current.resume();
-    }
-    
-    if (timeRemaining === null || timeRemaining <= 0) return;
+  }
+
+  // Start the countdown timer
+  function startTimer(seconds: number): void {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    originalTimeRef.current = seconds;
+    setTimeRemaining(seconds);
     setTimerRunning(true);
+
     intervalRef.current = setInterval(() => {
       setTimeRemaining((prev) => {
         if (prev === null || prev <= 1) {
-          clearInterval(intervalRef.current!);
-          intervalRef.current = null;
+          if (intervalRef.current) clearInterval(intervalRef.current);
           setTimerRunning(false);
-          playBeeps(3);
-          return originalTimeRef.current;   // reset to original value
+          playBeeps(5);
+          return null;
         }
         return prev - 1;
       });
     }, 1000);
   }
 
+  // Stop the timer
   function stopTimer(): void {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setTimerRunning(false);
+    setTimeRemaining(null);
   }
 
-  function resetTimer(): void {
-    stopTimer();
-    setTimeRemaining(originalTimeRef.current);
-  }
-
-  function handleStartStop(): void {
-    if (timerRunning) {
-      stopTimer();
-    } else {
-      startTimer();
-    }
-  }
-
-  function handleCalculate() {
+  // Run the calculation
+  function handleCalculate(): void {
+    initAudioContext();
     setError('');
     try {
       const res = runCalculation({
         shape,
-        thickness: parseFloat(thickness) || 0,
-        radius:    parseFloat(radius)    || 0,
-        length:    parseFloat(length)    || 0,
-        width:     parseFloat(width)     || 0,
-        T_work:    parseFloat(kilnTemp)  || 565,
-        T_room:    parseFloat(roomTemp)  || 25,
+        thickness: parseFloat(thickness),
+        radius: parseFloat(radius),
+        length: parseFloat(length),
+        width: parseFloat(width),
+        T_work: parseFloat(kilnTemp),
+        T_room: parseFloat(roomTemp),
       });
       setResults(res);
       setHasCalc(true);
-      // Sync timer when a new result arrives
-      const secs = Math.floor(res.workingTimeSeconds);
-      originalTimeRef.current = secs;
-      setTimeRemaining(secs);
-      setTimerRunning(false);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    } catch (e: unknown) {
-      setError((e as Error).message || 'Calculation error. Check your inputs.');
+      startTimer(res.workingTimeSeconds);
+    } catch (err: any) {
+      setError(err.message);
+      setHasCalc(false);
     }
   }
 
-  function handleReset() {
-    setShape('cylinder');
-    setThickness('2');
-    setRadius('25');
-    setLength('50');
-    setWidth('25');
-    setRoomTemp('25');
-    setResults(null);
-    setError('');
-    setHasCalc(false);
-    // Cleanup timer
-    stopTimer();
-    setTimeRemaining(null);
-    originalTimeRef.current = 0;
-  }
-
-  const thicknessWarn =
-    shape === 'cylinder' &&
-    parseFloat(thickness) >= parseFloat(radius);
-
-  const kilnTempValue  = parseFloat(kilnTemp);
-  const kilnTempInvalid = isNaN(kilnTempValue) ||
-                          kilnTempValue < 565  ||
-                          kilnTempValue > 650;
-
-  const calcBlocked =
-    kilnTempInvalid ||
-    (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius));
-
   return (
-    <div className="space-y-4 pb-8">
-      <h2 className="text-xl font-bold text-amber-400">BoroPro Calculator</h2>
-      <p className="text-xs text-stone-400">
-        Calculate available working time before borosilicate glass reaches its
-        strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
-        {kilnTemp} °C, in {roomTemp} °C ambient air.
-      </p>
-      <p className="text-xs text-stone-500 italic">
-        Uses Churchill-Chu natural-convection correlations with air properties
-        evaluated at T<sub>film</sub> ≈ {hasCalc && results ? results.T_film_C.toFixed(0) : '295'} °C.
-      </p>
+    <div className="space-y-6 p-6">
+      <div className="max-w-4xl">
+        <h2 className="text-2xl font-bold text-gold-400 mb-4">Thermal Stress Calculator</h2>
 
-      {/* INPUT CARD */}
-      <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
-
-        {/* ROOM TEMPERATURE — user-adjustable ambient temperature */}
-        <div>
-          <label className="block text-sm font-semibold text-stone-300 mb-1">
-            Room Temperature (°C)
-          </label>
-          <p className="text-xs text-stone-500 mb-2">
-            Ambient air temperature where glass cools. Allowed range: 0 – 40 °C.
-          </p>
-          <Input
-            type="number"
-            min="0"
-            max="40"
-            step="1"
-            value={roomTemp}
-            onChange={(e) => setRoomTemp(e.target.value)}
-            className="bg-stone-700 border-stone-600 text-stone-100"
-          />
-        </div>
-
-        {/* KILN TEMPERATURE — global input, applies to all shapes */}
-        <div>
-          <label className="block text-sm font-semibold text-stone-300 mb-1">
-            Kiln Temperature (°C)
-          </label>
-          <p className="text-xs text-stone-500 mb-2">
-            Working temperature of the glass when removed from the kiln.
-            Allowed range: 565 – 650 °C.
-          </p>
-          <Input
-            type="number"
-            value={kilnTemp}
-            min="565"
-            max="650"
-            step="1"
-            onChange={(e) => {
-              const raw = e.target.value;
-              setKilnTemp(raw);
-            }}
-            placeholder="565"
-            className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-              kilnTempInvalid
-                ? 'border-red-500 ring-1 ring-red-500'
-                : ''
-            }`}
-          />
-          {kilnTempInvalid && (
-            <p className="text-xs text-red-400 mt-1">
-              ⚠ Kiln temperature must be between 565 °C and 650 °C.
-            </p>
-          )}
-        </div>
-
-        {/* SHAPE SELECTOR */}
-        <div>
-          <label className="block text-sm font-semibold text-stone-300 mb-2">
-            Glass Shape
-          </label>
-          <div className="flex gap-2">
-            {['plate', 'cylinder', 'sphere'].map((s) => (
-              <button
-                key={s}
-                onClick={() => setShape(s)}
-                className={`flex-1 py-2 px-3 rounded text-sm font-semibold capitalize transition-all border
-                  ${shape === s
-                    ? 'bg-amber-700 border-amber-500 text-white'
-                    : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'}`}
+        {/* Input Section */}
+        <Card className="bg-stone-900 border-stone-700 p-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Shape Selection */}
+            <div>
+              <label className="block text-sm font-semibold text-gold-400 mb-2">Shape</label>
+              <select
+                value={shape}
+                onChange={(e) => setShape(e.target.value)}
+                className="w-full px-4 py-2 bg-stone-800 border border-stone-600 rounded text-white"
               >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* DIMENSION INPUTS */}
-        <div className="grid grid-cols-2 gap-3">
-
-          {/* Thickness — plate and cylinder only */}
-          {shape !== 'sphere' && (
-            <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Wall Thickness (mm)
-              </label>
-              <Input
-                type="number" value={thickness} min="0.1" step="0.1"
-                onChange={(e) => setThickness(e.target.value)}
-                placeholder="2"
-                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-                  thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
-                }`}
-              />
-              {thicknessWarn && (
-                <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({radius} mm)
-                </p>
-              )}
+                <option value="plate">Flat Plate</option>
+                <option value="cylinder">Hollow Cylinder</option>
+                <option value="sphere">Solid Sphere</option>
+              </select>
             </div>
-          )}
 
-          {/* Radius — cylinder and sphere */}
-          {(shape === 'cylinder' || shape === 'sphere') && (
+            {/* Kiln Temperature */}
             <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Radius (mm)
+              <label className="block text-sm font-semibold text-gold-400 mb-2">
+                Kiln Temperature (°C)
               </label>
               <Input
-                type="number" value={radius} min="0.1" step="0.1"
-                onChange={(e) => setRadius(e.target.value)}
+                type="number"
+                value={kilnTemp}
+                onChange={(e) => setKilnTemp(e.target.value)}
+                className="bg-stone-800 border-stone-600 text-white"
+                placeholder="565"
+              />
+            </div>
+
+            {/* Room Temperature */}
+            <div>
+              <label className="block text-sm font-semibold text-gold-400 mb-2">
+                Room Temperature (°C)
+              </label>
+              <Input
+                type="number"
+                value={roomTemp}
+                onChange={(e) => setRoomTemp(e.target.value)}
+                className="bg-stone-800 border-stone-600 text-white"
                 placeholder="25"
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+                min="0"
+                max="40"
               />
             </div>
-          )}
 
-          {/* Length — plate and cylinder */}
-          {(shape === 'plate' || shape === 'cylinder') && (
-            <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Length (mm)
-              </label>
-              <Input
-                type="number" value={length} min="0.1" step="0.1"
-                onChange={(e) => setLength(e.target.value)}
-                placeholder="50"
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
-              />
-            </div>
-          )}
+            {/* Thickness */}
+            {shape !== 'sphere' && (
+              <div>
+                <label className="block text-sm font-semibold text-gold-400 mb-2">
+                  Thickness (mm)
+                </label>
+                <Input
+                  type="number"
+                  value={thickness}
+                  onChange={(e) => setThickness(e.target.value)}
+                  className="bg-stone-800 border-stone-600 text-white"
+                  placeholder="2"
+                />
+              </div>
+            )}
 
-          {/* Width — plate only */}
-          {shape === 'plate' && (
-            <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Width (mm)
-              </label>
-              <Input
-                type="number" value={width} min="0.1" step="0.1"
-                onChange={(e) => setWidth(e.target.value)}
-                placeholder="25"
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
-              />
-            </div>
-          )}
-        </div>
+            {/* Radius */}
+            {(shape === 'cylinder' || shape === 'sphere') && (
+              <div>
+                <label className="block text-sm font-semibold text-gold-400 mb-2">
+                  Radius (mm)
+                </label>
+                <Input
+                  type="number"
+                  value={radius}
+                  onChange={(e) => setRadius(e.target.value)}
+                  className="bg-stone-800 border-stone-600 text-white"
+                  placeholder="25"
+                />
+              </div>
+            )}
 
-        {/* ERROR */}
-        {error && (
-          <div className="flex gap-2 p-3 bg-red-900/30 border border-red-700 rounded text-red-300 text-sm">
-            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-            <span>{error}</span>
+            {/* Length */}
+            {(shape === 'plate' || shape === 'cylinder') && (
+              <div>
+                <label className="block text-sm font-semibold text-gold-400 mb-2">
+                  Length (mm)
+                </label>
+                <Input
+                  type="number"
+                  value={length}
+                  onChange={(e) => setLength(e.target.value)}
+                  className="bg-stone-800 border-stone-600 text-white"
+                  placeholder="50"
+                />
+              </div>
+            )}
+
+            {/* Width */}
+            {shape === 'plate' && (
+              <div>
+                <label className="block text-sm font-semibold text-gold-400 mb-2">
+                  Width (mm)
+                </label>
+                <Input
+                  type="number"
+                  value={width}
+                  onChange={(e) => setWidth(e.target.value)}
+                  className="bg-stone-800 border-stone-600 text-white"
+                  placeholder="25"
+                />
+              </div>
+            )}
           </div>
-        )}
 
-        {/* BUTTONS */}
-        <div className="flex gap-2 pt-1">
+          {/* Calculate Button */}
           <Button
             onClick={handleCalculate}
-            disabled={calcBlocked}
-            className={`flex-1 text-white font-bold transition-opacity ${
-              calcBlocked
-                ? 'bg-amber-900 opacity-40 cursor-not-allowed'
-                : 'bg-amber-700 hover:bg-amber-600'
-            }`}
+            className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded"
           >
             Calculate
           </Button>
-          <Button
-            onClick={handleReset}
-            variant="outline"
-            className="flex-1 bg-stone-700 hover:bg-stone-600 border-stone-600 text-stone-300"
-          >
-            Reset
-          </Button>
-        </div>
-      </Card>
 
-      {/* RESULTS */}
-      {hasCalc && results && (
-        <div className="space-y-4">
-
-          {/* WORKING TIME — primary output */}
-          <Card className="bg-gradient-to-br from-amber-900/50 to-amber-950/50 border-2 border-amber-500 p-6 text-center">
-            <p className="text-sm text-amber-300 font-semibold mb-1">
-              AVAILABLE WORKING TIME
-            </p>
-            <p className="text-xs text-stone-400 mb-3">{results.shapeLabel}</p>
-            <div className="text-4xl font-bold text-amber-300 mb-1">
-              {formatTime(results.workingTimeSeconds)}
+          {/* Error Display */}
+          {error && (
+            <div className="mt-4 p-4 bg-red-900/30 border border-red-700 rounded flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <span className="text-red-200">{error}</span>
             </div>
-          </Card>
-
-          {/* COUNTDOWN TIMER */}
-          {timeRemaining !== null && (
-            <Card className="bg-stone-800 border-stone-700 p-4">
-              <p className="text-sm font-semibold text-stone-300 mb-3">COUNTDOWN TIMER</p>
-
-              {/* Timer display */}
-              <div className={`text-5xl font-bold text-center mb-4 font-mono tracking-widest ${
-                timerRunning ? 'text-amber-300' : 'text-stone-200'
-              }`}>
-                {formatTime(timeRemaining)}
-              </div>
-
-              {/* Progress bar */}
-              <div className="w-full bg-stone-700 rounded-full h-2 mb-4">
-                <div
-                  className="bg-amber-500 h-2 rounded-full transition-all duration-1000"
-                  style={{
-                    width: originalTimeRef.current > 0
-                      ? `${(timeRemaining / originalTimeRef.current) * 100}%`
-                      : '0%',
-                  }}
-                />
-              </div>
-
-              {/* Buttons */}
-              <div className="flex gap-2">
-                <Button
-                  onClick={handleStartStop}
-                  className={`flex-1 font-bold text-white ${
-                    timerRunning
-                      ? 'bg-red-700 hover:bg-red-600'
-                      : 'bg-green-700 hover:bg-green-600'
-                  }`}
-                >
-                  {timerRunning ? '⏸ Stop' : '▶ Start'}
-                </Button>
-                <Button
-                  onClick={resetTimer}
-                  variant="outline"
-                  className="flex-1 bg-stone-700 hover:bg-stone-600 border-stone-600 text-stone-300"
-                >
-                  ↺ Reset
-                </Button>
-              </div>
-
-              <p className="text-xs text-stone-500 mt-3 text-center">
-                Timer beeps 3× and resets automatically when it reaches zero.
-              </p>
-            </Card>
           )}
+        </Card>
 
+        {/* Results Section */}
+        {hasCalc && results && (
+          <Card className="bg-stone-900 border-stone-700 p-6">
+            <h3 className="text-xl font-bold text-gold-400 mb-4">{results.shapeLabel} Results</h3>
 
+            {/* Timer Display */}
+            {timerRunning && timeRemaining !== null && (
+              <div className="mb-6 p-4 bg-orange-900/30 border border-orange-700 rounded text-center">
+                <div className="text-4xl font-bold text-orange-400 font-mono">
+                  {formatTime(timeRemaining)}
+                </div>
+                <Button
+                  onClick={stopTimer}
+                  className="mt-3 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                >
+                  Stop Timer
+                </Button>
+              </div>
+            )}
 
-          {/* HEAT TRANSFER DETAILS */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <p className="text-sm font-semibold text-stone-300 mb-3">
-              CONVECTION DETAILS
-            </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">h (natural conv.)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.h_conv.toFixed(2)} W/m²·K
-                </p>
+            {/* Key Results */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-stone-800 p-4 rounded">
+                <div className="text-sm text-gold-300">Working Time</div>
+                <div className="text-2xl font-bold text-white">
+                  {formatTime(results.workingTimeSeconds)}
+                </div>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Time constant τ</p>
-                <p className="text-stone-200 font-bold">
-                  {results.tau.toFixed(1)} s
-                </p>
+
+              <div className="bg-stone-800 p-4 rounded">
+                <div className="text-sm text-gold-300">Thermal Stress</div>
+                <div className={`text-2xl font-bold ${results.isSafe ? 'text-green-400' : 'text-red-400'}`}>
+                  {results.sigma.toFixed(2)} MPa
+                </div>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Q conv.</p>
-                <p className="text-stone-200 font-bold">
-                  {results.Q_conv.toFixed(1)} W
-                </p>
+
+              <div className="bg-stone-800 p-4 rounded">
+                <div className="text-sm text-gold-300">Max Safe Cooling Rate</div>
+                <div className="text-2xl font-bold text-white">
+                  {results.h_max.toFixed(4)} °C/s
+                </div>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Q rad.</p>
-                <p className="text-stone-200 font-bold">
-                  {results.Q_rad.toFixed(1)} W
-                </p>
+
+              <div className="bg-stone-800 p-4 rounded">
+                <div className="text-sm text-gold-300">Actual Cooling Rate</div>
+                <div className="text-2xl font-bold text-white">
+                  {results.h_cool.toFixed(4)} °C/s
+                </div>
               </div>
-              <div className="bg-stone-900/60 rounded p-2 col-span-2">
-                <p className="text-stone-400">Q total</p>
-                <p className="text-stone-200 font-bold">
-                  {results.Q_total.toFixed(1)} W
-                </p>
+            </div>
+
+            {/* Safety Status */}
+            <div className={`p-4 rounded mb-6 ${results.isSafe ? 'bg-green-900/30 border border-green-700' : 'bg-red-900/30 border border-red-700'}`}>
+              <div className={`font-bold ${results.isSafe ? 'text-green-400' : 'text-red-400'}`}>
+                {results.isSafe ? '✓ Safe to cool' : '⚠ Cooling too fast — risk of thermal shock'}
+              </div>
+            </div>
+
+            {/* Detailed Results */}
+            <div className="space-y-3 text-sm text-gray-300">
+              <div className="grid grid-cols-2 gap-2">
+                <div>Material Constant M:</div>
+                <div className="text-right font-mono">{results.M.toFixed(4)}</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Convection Coefficient h:</div>
+                <div className="text-right font-mono">{results.h_conv.toFixed(2)} W/(m²·K)</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Convective Heat Flux:</div>
+                <div className="text-right font-mono">{results.Q_conv.toFixed(0)} W</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Radiative Heat Flux:</div>
+                <div className="text-right font-mono">{results.Q_rad.toFixed(0)} W</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Total Heat Flux:</div>
+                <div className="text-right font-mono">{results.Q_total.toFixed(0)} W</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Time Constant τ:</div>
+                <div className="text-right font-mono">{results.tau.toFixed(2)} s</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Mass:</div>
+                <div className="text-right font-mono">{results.mass.toFixed(4)} kg</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Surface Area:</div>
+                <div className="text-right font-mono">{results.surfaceArea.toFixed(6)} m²</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Film Temperature:</div>
+                <div className="text-right font-mono">{results.T_film_C.toFixed(1)} °C</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>Air Property k:</div>
+                <div className="text-right font-mono">{results.airProps.k.toFixed(5)} W/(m·K)</div>
               </div>
             </div>
           </Card>
-
-          {/* KILN TEMPERATURE & FILM TEMPERATURE */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Kiln temp used</p>
-                <p className="text-stone-200 font-bold">{results.T_work} °C</p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">T&#8209;film</p>
-                <p className="text-stone-200 font-bold">{results.T_film_C.toFixed(0)} °C</p>
-              </div>
-            </div>
-          </Card>
-
-          {/* AIR PROPERTIES — interpolated at T_film */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <p className="text-sm font-semibold text-stone-300 mb-1">
-              AIR PROPERTIES @ T-film ≈ {results.T_film_C.toFixed(0)} °C
-            </p>
-            <p className="text-xs text-stone-500 mb-3 italic">
-              Linearly interpolated from Cengel Table A-15 (1 atm)
-            </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">k (thermal cond.)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.k.toFixed(5)} W/(m·K)
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">ν (kinematic visc.)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.nu.toExponential(4)} m²/s
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Pr (Prandtl)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.Pr.toFixed(4)}
-                </p>
-              </div>
-
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">β (exp. coeff.)</p>
-                <p className="text-stone-200 font-bold">
-                  {(1 / (results.T_film_C + 273.15)).toExponential(4)} 1/K
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Kiln temp used</p>
-                <p className="text-stone-200 font-bold">{results.T_work} °C</p>
-              </div>
-            </div>
-          </Card>
-
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
