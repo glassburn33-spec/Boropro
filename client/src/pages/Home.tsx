@@ -111,9 +111,9 @@ export default function Home() {
       {/* UNIFIED FIXED HEADER BLOCK */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30">
         {/* ROW 1: Logo and Header Image */}
-        <div className="flex items-center h-24 px-4">
+        <div className="flex items-center h-56 px-4">
           {/* Logo on left */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-24 w-24 flex-shrink-0 object-contain" />
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0 object-contain" />
           
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
@@ -203,7 +203,7 @@ export default function Home() {
       </header>
 
       {/* MAIN CONTENT - Margin accounts for fixed header (logo row + nav row) */}
-      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '140px' }}>
+      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '280px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "equipment" && <EquipmentTab />}
