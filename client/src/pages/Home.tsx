@@ -440,6 +440,84 @@ function StudioTab() {
         </div>
       </div>
 
+      {/* GLASS HEAT TREATMENT PROFILE SECTION */}
+      <div className="border-t border-stone-700 pt-8 mt-8">
+        <h2 className="text-2xl font-bold text-center text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>Glass Heat Treatment Profile</h2>
+        
+        <div className="max-w-5xl mx-auto">
+          {/* TWO-COLUMN LAYOUT */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* LEFT COLUMN: IMAGE */}
+            <div className="flex flex-col items-center justify-start">
+              <div className="relative">
+                <img
+                  src="/manus-storage/Gemini_Generated_Image_wnzuo0wnzuo0wnzu_19ca671f.png"
+                  alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
+                  className="w-full max-w-sm rounded-lg border-2 border-amber-600 shadow-2xl" 
+                  style={{
+                    filter: "drop-shadow(0 0 20px rgba(200, 134, 10, 0.3))",
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(200, 134, 10, 0.1)"
+                  }}
+                />
+              </div>
+              <p className="text-center text-stone-400 text-xs mt-4 max-w-sm italic">
+                Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling to below the strain point.
+              </p>
+            </div>
+
+            {/* RIGHT COLUMN: CONTENT */}
+            <div className="space-y-6" style={{fontFamily: "'IBM Plex Mono', 'Source Sans Pro', sans-serif"}}>
+              {/* PHASE 1: RAPID REHEATING */}
+              <div className="bg-stone-900/50 border-l-4 border-red-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-red-600/30 border border-red-600 rounded-full text-red-300 text-xs font-bold">Phase 1 — Rapid Reheating</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  The glass article is rapidly reheated to a temperature above the annealing point (T &gt; T<sub>anneal</sub>). Speed here is acceptable because the glass is being brought up uniformly before stress-sensitive cooling begins.
+                </p>
+              </div>
+
+              {/* PHASE 2: DWELL */}
+              <div className="bg-stone-900/50 border-l-4 border-orange-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-orange-600/30 border border-orange-600 rounded-full text-orange-300 text-xs font-bold">Phase 2 — Dwell</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  The glass holds at temperature to allow equalization of heat throughout the entire article. This soak ensures no internal temperature gradients exist before the critical cooling phase begins.
+                </p>
+              </div>
+
+              {/* PHASE 3: SLOW COOLING */}
+              <div className="bg-stone-900/50 border-l-4 border-green-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-green-600/30 border border-green-600 rounded-full text-green-300 text-xs font-bold">Phase 3 — Slow Cooling</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed space-y-2">
+                  <span>The glass is cooled slowly and uniformly from above the annealing point down through the strain point. This is the most critical phase. Internal temperature gradients develop depending on <span className="text-amber-300 font-bold">cooling rate</span> and the thermal equalization capacity of the glass. These gradients lead directly to <span className="text-amber-300 font-bold">internal stress</span>. The stress in the glass can be calculated from the cooling rate, the properties of the glass, and the shape of the article. The optimal <span className="text-amber-300 font-bold">cooling rate</span> can be calculated for a maximum allowable <span className="text-amber-300 font-bold">residual stress</span> in the final glass article.</span>
+                </p>
+              </div>
+
+              {/* PHASE 4: MORE RAPID COOLING */}
+              <div className="bg-stone-900/50 border-l-4 border-blue-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-blue-600/30 border border-blue-600 rounded-full text-blue-300 text-xs font-bold">Phase 4 — More Rapid Cooling</span>
+                </div>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  Once the glass has passed below the <span className="text-amber-300 font-bold">strain point</span>, cooling can be accelerated. Stresses formed below the strain point are temporary and lower risk, so energy and time can be saved in this final phase.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* KEY INSIGHT CALLOUT */}
+          <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              <span className="text-amber-300 font-bold">The goal of industrial annealing is to minimize stresses in the glass article in the shortest time possible</span> — because annealing means heating, heating means energy consumption, and energy consumption means cost. Every minute saved in the kiln matters.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* FOOTER NOTE */}
       <p className="text-xs text-stone-500 text-center">
         BoroPro v1.0 • Built for glass blowers, by glass enthusiasts
