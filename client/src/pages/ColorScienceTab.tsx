@@ -11,6 +11,26 @@ export default function ColorScienceTab() {
         </p>
       </div>
 
+      {/* Metal Ion Color Reference Table - TOP SECTION */}
+      <div className="max-w-6xl mx-auto space-y-4 mb-12">
+        <h3 className="text-2xl font-bold text-amber-400">Metal Ion Color Reference</h3>
+        <p className="text-stone-300">
+          A comprehensive reference guide mapping metal ions and their oxidation states to the colors they produce in borosilicate glass:
+        </p>
+        <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+          <img 
+            src="/manus-storage/colorcompoundstaBLE_dca7207b.png" 
+            alt="Metal Ion Color Reference" 
+            className="w-full h-auto object-contain"
+          />
+        </div>
+        <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300">
+          <p>
+            This reference table shows the relationship between metal ions (left column), their coordination states and oxidation numbers, and the resulting colors they produce in borosilicate glass (right column). Use this guide to predict color outcomes based on metal ion composition and coordination environment.
+          </p>
+        </div>
+      </div>
+
       {/* Nickel Section */}
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Title */}
@@ -100,26 +120,6 @@ export default function ColorScienceTab() {
               <p className="font-semibold text-amber-300 mb-2">Stage 3: Octahedral [6]Ni</p>
               <p>Six oxygen atoms in an octahedral geometry. This expanded arrangement results in the lowest energy absorption, producing light green colors characteristic of crystalline nickel compounds.</p>
             </div>
-          </div>
-        </div>
-
-        {/* Metal Ion Color Reference Table */}
-        <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-amber-400">Metal Ion Color Reference</h3>
-          <p className="text-stone-300">
-            A comprehensive reference guide mapping metal ions and their oxidation states to the colors they produce in borosilicate glass:
-          </p>
-          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
-            <img 
-              src="/manus-storage/colorcompoundstaBLE_dca7207b.png" 
-              alt="Metal Ion Color Reference" 
-              className="w-full h-auto object-contain"
-            />
-          </div>
-          <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300">
-            <p>
-              This reference table shows the relationship between metal ions (left column), their coordination states and oxidation numbers, and the resulting colors they produce in borosilicate glass (right column). Use this guide to predict color outcomes based on metal ion composition and coordination environment.
-            </p>
           </div>
         </div>
 
