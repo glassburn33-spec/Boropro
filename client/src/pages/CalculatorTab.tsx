@@ -358,8 +358,9 @@ function getShapeParameters(inputs: {
 // τ is shape-dependent and comes from getShapeParameters().
 // ============================================================
 
-function calcWorkingTime(tau: number, T_work: number): number {
-  const { T_strain, T_env } = GLASS;
+function calcWorkingTime(tau: number, T_work: number, T_room: number = 25): number {
+  const { T_strain } = GLASS;
+  const T_env = T_room;  // Use room temperature as environment temperature
 
   // EDIT THIS FORMULA:
   // Current: t* = -τ · ln((T_strain - T_env) / (T_work - T_env))
@@ -412,6 +413,7 @@ function runCalculation(inputs: {
   length:    number;
   width:     number;
   T_work:    number;
+  T_room?:   number;  // Room temperature, default 25°C
 }) {
   // Input validation
   if (inputs.shape !== 'sphere' && inputs.thickness <= 0)
@@ -426,7 +428,8 @@ function runCalculation(inputs: {
     throw new Error('Length must be greater than zero for cylinder.');
 
   const { T_work } = inputs;
-  const T_film_C = (T_work + GLASS.T_env) / 2;
+  const T_room = inputs.T_room ?? 25;  // Default to 25°C if not provided
+  const T_film_C = (T_work + T_room) / 2;
   const T_film_K = T_film_C + 273.15;
   const beta     = 1 / T_film_K;
 
@@ -436,7 +439,7 @@ function runCalculation(inputs: {
 
   const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
-  const t_sec  = calcWorkingTime(shape.tau, T_work);
+  const t_sec  = calcWorkingTime(shape.tau, T_work, T_room);
   const { h_cool, h_max, sigma } = calcStressAndCooling(
     M, shape.d, shape.b, shape.mass, shape.U, shape.A_outer,
   );
@@ -461,6 +464,7 @@ function runCalculation(inputs: {
     isSafe:              sigma < GLASS.tensile_limit,
     // expose temperatures & air props for diagnostics panel
     T_work,
+    T_room,
     T_film_C,
     airProps:            { cp: cp_air, k, nu, Pr },
   };
@@ -478,6 +482,7 @@ export function CalculatorTab() {
   const [length,    setLength]    = useState<string>('50');
   const [width,     setWidth]     = useState<string>('25');
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
+  const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
@@ -579,6 +584,7 @@ export function CalculatorTab() {
         length:    parseFloat(length)    || 0,
         width:     parseFloat(width)     || 0,
         T_work:    parseFloat(kilnTemp)  || 565,
+        T_room:    parseFloat(roomTemp)  || 25,
       });
       setResults(res);
       setHasCalc(true);
@@ -602,6 +608,7 @@ export function CalculatorTab() {
     setRadius('25');
     setLength('50');
     setWidth('25');
+    setRoomTemp('25');
     setResults(null);
     setError('');
     setHasCalc(false);
@@ -630,7 +637,7 @@ export function CalculatorTab() {
       <p className="text-xs text-stone-400">
         Calculate available working time before borosilicate glass reaches its
         strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
-        {kilnTemp} °C, in {GLASS.T_env} °C ambient air.
+        {kilnTemp} °C, in {roomTemp} °C ambient air.
       </p>
       <p className="text-xs text-stone-500 italic">
         Uses Churchill-Chu natural-convection correlations with air properties
@@ -639,6 +646,25 @@ export function CalculatorTab() {
 
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
+
+        {/* ROOM TEMPERATURE — user-adjustable ambient temperature */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-300 mb-1">
+            Room Temperature (°C)
+          </label>
+          <p className="text-xs text-stone-500 mb-2">
+            Ambient air temperature where glass cools. Allowed range: 0 – 40 °C.
+          </p>
+          <Input
+            type="number"
+            min="0"
+            max="40"
+            step="1"
+            value={roomTemp}
+            onChange={(e) => setRoomTemp(e.target.value)}
+            className="bg-stone-700 border-stone-600 text-stone-100"
+          />
+        </div>
 
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
