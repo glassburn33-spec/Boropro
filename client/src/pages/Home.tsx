@@ -113,7 +113,7 @@ export default function Home() {
         {/* ROW 1: Logo and Header Image */}
         <div className="flex items-center h-48 px-4">
           {/* Logo on left */}
-          <img src="/manus-storage/boroproiconlogo_084c3049.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0" />
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-48 w-48 flex-shrink-0" />
           
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
@@ -230,7 +230,7 @@ function StudioTab() {
     <div className="space-y-6">
       {/* LOGO & TITLE */}
       <div className="text-center py-8">
-        <img src="/manus-storage/boroproiconlogo_084c3049.png" alt="BoroPro Logo" className="h-96 w-96 mx-auto mb-4" />
+        <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-96 w-96 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-white mb-2">BoroPro</h1>
         <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
       </div>
