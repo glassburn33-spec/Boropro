@@ -1331,15 +1331,19 @@ function QuickActionCard({
     return (
       <button
         onClick={onClick}
-        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 ${
+        className={`relative w-full h-32 rounded-2xl overflow-hidden transition-all transform hover:scale-105 flex items-center justify-center bg-black ${
           active ? "ring-4 ring-amber-400 shadow-lg" : "shadow-md hover:shadow-lg"
         }`}
-        style={{
-          backgroundImage: `url('${backgroundImage}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+      >
+        <div
+          className="w-24 h-24 rounded-full overflow-hidden border-4 border-black"
+          style={{
+            backgroundImage: `url('${backgroundImage}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      </button>
     );
   }
   
