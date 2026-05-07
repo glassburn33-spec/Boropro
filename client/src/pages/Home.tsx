@@ -271,17 +271,6 @@ function StudioTab() {
 
 
 
-      {/* QUICK START */}
-      <Card className="bg-amber-900/20 border-amber-700/50 p-4">
-        <h3 className="text-sm font-bold text-amber-300 mb-2">Quick Start</h3>
-        <ul className="text-xs text-stone-300 space-y-1">
-          <li>• <strong>Equipment:</strong> Find torch/kiln specs and photos</li>
-          <li>• <strong>Calculator:</strong> Input thickness and form type for custom schedules</li>
-          <li>• <strong>Colors:</strong> Reference color families and metal compositions</li>
-          <li>• <strong>Copy Specs:</strong> All cards have copy buttons for quick reference</li>
-        </ul>
-      </Card>
-
       {/* GLASS SCIENCE SECTION */}
       <div className="border-t border-stone-700 pt-8 mt-8">
         <div className="w-full flex flex-col items-center mb-6">
