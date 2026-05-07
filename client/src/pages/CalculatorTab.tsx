@@ -283,7 +283,7 @@ function getShapeParameters(inputs: {
       const mass       = rho * V;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / h
-      const tau        = (rho * cp * t) / h_conv;
+      const tau        = (GLASS.rho * GLASS.cp * t) / h_conv;
 
       // Radiation heat flux (reporting only)
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
@@ -324,7 +324,7 @@ function getShapeParameters(inputs: {
       const mass       = rho * V;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*V / (h*A_outer)
-      const tau        = (rho * cp * V) / (h_conv * A_outer);
+      const tau        = (GLASS.rho * GLASS.cp * V) / (h_conv * A_outer);
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
@@ -357,7 +357,7 @@ function getShapeParameters(inputs: {
       const mass       = GLASS.rho * V;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*R / (3*h)
-      const tau        = (rho * cp * r) / (3 * h_conv);
+      const tau        = (GLASS.rho * GLASS.cp * r) / (3 * h_conv);
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
