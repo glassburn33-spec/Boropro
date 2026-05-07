@@ -41,7 +41,6 @@ const GLASS = {
   E:             63e9,        // Young's modulus               [Pa]
   mu:            0.20,        // Poisson's ratio               [-]
   T_strain:      515,         // NIST strain-point target      [°C]  ← MATLAB uses 515
-  T_env:         25,          // Ambient room temperature      [°C]
   sigma_sb:      5.67037e-8,  // Stefan-Boltzmann constant     [W/m²·K⁴]
   epsilon:       0.85,        // Emissivity of borosilicate    [-]
   tensile_limit: 50,          // Borosilicate tensile limit    [MPa]
@@ -52,12 +51,10 @@ const GLASS = {
 // ============================================================
 // PART 2: AIR PROPERTIES LOOKUP TABLE — Cengel Table A-15, 1 atm
 //
-// The film temperature for kiln inputs 565–650 °C with T_env = 25 °C
-// ranges from 295 °C to 337.5 °C.  The rows below bracket that entire
-// range (250 °C – 350 °C) and are the correct rows to interpolate from.
-//
-// Previous table used 500–700 °C rows which are OUTSIDE the film-
-// temperature range and caused clamping to wrong property values.
+// Expanded table covering -150 °C to 700 °C for comprehensive film
+// temperature coverage across all operational ranges. Supports accurate
+// interpolation for room temperatures from -50 °C to +50 °C and kiln
+// temperatures from 565 °C to 650 °C.
 //
 // IMPORTANT: These values are the sole source for all air properties
 // used in every calculation. Do not duplicate or hardcode these
@@ -71,9 +68,42 @@ const AIR_TABLE: {
   nu: number;
   Pr: number;
 }[] = [
-  { T: 250, cp: 1033, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
-  { T: 300, cp: 1044, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
-  { T: 350, cp: 1056, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
+  { T: -150, cp: 983,  k: 0.01171, nu: 3.013e-6,  Pr: 0.7246 },
+  { T: -100, cp: 966,  k: 0.01582, nu: 5.837e-6,  Pr: 0.7263 },
+  { T: -50,  cp: 999,  k: 0.01979, nu: 9.319e-6,  Pr: 0.7440 },
+  { T: -40,  cp: 1002, k: 0.02057, nu: 1.008e-5,  Pr: 0.7436 },
+  { T: -30,  cp: 1004, k: 0.02134, nu: 1.087e-5,  Pr: 0.7425 },
+  { T: -20,  cp: 1005, k: 0.02211, nu: 1.169e-5,  Pr: 0.7408 },
+  { T: -10,  cp: 1006, k: 0.02288, nu: 1.252e-5,  Pr: 0.7387 },
+  { T: 0,    cp: 1006, k: 0.02364, nu: 1.338e-5,  Pr: 0.7362 },
+  { T: 5,    cp: 1006, k: 0.02401, nu: 1.382e-5,  Pr: 0.7350 },
+  { T: 10,   cp: 1006, k: 0.02439, nu: 1.426e-5,  Pr: 0.7336 },
+  { T: 15,   cp: 1007, k: 0.02476, nu: 1.470e-5,  Pr: 0.7323 },
+  { T: 20,   cp: 1007, k: 0.02514, nu: 1.516e-5,  Pr: 0.7309 },
+  { T: 25,   cp: 1007, k: 0.02551, nu: 1.562e-5,  Pr: 0.7296 },
+  { T: 30,   cp: 1007, k: 0.02588, nu: 1.608e-5,  Pr: 0.7282 },
+  { T: 35,   cp: 1007, k: 0.02625, nu: 1.655e-5,  Pr: 0.7268 },
+  { T: 40,   cp: 1007, k: 0.02662, nu: 1.702e-5,  Pr: 0.7255 },
+  { T: 45,   cp: 1007, k: 0.02699, nu: 1.750e-5,  Pr: 0.7241 },
+  { T: 50,   cp: 1007, k: 0.02735, nu: 1.798e-5,  Pr: 0.7228 },
+  { T: 60,   cp: 1007, k: 0.02808, nu: 1.896e-5,  Pr: 0.7202 },
+  { T: 70,   cp: 1007, k: 0.02881, nu: 1.995e-5,  Pr: 0.7177 },
+  { T: 80,   cp: 1008, k: 0.02953, nu: 2.097e-5,  Pr: 0.7154 },
+  { T: 90,   cp: 1008, k: 0.03024, nu: 2.201e-5,  Pr: 0.7132 },
+  { T: 100,  cp: 1009, k: 0.03095, nu: 2.306e-5,  Pr: 0.7111 },
+  { T: 120,  cp: 1011, k: 0.03235, nu: 2.522e-5,  Pr: 0.7073 },
+  { T: 140,  cp: 1013, k: 0.03374, nu: 2.745e-5,  Pr: 0.7041 },
+  { T: 160,  cp: 1016, k: 0.03511, nu: 2.975e-5,  Pr: 0.7014 },
+  { T: 180,  cp: 1019, k: 0.03646, nu: 3.212e-5,  Pr: 0.6992 },
+  { T: 200,  cp: 1023, k: 0.03779, nu: 3.455e-5,  Pr: 0.6974 },
+  { T: 250,  cp: 1033, k: 0.04104, nu: 4.091e-5,  Pr: 0.6946 },
+  { T: 300,  cp: 1044, k: 0.04418, nu: 4.765e-5,  Pr: 0.6935 },
+  { T: 350,  cp: 1056, k: 0.04721, nu: 5.475e-5,  Pr: 0.6937 },
+  { T: 400,  cp: 1069, k: 0.05015, nu: 6.219e-5,  Pr: 0.6948 },
+  { T: 450,  cp: 1081, k: 0.05298, nu: 6.997e-5,  Pr: 0.6965 },
+  { T: 500,  cp: 1093, k: 0.05572, nu: 7.806e-5,  Pr: 0.6986 },
+  { T: 600,  cp: 1115, k: 0.06093, nu: 9.515e-5,  Pr: 0.7037 },
+  { T: 700,  cp: 1135, k: 0.06581, nu: 1.133e-4,  Pr: 0.7092 },
 ];
 
 /**
@@ -86,13 +116,12 @@ const AIR_TABLE: {
  * and h computations across all three shapes (plate, cylinder, sphere).
  *
  * Clamping behavior:
- *   T_C <= 250 °C  →  returns exact 250 °C row values
- *   T_C >= 350 °C  →  returns exact 350 °C row values
- *   250 < T_C < 300 →  interpolates between 250 and 300 °C rows
- *   300 < T_C < 350 →  interpolates between 300 and 350 °C rows
+ *   T_C <= -150 °C  →  returns exact -150 °C row values
+ *   T_C >= 700 °C   →  returns exact 700 °C row values
+ *   -150 < T_C < 700 →  interpolates between bracketing rows
  *
- * Film temperature range for kiln 565–650 °C with T_env 25 °C:
- *   T_film = 295 °C to 337.5 °C — fully bracketed by this table.
+ * Film temperature range for kiln 565–650 °C with T_room -50 to +50 °C:
+ *   T_film = 257.5 °C to 350 °C — fully bracketed by this table.
  *
  * Interpolation formula for each property P:
  *   f = (T_C - T_lo) / (T_hi - T_lo)
@@ -152,19 +181,19 @@ function interpolateAirProps(T_C: number): {
 // ============================================================
 
 /**
- * Flat plate — Churchill-Chu vertical plate correlation (MATLAB Ra uses cosd(60)):
- *   Ra  = g·cos(60°)·β·ΔT·L³ / ν²  · Pr
+ * Flat plate — Churchill-Chu vertical plate correlation (MATLAB Ra uses cosd(30)):
+ *   Ra  = g·cos(30°)·β·ΔT·L³ / ν²  · Pr
  *   Nu  = { 0.825 + 0.387·Ra^(1/6) / [1+(0.492/Pr)^(9/16)]^(8/27) }²
  *   h   = (k_air / L) · Nu
- * L = plate length [m], deltaT = T_work − T_strain [°C]
+ * L = plate length [m], deltaT = T_work − T_room [°C]
  */
-function calcH_plate(L: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
+function calcH_plate(L: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
-  const cos60  = Math.cos((60 * Math.PI) / 180);   // = 0.5
+  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+  const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
 
-  // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * cos60 * beta * deltaT * L ** 3 / nu ** 2) * Pr;
+  // Churchill-Chu vertical plate correlation
+  const Ra = (g * cos30 * beta * deltaT * L ** 3 / nu ** 2) * Pr;
   const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
@@ -174,34 +203,35 @@ function calcH_plate(L: number, T_work: number, beta: number, k: number, nu: num
 /**
  * Hollow cylinder — Churchill-Chu horizontal cylinder correlation:
  *   D   = outer diameter [m]
- *   Ra  = g·β·ΔT·D³ / ν²  · Pr
+ *   Ra  = g·β·ΔT·(D/2)³ / ν²  · Pr  (note: characteristic length is radius, not diameter)
  *   Nu  = { 0.6 + 0.387·Ra^(1/6) / [1+(0.559/Pr)^(9/16)]^(8/27) }²
- *   h   = (k_air / D) · Nu
+ *   h   = (k_air / (D/2)) · Nu
  */
-function calcH_cylinder(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
+function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
+  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+  const r = D / 2;  // Characteristic length is radius, not diameter
 
-  // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
+  // Churchill-Chu horizontal cylinder correlation
+  const Ra = (g * beta * deltaT * r ** 3 / nu ** 2) * Pr;
   const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / D) * Nu;   // [W/(m²·K)]
+  return (k / r) * Nu;   // [W/(m²·K)]
 }
 
 /**
  * Solid sphere — Churchill-Chu sphere correlation:
  *   D   = sphere diameter [m]
- *   Ra  = g·β·ΔT·D³ / ν²  · Pr
+ *   Ra  = g·β·ΔT·D³ / ν²  · Pr  (note: characteristic length is full diameter, not radius)
  *   Nu  = 2 + 0.589·Ra^(1/4) / [1+(0.469/Pr)^(9/16)]^(4/9)
  *   h   = (k_air / D) · Nu
  */
-function calcH_sphere(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
+function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
+  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
 
-  // EDIT RAYLEIGH AND NUSSELT:
+  // Churchill-Chu sphere correlation
   const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
   const Nu = 2 + (0.589 * Ra ** (1 / 4)) /
     (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
@@ -222,6 +252,7 @@ function getShapeParameters(inputs: {
   length:    number;   // mm
   width:     number;   // mm
   T_work:    number;   // °C
+  T_room:    number;   // °C — user-entered room temperature
   beta:      number;   // [1/K]
   k:         number;
   nu:        number;
@@ -231,11 +262,11 @@ function getShapeParameters(inputs: {
   const r  = inputs.radius    / 1000;   // [m]
   const L  = inputs.length    / 1000;   // [m]
   const W  = inputs.width     / 1000;   // [m]
-  const { T_work, beta, k, nu, Pr } = inputs;
-  const { rho, cp, epsilon, sigma_sb, T_env, PI } = GLASS;
+  const { T_work, T_room, beta, k, nu, Pr } = inputs;
+  const { rho, cp, epsilon, sigma_sb, PI } = GLASS;
 
   const T_s_K   = T_work + 273.15;
-  const T_env_K = T_env  + 273.15;
+  const T_room_K = T_room + 273.15;
 
   switch (inputs.shape) {
 
@@ -245,7 +276,7 @@ function getShapeParameters(inputs: {
     // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
     // ----------------------------------------------------------
     case 'plate': {
-      const h_conv     = calcH_plate(L, T_work, beta, k, nu, Pr);
+      const h_conv     = calcH_plate(L, T_work, T_room, beta, k, nu, Pr);
 
       // Geometry
       const V          = t * L * W;
@@ -257,8 +288,8 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * t) / h_conv;
 
       // Radiation heat flux (reporting only)
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_env);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
       // Stress shape factors — flat plate
@@ -283,7 +314,7 @@ function getShapeParameters(inputs: {
         `Wall thickness (${inputs.thickness} mm) must be less than radius (${inputs.radius} mm)`
       );
       const D          = 2 * r;
-      const h_conv     = calcH_cylinder(D, T_work, beta, k, nu, Pr);
+      const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
 
       const r_inner    = r - t;
       const V          = PI * (r ** 2 - r_inner ** 2) * L;
@@ -298,8 +329,8 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * V) / (h_conv * A_outer);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_env);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.500;
@@ -320,7 +351,7 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     case 'sphere': {
       const D          = 2 * r;
-      const h_conv     = calcH_sphere(D, T_work, beta, k, nu, Pr);
+      const h_conv     = calcH_sphere(D, T_work, T_room, beta, k, nu, Pr);
 
       const V          = (4 / 3) * PI * r ** 3;
       const A_surface  = 4 * PI * r ** 2;
@@ -331,8 +362,8 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * r) / (3 * h_conv);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_env);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.333;
@@ -437,7 +468,7 @@ function runCalculation(inputs: {
   const airProps = interpolateAirProps(T_film_C);
   const { cp: cp_air, k, nu, Pr } = airProps;
 
-  const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
+  const shape  = getShapeParameters({ ...inputs, T_work, T_room, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
   const t_sec  = calcWorkingTime(shape.tau, T_work, T_room);
   const { h_cool, h_max, sigma } = calcStressAndCooling(
@@ -584,7 +615,7 @@ export function CalculatorTab() {
         length:    parseFloat(length)    || 0,
         width:     parseFloat(width)     || 0,
         T_work:    parseFloat(kilnTemp)  || 565,
-        T_room:    parseFloat(roomTemp)  || 25,
+        T_room:    parseFloat(roomTemp),  // Do NOT fall back to 25; let validation catch it
       });
       setResults(res);
       setHasCalc(true);
@@ -627,8 +658,14 @@ export function CalculatorTab() {
                           kilnTempValue < 565  ||
                           kilnTempValue > 650;
 
+  const roomTempValue  = parseFloat(roomTemp);
+  const roomTempInvalid = isNaN(roomTempValue) ||
+                          roomTempValue < 0   ||
+                          roomTempValue > 40;
+
   const calcBlocked =
     kilnTempInvalid ||
+    roomTempInvalid ||
     (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius));
 
   return (
@@ -664,6 +701,12 @@ export function CalculatorTab() {
             onChange={(e) => setRoomTemp(e.target.value)}
             className="bg-stone-700 border-stone-600 text-stone-100"
           />
+          {roomTempInvalid && (
+            <div className="flex items-center gap-2 mt-2 text-red-400 text-xs">
+              <AlertCircle size={14} />
+              <span>Room temperature must be between 0 and 40 °C</span>
+            </div>
+          )}
         </div>
 
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
@@ -978,8 +1021,8 @@ export function CalculatorTab() {
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Kiln temp used</p>
-                <p className="text-stone-200 font-bold">{results.T_work} °C</p>
+                <p className="text-stone-400">Room temp used</p>
+                <p className="text-stone-200 font-bold">{results.T_room} °C</p>
               </div>
             </div>
           </Card>
