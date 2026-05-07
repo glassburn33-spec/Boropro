@@ -187,17 +187,17 @@ function interpolateAirProps(T_C: number): {
  *   h   = (k_air / L) · Nu
  * L = plate length [m], deltaT = T_work − T_room [°C]
  */
-function calcH_plate(L: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
+function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
   const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
   const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * cos30 * beta * deltaT * L ** 3 / nu ** 2) * Pr;
+  const Ra = (g * cos30 * beta * deltaT * Char_leng ** 3 / nu ** 2) * Pr;
   const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / L) * Nu;   // [W/(m²·K)]
+  return (k / Char_leng) * Nu;   // [W/(m²·K)]
 }
 
 /**
@@ -275,13 +275,14 @@ function getShapeParameters(inputs: {
     // t* = −τ · ln((T_strain−T_room)/(T_work−T_room))
     // ----------------------------------------------------------
     case 'plate': {
-      const h_conv     = calcH_plate(L, T_work, T_room, beta, k, nu, Pr);
-
       // Geometry
       const V          = t * L * W;
       const A_surface  = 2 * (L * W) + 2 * (L * t) + 2 * (W * t);
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
+      const Perimeter  = L * t;
+      const Char_leng  = A_outer / Perimeter;
+      const h_conv     = calcH_plate(Char_leng, T_work, T_room, beta, k, nu, Pr);
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / h
       const tau        = (GLASS.rho * GLASS.cp * t) / h_conv;
