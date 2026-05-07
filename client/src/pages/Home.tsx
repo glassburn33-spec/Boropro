@@ -262,12 +262,7 @@ export default function Home() {
 function StudioTab() {
   return (
     <div className="space-y-6">
-      {/* LOGO & TITLE */}
-      <div className="text-center py-8">
-        <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-96 w-96 mx-auto mb-4 object-contain" />
-        <h1 className="text-3xl font-bold text-white mb-2">BoroPro</h1>
-        <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
-      </div>
+
 
 
 
