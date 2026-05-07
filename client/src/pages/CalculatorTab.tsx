@@ -151,23 +151,32 @@ function interpolateAirProps(T_C: number): {
 // ============================================================
 
 /**
- * Flat plate — Churchill-Chu vertical plate correlation (MATLAB Ra uses cosd(30)):
- *   Ra  = g·cos(30°)·β·ΔT·L_flat³ / ν²  · Pr
- *   Nu  = { 0.825 + 0.387·Ra^(1/6) / [1+(0.492/Pr)^(9/16)]^(8/27) }²
- *   h   = (k_air / L_flat) · Nu
- * L = plate length [m], deltaT = T_work − T_room [°C]
+ * Flat plate — horizontal plate, hot surface facing UP
+ *   L_char = A_surface / perimeter  (hydraulic characteristic length)
+ *   Ra  = g · β · ΔT · L_char³ / ν²  · Pr
+ *   Nu  = 0.54 · Ra^(1/4)   for Ra < 1e7
+ *   Nu  = 0.15 · Ra^(1/3)   for Ra >= 1e7
+ *   h   = (k / L_char) · Nu
  */
-function calcH_plate(L_flat: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
-  const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
+function calcH_plate(
+  L: number,
+  T_work: number,
+  T_room: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g } = GLASS;
+  const deltaT = T_work - T_room;
 
-  // Churchill-Chu angled plate correlation
-  const Ra = (g * cos30 * beta * deltaT * L_flat ** 3 / nu ** 2) * Pr;
-  const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
-    (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
+  const Ra = (g * beta * deltaT * L ** 3 / nu ** 2) * Pr;
 
-  return (k / L_flat) * Nu;   // [W/(m²·K)]
+  const Nu = Ra < 1e7
+    ? 0.54 * Ra ** (1 / 4)
+    : 0.15 * Ra ** (1 / 3);
+
+  return (k / L) * Nu;
 }
 
 /**
@@ -246,9 +255,11 @@ function getShapeParameters(inputs: {
     // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
     // ----------------------------------------------------------
     case 'plate': {
-      const Perimeter  = (L + W) * 2;
-      const L_flat     = t * W / Perimeter;
-      const h_conv     = calcH_plate(L_flat, T_work, T_room, beta, k, nu, Pr);
+      const A_surface_flat = 2 * ((L * W) + (L * t) + (W * t));
+      const perimeter      = 2 * (L + W);
+      const L_char         = A_surface_flat / perimeter;
+      const h_conv         = calcH_plate(L_char, T_work, T_room, beta, k, nu, Pr);
+      const T_env_K        = T_room + 273.15;
 
       // Geometry
       const V          = t * L * W;
@@ -260,7 +271,7 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * t) / h_conv;
 
       // Radiation heat flux (reporting only)
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -287,6 +298,7 @@ function getShapeParameters(inputs: {
       );
       const D          = 2 * r;
       const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
+      const T_env_K    = T_room + 273.15;
 
       const r_inner    = r - t;
       const V          = PI * (r ** 2 - r_inner ** 2) * L;
@@ -301,7 +313,7 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * V) / (h_conv * A_outer);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -324,6 +336,7 @@ function getShapeParameters(inputs: {
     case 'sphere': {
       const D          = 2 * r;
       const h_conv     = calcH_sphere(D, T_work, T_room, beta, k, nu, Pr);
+      const T_env_K    = T_room + 273.15;
 
       const V          = (4 / 3) * PI * r ** 3;
       const A_surface  = 4 * PI * r ** 2;
@@ -334,7 +347,7 @@ function getShapeParameters(inputs: {
       const tau        = (rho * cp * r) / (3 * h_conv);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -361,12 +374,9 @@ function getShapeParameters(inputs: {
 // τ is shape-dependent and comes from getShapeParameters().
 // ============================================================
 
-function calcWorkingTime(tau: number, T_work: number, T_room: number): number {
+function calcWorkingTime(tau: number, T_work: number, T_room: number = 25): number {
   const { T_strain } = GLASS;
   const T_env = T_room;  // Use room temperature as environment temperature
-
-  // EDIT THIS FORMULA:
-  // Current: t* = -τ · ln((T_strain - T_env) / (T_work - T_env))
   return -tau * Math.log((T_strain - T_env) / (T_work - T_env));   // [s]
 }
 
@@ -494,6 +504,12 @@ export function CalculatorTab() {
   const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
+  
+  // Validation helpers
+  const kilnTempValue   = parseFloat(kilnTemp);
+  const kilnTempInvalid = isNaN(kilnTempValue) || kilnTempValue < 565 || kilnTempValue > 650;
+  const roomTempValue   = parseFloat(roomTemp);
+  const roomTempInvalid = isNaN(roomTempValue) || roomTempValue < 0 || roomTempValue > 40;
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
@@ -520,11 +536,6 @@ export function CalculatorTab() {
   // Handle Calculate button click
   function handleCalculate() {
     setError('');
-    const validationError = validateInputs();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
 
     try {
       const res = runCalculation({
@@ -611,7 +622,10 @@ export function CalculatorTab() {
     if (intervalRef.current) clearInterval(intervalRef.current);
   }
 
-  const calcBlocked = validateInputs() !== null;
+  const calcBlocked =
+    kilnTempInvalid ||
+    roomTempInvalid ||
+    (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius));
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-6">
@@ -795,7 +809,21 @@ export function CalculatorTab() {
           </Button>
         </div>
 
-        {error && !error.includes('Room temperature') && (
+        {/* Room Temperature Validation */}
+        {roomTempInvalid && (
+          <p className="text-xs text-red-400 mt-2">
+            ⚠ Room temperature must be between 0 °C and 40 °C.
+          </p>
+        )}
+        
+        {/* Kiln Temperature Validation */}
+        {kilnTempInvalid && (
+          <p className="text-xs text-red-400 mt-2">
+            ⚠ Kiln temperature must be between 565 °C and 650 °C.
+          </p>
+        )}
+
+        {error && !roomTempInvalid && !kilnTempInvalid && (
           <p className="text-xs text-red-400 mt-3 flex items-center gap-1">
             <AlertCircle size={14} /> {error}
           </p>
