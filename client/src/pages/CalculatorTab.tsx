@@ -189,10 +189,10 @@ function interpolateAirProps(T_C: number): {
  */
 function calcH_plate(L: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+  const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
   const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
 
-  // Churchill-Chu vertical plate correlation
+  // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * cos30 * beta * deltaT * L ** 3 / nu ** 2) * Pr;
   const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
@@ -209,10 +209,10 @@ function calcH_plate(L: number, T_work: number, T_room: number, beta: number, k:
  */
 function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+  const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
   const r = D / 2;  // Characteristic length is radius, not diameter
 
-  // Churchill-Chu horizontal cylinder correlation
+  // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * beta * deltaT * r ** 3 / nu ** 2) * Pr;
   const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
@@ -229,9 +229,8 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
  */
 function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
-
-  // Churchill-Chu sphere correlation
+  const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
+   // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
   const Nu = 2 + (0.589 * Ra ** (1 / 4)) /
     (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
@@ -273,7 +272,7 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     // FLAT PLATE
     // τ  = ρ·cp·t / h          (MATLAB: tau = rho*cp*thickness / h)
-    // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
+    // t* = −τ · ln((T_strain−T_room)/(T_work−T_room))
     // ----------------------------------------------------------
     case 'plate': {
       const h_conv     = calcH_plate(L, T_work, T_room, beta, k, nu, Pr);
@@ -307,7 +306,7 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     // HOLLOW CYLINDER
     // τ  = ρ·cp·V / (h·A_outer_lateral)   (MATLAB: tau = rho*cp*V/(h*A_outer))
-    // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
+    // t* = −τ · ln((T_strain−T_room)/(T_work−T_room))
     // ----------------------------------------------------------
     case 'cylinder': {
       if (t >= r) throw new Error(
@@ -347,7 +346,7 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     // SOLID SPHERE
     // τ  = ρ·cp·R / (3·h)      (MATLAB: tau = rho*cp*R / (3*h))
-    // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
+    // t* = −τ · ln((T_strain−T_room)/(T_work−T_room))
     // ----------------------------------------------------------
     case 'sphere': {
       const D          = 2 * r;
@@ -385,17 +384,17 @@ function getShapeParameters(inputs: {
 // ============================================================
 // PART 5: WORKING TIME
 // Newton's Law of Cooling (lumped capacitance):
-//   t* = −τ · ln((T_strain − T_env) / (T_work − T_env))
+//   t* = −τ · ln((T_strain − T_room) / (T_work − T_room)
 // τ is shape-dependent and comes from getShapeParameters().
 // ============================================================
 
-function calcWorkingTime(tau: number, T_work: number, T_room: number = 25): number {
+function calcWorkingTime(tau: number, T_work: number, T_room: number ): number {
   const { T_strain } = GLASS;
-  const T_env = T_room;  // Use room temperature as environment temperature
+ 
 
   // EDIT THIS FORMULA:
-  // Current: t* = -τ · ln((T_strain - T_env) / (T_work - T_env))
-  return -tau * Math.log((T_strain - T_env) / (T_work - T_env));   // [s]
+  // Current: t* = -τ · ln((T_strain - T_room) / (T_work - T_room))
+  return -tau * Math.log((T_strain - T_room) / (T_work - T_room));   // [s]
 }
 
 // ============================================================
@@ -444,7 +443,7 @@ function runCalculation(inputs: {
   length:    number;
   width:     number;
   T_work:    number;
-  T_room?:   number;  // Room temperature, default 25°C
+  T_room:   number;  // Room temperature, default 25°C
 }) {
   // Input validation
   if (inputs.shape !== 'sphere' && inputs.thickness <= 0)
@@ -459,7 +458,7 @@ function runCalculation(inputs: {
     throw new Error('Length must be greater than zero for cylinder.');
 
   const { T_work } = inputs;
-  const T_room = inputs.T_room ?? 25;  // Default to 25°C if not provided
+  const {T_room} = inputs;  // Default to 25°C if not provided
   const T_film_C = (T_work + T_room) / 2;
   const T_film_K = T_film_C + 273.15;
   const beta     = 1 / T_film_K;
