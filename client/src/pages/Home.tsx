@@ -269,47 +269,7 @@ function StudioTab() {
         <p className="text-sm text-amber-400">Professional Glass Blower Reference Tool</p>
       </div>
 
-      {/* DESCRIPTION */}
-      <Card className="bg-stone-800 border-stone-700 p-6">
-        <h2 className="text-lg font-bold text-amber-300 mb-3">About BoroPro</h2>
-        <p className="text-sm text-stone-300 leading-relaxed mb-4">
-          BoroPro is a professional reference tool designed specifically for borosilicate glass blowers. 
-          Whether you're working with torches, kilns, or specialized glass materials, BoroPro provides 
-          instant access to equipment specifications, annealing schedules, color references, and real-time 
-          calculators—all optimized for studio use with gloved hands and minimal screen time.
-        </p>
-      </Card>
 
-      {/* FEATURES */}
-      <div>
-        <h2 className="text-lg font-bold text-amber-300 mb-3">Key Features</h2>
-        <div className="space-y-2">
-          <FeatureCard
-            title="Equipment Reference"
-            description="Complete specs for 29+ kilns and torches from GTT, Bethlehem, Nortel, and more. Includes photos, max temperatures, fuel consumption, and professional notes."
-          />
-          <FeatureCard
-            title="Annealing Calculator"
-            description="Real-time calculations for hold temperatures (1050-1200°F), ramp-down rates, cooling schedules, and total cycle times based on glass thickness and form type."
-          />
-          <FeatureCard
-            title="Pre-Calculated Schedules"
-            description="6 proven annealing schedules for hollow forms, solid glass, slumping, and heat-sensitive colors. Copy-to-clipboard for quick reference."
-          />
-          <FeatureCard
-            title="Color Reference Database"
-            description="Northstar and Bullseye color families with metal compositions, annealing temperatures, and compatibility notes for striking and reduction work."
-          />
-          <FeatureCard
-            title="Quick Tools"
-            description="Temperature converter (°F ↔ °C), annealing time estimator, effective thickness calculator, and cooling rate guide."
-          />
-          <FeatureCard
-            title="Studio-Optimized Design"
-            description="Dark theme for studio environments, large touch targets for gloved hands, minimal text, and instant copy-to-clipboard on all specs."
-          />
-        </div>
-      </div>
 
       {/* QUICK START */}
       <Card className="bg-amber-900/20 border-amber-700/50 p-4">
