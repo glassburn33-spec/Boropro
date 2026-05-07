@@ -314,7 +314,7 @@ function getShapeParameters(inputs: {
         `Wall thickness (${inputs.thickness} mm) must be less than radius (${inputs.radius} mm)`
       );
       const D          = 2 * r;
-      const D_cyl      = 0.75 * D;
+      const D_cyl      = 1.25 * D;
       const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
 
       const r_inner    = r - t;
