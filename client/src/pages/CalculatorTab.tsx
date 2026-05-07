@@ -41,6 +41,7 @@ const GLASS = {
   E:             63e9,        // Young's modulus               [Pa]
   mu:            0.20,        // Poisson's ratio               [-]
   T_strain:      515,         // NIST strain-point target      [°C]  ← MATLAB uses 515
+  T_env:         25,          // Ambient reference temperature [°C]  ← for heat flux reporting
   sigma_sb:      5.67037e-8,  // Stefan-Boltzmann constant     [W/m²·K⁴]
   epsilon:       0.85,        // Emissivity of borosilicate    [-]
   tensile_limit: 50,          // Borosilicate tensile limit    [MPa]
@@ -151,32 +152,31 @@ function interpolateAirProps(T_C: number): {
 // ============================================================
 
 /**
- * Flat plate — horizontal plate, hot surface facing UP
- *   L_char = A_surface / perimeter  (hydraulic characteristic length)
- *   Ra  = g · β · ΔT · L_char³ / ν²  · Pr
- *   Nu  = 0.54 · Ra^(1/4)   for Ra < 1e7
- *   Nu  = 0.15 · Ra^(1/3)   for Ra >= 1e7
- *   h   = (k / L_char) · Nu
+ * Flat plate — Churchill-Chu vertical plate correlation (MATLAB Ra uses cosd(30)):
+ *   Ra  = g·cos(30°)·β·ΔT·L_flat³ / ν²  · Pr
+ *   Nu  = { 0.825 + 0.387·Ra^(1/6) / [1+(0.492/Pr)^(9/16)]^(8/27) }²
+ *   h   = (k_air / L_flat) · Nu
+ * L = plate length [m], deltaT = T_work − T_strain
  */
 function calcH_plate(
-  L: number,
+  L_char: number,
   T_work: number,
-  T_room: number,
   beta: number,
   k: number,
   nu: number,
   Pr: number
 ): number {
-  const { g } = GLASS;
-  const deltaT = T_work - T_room;
+  const { g, T_strain } = GLASS;
+  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
 
-  const Ra = (g * beta * deltaT * L ** 3 / nu ** 2) * Pr;
+  const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
 
-  const Nu = Ra < 1e7
-    ? 0.54 * Ra ** (1 / 4)
-    : 0.15 * Ra ** (1 / 3);
+  // Churchill-Chu angled plate correlation
+  const Ra = (g * cos30 * beta * deltaT * L_char ** 3 / nu ** 2) * Pr;
+  const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
+    (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / L) * Nu;
+  return (k / L_char) * Nu;   // [W/(m²·K)]
 }
 
 /**
@@ -186,9 +186,16 @@ function calcH_plate(
  *   Nu  = { 0.6 + 0.387·Ra^(1/6) / [1+(0.559/Pr)^(9/16)]^(8/27) }²
  *   h   = (k_air / (D/2)) · Nu
  */
-function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+function calcH_cylinder(
+  D: number,
+  T_work: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g, T_strain } = GLASS;
+  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
   const r = D / 2;  // Characteristic length is radius, not diameter
 
   // Churchill-Chu horizontal cylinder correlation
@@ -206,9 +213,16 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
  *   Nu  = 2 + 0.589·Ra^(1/4) / [1+(0.469/Pr)^(9/16)]^(4/9)
  *   h   = (k_air / D) · Nu
  */
-function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - T_room;  // Driving force is surface-to-ambient
+function calcH_sphere(
+  D: number,
+  T_work: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g, T_strain } = GLASS;
+  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
 
   // Churchill-Chu sphere correlation
   const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
@@ -231,7 +245,6 @@ function getShapeParameters(inputs: {
   length:    number;   // mm
   width:     number;   // mm
   T_work:    number;   // °C
-  T_room:    number;   // °C — user-entered room temperature
   beta:      number;   // [1/K]
   k:         number;
   nu:        number;
@@ -241,11 +254,11 @@ function getShapeParameters(inputs: {
   const r  = inputs.radius    / 1000;   // [m]
   const L  = inputs.length    / 1000;   // [m]
   const W  = inputs.width     / 1000;   // [m]
-  const { T_work, T_room, beta, k, nu, Pr } = inputs;
-  const { rho, cp, epsilon, sigma_sb, PI } = GLASS;
-
+  const { T_work, beta, k, nu, Pr } = inputs;
+  const { rho, cp, epsilon, sigma_sb, T_env, PI } = GLASS;
+  const T_strain   = 515 + 273.15;
   const T_s_K   = T_work + 273.15;
-  const T_room_K = T_room + 273.15;
+  const T_env_K = T_env + 273.15;
 
   switch (inputs.shape) {
 
@@ -255,24 +268,21 @@ function getShapeParameters(inputs: {
     // t* = −τ · ln((T_strain−T_env)/(T_work−T_env))
     // ----------------------------------------------------------
     case 'plate': {
-      const A_surface_flat = 2 * ((L * W) + (L * t) + (W * t));
-      const perimeter      = 2 * (L + W);
-      const L_char         = A_surface_flat / perimeter;
-      const h_conv         = calcH_plate(L_char, T_work, T_room, beta, k, nu, Pr);
-      const T_env_K        = T_room + 273.15;
-
       // Geometry
       const V          = t * L * W;
       const A_surface  = 2 * (L * W) + 2 * (L * t) + 2 * (W * t);
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
+      const perimeter  = (L + W) * 2;  // Perimeter of the base
+      const L_char     = A_surface / perimeter;  // Characteristic length
+      const h_conv     = calcH_plate(L_char, T_work, beta, k, nu, Pr);
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / h
       const tau        = (rho * cp * t) / h_conv;
 
       // Radiation heat flux (reporting only)
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_work - T_env);
       const Q_total    = Q_conv + Q_rad;
 
       // Stress shape factors — flat plate
@@ -297,8 +307,7 @@ function getShapeParameters(inputs: {
         `Wall thickness (${inputs.thickness} mm) must be less than radius (${inputs.radius} mm)`
       );
       const D          = 2 * r;
-      const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
-      const T_env_K    = T_room + 273.15;
+      const h_conv     = calcH_cylinder(D, T_work, beta, k, nu, Pr);
 
       const r_inner    = r - t;
       const V          = PI * (r ** 2 - r_inner ** 2) * L;
@@ -314,7 +323,7 @@ function getShapeParameters(inputs: {
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_work - T_env);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.500;
@@ -335,20 +344,19 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     case 'sphere': {
       const D          = 2 * r;
-      const h_conv     = calcH_sphere(D, T_work, T_room, beta, k, nu, Pr);
-      const T_env_K    = T_room + 273.15;
+      const h_conv     = calcH_sphere(D, T_work, beta, k, nu, Pr);
 
       const V          = (4 / 3) * PI * r ** 3;
       const A_surface  = 4 * PI * r ** 2;
       const A_outer    = PI * D ** 2;   // = 4πr² — matches MATLAB A_outer_sphere
-      const mass       = GLASS.rho * V;
+      const mass       = rho * V;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*R / (3*h)
       const tau        = (rho * cp * r) / (3 * h_conv);
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_env_K ** 4);
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_work - T_env);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.333;
@@ -374,9 +382,12 @@ function getShapeParameters(inputs: {
 // τ is shape-dependent and comes from getShapeParameters().
 // ============================================================
 
-function calcWorkingTime(tau: number, T_work: number, T_room: number = 25): number {
+function calcWorkingTime(tau: number, T_work: number, T_room: number): number {
   const { T_strain } = GLASS;
   const T_env = T_room;  // Use room temperature as environment temperature
+
+  // EDIT THIS FORMULA:
+  // Current: t* = -τ · ln((T_strain - T_env) / (T_work - T_env))
   return -tau * Math.log((T_strain - T_env) / (T_work - T_env));   // [s]
 }
 
@@ -442,12 +453,6 @@ function runCalculation(inputs: {
 
   const { T_work } = inputs;
   const T_room = inputs.T_room ?? 25;  // Default to 25°C if not provided
-  
-  // Validate room temperature
-  if (T_room < 0 || T_room > 40) {
-    throw new Error('Room temperature must be between 0 and 40 °C');
-  }
-  
   const T_film_C = (T_work + T_room) / 2;
   const T_film_K = T_film_C + 273.15;
   const beta     = 1 / T_film_K;
@@ -456,7 +461,7 @@ function runCalculation(inputs: {
   const airProps = interpolateAirProps(T_film_C);
   const { cp: cp_air, k, nu, Pr } = airProps;
 
-  const shape  = getShapeParameters({ ...inputs, T_work, T_room, beta, k, nu, Pr });
+  const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
   const t_sec  = calcWorkingTime(shape.tau, T_work, T_room);
   const { h_cool, h_max, sigma } = calcStressAndCooling(
@@ -504,12 +509,6 @@ export function CalculatorTab() {
   const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
-  
-  // Validation helpers
-  const kilnTempValue   = parseFloat(kilnTemp);
-  const kilnTempInvalid = isNaN(kilnTempValue) || kilnTempValue < 565 || kilnTempValue > 650;
-  const roomTempValue   = parseFloat(roomTemp);
-  const roomTempInvalid = isNaN(roomTempValue) || roomTempValue < 0 || roomTempValue > 40;
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
@@ -520,89 +519,110 @@ export function CalculatorTab() {
   // Helper function to format working time as "X min Y sec"
   function formatTime(totalSeconds: number): string {
     const mins = Math.floor(totalSeconds / 60);
-    const secs = Math.round(totalSeconds % 60);
+    const secs = Math.floor(totalSeconds % 60);
     return `${mins} min ${secs} sec`;
   }
 
-  // Validate inputs
-  function validateInputs(): string | null {
-    const roomTempNum = parseFloat(roomTemp);
-    if (isNaN(roomTempNum) || roomTempNum < 0 || roomTempNum > 40) {
-      return 'Room temperature must be between 0 and 40 °C';
-    }
-    return null;
+  // Web Audio API beep function using persistent AudioContext
+  function playBeeps(count: number = 3): void {
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+
+    const resume = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
+
+    resume.then(() => {
+      for (let i = 0; i < count; i++) {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.type            = 'sine';
+        osc.frequency.value = 880;
+
+        const startTime = ctx.currentTime + i * 0.5;
+        gain.gain.setValueAtTime(0.5, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+        osc.start(startTime);
+        osc.stop(startTime + 0.4);
+      }
+    });
   }
 
-  // Handle Calculate button click
+  // Timer control functions
+  function startTimer(): void {
+    // Create / resume AudioContext on the user gesture (button press)
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext)();
+    }
+    if (audioCtxRef.current.state === 'suspended') {
+      audioCtxRef.current.resume();
+    }
+    
+    if (timeRemaining === null || timeRemaining <= 0) return;
+    setTimerRunning(true);
+    intervalRef.current = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev === null || prev <= 1) {
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+          setTimerRunning(false);
+          playBeeps(3);
+          return originalTimeRef.current;   // reset to original value
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+
+  function stopTimer(): void {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setTimerRunning(false);
+  }
+
+  function resetTimer(): void {
+    stopTimer();
+    setTimeRemaining(originalTimeRef.current);
+  }
+
+  function handleStartStop(): void {
+    if (timerRunning) {
+      stopTimer();
+    } else {
+      startTimer();
+    }
+  }
+
   function handleCalculate() {
     setError('');
-
     try {
       const res = runCalculation({
         shape,
-        thickness: parseFloat(thickness),
-        radius: parseFloat(radius),
-        length: parseFloat(length),
-        width: parseFloat(width),
-        T_work: parseFloat(kilnTemp),
-        T_room: parseFloat(roomTemp),
+        thickness: parseFloat(thickness) || 0,
+        radius:    parseFloat(radius)    || 0,
+        length:    parseFloat(length)    || 0,
+        width:     parseFloat(width)     || 0,
+        T_work:    parseFloat(kilnTemp)  || 565,
+        T_room:    parseFloat(roomTemp),  // Do NOT fall back to 25; let validation catch it
       });
       setResults(res);
       setHasCalc(true);
-      setTimeRemaining(res.workingTimeSeconds);
-    } catch (err) {
-      setError((err as Error).message);
-      setHasCalc(false);
-    }
-  }
-
-  // Timer functions
-  function handleStartStop() {
-    if (timerRunning) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      // Sync timer when a new result arrives
+      const secs = Math.floor(res.workingTimeSeconds);
+      originalTimeRef.current = secs;
+      setTimeRemaining(secs);
       setTimerRunning(false);
-    } else {
-      setTimerRunning(true);
-      originalTimeRef.current = timeRemaining || 0;
-      const startTime = Date.now();
-      const startValue = timeRemaining || 0;
-
-      intervalRef.current = setInterval(() => {
-        const elapsed = (Date.now() - startTime) / 1000;
-        const remaining = Math.max(0, startValue - elapsed);
-        setTimeRemaining(remaining);
-
-        if (remaining <= 0) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          setTimerRunning(false);
-          playBeep();
-        }
-      }, 100);
-    }
-  }
-
-  function resetTimer() {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    setTimerRunning(false);
-    setTimeRemaining(results?.workingTimeSeconds || 0);
-  }
-
-  function playBeep() {
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-    const ctx = audioCtxRef.current;
-    const now = ctx.currentTime;
-    for (let i = 0; i < 3; i++) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = 800;
-      gain.gain.setValueAtTime(0.3, now + i * 0.15);
-      gain.gain.setValueAtTime(0, now + i * 0.15 + 0.1);
-      osc.start(now + i * 0.15);
-      osc.stop(now + i * 0.15 + 0.1);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    } catch (e: unknown) {
+      setError((e as Error).message || 'Calculation error. Check your inputs.');
     }
   }
 
@@ -612,15 +632,29 @@ export function CalculatorTab() {
     setRadius('25');
     setLength('50');
     setWidth('25');
-    setKilnTemp('565');
     setRoomTemp('25');
     setResults(null);
     setError('');
     setHasCalc(false);
+    // Cleanup timer
+    stopTimer();
     setTimeRemaining(null);
-    setTimerRunning(false);
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    originalTimeRef.current = 0;
   }
+
+  const thicknessWarn =
+    shape === 'cylinder' &&
+    parseFloat(thickness) >= parseFloat(radius);
+
+  const kilnTempValue  = parseFloat(kilnTemp);
+  const kilnTempInvalid = isNaN(kilnTempValue) ||
+                          kilnTempValue < 565  ||
+                          kilnTempValue > 650;
+
+  const roomTempValue  = parseFloat(roomTemp);
+  const roomTempInvalid = isNaN(roomTempValue) ||
+                          roomTempValue < 0   ||
+                          roomTempValue > 40;
 
   const calcBlocked =
     kilnTempInvalid ||
@@ -628,174 +662,188 @@ export function CalculatorTab() {
     (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius));
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-amber-400 mb-2">BoroPro Calculator</h1>
-        <p className="text-sm text-stone-400">
-          Calculate available working time before borosilicate glass reaches its strain point (515 °C) after removal from kiln at 565 °C, in 25 °C ambient air.
-        </p>
-        <p className="text-xs text-stone-500 mt-2 italic">
-          Uses Churchill-Chu natural-convection correlations with air properties evaluated at T_film = 286 °C.
-        </p>
-      </div>
+    <div className="space-y-4 pb-8">
+      <h2 className="text-xl font-bold text-amber-400">BoroPro Calculator</h2>
+      <p className="text-xs text-stone-400">
+        Calculate available working time before borosilicate glass reaches its
+        strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
+        {kilnTemp} °C, in {roomTemp} °C ambient air.
+      </p>
+      <p className="text-xs text-stone-500 italic">
+        Uses Churchill-Chu natural-convection correlations with air properties
+        evaluated at T<sub>film</sub> ≈ {hasCalc && results ? results.T_film_C.toFixed(0) : '295'} °C.
+      </p>
 
-      {/* INPUT SECTION */}
-      <Card className="bg-stone-800 border-stone-700 p-4 mb-4">
-        {/* Room Temperature */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-stone-300 mb-2">
+      {/* INPUT CARD */}
+      <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
+
+        {/* ROOM TEMPERATURE — user-adjustable ambient temperature */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-300 mb-1">
             Room Temperature (°C)
-            <span className="text-xs text-stone-500 ml-2">
-              (ambient air temperature where glass cools. Allowed range: 0 – 40 °C)
-            </span>
           </label>
+          <p className="text-xs text-stone-500 mb-2">
+            Ambient air temperature where glass cools. Allowed range: 0 – 40 °C.
+          </p>
           <Input
             type="number"
-            placeholder="25"
+            min="0"
+            max="40"
+            step="1"
             value={roomTemp}
             onChange={(e) => setRoomTemp(e.target.value)}
-            className="bg-stone-900 border-stone-600 text-stone-100"
+            className="bg-stone-700 border-stone-600 text-stone-100"
           />
-          {error && error.includes('Room temperature') && (
-            <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
-              <AlertCircle size={14} /> {error}
+          {roomTempInvalid && (
+            <div className="flex items-center gap-2 mt-2 text-red-400 text-xs">
+              <AlertCircle size={14} />
+              <span>Room temperature must be between 0 and 40 °C</span>
+            </div>
+          )}
+        </div>
+
+        {/* KILN TEMPERATURE — global input, applies to all shapes */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-300 mb-1">
+            Kiln Temperature (°C)
+          </label>
+          <p className="text-xs text-stone-500 mb-2">
+            Working temperature of the glass when removed from the kiln.
+            Allowed range: 565 – 650 °C.
+          </p>
+          <Input
+            type="number"
+            value={kilnTemp}
+            min="565"
+            max="650"
+            step="1"
+            onChange={(e) => {
+              const raw = e.target.value;
+              setKilnTemp(raw);
+            }}
+            placeholder="565"
+            className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+              kilnTempInvalid
+                ? 'border-red-500 ring-1 ring-red-500'
+                : ''
+            }`}
+          />
+          {kilnTempInvalid && (
+            <p className="text-xs text-red-400 mt-1">
+              ⚠ Kiln temperature must be between 565 °C and 650 °C.
             </p>
           )}
         </div>
 
-        {/* Kiln Temperature */}
-        <div className="mb-4">
+        {/* SHAPE SELECTOR */}
+        <div>
           <label className="block text-sm font-semibold text-stone-300 mb-2">
-            Kiln Temperature (°C)
-            <span className="text-xs text-stone-500 ml-2">
-              (working temperature of the glass when removed from the kiln. Allowed range: 565 – 650 °C)
-            </span>
+            Glass Shape
           </label>
-          <Input
-            type="number"
-            placeholder="565"
-            value={kilnTemp}
-            onChange={(e) => setKilnTemp(e.target.value)}
-            className="bg-stone-900 border-stone-600 text-stone-100"
-          />
-        </div>
-
-        {/* Glass Shape */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-stone-300 mb-2">Glass Shape</label>
           <div className="flex gap-2">
             {['plate', 'cylinder', 'sphere'].map((s) => (
-              <Button
+              <button
                 key={s}
                 onClick={() => setShape(s)}
-                variant={shape === s ? 'default' : 'outline'}
-                className={`flex-1 capitalize ${
-                  shape === s
-                    ? 'bg-amber-600 hover:bg-amber-500 text-white'
-                    : 'bg-stone-700 hover:bg-stone-600 border-stone-600 text-stone-300'
-                }`}
+                className={`flex-1 py-2 px-3 rounded text-sm font-semibold capitalize transition-all border
+                  ${shape === s
+                    ? 'bg-amber-700 border-amber-500 text-white'
+                    : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'}`}
               >
                 {s}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Geometry Inputs */}
-        {shape === 'plate' && (
-          <div className="grid grid-cols-3 gap-2 mb-4">
+        {/* DIMENSION INPUTS */}
+        <div className="grid grid-cols-2 gap-3">
+
+          {/* Thickness — plate and cylinder only */}
+          {shape !== 'sphere' && (
             <div>
-              <label className="block text-xs text-stone-400 mb-1">Length (mm)</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">
+                Wall Thickness (mm)
+              </label>
               <Input
-                type="number"
-                placeholder="50"
-                value={length}
-                onChange={(e) => setLength(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
+                type="number" value={thickness} min="0.1" step="0.1"
+                onChange={(e) => setThickness(e.target.value)}
+                placeholder="2"
+                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                  thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
+                }`}
+              />
+              {thicknessWarn && (
+                <p className="text-xs text-red-400 mt-1">
+                  ⚠ Thickness must be less than radius ({radius} mm)
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Radius — cylinder and sphere */}
+          {(shape === 'cylinder' || shape === 'sphere') && (
+            <div>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">
+                Outer Radius (mm)
+              </label>
+              <Input
+                type="number" value={radius} min="0.1" step="0.1"
+                onChange={(e) => setRadius(e.target.value)}
+                placeholder="25"
+                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
+          )}
+
+          {/* Length — plate and cylinder */}
+          {(shape === 'plate' || shape === 'cylinder') && (
             <div>
-              <label className="block text-xs text-stone-400 mb-1">Width (mm)</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">
+                Length (mm)
+              </label>
               <Input
-                type="number"
-                placeholder="25"
-                value={width}
+                type="number" value={length} min="0.1" step="0.1"
+                onChange={(e) => setLength(e.target.value)}
+                placeholder="50"
+                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+              />
+            </div>
+          )}
+
+          {/* Width — plate only */}
+          {shape === 'plate' && (
+            <div>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">
+                Width (mm)
+              </label>
+              <Input
+                type="number" value={width} min="0.1" step="0.1"
                 onChange={(e) => setWidth(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-stone-400 mb-1">Thickness (mm)</label>
-              <Input
-                type="number"
-                placeholder="2"
-                value={thickness}
-                onChange={(e) => setThickness(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
-              />
-            </div>
-          </div>
-        )}
-
-        {shape === 'cylinder' && (
-          <div className="grid grid-cols-3 gap-2 mb-4">
-            <div>
-              <label className="block text-xs text-stone-400 mb-1">Wall Thickness (mm)</label>
-              <Input
-                type="number"
-                placeholder="2"
-                value={thickness}
-                onChange={(e) => setThickness(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-stone-400 mb-1">Outer Radius (mm)</label>
-              <Input
-                type="number"
                 placeholder="25"
-                value={radius}
-                onChange={(e) => setRadius(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
+                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
-            <div>
-              <label className="block text-xs text-stone-400 mb-1">Length (mm)</label>
-              <Input
-                type="number"
-                placeholder="50"
-                value={length}
-                onChange={(e) => setLength(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
-              />
-            </div>
+          )}
+        </div>
+
+        {/* ERROR */}
+        {error && (
+          <div className="flex gap-2 p-3 bg-red-900/30 border border-red-700 rounded text-red-300 text-sm">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+            <span>{error}</span>
           </div>
         )}
 
-        {shape === 'sphere' && (
-          <div className="grid grid-cols-1 gap-2 mb-4">
-            <div>
-              <label className="block text-xs text-stone-400 mb-1">Outer Radius (mm)</label>
-              <Input
-                type="number"
-                placeholder="25"
-                value={radius}
-                onChange={(e) => setRadius(e.target.value)}
-                className="bg-stone-900 border-stone-600 text-stone-100"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Buttons */}
-        <div className="flex gap-2">
+        {/* BUTTONS */}
+        <div className="flex gap-2 pt-1">
           <Button
             onClick={handleCalculate}
             disabled={calcBlocked}
-            className={`flex-1 font-bold text-white ${
+            className={`flex-1 text-white font-bold transition-opacity ${
               calcBlocked
-                ? 'bg-stone-600 cursor-not-allowed'
-                : 'bg-amber-600 hover:bg-amber-500'
+                ? 'bg-amber-900 opacity-40 cursor-not-allowed'
+                : 'bg-amber-700 hover:bg-amber-600'
             }`}
           >
             Calculate
@@ -808,53 +856,43 @@ export function CalculatorTab() {
             Reset
           </Button>
         </div>
-
-        {/* Room Temperature Validation */}
-        {roomTempInvalid && (
-          <p className="text-xs text-red-400 mt-2">
-            ⚠ Room temperature must be between 0 °C and 40 °C.
-          </p>
-        )}
-        
-        {/* Kiln Temperature Validation */}
-        {kilnTempInvalid && (
-          <p className="text-xs text-red-400 mt-2">
-            ⚠ Kiln temperature must be between 565 °C and 650 °C.
-          </p>
-        )}
-
-        {error && !roomTempInvalid && !kilnTempInvalid && (
-          <p className="text-xs text-red-400 mt-3 flex items-center gap-1">
-            <AlertCircle size={14} /> {error}
-          </p>
-        )}
       </Card>
 
-      {/* RESULTS SECTION */}
+      {/* RESULTS */}
       {hasCalc && results && (
         <div className="space-y-4">
-          {/* WORKING TIME DISPLAY */}
-          <Card className="bg-stone-900 border-amber-600/50 p-6 text-center">
-            <p className="text-sm font-semibold text-amber-400 mb-2">AVAILABLE WORKING TIME</p>
-            <p className="text-xs text-stone-400 mb-4">{results.shapeLabel}</p>
-            <p className="text-4xl font-bold text-amber-300 mb-4">
-              {formatTime(results.workingTimeSeconds)}
-            </p>
 
-            {/* Timer */}
-            <div className="bg-stone-800 rounded p-3 mb-3">
-              <p className="text-xs text-stone-400 mb-2">Working Time Timer</p>
-              <div className="text-2xl font-bold text-amber-300 mb-2">
-                {timeRemaining !== null ? formatTime(timeRemaining) : '0 min 0 sec'}
+          {/* WORKING TIME — primary output */}
+          <Card className="bg-gradient-to-br from-amber-900/50 to-amber-950/50 border-2 border-amber-500 p-6 text-center">
+            <p className="text-sm text-amber-300 font-semibold mb-1">
+              AVAILABLE WORKING TIME
+            </p>
+            <p className="text-xs text-stone-400 mb-3">{results.shapeLabel}</p>
+            <div className="text-4xl font-bold text-amber-300 mb-1">
+              {formatTime(results.workingTimeSeconds)}
+            </div>
+          </Card>
+
+          {/* COUNTDOWN TIMER */}
+          {timeRemaining !== null && (
+            <Card className="bg-stone-800 border-stone-700 p-4">
+              <p className="text-sm font-semibold text-stone-300 mb-3">COUNTDOWN TIMER</p>
+
+              {/* Timer display */}
+              <div className={`text-5xl font-bold text-center mb-4 font-mono tracking-widest ${
+                timerRunning ? 'text-amber-300' : 'text-stone-200'
+              }`}>
+                {formatTime(timeRemaining)}
               </div>
-              <div className="w-full bg-stone-700 rounded-full h-2 mb-3">
+
+              {/* Progress bar */}
+              <div className="w-full bg-stone-700 rounded-full h-2 mb-4">
                 <div
-                  className="bg-amber-500 h-2 rounded-full transition-all"
+                  className="bg-amber-500 h-2 rounded-full transition-all duration-1000"
                   style={{
-                    width:
-                      timeRemaining !== null && results.workingTimeSeconds > 0
-                        ? `${(timeRemaining / results.workingTimeSeconds) * 100}%`
-                        : '0%',
+                    width: originalTimeRef.current > 0
+                      ? `${(timeRemaining / originalTimeRef.current) * 100}%`
+                      : '0%',
                   }}
                 />
               </div>
@@ -883,8 +921,8 @@ export function CalculatorTab() {
               <p className="text-xs text-stone-500 mt-3 text-center">
                 Timer beeps 3× and resets automatically when it reaches zero.
               </p>
-            </div>
-          </Card>
+            </Card>
+          )}
 
 
 
