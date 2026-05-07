@@ -69,6 +69,7 @@ const AIR_TABLE: {
   Pr: number;
 }[] = [
   { T: 250, cp: 1033, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
+  { T: 295, cp: 1044, k: 0.0449375, nu: 4.9425e-5, Pr: 0.69355 },
   { T: 300, cp: 1044, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
   { T: 350, cp: 1056, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
   { T: 400, cp: 1069, k: 0.05015, nu: 6.219e-5, Pr: 0.6948 },
@@ -169,10 +170,10 @@ function calcH_plate(
   const { g, T_strain } = GLASS;
   const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
 
-  const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
+  const cos60  = Math.cos((60 * Math.PI) / 180);   // = 0.5
 
-  // Churchill-Chu angled plate correlation
-  const Ra = (g * cos30 * beta * deltaT * L_char ** 3 / nu ** 2) * Pr;
+  // Churchill-Chu angled plate correlation (MATLAB uses cosd(60))
+  const Ra = (g * cos60 * beta * deltaT * L_char ** 3 / nu ** 2) * Pr;
   const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
@@ -195,7 +196,9 @@ function calcH_cylinder(
   Pr: number
 ): number {
   const { g, T_strain } = GLASS;
-  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
+  const T_s_K = T_work + 273.15;
+  const T_strain_K = T_strain + 273.15;
+  const deltaT = T_s_K - T_strain_K;  // Driving force in Kelvin (MATLAB uses T_s_K - T_strain_K)
   const r = D / 2;  // Characteristic length is radius, not diameter
 
   // Churchill-Chu horizontal cylinder correlation
@@ -222,7 +225,9 @@ function calcH_sphere(
   Pr: number
 ): number {
   const { g, T_strain } = GLASS;
-  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
+  const T_s_K = T_work + 273.15;
+  const T_strain_K = T_strain + 273.15;
+  const deltaT = T_s_K - T_strain_K;  // Driving force in Kelvin (MATLAB uses T_s_K - T_strain_K)
 
   // Churchill-Chu sphere correlation
   const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
@@ -273,7 +278,7 @@ function getShapeParameters(inputs: {
       const A_surface  = 2 * (L * W) + 2 * (L * t) + 2 * (W * t);
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
-      const perimeter  = (L + W) * 2;  // Perimeter of the base
+      const perimeter  = 2 * (L + t);  // Perimeter of the base (MATLAB uses 2*(length+thickness))
       const L_char     = A_surface / perimeter;  // Characteristic length
       const h_conv     = calcH_plate(L_char, T_work, beta, k, nu, Pr);
 
