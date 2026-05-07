@@ -210,14 +210,13 @@ function calcH_plate(L: number, T_work: number, T_room: number, beta: number, k:
 function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
   const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
-  const r = D / 2;  // Characteristic length is radius, not diameter
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * r ** 3 / nu ** 2) * Pr;
+  const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
   const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / r) * Nu;   // [W/(m²·K)]
+  return (k / D) * Nu;   // [W/(m²·K)]
 }
 
 /**
