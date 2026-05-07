@@ -280,7 +280,7 @@ function getShapeParameters(inputs: {
       const A_surface  = 2 * (L * W) + 2 * (L * t) + 2 * (W * t);
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
-      const Perimeter  = L * t;
+      const Perimeter  = L + t;
       const Char_leng  = A_outer / Perimeter;
       const h_conv     = calcH_plate(Char_leng, T_work, T_room, beta, k, nu, Pr);
 
