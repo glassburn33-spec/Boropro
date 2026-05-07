@@ -69,8 +69,14 @@ const AIR_TABLE: {
   Pr: number;
 }[] = [
   { T: 250, cp: 1033, k: 0.04104, nu: 4.091e-5, Pr: 0.6946 },
+  { T: 295, cp: 1044, k: 0.0449375, nu: 4.9425e-5, Pr: 0.69355 },
   { T: 300, cp: 1044, k: 0.04418, nu: 4.765e-5, Pr: 0.6935 },
   { T: 350, cp: 1056, k: 0.04721, nu: 5.475e-5, Pr: 0.6937 },
+  { T: 400, cp: 1069, k: 0.05015, nu: 6.219e-5, Pr: 0.6948 },
+  { T: 450, cp: 1081, k: 0.05298, nu: 6.997e-5, Pr: 0.6965 },
+  { T: 500, cp: 1093, k: 0.05572, nu: 7.806e-5, Pr: 0.6986 },
+  { T: 600, cp: 1115, k: 0.06093, nu: 9.515e-5, Pr: 0.7037 },
+  { T: 700, cp: 1135, k: 0.06581, nu: 1.133e-4, Pr: 0.7092 },
 ];
 
 /**
@@ -153,16 +159,25 @@ function interpolateAirProps(T_C: number): {
  *   h   = (k_air / L_flat) · Nu
  * L = plate length [m], deltaT = T_work − T_strain
  */
-function calcH_plate(L: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
-  const cos60  = Math.cos((60 * Math.PI) / 180);
+function calcH_plate(
+  L_char: number,
+  T_work: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g, T_strain } = GLASS;
+  const deltaT = T_work - T_strain;  // Driving force is surface-to-strain
 
-  const Ra = (g * cos60 * beta * deltaT * L ** 3 / nu ** 2) * Pr;
+  const cos60  = Math.cos((60 * Math.PI) / 180);   // = 0.5
+
+  // Churchill-Chu angled plate correlation (MATLAB uses cosd(60))
+  const Ra = (g * cos60 * beta * deltaT * L_char ** 3 / nu ** 2) * Pr;
   const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / L) * Nu;
+  return (k / L_char) * Nu;   // [W/(m²·K)]
 }
 
 /**
@@ -172,15 +187,26 @@ function calcH_plate(L: number, T_work: number, beta: number, k: number, nu: num
  *   Nu  = { 0.6 + 0.387·Ra^(1/6) / [1+(0.559/Pr)^(9/16)]^(8/27) }²
  *   h   = (k_air / (D/2)) · Nu
  */
-function calcH_cylinder(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
+function calcH_cylinder(
+  D: number,
+  T_work: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g, T_strain } = GLASS;
+  const T_s_K = T_work + 273.15;
+  const T_strain_K = T_strain + 273.15;
+  const deltaT = T_s_K - T_strain_K;  // Driving force in Kelvin (MATLAB uses T_s_K - T_strain_K)
+  const r = D / 2;  // Characteristic length is radius, not diameter
 
-  const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
+  // Churchill-Chu horizontal cylinder correlation
+  const Ra = (g * beta * deltaT * r ** 3 / nu ** 2) * Pr;
   const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) /
     (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 
-  return (k / D) * Nu;
+  return (k / r) * Nu;   // [W/(m²·K)]
 }
 
 /**
@@ -190,15 +216,25 @@ function calcH_cylinder(D: number, T_work: number, beta: number, k: number, nu: 
  *   Nu  = 2 + 0.589·Ra^(1/4) / [1+(0.469/Pr)^(9/16)]^(4/9)
  *   h   = (k_air / D) · Nu
  */
-function calcH_sphere(D: number, T_work: number, beta: number, k: number, nu: number, Pr: number): number {
-  const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;
+function calcH_sphere(
+  D: number,
+  T_work: number,
+  beta: number,
+  k: number,
+  nu: number,
+  Pr: number
+): number {
+  const { g, T_strain } = GLASS;
+  const T_s_K = T_work + 273.15;
+  const T_strain_K = T_strain + 273.15;
+  const deltaT = T_s_K - T_strain_K;  // Driving force in Kelvin (MATLAB uses T_s_K - T_strain_K)
 
+  // Churchill-Chu sphere correlation
   const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
   const Nu = 2 + (0.589 * Ra ** (1 / 4)) /
     (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
 
-  return (k / D) * Nu;
+  return (k / D) * Nu;   // [W/(m²·K)]
 }
 
 // ============================================================
@@ -351,9 +387,13 @@ function getShapeParameters(inputs: {
 // τ is shape-dependent and comes from getShapeParameters().
 // ============================================================
 
-function calcWorkingTime(tau: number, T_work: number): number {
-  const { T_strain, T_env } = GLASS;
-  return -tau * Math.log((T_strain - T_env) / (T_work - T_env));
+function calcWorkingTime(tau: number, T_work: number, T_room: number): number {
+  const { T_strain } = GLASS;
+  const T_env = T_room;  // Use room temperature as environment temperature
+
+  // EDIT THIS FORMULA:
+  // Current: t* = -τ · ln((T_strain - T_env) / (T_work - T_env))
+  return -tau * Math.log((T_strain - T_env) / (T_work - T_env));   // [s]
 }
 
 // ============================================================
@@ -402,6 +442,7 @@ function runCalculation(inputs: {
   length:    number;
   width:     number;
   T_work:    number;
+  T_room?:   number;  // Room temperature, default 25°C
 }) {
   // Input validation
   if (inputs.shape !== 'sphere' && inputs.thickness <= 0)
@@ -416,16 +457,18 @@ function runCalculation(inputs: {
     throw new Error('Length must be greater than zero for cylinder.');
 
   const { T_work } = inputs;
-  const T_film_C = (T_work + GLASS.T_env) / 2;
+  const T_room = inputs.T_room ?? 25;  // Default to 25°C if not provided
+  const T_film_C = (T_work + T_room) / 2;
   const T_film_K = T_film_C + 273.15;
   const beta     = 1 / T_film_K;
 
+  // Interpolate air properties at film temperature
   const airProps = interpolateAirProps(T_film_C);
   const { cp: cp_air, k, nu, Pr } = airProps;
 
   const shape  = getShapeParameters({ ...inputs, T_work, beta, k, nu, Pr });
   const M      = calcMaterialConstant();
-  const t_sec  = calcWorkingTime(shape.tau, T_work);
+  const t_sec  = calcWorkingTime(shape.tau, T_work, T_room);
   const { h_cool, h_max, sigma } = calcStressAndCooling(
     M, shape.d, shape.b, shape.mass, shape.U, shape.A_outer,
   );
@@ -448,7 +491,9 @@ function runCalculation(inputs: {
     A_outer:             shape.A_outer,
     U:                   shape.U,
     isSafe:              sigma < GLASS.tensile_limit,
+    // expose temperatures & air props for diagnostics panel
     T_work,
+    T_room,
     T_film_C,
     airProps:            { cp: cp_air, k, nu, Pr },
   };
@@ -466,6 +511,7 @@ export function CalculatorTab() {
   const [length,    setLength]    = useState<string>('50');
   const [width,     setWidth]     = useState<string>('25');
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
+  const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
@@ -567,6 +613,7 @@ export function CalculatorTab() {
         length:    parseFloat(length)    || 0,
         width:     parseFloat(width)     || 0,
         T_work:    parseFloat(kilnTemp)  || 565,
+        T_room:    parseFloat(roomTemp),  // Do NOT fall back to 25; let validation catch it
       });
       setResults(res);
       setHasCalc(true);
@@ -590,6 +637,7 @@ export function CalculatorTab() {
     setRadius('25');
     setLength('50');
     setWidth('25');
+    setRoomTemp('25');
     setResults(null);
     setError('');
     setHasCalc(false);
@@ -608,8 +656,14 @@ export function CalculatorTab() {
                           kilnTempValue < 565  ||
                           kilnTempValue > 650;
 
+  const roomTempValue  = parseFloat(roomTemp);
+  const roomTempInvalid = isNaN(roomTempValue) ||
+                          roomTempValue < 0   ||
+                          roomTempValue > 40;
+
   const calcBlocked =
     kilnTempInvalid ||
+    roomTempInvalid ||
     (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius));
 
   return (
@@ -618,7 +672,7 @@ export function CalculatorTab() {
       <p className="text-xs text-stone-400">
         Calculate available working time before borosilicate glass reaches its
         strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
-        {kilnTemp} °C, in 25 °C ambient air.
+        {kilnTemp} °C, in {roomTemp} °C ambient air.
       </p>
       <p className="text-xs text-stone-500 italic">
         Uses Churchill-Chu natural-convection correlations with air properties
@@ -628,7 +682,30 @@ export function CalculatorTab() {
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
 
-
+        {/* ROOM TEMPERATURE — user-adjustable ambient temperature */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-300 mb-1">
+            Room Temperature (°C)
+          </label>
+          <p className="text-xs text-stone-500 mb-2">
+            Ambient air temperature where glass cools. Allowed range: 0 – 40 °C.
+          </p>
+          <Input
+            type="number"
+            min="0"
+            max="40"
+            step="1"
+            value={roomTemp}
+            onChange={(e) => setRoomTemp(e.target.value)}
+            className="bg-stone-700 border-stone-600 text-stone-100"
+          />
+          {roomTempInvalid && (
+            <div className="flex items-center gap-2 mt-2 text-red-400 text-xs">
+              <AlertCircle size={14} />
+              <span>Room temperature must be between 0 and 40 °C</span>
+            </div>
+          )}
+        </div>
 
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
@@ -943,7 +1020,7 @@ export function CalculatorTab() {
               </div>
               <div className="bg-stone-900/60 rounded p-2">
                 <p className="text-stone-400">Room temp used</p>
-                <p className="text-stone-200 font-bold">25 °C</p>
+                <p className="text-stone-200 font-bold">{results.T_room} °C</p>
               </div>
             </div>
           </Card>
