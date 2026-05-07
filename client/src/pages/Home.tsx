@@ -110,93 +110,64 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
-      {/* DRAWER OVERLAY */}
-      {showDrawer && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 transition-opacity"
-          onClick={() => setShowDrawer(false)}
-        />
-      )}
-      
-      {/* SLIDE-OUT DRAWER */}
-      <div
-        className={`fixed left-0 top-0 h-full w-64 bg-stone-900 border-r border-amber-700/30 z-50 transform transition-transform duration-300 overflow-y-auto ${
-          showDrawer ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between p-4 border-b border-amber-700/30">
-          <h2 className="text-lg font-bold text-amber-400">Navigation</h2>
-          <button
-            onClick={() => setShowDrawer(false)}
-            className="p-2 hover:bg-stone-800 rounded transition"
-          >
-            <X className="w-5 h-5 text-stone-300" />
-          </button>
-        </div>
-        
-        {/* Drawer Navigation Items */}
-        <div className="p-4 space-y-2">
-          <DrawerNavItem
-            label="Studio Science"
-            icon={<StudioScienceIcon className="w-5 h-5" isActive={activeTab === "studio"} />}
-            active={activeTab === "studio"}
-            onClick={() => {
-              handleTabChange("studio");
-              setShowDrawer(false);
-            }}
-          />
-          <DrawerNavItem
-            label="Equipment"
-            icon={<EquipmentIcon className="w-5 h-5" isActive={activeTab === "equipment"} />}
-            active={activeTab === "equipment"}
-            onClick={() => {
-              handleTabChange("equipment");
-              setShowDrawer(false);
-            }}
-          />
-          <DrawerNavItem
-            label="Calculator"
-            icon={<CalculatorIcon className="w-5 h-5" isActive={activeTab === "calculator"} />}
-            active={activeTab === "calculator"}
-            onClick={() => {
-              handleTabChange("calculator");
-              setShowDrawer(false);
-            }}
-          />
-          <DrawerNavItem
-            label="Colors"
-            icon={<GlassRodsIcon className="w-5 h-5" isActive={activeTab === "colors"} />}
-            active={activeTab === "colors"}
-            onClick={() => {
-              handleTabChange("colors");
-              setShowDrawer(false);
-            }}
-          />
-          <DrawerNavItem
-            label="Color Science"
-            icon={<Palette className="w-5 h-5" />}
-            active={activeTab === "colorscience"}
-            onClick={() => {
-              handleTabChange("colorscience");
-              setShowDrawer(false);
-            }}
-          />
-        </div>
-      </div>
       
       {/* UNIFIED FIXED HEADER BLOCK */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-stone-900 border-b border-amber-700/30 shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
         {/* ROW 1: Hamburger Menu, Logo and Header Image */}
-        <div className="flex items-center h-28 px-4 gap-2">
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={() => setShowDrawer(!showDrawer)}
-            className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
-            aria-label="Toggle navigation menu"
-          >
-            <Menu className="w-6 h-6 text-stone-300" />
-          </button>
+        <div className="flex items-center h-28 px-4 gap-2 relative">
+          {/* Hamburger Menu Button with Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowDrawer(!showDrawer)}
+              className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
+              aria-label="Toggle navigation menu"
+            >
+              <Menu className="w-6 h-6 text-stone-300" />
+            </button>
+            
+            {/* Dropdown Menu */}
+            {showDrawer && (
+              <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
+                <button
+                  onClick={() => { handleTabChange("studio"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Studio Science
+                </button>
+                <button
+                  onClick={() => { handleTabChange("equipment"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Equipment
+                </button>
+                <button
+                  onClick={() => { handleTabChange("scieequip"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Scie-Equip
+                </button>
+                <button
+                  onClick={() => { handleTabChange("calculator"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Calculator
+                </button>
+                <button
+                  onClick={() => { handleTabChange("colors"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Color
+                </button>
+                <button
+                  onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Color-Scie
+                </button>
+              </div>
+            )}
+          </div>
+          
           {/* Logo on left */}
           <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
           
@@ -226,11 +197,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ROW 2: Navigation Tabs and Search - Embedded in Fixed Header */}
+        {/* ROW 2: Search Bar Only - No Navigation Tabs */}
         <div className="bg-stone-900 border-t border-amber-700/30 px-4 py-3">
           <div className="max-w-6xl mx-auto">
             {/* Search Bar */}
-            <div className="flex gap-2 mb-3">
+            <div className="flex gap-2">
               <Input
                 placeholder="Search equipment, schedules, colors... (Cmd+K)"
                 className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
@@ -251,45 +222,19 @@ export default function Home() {
                 Search
               </Button>
             </div>
-            
-            {/* Navigation Tabs - Text Only in Gold */}
-            <div className="flex gap-6 md:gap-8">
-              <TextOnlyTab
-                label="Studio Science"
-                active={activeTab === "studio"}
-                onClick={() => handleTabChange("studio")}
-              />
-              <TextOnlyTab
-                label="Equipment"
-                active={activeTab === "equipment"}
-                onClick={() => handleTabChange("equipment")}
-              />
-              <TextOnlyTab
-                label="Scie-Equip"
-                active={activeTab === "scieequip"}
-                onClick={() => handleTabChange("scieequip")}
-              />
-              <TextOnlyTab
-                label="Calculator"
-                active={activeTab === "calculator"}
-                onClick={() => handleTabChange("calculator")}
-              />
-              <TextOnlyTab
-                label="Color"
-                active={activeTab === "colors"}
-                onClick={() => handleTabChange("colors")}
-              />
-              <TextOnlyTab
-                label="Color-Scie"
-                active={activeTab === "colorscience"}
-                onClick={() => handleTabChange("colorscience")}
-              />
-            </div>
           </div>
         </div>
       </header>
+      
+      {/* Close dropdown when clicking outside */}
+      {showDrawer && (
+        <div
+          className="fixed inset-0 z-20"
+          onClick={() => setShowDrawer(false)}
+        />
+      )}
 
-      {/* MAIN CONTENT - Margin accounts for fixed header (logo row + nav row) */}
+      {/* MAIN CONTENT - Margin accounts for fixed header (logo row + search row) */}
       <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '140px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
@@ -1403,35 +1348,7 @@ function ScheduleCard({
 }
 
 // ============ UI COMPONENTS ============
-function TextOnlyTab({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="relative pb-2 transition-colors duration-200"
-      style={{
-        color: active ? '#c9a84c' : '#7a6830',
-        fontWeight: active ? '600' : '500',
-        fontSize: '1rem',
-      }}
-    >
-      {label}
-      {active && (
-        <div
-          className="absolute bottom-0 left-0 right-0 h-0.5"
-          style={{ backgroundColor: '#c9a84c' }}
-        />
-      )}
-    </button>
-  );
-}
+
 
 function DrawerNavItem({
   icon,

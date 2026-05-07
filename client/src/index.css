@@ -179,6 +179,10 @@ When changing tokens, ask: does this reinforce or dilute the studio-lab evidence
 }
 
 @layer utilities {
+  .z-1000 {
+    z-index: 1000;
+  }
+  
   .hero-shell {
     background: #090909;
   }
