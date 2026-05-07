@@ -613,7 +613,7 @@ export function CalculatorTab() {
         length:    parseFloat(length)    || 0,
         width:     parseFloat(width)     || 0,
         T_work:    parseFloat(kilnTemp)  || 565,
-        T_room:    parseFloat(roomTemp),  // Do NOT fall back to 25; let validation catch it
+        T_room:    parseFloat(roomTemp)  || 25,
       });
       setResults(res);
       setHasCalc(true);
