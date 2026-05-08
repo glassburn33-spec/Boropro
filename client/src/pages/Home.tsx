@@ -280,6 +280,31 @@ function StudioTab() {
         </div>
 
         <div className="max-w-2xl mx-auto space-y-4 pb-10 px-2">
+          {/* CHEMICAL COMPOSITION SECTION */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-bold text-amber-400 mb-4">
+              Chemical Composition of Borosilicate Glass
+            </h2>
+            <div className="space-y-4">
+              <p className="text-stone-300 text-sm leading-relaxed">
+                Borosilicate glass is made of high proportions of silicon dioxide (SiO<sub>2</sub>) and boron trioxide (B<sub>2</sub>O<sub>3</sub>). It is above all the boric oxide content of roughly 13% and the silica proportion of over 80% in the glass matrix that leads to its high resistance to water, chemicals, and drug substances.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                DURAN® borosilicate glass 3.3 has the following chemical composition (per cent weight by weight): Silicon dioxide (SiO<sub>2</sub>): 81%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 13%, Sodium oxide (Na<sub>2</sub>O) and potassium oxide (K<sub>2</sub>O): 4%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 2%
+              </p>
+              <div className="w-full flex justify-center my-6">
+                <img
+                  src="/manus-storage/chemcompboro_fdd7eb5c.png"
+                  alt="Chemical composition of borosilicate glass showing SiO2 81%, B2O3 13%, Na2O/K2O 4%, Al2O3 2%"
+                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                />
+              </div>
+              <p className="text-stone-500 text-xs italic text-center">
+                DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
+              </p>
+            </div>
+          </div>
+
           <h2 className="text-xl font-bold text-amber-400 mb-4">
             The Structure of Glass: Why It Behaves the Way It Does
           </h2>
