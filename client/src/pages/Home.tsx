@@ -1565,6 +1565,123 @@ function ScieEquipTab() {
         </div>
       </div>
       
+      {/* Spectroscopy Instrumentation Section */}
+      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+        <h3 className="text-lg font-bold text-amber-300">Spectroscopy Instrumentation for Glass Analysis</h3>
+        
+        <p className="text-stone-300 leading-relaxed">
+          Spectroscopy is the primary analytical technique for characterizing borosilicate glass composition, identifying metal ion dopants, and measuring optical properties. Different spectroscopic methods probe different aspects of glass structure and chemistry, from elemental composition to local coordination geometry.
+        </p>
+        
+        <div className="space-y-4">
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+            <h4 className="text-blue-300 font-bold mb-2">Atomic Absorption Spectroscopy (AAS)</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              AAS measures the absorption of light by free metal atoms in the ground state. The flame (or graphite furnace) atomizes the sample, and a hollow cathode lamp provides resonance radiation at the absorption wavelength of the target element. This technique is quantitative and highly selective, making it ideal for measuring trace metal concentrations in glass melts and finished products.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+              Studio Application: Verify chromium, cobalt, or nickel concentration in colored glass batches to ensure consistent hue and saturation.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-purple-400">
+            <h4 className="text-purple-300 font-bold mb-2">UV-Visible (UV-Vis) Absorption Spectroscopy</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              UV-Vis spectroscopy measures how light is absorbed across the ultraviolet and visible spectrum (200–800 nm). For glass, this reveals electronic transitions of metal ions and provides information about coordination state, oxidation state, and local environment. The absorption spectrum is a fingerprint of the glass composition and thermal history.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              Key insight: The same metal ion (e.g., Ni²⁺) produces different absorption bands depending on its coordination geometry (tetrahedral, octahedral, square planar). Comparing experimental spectra to reference databases allows identification of coordination states and prediction of color shifts with temperature.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+              Studio Application: Measure color stability across temperature ranges; detect unwanted iron contamination (Fe²⁺ and Fe³⁺ have distinct absorption profiles).
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-green-400">
+            <h4 className="text-green-300 font-bold mb-2">Raman Spectroscopy</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              Raman spectroscopy probes vibrational modes of the glass network itself — the Si–O–Si, B–O–B, and B–O–Si bonds. Unlike IR spectroscopy, Raman is sensitive to symmetric stretching modes and provides direct information about network connectivity and local structure. For borosilicate glass, Raman spectra reveal the ratio of tetrahedral to trigonal boron, which directly affects mechanical and thermal properties.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              The Raman shift (measured in cm⁻¹) identifies specific bond types: Si–O stretches appear around 800–1200 cm⁻¹, B–O stretches around 700–1000 cm⁻¹, and defect modes (non-bridging oxygens) at lower frequencies. Changes in peak position and intensity reflect changes in glass composition or thermal history.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+              Studio Application: Detect phase separation or crystallization by monitoring changes in network structure; verify batch consistency by comparing Raman spectra of new glass to reference standards.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Temperature Measurement Section */}
+      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+        <h3 className="text-lg font-bold text-amber-300">Temperature Measurement: Thermocouples and Pyrometers</h3>
+        
+        <p className="text-stone-300 leading-relaxed">
+          Accurate temperature measurement is essential for controlling kiln ramp rates, dwell times, and cooling schedules. Two primary technologies dominate glass studio practice: thermocouples (contact-based, low cost, reliable) and optical pyrometers (non-contact, fast response, ideal for moving pieces or high-temperature zones).
+        </p>
+        
+        <div className="space-y-4">
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-400">
+            <h4 className="text-orange-300 font-bold mb-2">Thermocouples: The Studio Standard</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              A thermocouple is a pair of dissimilar metals joined at one end. When the junction is heated, a small voltage (millivolts) is generated proportional to temperature. This voltage is measured by a controller or data logger and converted to temperature using a calibration curve. Thermocouples are inexpensive, durable, and accurate to ±1–2°C when properly calibrated.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              <strong>Common thermocouple types for glass studios:</strong>
+            </p>
+            <ul className="text-stone-300 space-y-1 text-sm ml-4">
+              <li>• <strong>Type K (Chromel-Alumel):</strong> −200 to +1372°C, most common, good accuracy, inexpensive</li>
+              <li>• <strong>Type R (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, high accuracy, expensive, used for precision work</li>
+              <li>• <strong>Type S (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, similar to Type R, slightly different sensitivity</li>
+            </ul>
+            <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
+              Studio Tip: Type K thermocouples are adequate for most kiln monitoring. Place the junction in a ceramic protection tube at the geometric center of the kiln chamber for representative temperature readings. Avoid contact with kiln walls or heating elements, which can cause localized heating errors.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-400">
+            <h4 className="text-red-300 font-bold mb-2">Optical Pyrometers: Non-Contact Measurement</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              An optical pyrometer measures the intensity of thermal radiation emitted by a hot object. The instrument focuses infrared light from the target onto a detector and converts the signal to temperature using the Stefan-Boltzmann law and Planck's radiation law. Optical pyrometers are non-contact, making them ideal for measuring moving pieces, high-temperature zones, or situations where a thermocouple cannot be placed.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              <strong>Key considerations:</strong>
+            </p>
+            <ul className="text-stone-300 space-y-1 text-sm ml-4">
+              <li>• <strong>Emissivity:</strong> Glass emissivity varies with wavelength and temperature. Borosilicate glass has emissivity around 0.85–0.95 in the infrared. Pyrometers typically assume emissivity = 1 (blackbody), so readings may be 20–50°C high for glass. Calibration against a thermocouple is essential.</li>
+              <li>• <strong>Field of View:</strong> Narrow field of view (small target area) reduces measurement error from surrounding cooler surfaces. For kiln monitoring, use a pyrometer with at least 12:1 distance-to-spot ratio.</li>
+              <li>• <strong>Response Time:</strong> Optical pyrometers respond in milliseconds, making them ideal for tracking rapid temperature changes during ramps.</li>
+            </ul>
+            <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
+              Studio Tip: For borosilicate glass, set pyrometer emissivity to 0.90 and verify against a thermocouple reading at 1000°C. Adjust emissivity if readings differ by more than 10°C.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
+            <h4 className="text-cyan-300 font-bold mb-2">Thermal Imaging: Spatial Temperature Distribution</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              Thermal imaging cameras (infrared cameras) capture the temperature distribution across an entire surface in real time. Each pixel represents a temperature value, displayed as a color-coded image. For kiln monitoring, thermal imaging reveals hot spots, dead zones, and temperature gradients that single-point thermocouples cannot detect.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-2">
+              Thermal imaging is particularly valuable for diagnosing kiln performance issues: uneven heating suggests element failure or refractory damage; rapid cooling in one zone indicates air leakage; and temperature stratification (hotter at top, cooler at bottom) reveals convection patterns and can inform piece placement strategies.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+              Studio Application: Use thermal imaging during the first kiln run after repairs or refractory replacement to verify even heating and identify problem areas before production work begins.
+            </p>
+          </div>
+        </div>
+        
+        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+          <h4 className="text-amber-300 font-bold mb-3">Recommended Temperature Measurement Strategy</h4>
+          <p className="text-stone-300 text-sm leading-relaxed mb-3">
+            For production work, combine thermocouple and pyrometer measurements: use thermocouples for continuous kiln monitoring and controller feedback (they are reliable and inexpensive), and use optical pyrometers or thermal imaging to verify piece temperature and detect spatial gradients. This dual approach provides both accuracy and diagnostic capability.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            Calibrate all instruments annually against a reference standard. For thermocouples, use an ice bath (0°C) and boiling water (100°C) as quick checks; for pyrometers, compare readings against a calibrated thermocouple at multiple temperatures between 600–1200°C.
+          </p>
+        </div>
+      </div>
+      
       <p className="text-stone-400 text-sm">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
     </div>
   );

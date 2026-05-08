@@ -23,7 +23,7 @@
  */
 
 import { useState, useRef } from "react";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -509,6 +509,162 @@ function runCalculation(inputs: {
 // PART 9: REACT COMPONENT — CalculatorTab
 // NO FORMULAS HERE — THIS IS JUST THE UI
 // ============================================================
+// EXPORT UTILITY FUNCTIONS
+// ============================================================
+
+function formatTime(seconds: number): string {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.round(seconds % 60);
+  return `${mins} min ${secs} sec`;
+}
+
+function generateScheduleData(results: ReturnType<typeof runCalculation>, shape: string, thickness: string, radius: string, length: string, kilnTemp: string, roomTemp: string) {
+  const timestamp = new Date().toLocaleString();
+  const schedule = {
+    timestamp,
+    geometry: {
+      shape,
+      thickness_mm: parseFloat(thickness),
+      radius_mm: parseFloat(radius),
+      length_mm: parseFloat(length),
+    },
+    conditions: {
+      kiln_temp_c: parseFloat(kilnTemp),
+      room_temp_c: parseFloat(roomTemp),
+      strain_point_c: 515,
+      annealing_point_c: 565,
+    },
+    results: {
+      working_time_seconds: results.workingTimeSeconds,
+      working_time_formatted: formatTime(results.workingTimeSeconds),
+      time_constant_tau_s: results.tau,
+      convection_coefficient_h: results.h_conv,
+      convection_heat_flux: results.Q_conv,
+      radiation_heat_flux: results.Q_rad,
+      total_heat_flux: results.Q_total,
+      max_cooling_rate_c_per_min: (results.Q_total / (results.mass * GLASS.cp)) * 60,
+    },
+  };
+  return schedule;
+}
+
+function exportToCSV(results: ReturnType<typeof runCalculation>, shape: string, thickness: string, radius: string, length: string, kilnTemp: string, roomTemp: string) {
+  const schedule = generateScheduleData(results, shape, thickness, radius, length, kilnTemp, roomTemp);
+  const lines = [
+    'BoroPro Cooling Schedule Export',
+    `Generated: ${schedule.timestamp}`,
+    '',
+    'GEOMETRY',
+    `Shape,${schedule.geometry.shape}`,
+    `Thickness (mm),${schedule.geometry.thickness_mm}`,
+    `Radius (mm),${schedule.geometry.radius_mm}`,
+    `Length (mm),${schedule.geometry.length_mm}`,
+    '',
+    'CONDITIONS',
+    `Kiln Temperature (°C),${schedule.conditions.kiln_temp_c}`,
+    `Room Temperature (°C),${schedule.conditions.room_temp_c}`,
+    `Strain Point (°C),${schedule.conditions.strain_point_c}`,
+    `Annealing Point (°C),${schedule.conditions.annealing_point_c}`,
+    '',
+    'CALCULATED RESULTS',
+    `Working Time,${schedule.results.working_time_formatted}`,
+    `Working Time (seconds),${schedule.results.working_time_seconds}`,
+    `Time Constant τ (s),${schedule.results.time_constant_tau_s.toFixed(2)}`,
+    `Convection Coefficient h (W/m²·K),${schedule.results.convection_coefficient_h.toFixed(2)}`,
+    `Convection Heat Flux (W/m²),${schedule.results.convection_heat_flux.toFixed(2)}`,
+    `Radiation Heat Flux (W/m²),${schedule.results.radiation_heat_flux.toFixed(2)}`,
+    `Total Heat Flux (W/m²),${schedule.results.total_heat_flux.toFixed(2)}`,
+    `Max Cooling Rate (°C/min),${(schedule.results.max_cooling_rate_c_per_min).toFixed(2)}`,
+  ];
+  
+  const csv = lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `boropro_schedule_${new Date().getTime()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportToPDF(results: ReturnType<typeof runCalculation>, shape: string, thickness: string, radius: string, length: string, kilnTemp: string, roomTemp: string) {
+  const schedule = generateScheduleData(results, shape, thickness, radius, length, kilnTemp, roomTemp);
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>BoroPro Cooling Schedule</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        h1 { color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 10px; }
+        h2 { color: #b45309; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f3f4f6; font-weight: bold; }
+        .section { margin: 20px 0; }
+        .timestamp { color: #666; font-size: 12px; }
+      </style>
+    </head>
+    <body>
+      <h1>BoroPro Cooling Schedule</h1>
+      <p class="timestamp">Generated: ${schedule.timestamp}</p>
+      
+      <div class="section">
+        <h2>Geometry</h2>
+        <table>
+          <tr><th>Parameter</th><th>Value</th></tr>
+          <tr><td>Shape</td><td>${schedule.geometry.shape}</td></tr>
+          <tr><td>Thickness (mm)</td><td>${schedule.geometry.thickness_mm}</td></tr>
+          <tr><td>Radius (mm)</td><td>${schedule.geometry.radius_mm}</td></tr>
+          <tr><td>Length (mm)</td><td>${schedule.geometry.length_mm}</td></tr>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h2>Conditions</h2>
+        <table>
+          <tr><th>Parameter</th><th>Value</th></tr>
+          <tr><td>Kiln Temperature (°C)</td><td>${schedule.conditions.kiln_temp_c}</td></tr>
+          <tr><td>Room Temperature (°C)</td><td>${schedule.conditions.room_temp_c}</td></tr>
+          <tr><td>Strain Point (°C)</td><td>${schedule.conditions.strain_point_c}</td></tr>
+          <tr><td>Annealing Point (°C)</td><td>${schedule.conditions.annealing_point_c}</td></tr>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h2>Calculated Results</h2>
+        <table>
+          <tr><th>Parameter</th><th>Value</th></tr>
+          <tr><td>Working Time</td><td>${schedule.results.working_time_formatted}</td></tr>
+          <tr><td>Working Time (seconds)</td><td>${schedule.results.working_time_seconds}</td></tr>
+          <tr><td>Time Constant τ (s)</td><td>${schedule.results.time_constant_tau_s.toFixed(2)}</td></tr>
+          <tr><td>Convection Coefficient h (W/m²·K)</td><td>${schedule.results.convection_coefficient_h.toFixed(2)}</td></tr>
+          <tr><td>Convection Heat Flux (W/m²)</td><td>${schedule.results.convection_heat_flux.toFixed(2)}</td></tr>
+          <tr><td>Radiation Heat Flux (W/m²)</td><td>${schedule.results.radiation_heat_flux.toFixed(2)}</td></tr>
+          <tr><td>Total Heat Flux (W/m²)</td><td>${schedule.results.total_heat_flux.toFixed(2)}</td></tr>
+          <tr><td>Max Cooling Rate (°C/min)</td><td>${schedule.results.max_cooling_rate_c_per_min.toFixed(2)}</td></tr>
+        </table>
+      </div>
+      
+      <div class="section" style="margin-top: 40px; font-size: 12px; color: #666;">
+        <p>This schedule was generated by BoroPro, a physics-based borosilicate glass annealing calculator.</p>
+        <p>Always verify calculations with your specific kiln and material before production work.</p>
+      </div>
+    </body>
+    </html>
+  `;
+  
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `boropro_schedule_${new Date().getTime()}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ============================================================
 
 export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>('cylinder');
@@ -934,6 +1090,32 @@ export function CalculatorTab() {
               </p>
             </Card>
           )}
+
+          {/* EXPORT BUTTONS */}
+          <Card className="bg-stone-800 border-stone-700 p-4">
+            <p className="text-sm font-semibold text-stone-300 mb-3">
+              EXPORT SCHEDULE
+            </p>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => exportToCSV(results, shape, thickness, radius, length, kilnTemp, roomTemp)}
+                className="flex-1 bg-blue-700 hover:bg-blue-600 text-white font-bold flex items-center justify-center gap-2"
+              >
+                <Download size={16} />
+                CSV
+              </Button>
+              <Button
+                onClick={() => exportToPDF(results, shape, thickness, radius, length, kilnTemp, roomTemp)}
+                className="flex-1 bg-green-700 hover:bg-green-600 text-white font-bold flex items-center justify-center gap-2"
+              >
+                <Download size={16} />
+                HTML/PDF
+              </Button>
+            </div>
+            <p className="text-xs text-stone-500 mt-3">
+              Download your calculated schedule for documentation and reference.
+            </p>
+          </Card>
 
 
 

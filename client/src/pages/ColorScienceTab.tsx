@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ThermochromismSimulator } from '@/components/ThermochromismSimulator';
+
 export default function ColorScienceTab() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100 p-6 md:p-12">
@@ -239,6 +241,116 @@ export default function ColorScienceTab() {
             </div>
           </div>
         </div>
+
+        {/* Phase Separation Section */}
+        <div className="mt-12 space-y-6">
+          <div className="border-l-4 border-amber-500 pl-6">
+            <h3 className="text-2xl font-bold text-amber-300 mb-2">Phase Separation in Glass Melts: Controlling Immiscibility</h3>
+            <p className="text-stone-400 text-sm italic">How borosilicate glass separates into distinct phases and how composition controls this critical phenomenon</p>
+          </div>
+
+          <div className="bg-stone-800/50 backdrop-blur rounded-lg p-8 border border-stone-700/50">
+            <div className="space-y-6 text-stone-200 leading-relaxed">
+              <p>
+                <span className="font-semibold">Phase separation commonly occurs in glass melts.</span> Borosilicate glass—which contains both silica and borate as network formers—is a well-studied example. Unlike simple immiscible liquids (like water and oil), phases in glass melts are not necessarily chemically pure. Borosilicate glass, for example, will typically undergo phase separation into a <span className="text-blue-300 font-semibold">"borate-rich" phase</span> and a <span className="text-amber-300 font-semibold">"silica-rich" phase</span>, with both phases containing different proportions of each network former.
+              </p>
+
+              <p>
+                The <span className="font-semibold">morphology of separated phases</span> in glass can vary significantly. While it is possible for droplet-like phases to form via classical nucleation and growth, spontaneous <span className="text-purple-300 font-semibold">"spinodal" phase separation</span> can result in the formation of intertwined tendril-like continuous phases. This phase separation, which occurs at high temperatures in the molten glass, persists and <span className="font-semibold">"freezes in"</span> when the glass is cooled into a solid.
+              </p>
+
+              <p>
+                If both phases are vitrifiable, they may form glasses after cooling (called a <span className="text-green-300 font-semibold">glass-glass phase separation</span>). However, if one phase is prone to crystallization, the mixture can cool into a <span className="text-amber-400 font-semibold">glass-crystal phase-separated solid</span>. Phase separation in glasses was long seen as undesirable—and for many applications, it still is. The existence of different phases modifies the physico-chemical properties of glass melts, making it difficult to mold and reducing the quality of the final glass.
+              </p>
+
+              <p>
+                The physics of phase separation in glass-forming materials is complex, and even today the specifics are subject to intense debate. However, glass manufacturers have determined ways of avoiding or minimizing phase separation during glass manufacturing. Typically, this is achieved by <span className="font-semibold">tailoring the composition of glass melts</span>, with phase separation only occurring for specific compositions.
+              </p>
+            </div>
+          </div>
+
+          {/* Ternary Phase Diagram */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-amber-400">Ternary Phase Diagram: Na₂O–B₂O₃–SiO₂ System</h3>
+            <p className="text-stone-300">
+              This ternary phase diagram shows the immiscibility region (green boundary) where phase separation will occur in the Na₂O–B₂O₃–SiO₂ glass system. Pyrex and Vycor compositions are marked, showing how they sit relative to the immiscibility boundary. Compositions within the immiscibility region undergo phase separation; those outside remain homogeneous.
+            </p>
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+              <img 
+                src="/manus-storage/phasediagram_0401fabd.png" 
+                alt="Ternary Phase Diagram Na2O-B2O3-SiO2" 
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
+              <div>
+                <p className="font-semibold text-amber-300 mb-2">Understanding the Diagram</p>
+                <p>Each corner of the triangle represents 100% of one oxide component. The immiscibility region (shown in green) indicates compositions where phase separation will spontaneously occur. Pyrex (high SiO₂) sits outside this region, making it a stable homogeneous glass. Vycor (intermediate composition) sits within or near the boundary, making it susceptible to phase separation.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-amber-300 mb-2">Practical Implications</p>
+                <p>Glass manufacturers use this diagram to design compositions that avoid unwanted phase separation. By understanding where the immiscibility boundary lies, they can formulate glasses with desired properties while maintaining homogeneity and optical clarity.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Phase Morphology Comparison */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-amber-400">Phase Separation Morphologies: Spinodal vs. Nucleation</h3>
+            <p className="text-stone-300">
+              Two distinct mechanisms produce different phase morphologies in glass melts. Understanding these mechanisms helps explain how cooling rates and composition affect the final glass structure and properties.
+            </p>
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+              <img 
+                src="/manus-storage/phaseseperatrion_4f039bd5.png" 
+                alt="Phase Separation Morphologies" 
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
+              <div>
+                <p className="font-semibold text-purple-300 mb-2">Left: Spinodal Decomposition (Tendril Morphology)</p>
+                <p>In spinodal decomposition, both phases form simultaneously as intertwined, continuous networks. This occurs when the glass composition is deep within the immiscibility region. The resulting morphology resembles interconnected tendrils or channels, creating a bicontinuous structure. This mechanism is driven by thermodynamic instability and produces rapid phase separation.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-cyan-300 mb-2">Right: Nucleation and Growth (Droplet Morphology)</p>
+                <p>In classical nucleation and growth, one phase forms as discrete droplets within a continuous matrix of the other phase. This occurs when the composition is near the immiscibility boundary. The process is slower than spinodal decomposition and produces a more dispersed, particulate structure. Droplet size and distribution depend on cooling rate and composition.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-amber-300 mb-2">Implications for Glass Properties</p>
+                <p>Spinodal morphology (continuous phases) typically produces glasses with lower density and higher porosity, useful for applications like Vycor porous glass. Nucleation morphology (droplets) can be controlled to produce specific optical and mechanical properties. Both mechanisms are "frozen in" during cooling, making thermal history critical to final glass structure.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Control Methods */}
+          <div className="border-l-4 border-amber-500 pl-6 py-4">
+            <h3 className="text-2xl font-bold text-amber-400 mb-4">Controlling Phase Separation</h3>
+            <ul className="space-y-3 text-stone-300">
+              <li className="flex items-start gap-3">
+                <span className="text-amber-400 font-bold mt-1">•</span>
+                <span><span className="font-semibold">Composition tailoring:</span> Carefully selecting the proportions of Na₂O, B₂O₃, and SiO₂ to avoid or minimize the immiscibility region.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-amber-400 font-bold mt-1">•</span>
+                <span><span className="font-semibold">Glass modifiers:</span> Adding specific oxides to shift the phase boundary and control phase separation behavior.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-amber-400 font-bold mt-1">•</span>
+                <span><span className="font-semibold">Heat treatment:</span> Controlling cooling rates and annealing schedules to freeze in desired phase morphologies or promote phase homogenization.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-amber-400 font-bold mt-1">•</span>
+                <span><span className="font-semibold">Thermal history:</span> Understanding how different cooling rates produce spinodal vs. nucleation morphologies, enabling control of final glass properties.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Thermochromism Simulator */}
+      <div className="max-w-6xl mx-auto mt-12 mb-12">
+        <ThermochromismSimulator />
       </div>
     </div>
   );
