@@ -252,6 +252,14 @@ export default function ColorScienceTab() {
           <div className="bg-stone-800/50 backdrop-blur rounded-lg p-8 border border-stone-700/50">
             <div className="space-y-6 text-stone-200 leading-relaxed">
               <p>
+                In physics and chemistry, the word <span className="font-semibold">"phase"</span> refers to a region of a material that is chemically uniform and physically distinct. <span className="font-semibold">Phase separation</span>, which typically occurs in liquids, is where a homogeneous mixture separates into two or more of these phases. For example, a mixture of water and oil at room temperature will naturally "phase separate" into a distinct phase consisting of pure oil, and another consisting of pure water. We can say that such a mixture is <span className="text-amber-300 font-semibold">"immiscible."</span>
+              </p>
+
+              <p>
+                The <span className="font-semibold">morphology of this phase separation</span> can vary depending on the relative concentration of both components. If the mixture is predominantly water, the oil phase will take the form of distinct (or <span className="text-cyan-300 font-semibold">"discontinuous"</span>) droplets dispersed throughout an interconnected (or <span className="text-purple-300 font-semibold">"continuous"</span>) water phase. If the mixture is predominantly oil, the opposite will take place. At roughly equal proportions of oil and water, each phase will tend to be <span className="font-semibold">continuous</span>.
+              </p>
+
+              <p>
                 <span className="font-semibold">Phase separation commonly occurs in glass melts.</span> Borosilicate glass—which contains both silica and borate as network formers—is a well-studied example. Unlike simple immiscible liquids (like water and oil), phases in glass melts are not necessarily chemically pure. Borosilicate glass, for example, will typically undergo phase separation into a <span className="text-blue-300 font-semibold">"borate-rich" phase</span> and a <span className="text-amber-300 font-semibold">"silica-rich" phase</span>, with both phases containing different proportions of each network former.
               </p>
 
