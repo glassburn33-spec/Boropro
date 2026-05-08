@@ -1505,6 +1505,66 @@ function ScieEquipTab() {
         </p>
       </div>
       
+      {/* Flame Annealing Application Guide */}
+      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+        <h3 className="text-lg font-bold text-amber-300">Flame Annealing Application: Studio Technique Guide</h3>
+        
+        {/* Studio Technique Image */}
+        <div className="flex justify-center my-6">
+          <img 
+            src="/manus-storage/glassflameanealing_dfa61208.png" 
+            alt="Glass flame annealing technique showing torch application with soot coating on borosilicate glass piece in studio setting"
+            className="w-full max-w-2xl rounded-lg border border-stone-600"
+          />
+        </div>
+        
+        <div className="space-y-4">
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
+            <h4 className="text-amber-300 font-bold mb-2">Section 1: What Flame Annealing Actually Does</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Flame annealing does not anneal glass any more than bench cooling does. However, it is genuinely useful for production items and smaller pieces where kiln access is limited or timing is impractical.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
+            <h4 className="text-amber-300 font-bold mb-2">Section 2: The Core Principle — Even Temperature Throughout</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Annealing is about allowing the thickest and thinnest parts of the glass to cool at an even temperature all the way through. Varying thicknesses and temperatures across a piece create stress, which causes cracking. When flame annealing, keep a mental map of which areas of your piece hold the most heat, moderate heat, or none — then bring each zone up or down to the annealing temperature of approximately 1050°F.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
+            <h4 className="text-amber-300 font-bold mb-2">Section 3: Technique</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              Use a bushy, propane-heavy flame. Start with the piece far back in the flame and slowly work it closer. When running more propane than oxygen, the flame deposits soot on any glass that has not reached annealing temperature — soot burns off at around 1000°F, making it a reliable visual indicator. Keep a small amount of oxygen in the mix to help propel the soot onto the glass surface.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              Leave the soot layer on the piece. It reduces cracking risk, especially if the piece will not go directly into a kiln. The soot burns off on its own during kilning, or can be removed by bringing the piece back up to temperature in the flame.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed text-orange-300 font-semibold">
+              Note: Running near-pure propane can dirty and wear out torch ports — keep them clean.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-500">
+            <h4 className="text-red-300 font-bold mb-2">Section 4: Limitations and Honest Warnings</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              Nothing replaces a kiln. True flame annealing — cooling a piece slowly enough to eliminate internal stress — is theoretically possible with a flame but practically very unlikely to succeed. The kiln exists to cool glass as slowly and evenly as possible without adding stress.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              For large or functional pieces that will regularly contact heat, flame annealing is hard, expensive, and impractical. If a sold piece cracks due to improper flame annealing, the consequences range from unsatisfied customers to lost consignment or wholesale contracts.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-green-500">
+            <h4 className="text-green-300 font-bold mb-2">Section 5: When to Use It</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Flame annealing is best used as a bridge technique — most effective for small production items, with kilning to follow as soon as possible. It is not a substitute for proper kiln annealing on work that matters.
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <p className="text-stone-400 text-sm">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
     </div>
   );
