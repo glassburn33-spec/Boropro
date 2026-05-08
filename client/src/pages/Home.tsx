@@ -305,6 +305,34 @@ function StudioTab() {
             </div>
           </div>
 
+          {/* THERMAL PROPERTIES SECTION */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-bold text-amber-400 mb-4">
+              Thermal Properties
+            </h2>
+            <div className="space-y-4">
+              <p className="text-stone-300 text-sm leading-relaxed">
+                As the co-efficient of thermal expansion of borosilicate glass is low, the thermal stresses under a given temperature gradient are consequently low and the glass can withstand higher temperature gradients and also sudden temperature changes/thermal shocks. Minute scratching of glass surface can however reduce its thermal resistance.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                In general, the <span className="text-amber-300 font-semibold">"Strain point"</span> should be regarded as the maximum safe operating temperature of borosilicate glassware. When heated above 500° C the glass may acquire permanent stresses on cooling.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                All borosilicate labware is annealed in modern Lehr ovens under strictly controlled conditions to ensure minimal residual stress in the products.
+              </p>
+              <div className="w-full flex justify-center my-6">
+                <img
+                  src="/manus-storage/thermpropboro_81841fb8.png"
+                  alt="Thermal properties of borosilicate glassware including strain point, annealing point, softening point, and thermal conductivity"
+                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                />
+              </div>
+              <p className="text-stone-500 text-xs italic text-center">
+                Typical thermal properties of borosilicate glassware. The low coefficient of linear expansion (32.5 × 10⁻⁷/° C) enables excellent thermal shock resistance.
+              </p>
+            </div>
+          </div>
+
           <h2 className="text-xl font-bold text-amber-400 mb-4">
             The Structure of Glass: Why It Behaves the Way It Does
           </h2>
