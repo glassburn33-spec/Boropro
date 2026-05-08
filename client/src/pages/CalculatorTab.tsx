@@ -230,12 +230,14 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
 function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
   const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
-   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * D ** 3 / nu ** 2) * Pr;
+  const D_sphere = _PI * D * D / D;  // Characteristic length
+
+  // EDIT RAYLEIGH AND NUSSELT:
+  const Ra = (g * beta * deltaT * D_sphere ** 3 / nu ** 2) * Pr;
   const Nu = 2 + (0.589 * Ra ** (1 / 4)) /
     (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
 
-  return (k / D) * Nu;   // [W/(m²·K)]
+  return (k / D_sphere) * Nu;   // [W/(m²·K)]
 }
 
 // ============================================================
@@ -358,6 +360,7 @@ function getShapeParameters(inputs: {
       const A_surface  = 4 * PI * r ** 2;
       const A_outer    = PI * D ** 2;   // = 4πr² — matches MATLAB A_outer_sphere
       const mass       = GLASS.rho * V;
+      const D_sphere   = A_outer / D; // Characteristic length
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*R / (3*h)
       const tau        = (GLASS.rho * GLASS.cp * r) / (3 * h_conv);
