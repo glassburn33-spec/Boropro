@@ -1425,6 +1425,47 @@ function ScieEquipTab() {
         </div>
       </div>
       
+      {/* Flame Types Section */}
+      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+        <h3 className="text-lg font-bold text-amber-300">Flame Types: Reducing, Neutral, and Oxidizing</h3>
+        
+        <p className="text-stone-300 leading-relaxed">
+          The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, or oxidizing. Each flame type has distinct characteristics and effects on glass working and analysis.
+        </p>
+        
+        {/* Flame Types Diagram */}
+        <div className="flex justify-center my-6">
+          <img 
+            src="/manus-storage/reducingoxyflametypes_9cf3f07b.png" 
+            alt="Bunsen burner flame analysis showing reducing flame (yellow), neutral flame (blue), and oxidizing flame (pale blue) with inner cone and feather characteristics"
+            className="w-full max-w-2xl rounded-lg border border-stone-600"
+          />
+        </div>
+        
+        <div className="space-y-4">
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-500">
+            <h4 className="text-orange-300 font-bold mb-2">Reducing Flame (Left)</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The reducing flame has low oxygen and an excess of acetylene. It displays a secondary feather extending from the inner cone, caused by excess acetylene in the flame mixture. This alters the chemical composition by reducing iron oxide (reducing effect) and adding carbon (carburizing effect). The flame has a yellow or yellowish color due to carbon or hydrocarbons.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+            <h4 className="text-blue-300 font-bold mb-2">Neutral Flame (Center)</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The neutral flame is produced when the amount of oxygen is precisely enough for complete burning, and neither oxidation nor reduction occurs. The flame is considered neutral because it neither significantly adds nor subtracts any elements from the work. A flame with good balance of oxygen is clear blue and is ideal for most glass working applications.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
+            <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame (Right)</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The oxidizing flame is produced with an excessive amount of oxygen. As oxygen increases, the flame shortens, its color darkens, and it hisses and roars. Since it oxidizes the metal's surface, this flame has a harmful effect on the properties of ferrous alloys. With some exceptions (e.g., platinum soldering in jewelry), the oxidizing flame is usually undesirable for welding and glass working.
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <p className="text-stone-400 text-sm">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
     </div>
   );
