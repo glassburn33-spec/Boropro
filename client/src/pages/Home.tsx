@@ -9,25 +9,25 @@ import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X } from
 import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
 import { GlassRodsIcon } from "@/components/icons/GlassRodsIcon";
 import { CalculatorIcon } from "@/components/icons/CalculatorIcon";
-import { EquipmentIcon } from "@/components/icons/EquipmentIcon";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { torchDatabase } from "@/data/torches_expanded";
-import { glassColors, getColorsByManufacturer, getManufacturers } from "@/data/glass_colors";
+
 import { searchContent, SearchResult } from "@/lib/searchIndex";
 import { SearchResults } from "@/components/SearchResults";
 import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
 import ColorScienceTab from "./ColorScienceTab";
 
-type TabType = "studio" | "equipment" | "scieequip" | "calculator" | "colors" | "colorscience";
+type TabType = "studio" | "scieequip" | "calculator" | "colorscience";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("studio");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [pendingExpandedColor, setPendingExpandedColor] = useState<typeof glassColors[0] | null>(null);
+
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleTabChange = (tab: TabType) => {
@@ -61,17 +61,7 @@ export default function Home() {
 
   const handleSelectResult = (result: SearchResult) => {
     // Navigate to appropriate tab based on result type
-    if (result.type === "torch" || result.type === "kiln") {
-      setActiveTab("equipment");
-    } else if (result.type === "color") {
-      // Find the color object and set it as pending for expanded view
-      const color = glassColors.find(c => c.id === result.id || c.name.toLowerCase() === result.title.toLowerCase());
-      if (color) {
-        setPendingExpandedColor(color);
-      }
-      setActiveTab("colors");
-      setShowSearchResults(false);
-    } else if (result.type === "schedule") {
+    if (result.type === "schedule") {
       setActiveTab("calculator");
     }
   };
@@ -135,12 +125,6 @@ export default function Home() {
                   Glass-Science
                 </button>
                 <button
-                  onClick={() => { handleTabChange("equipment"); setShowDrawer(false); }}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
-                >
-                  Equipment
-                </button>
-                <button
                   onClick={() => { handleTabChange("scieequip"); setShowDrawer(false); }}
                   className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
@@ -151,12 +135,6 @@ export default function Home() {
                   className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
                   Calculator
-                </button>
-                <button
-                  onClick={() => { handleTabChange("colors"); setShowDrawer(false); }}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
-                >
-                  Color
                 </button>
                 <button
                   onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
@@ -238,10 +216,8 @@ export default function Home() {
       <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '140px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
-        {activeTab === "equipment" && <EquipmentTab />}
         {activeTab === "scieequip" && <ScieEquipTab />}
         {activeTab === "calculator" && <ThermalCalculatorTab />}
-        {activeTab === "colors" && <ColorsTab pendingExpandedColor={pendingExpandedColor} setPendingExpandedColor={setPendingExpandedColor} />}
         {activeTab === "colorscience" && <ColorScienceTab />}
       </main>
 
@@ -570,79 +546,6 @@ function FeatureCard({ title, description }: { title: string; description: strin
   );
 }
 
-// ============ EQUIPMENT TAB ============
-function EquipmentTab() {
-  const [torchManufacturerFilter, setTorchManufacturerFilter] = useState<string>("all");
-
-  const filteredTorches = torchDatabase.filter((torch) => {
-    return torchManufacturerFilter === "all" || torch.brand === torchManufacturerFilter;
-  });
-
-  const torchManufacturers = Array.from(new Set(torchDatabase.map((t) => t.brand))).sort();
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-bold text-amber-400">Equipment Reference</h2>
-
-      {/* KILNS */}
-      <div>
-        <h3 className="text-sm font-bold text-stone-300 uppercase tracking-wider mb-3">Kilns</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <EquipmentCard
-            name="Skutt KilnMaster 1227"
-            specs={["Max: 2300°F", "27 cu in", "3 zone", "Digital"]}
-            notes="Popular for boro. Excellent control."
-            image="/manus-storage/skutt_kilnmaster_1227_1f3c63e8.jpg"
-          />
-          <EquipmentCard
-            name="Paragon Pro"
-            specs={["Max: 2300°F", "Large", "4 zone", "Digital"]}
-            notes="Professional grade. Best for production."
-          />
-          <EquipmentCard
-            name="Paragon Xpress"
-            specs={["Max: 2300°F", "Compact", "2 zone", "Digital"]}
-            notes="Fast heating. Quick cycles."
-          />
-          <EquipmentCard
-            name="Evenheat Studio Pro"
-            specs={["Max: 2300°F", "Medium", "3 zone", "Digital"]}
-            notes="Reliable. Good consistency."
-          />
-        </div>
-      </div>
-
-      {/* TORCHES - EXPANDED DATABASE */}
-      <div>
-        <h3 className="text-sm font-bold text-stone-300 uppercase tracking-wider mb-3">Torches ({filteredTorches.length})</h3>
-
-        {/* MANUFACTURER FILTER */}
-        <div className="mb-4">
-          <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">Manufacturer</label>
-          <select
-            value={torchManufacturerFilter}
-            onChange={(e) => setTorchManufacturerFilter(e.target.value)}
-            className="w-full bg-stone-800 border border-stone-700 text-white text-sm px-3 py-2 rounded cursor-pointer hover:bg-stone-700 transition-colors"
-          >
-            <option value="all">All Manufacturers</option>
-            {torchManufacturers.map((manufacturer) => (
-              <option key={manufacturer} value={manufacturer}>
-                {manufacturer}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* TORCH CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {filteredTorches.map((torch) => (
-            <TorchCard key={torch.id} torch={torch} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ============ CALCULATOR TAB (with Schedules at bottom) ============
 function CalculatorTab() {
@@ -853,383 +756,6 @@ function CalculatorCard({
   );
 }
 
-// ============ COLORS TAB ============
-function ColorsTab({ pendingExpandedColor, setPendingExpandedColor }: { pendingExpandedColor: typeof glassColors[0] | null; setPendingExpandedColor: (color: typeof glassColors[0] | null) => void }) {
-  // STATE: Search query
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  
-  // STATE: Expanded color overlay
-  const [expandedColor, setExpandedColor] = useState<typeof glassColors[0] | null>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-  const scrollPosRef = useRef<number>(0);
-  
-  // Handle Escape key to close expanded overlay
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') closeExpanded();
-    }
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-  
-  // Consume pending expanded color from search
-  useEffect(() => {
-    if (pendingExpandedColor) {
-      openExpanded(pendingExpandedColor);
-      setPendingExpandedColor(null);
-    }
-  }, [pendingExpandedColor]);
-  
-  // Open expanded color card
-  function openExpanded(color: typeof glassColors[0]) {
-    scrollPosRef.current = listRef.current?.scrollTop ?? window.scrollY;
-    setExpandedColor(color);
-  }
-  
-  // Close expanded color card
-  function closeExpanded() {
-    setExpandedColor(null);
-    requestAnimationFrame(() => {
-      if (listRef.current) {
-        listRef.current.scrollTop = scrollPosRef.current;
-      } else {
-        window.scrollTo(0, scrollPosRef.current);
-      }
-    });
-  };
-
-  // ---- SEARCH HANDLER ----
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  // ---- FILTER LOGIC ----
-  // Filter colors by search query across all text fields
-  const q = searchQuery.toLowerCase().trim();
-  const filtered = !q
-    ? glassColors
-    : glassColors.filter(
-        (c) =>
-          c.name.toLowerCase().includes(q) ||
-          c.colorCode.toLowerCase().includes(q) ||
-          c.description.toLowerCase().includes(q) ||
-          c.strikingNotes.toLowerCase().includes(q) ||
-          c.flameRecommendation.toLowerCase().includes(q) ||
-          c.colorFamily.toLowerCase().includes(q) ||
-          c.manufacturer.toLowerCase().includes(q)
-      );
-
-  // ---- GET ALL MANUFACTURERS FROM FILTERED RESULTS ----
-  const allManufacturers = Array.from(
-    new Set(filtered.map((c) => c.manufacturer))
-  ).sort();
-
-  // ---- GROUP FILTERED COLORS BY MANUFACTURER THEN FAMILY ----
-  const grouped: Record<string, Record<string, typeof glassColors>> = {};
-  for (const mfg of allManufacturers) {
-    const mfgColors = filtered.filter((c) => c.manufacturer === mfg);
-    if (mfgColors.length === 0) continue;
-    grouped[mfg] = {};
-    const families = Array.from(new Set(mfgColors.map((c) => c.colorFamily))).sort();
-    for (const family of families) {
-      grouped[mfg][family] = mfgColors.filter((c) => c.colorFamily === family);
-    }
-  }
-
-  return (
-    <div className="space-y-6 pb-8" ref={listRef}>
-
-      {/* PAGE TITLE */}
-      <h2 className="text-xl font-bold text-amber-400">Color Reference</h2>
-
-      {/* ---- GLOBAL SEARCH BAR ---- */}
-      <div>
-        <label className="text-xs font-bold text-stone-300 uppercase mb-2 block">
-          Search Colors
-        </label>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search by name, code, description, notes..."
-          className="w-full bg-stone-800 border-2 border-stone-600 text-white text-sm px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-amber-500 hover:border-stone-500 transition-all"
-        />
-      </div>
-
-
-
-      {/* ---- RESULT COUNT ---- */}
-      <p className="text-xs text-stone-500">
-        {filtered.length} color{filtered.length !== 1 ? "s" : ""} found
-      </p>
-
-      {/* ---- MANUFACTURER SECTIONS ---- */}
-      <div className="space-y-10">
-        {Object.keys(grouped).length === 0 && (
-          <p className="text-center text-stone-500 text-sm pt-8">
-            No colors match your search.
-          </p>
-        )}
-
-        {Object.entries(grouped).map(([mfg, families]) => (
-          <div key={mfg} className="space-y-4">
-
-            {/* MANUFACTURER HEADER */}
-            <div className="border-b border-amber-700/30 pb-3">
-              <h3 className="text-lg font-bold text-amber-300">{mfg}</h3>
-              <p className="text-xs text-stone-400 mt-1">
-                {Object.values(families).flat().length} color
-                {Object.values(families).flat().length !== 1 ? "s" : ""} available
-              </p>
-            </div>
-
-            {/* COLOR FAMILIES */}
-            <div className="space-y-6">
-              {Object.entries(families).map(([family, colors]) => (
-                <div key={`${mfg}-${family}`} className="space-y-3">
-
-                  {/* FAMILY HEADING */}
-                  <h4 className="text-sm font-bold text-amber-200 uppercase tracking-wide">
-                    {family} Based
-                  </h4>
-
-                  {/* COLOR CARDS GRID */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {colors.map((color) => (
-                      <GlassColorCard key={color.id} color={color} onExpand={openExpanded} />
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* EXPANDED OVERLAY */}
-      {expandedColor && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/80 z-40 backdrop-blur-sm"
-            onClick={closeExpanded}
-          />
-
-          {/* Expanded card */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="relative bg-stone-900 border border-stone-600 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
-
-              {/* Close button */}
-              <button
-                onClick={closeExpanded}
-                className="absolute top-3 right-3 text-stone-400 hover:text-white bg-stone-800 hover:bg-stone-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold z-10"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-
-              {/* Full-size color swatch */}
-              {expandedColor.image && (
-                <div
-                  className="w-full h-48 rounded-t-2xl object-cover"
-                  style={{
-                    backgroundImage: `url(${expandedColor.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                />
-              )}
-
-              {/* Detail fields */}
-              <div className="p-5 space-y-3">
-
-                {/* Name */}
-                <h2 className="text-xl font-bold text-white">
-                  {expandedColor.name}
-                </h2>
-
-                {/* Manufacturer */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Manufacturer</span>
-                  <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
-                    {expandedColor.manufacturer}
-                  </span>
-                </div>
-
-                {/* Color Code */}
-                {expandedColor.colorCode && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Code</span>
-                    <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
-                      {expandedColor.colorCode}
-                    </span>
-                  </div>
-                )}
-
-                {/* Color Family */}
-                {expandedColor.colorFamily && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-stone-400 uppercase tracking-wide w-20">Family</span>
-                    <span className="text-sm font-mono text-stone-200 bg-stone-800 px-2 py-1 rounded">
-                      {expandedColor.colorFamily}
-                    </span>
-                  </div>
-                )}
-
-                {/* Metal Composition */}
-                {expandedColor.metalComposition && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Metal Composition</p>
-                    <p className="text-sm text-stone-300 leading-relaxed">
-                      {expandedColor.metalComposition}
-                    </p>
-                  </div>
-                )}
-
-                {/* Description */}
-                {expandedColor.description && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Description</p>
-                    <p className="text-sm text-stone-300 leading-relaxed">
-                      {expandedColor.description}
-                    </p>
-                  </div>
-                )}
-
-                {/* Annealing Temperature */}
-                {expandedColor.annealingTemp && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Annealing Temperature</p>
-                    <p className="text-sm text-stone-300">{expandedColor.annealingTemp}</p>
-                  </div>
-                )}
-
-                {/* Working Temperature */}
-                {expandedColor.workingTemp && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Working Temperature</p>
-                    <p className="text-sm text-stone-300">{expandedColor.workingTemp}</p>
-                  </div>
-                )}
-
-                {/* Flame Recommendation */}
-                {expandedColor.flameRecommendation && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Flame Recommendation</p>
-                    <p className="text-sm text-stone-300 leading-relaxed">
-                      {expandedColor.flameRecommendation}
-                    </p>
-                  </div>
-                )}
-
-                {/* Striking Notes */}
-                {expandedColor.strikingNotes && (
-                  <div>
-                    <p className="text-xs text-stone-400 uppercase tracking-wide mb-1">Striking Notes</p>
-                    <p className="text-sm text-stone-300 leading-relaxed">
-                      {expandedColor.strikingNotes}
-                    </p>
-                  </div>
-                )}
-
-                {/* Close button at bottom */}
-                <button
-                  onClick={closeExpanded}
-                  className="w-full mt-4 py-2 rounded-lg bg-stone-700 hover:bg-stone-600 text-stone-300 text-sm font-semibold"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function GlassColorCard({ color, onExpand }: { color: typeof glassColors[0]; onExpand: (color: typeof glassColors[0]) => void }) {
-  return (
-    <div 
-      onClick={() => onExpand(color)}
-      className="bg-stone-800 border border-stone-600 rounded-lg p-4 space-y-2 hover:border-amber-600 transition-all cursor-pointer hover:ring-2 hover:ring-amber-400"
-    >
-
-      {/* COLOR IMAGE */}
-      {color.image && (
-        <div className="w-full h-32 rounded overflow-hidden">
-          <img
-            src={color.image}
-            alt={color.name}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              display: "block",
-            }}
-          />
-        </div>
-      )}
-
-      {/* COLOR NAME + CODE */}
-      <div className="flex items-start justify-between gap-2">
-        <p className="text-sm font-bold text-white leading-tight">{color.name}</p>
-        <span className="text-xs font-mono text-amber-400 whitespace-nowrap">{color.colorCode}</span>
-      </div>
-
-      {/* FAMILY BADGE */}
-      <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-stone-700 text-stone-300">
-        {color.colorFamily}
-      </span>
-
-      {/* DESCRIPTION */}
-      <p className="text-xs text-stone-400 leading-relaxed">{color.description}</p>
-
-      {/* SPECS */}
-      <div className="text-xs text-stone-500 space-y-0.5 pt-1 border-t border-stone-700">
-        <p><span className="text-stone-400 font-medium">Anneal:</span> {color.annealingTemp}</p>
-        <p><span className="text-stone-400 font-medium">Working:</span> {color.workingTemp}</p>
-        <p><span className="text-stone-400 font-medium">Flame:</span> {color.flameRecommendation}</p>
-        <p><span className="text-stone-400 font-medium">Notes:</span> {color.strikingNotes}</p>
-      </div>
-    </div>
-  );
-}
-
-function ColorCard({
-  name,
-  specs,
-  notes,
-}: {
-  name: string;
-  specs: string[];
-  notes: string;
-}) {
-  const handleCopy = () => {
-    const text = `${name}\n${specs.join("\n")}\n${notes}`;
-    navigator.clipboard.writeText(text);
-  };
-
-  return (
-    <Card className="bg-stone-800 border-stone-700 p-3">
-      <h4 className="font-bold text-amber-300 text-sm mb-2">{name}</h4>
-      <div className="text-xs text-stone-400 space-y-1 mb-2">
-        {specs.map((spec, i) => (
-          <div key={i}>• {spec}</div>
-        ))}
-      </div>
-      <p className="text-xs text-stone-300 mb-2">{notes}</p>
-      <Button
-        onClick={handleCopy}
-        size="sm"
-        className="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs"
-      >
-        Copy Specs
-      </Button>
-    </Card>
-  );
-}
 
 // ============ EQUIPMENT CARD ============
 function EquipmentCard({
