@@ -494,6 +494,34 @@ function StudioTab() {
             </div>
           </div>
 
+          {/* DEVITRIFICATION SECTION */}
+          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-bold text-amber-400 mb-4">
+              Devitrification
+            </h2>
+            <div className="space-y-4">
+              <div className="w-full flex justify-center my-6">
+                <img
+                  src="/manus-storage/devitrifiedtube_9340acf2.png"
+                  alt="Devitrified glass tube showing crystalline formation and hazy appearance"
+                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                />
+              </div>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                Devitrification results in a loss of translucency, and devitrified glass is often described as having a white or grey, "hazy," "scummy," "chalky," or "misty" appearance combined with a roughened surface texture (nicknamed "devit" by glass artists). Devitrification can occur both on the surface of glass or internally, though it is most commonly seen on the surface. The crystal formation causes contraction of the glass, and a crinkled surface appearance or cracking can occur as a result; this crystallization-induced cracking is separate from deterioration that produces crizzling made by poor annealing or thermal shock or due to glass weathering. Devitrification is often accidental, but can also be purposefully induced for artistic effect; it cannot be removed by washing the glass.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                Devitrification can occur in a number of different ways. When glass that is kiln fired is kept at the liquidus temperature (the temperature above which a material is completely liquid) or in the "devitrification zone" for a sufficient amount of time, and/or cooled too slowly, crystal structures can have time to grow within the glass. The "devitrification zone" or "devitrification range" is the temperature range at which devitrification becomes more likely and typically occurs in most glasses at approximately 1300 to 1550°C, although glass with different compositions may have different devitrification zones. Glass that has not been properly cleaned before firing is also more prone to devitrification, as fingerprints, dust, and other contaminants on the glass surface can act as nucleation centers for crystalline growth.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                The composition of the glass affects the crystallization probability. Devitrification may be less common in ancient glass, which typically has complex compositions, than in modern glasses, with simpler compositions. Glass that contains boron is more resistant to devitrification, while glass with an excess of lime (calcium) cools more slowly, resulting in an increased opportunity for the development of devitrification. Glass with opalizing agents, opaque glass, and colored glass all are also more likely to devitrify. These additives create "microcrystalline areas" in the glass where devitrification can more easily occur.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                Though devitrification can appear similar to certain types of glass degradation, like weathering, or can be mistaken as a type of glass degradation itself, devitrification is not a deterioration process. Glass deterioration occurs because of a chemical interaction between glass and its environment; devitrification, however, occurs during the creation of the glass, and therefore should not be used in a general sense to mean "loss of vitreous nature." Devitrification does not result in a change to the overall chemical composition of the glass. Because it is a feature of the "original" state of the glass and is not in itself degradation, devitrification is not typically seen as needing to be treated or removed in the conservation of glass objects.
+              </p>
+            </div>
+          </div>
+
           {/* KEY INSIGHT CALLOUT */}
           <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
             <p className="text-stone-300 text-sm leading-relaxed">
