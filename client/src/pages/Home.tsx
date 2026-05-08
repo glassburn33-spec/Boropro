@@ -1381,9 +1381,51 @@ function QuickActionCard({
 
 function ScieEquipTab() {
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-bold text-amber-400">Scientific Equipment</h2>
-      <p className="text-stone-400">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
+    <div className="space-y-8">
+      <h2 className="text-xl font-bold text-amber-400">Scientific Equipment & Instrumentation</h2>
+      
+      {/* Flame Structure Section */}
+      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+        <h3 className="text-lg font-bold text-amber-300">Flame Structure and Combustion Zones</h3>
+        
+        <p className="text-stone-300 leading-relaxed">
+          The flame structure is critical for atomic absorption spectroscopy and glass analysis. Figure 1 shows a cross-section through the flame, down the source radiation's optical path. The primary combustion zone usually is rich in gas combustion products that emit radiation, limiting its usefulness for atomic absorption. The interzonal region generally is rich in free atoms and provides the best location for measuring atomic absorption. The hottest part of the flame typically is 2–3 cm above the primary combustion zone. As atoms approach the flame's secondary combustion zone, the decrease in temperature allows for formation of stable molecular species.
+        </p>
+        
+        {/* Flame Diagram */}
+        <div className="flex justify-center my-6">
+          <img 
+            src="/manus-storage/flamediagram_78aea61e.png" 
+            alt="Flame structure showing primary combustion zone, interzonal region, and secondary combustion zone with optical path"
+            className="w-full max-w-2xl rounded-lg border border-stone-600"
+          />
+        </div>
+        
+        <p className="text-stone-300 leading-relaxed">
+          The flame's temperature, which affects the efficiency of atomization, depends on the fuel–oxidant mixture. Of the common combinations, the air–acetylene and the nitrous oxide–acetylene flames are the most popular. Normally the fuel and oxidant are mixed in an approximately stoichiometric ratio; however, a fuel-rich mixture may be necessary for easily oxidized analytes.
+        </p>
+        
+        {/* Fuels and Oxidants Table */}
+        <div className="flex justify-center my-6">
+          <img 
+            src="/manus-storage/gastables_c580dfb1.png" 
+            alt="Table showing fuels and oxidants used for flame combustion with temperature ranges"
+            className="w-full max-w-3xl rounded-lg border border-stone-600"
+          />
+        </div>
+        
+        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+          <h4 className="text-amber-300 font-bold mb-2">Key Temperature Ranges:</h4>
+          <ul className="text-stone-300 space-y-2 text-sm">
+            <li><strong>Natural gas + Air:</strong> 1700–1900°C</li>
+            <li><strong>Hydrogen + Air:</strong> 2100–2400°C</li>
+            <li><strong>Acetylene + Nitrous oxide:</strong> 2600–2800°C (most popular for high-temperature analysis)</li>
+            <li><strong>Acetylene + Oxygen:</strong> 3050–3150°C (highest temperature, used for refractory materials)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <p className="text-stone-400 text-sm">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
     </div>
   );
 }
