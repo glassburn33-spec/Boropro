@@ -175,33 +175,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ROW 2: Search Bar Only - No Navigation Tabs */}
-        <div className="bg-stone-900 border-t border-amber-700/30 px-4 py-3">
-          <div className="max-w-6xl mx-auto">
-            {/* Search Bar */}
-            <div className="flex gap-2">
-              <Input
-                placeholder="Search equipment, schedules, colors... (Cmd+K)"
-                className="bg-stone-800 border-stone-700 text-white placeholder:text-stone-500 h-9 flex-1"
-                value={searchQuery}
-                onChange={(e) => handleSearchInput(e.target.value)}
-                onKeyDown={handleSearch}
-              />
-              <Button
-                onClick={() => {
-                  if (searchQuery.trim()) {
-                    const results = searchContent(searchQuery);
-                    setSearchResults(results);
-                    setShowSearchResults(true);
-                  }
-                }}
-                className="bg-amber-700 hover:bg-amber-600 text-white px-4 h-9"
-              >
-                Search
-              </Button>
-            </div>
-          </div>
-        </div>
+
       </header>
       
       {/* Close dropdown when clicking outside */}
@@ -212,8 +186,8 @@ export default function Home() {
         />
       )}
 
-      {/* MAIN CONTENT - Margin accounts for fixed header (logo row + search row) */}
-      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '140px' }}>
+      {/* MAIN CONTENT - Margin accounts for fixed header */}
+      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '120px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "scieequip" && <ScieEquipTab />}
