@@ -316,7 +316,7 @@ function getShapeParameters(inputs: {
         `Wall thickness (${inputs.thickness} mm) must be less than radius (${inputs.radius} mm)`
       );
       const D          = 2 * r;
-      const D_cyl      = D/6;
+      const D_cyl      = (D / 6);  //  where r = D/2
       const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
 
       const r_inner    = r - t;
@@ -360,7 +360,7 @@ function getShapeParameters(inputs: {
       const A_surface  = 4 * PI * r ** 2;
       const A_outer    = PI * D ** 2;   // = 4πr² — matches MATLAB A_outer_sphere
       const mass       = GLASS.rho * V;
-      const D_sphere   = A_outer / D; // Characteristic length
+      const D_sphere   = D;  // Characteristic length
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*R / (3*h)
       const tau        = (GLASS.rho * GLASS.cp * r) / (3 * h_conv);
