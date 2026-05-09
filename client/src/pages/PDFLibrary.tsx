@@ -313,10 +313,10 @@ export default function PDFLibrary() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 {displayLibrary.map((pdf) => (
-                  <button
+                  <div
                     key={pdf.id}
                     onClick={() => setSelectedPDF(pdf)}
-                    className={`rounded-2xl border p-6 backdrop-blur-sm text-left transition-all ${
+                    className={`rounded-2xl border p-6 backdrop-blur-sm text-left transition-all cursor-pointer ${
                       selectedPDF?.id === pdf.id
                         ? "border-amber-500 bg-amber-500/10"
                         : "border-white/10 bg-white/5 hover:border-amber-500/50"
@@ -369,7 +369,7 @@ export default function PDFLibrary() {
                         </span>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
             )}

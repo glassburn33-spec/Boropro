@@ -24,6 +24,8 @@ interface KilnLogEntry {
 export default function KilnLog() {
   const [showForm, setShowForm] = useState(false);
   const [selectedLog, setSelectedLog] = useState<KilnLogEntry | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterBy, setFilterBy] = useState<"all" | "recent" | "oldest">("all");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -40,7 +42,7 @@ export default function KilnLog() {
   const deleteMutation = trpc.kilnLog.delete.useMutation();
 
   // Convert database records to display format
-  const displayLogs: KilnLogEntry[] = logs.map((log: any) => ({
+  let displayLogs: KilnLogEntry[] = logs.map((log: any) => ({
     id: log.id,
     name: log.name,
     description: log.description,
@@ -51,6 +53,27 @@ export default function KilnLog() {
     notes: log.notes,
     createdAt: new Date(log.createdAt),
   }));
+
+  // Apply search filter
+  if (searchQuery.trim()) {
+    displayLogs = displayLogs.filter(
+      (log) =>
+        log.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        log.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        log.notes?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  // Apply sort filter
+  if (filterBy === "recent") {
+    displayLogs = [...displayLogs].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  } else if (filterBy === "oldest") {
+    displayLogs = [...displayLogs].sort(
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -338,7 +361,60 @@ export default function KilnLog() {
         {/* Logs List */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">Your Kiln Logs</h2>
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-white">Your Kiln Logs</h2>
+              <div className="text-sm text-stone-400">
+                {displayLogs.length} {displayLogs.length === 1 ? "log" : "logs"}
+              </div>
+            </div>
+
+            {/* Search and Filter Controls */}
+            {logs.length > 0 && (
+              <div className="mb-8 space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Search by name, description, or notes..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-lg bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-stone-500 focus:border-amber-500 focus:outline-none"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setFilterBy("all")}
+                    className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-colors ${
+                      filterBy === "all"
+                        ? "bg-amber-600 text-white"
+                        : "border border-white/20 text-stone-400 hover:border-amber-500"
+                    }`}
+                  >
+                    All
+                  </button>
+                  <button
+                    onClick={() => setFilterBy("recent")}
+                    className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-colors ${
+                      filterBy === "recent"
+                        ? "bg-amber-600 text-white"
+                        : "border border-white/20 text-stone-400 hover:border-amber-500"
+                    }`}
+                  >
+                    Recent
+                  </button>
+                  <button
+                    onClick={() => setFilterBy("oldest")}
+                    className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-colors ${
+                      filterBy === "oldest"
+                        ? "bg-amber-600 text-white"
+                        : "border border-white/20 text-stone-400 hover:border-amber-500"
+                    }`}
+                  >
+                    Oldest
+                  </button>
+                </div>
+              </div>
+            )}
+
             {isLoading ? (
               <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
                 <p className="text-stone-400">Loading your logs...</p>

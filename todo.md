@@ -14,8 +14,8 @@
 - [x] Frontend integration tests for CSV export
 
 ## Kiln Log (New Feature)
-- [ ] Create Kiln Log database schema
-- [ ] Build Kiln Log entry form UI
-- [ ] Implement Kiln Log history view with filtering
-- [ ] Add CSV export for kiln logs
-- [ ] Write tests for Kiln Log API and UI
+- [x] Create Kiln Log database schema
+- [x] Build Kiln Log entry form UI
+- [x] Implement Kiln Log history view with filtering
+- [x] Add CSV export for kiln logs
+- [x] Write tests for Kiln Log API and UI
