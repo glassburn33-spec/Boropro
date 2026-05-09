@@ -311,7 +311,7 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   // Title
   const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
   title.setAttribute('x', (width / 2).toString());
-  title.setAttribute('y', (titleFontSize + 15).toString());
+  title.setAttribute('y', (titleFontSize - 5).toString());
   title.setAttribute('text-anchor', 'middle');
   title.setAttribute('fill', '#fbbf24');
   title.setAttribute('font-size', titleFontSize.toString());
