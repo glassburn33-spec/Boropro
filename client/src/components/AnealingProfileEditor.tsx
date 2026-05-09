@@ -764,7 +764,99 @@ export default function AnealingProfileEditor() {
                         <h4 className="font-bold text-amber-300">{schedule.name}</h4>
                         <p className="text-xs text-stone-400">{schedule.timestamp}</p>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 flex-wrap">
+                        <button
+                          onClick={async () => {
+                            const pdf = new jsPDF('p', 'mm', 'a4');
+                            const pageHeight = pdf.internal.pageSize.getHeight();
+                            const pageWidth = pdf.internal.pageSize.getWidth();
+                            let yPosition = 10;
+
+                            // Add title
+                            pdf.setFontSize(16);
+                            (pdf as any).setFont(undefined, 'bold');
+                            pdf.text(schedule.name, pageWidth / 2, yPosition, { align: 'center' });
+                            yPosition += 10;
+
+                            // Add timestamp
+                            pdf.setFontSize(10);
+                            (pdf as any).setFont(undefined, 'normal');
+                            pdf.text(`Saved: ${schedule.timestamp}`, pageWidth / 2, yPosition, { align: 'center' });
+                            yPosition += 8;
+
+                            // Add separator line
+                            pdf.setDrawColor(180, 140, 80);
+                            pdf.line(10, yPosition, pageWidth - 10, yPosition);
+                            yPosition += 5;
+
+                            // Add profile data
+                            pdf.setFontSize(12);
+                            (pdf as any).setFont(undefined, 'bold');
+                            pdf.text('Profile Configuration:', 10, yPosition);
+                            yPosition += 6;
+
+                            pdf.setFontSize(10);
+                            (pdf as any).setFont(undefined, 'normal');
+                            const profileData = [
+                              `Stage 1: ${schedule.data.stage1.startTemp}°C → ${schedule.data.stage1.targetTemp}°C (${schedule.data.stage1.duration} min)`,
+                              `Stage 2: Hold ${schedule.data.stage2.holdTemp}°C (${schedule.data.stage2.duration} min)`,
+                              `Stage 3: ${schedule.data.stage3.startTemp}°C → ${schedule.data.stage3.endTemp}°C (${schedule.data.stage3.duration} min)`,
+                              `Stage 4: ${schedule.data.stage4.startTemp}°C → ${schedule.data.stage4.endTemp}°C (${schedule.data.stage4.duration} min)`,
+                              `Annealing Point: ${referenceLines.annealingPoint}°C`,
+                              `Strain Point: ${referenceLines.strainPoint}°C`,
+                            ];
+                            profileData.forEach(line => {
+                              pdf.text(line, 10, yPosition);
+                              yPosition += 5;
+                            });
+                            yPosition += 3;
+
+                            // Add materials & notes
+                            if (schedule.notes) {
+                              if (yPosition + 30 > pageHeight - 10) {
+                                pdf.addPage();
+                                yPosition = 10;
+                              }
+                              
+                              pdf.setFontSize(12);
+                              (pdf as any).setFont(undefined, 'bold');
+                              pdf.text('Materials & Notes:', 10, yPosition);
+                              yPosition += 6;
+                              
+                              pdf.setFontSize(10);
+                              (pdf as any).setFont(undefined, 'normal');
+                              const notesLines = (pdf as any).splitTextToSize(schedule.notes, pageWidth - 20);
+                              (pdf as any).text(notesLines, 10, yPosition);
+                              yPosition += notesLines.length * 5 + 5;
+                            }
+
+                            // Add results
+                            if (schedule.results) {
+                              if (yPosition + 30 > pageHeight - 10) {
+                                pdf.addPage();
+                                yPosition = 10;
+                              }
+                              
+                              pdf.setFontSize(12);
+                              (pdf as any).setFont(undefined, 'bold');
+                              pdf.text('Results & Observations:', 10, yPosition);
+                              yPosition += 6;
+                              
+                              pdf.setFontSize(10);
+                              (pdf as any).setFont(undefined, 'normal');
+                              const resultsLines = (pdf as any).splitTextToSize(schedule.results, pageWidth - 20);
+                              (pdf as any).text(resultsLines, 10, yPosition);
+                            }
+
+                            // Download PDF
+                            const fileName = `${schedule.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                            pdf.save(fileName);
+                          }}
+                          className="px-3 py-1 bg-amber-700 hover:bg-amber-600 text-white rounded text-sm font-semibold flex items-center gap-1"
+                        >
+                          <Download className="w-3 h-3" />
+                          Export PDF
+                        </button>
                         <button
                           onClick={() => handleEditSchedule(schedule)}
                           className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
