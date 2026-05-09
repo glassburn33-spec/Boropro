@@ -452,6 +452,61 @@ export default function ColorScienceTab() {
         </div>
       </div>
 
+      {/* History of Color Section */}
+      <div className="max-w-6xl mx-auto mt-16 mb-12">
+        <div className="border-l-4 border-amber-500 pl-6 mb-8">
+          <h2 className="text-3xl font-bold text-amber-400 mb-2">History of Color</h2>
+          <p className="text-stone-300 text-sm">Archaeological Evidence of Glass Coloration Through the Ages</p>
+        </div>
+
+        <div className="space-y-6">
+          <p className="text-stone-300 leading-relaxed">
+            The archaeological assemblage discussed here belongs to the Roman and Protobyzantine periods (1st to 5th century AD) and was excavated in Ancient Messene (Peloponnese, Greece). Ancient Messene is an important ancient city in terms of its size, form and state of preservation, representing one of the biggest restoration projects in Greece today. When Pausanias visited Ancient Messene in the 2nd century AD, it was a prosperous political and cultural centre. From AD 212–394 the archaeological record is short of historical information, indicative of the decline of the city. The latest layers of destruction and abandonment of most of the city's buildings followed the collapse of the Roman Empire and are dated at about AD 360/70. However, towards the end of the 4th century AD, a thriving Protobyzantine settlement was established in the area of the Asklepeion and remained active until the end of the 6th century AD.
+          </p>
+
+          <p className="text-stone-300 leading-relaxed">
+            The collection includes glass objects such as vessel fragments, window panes, stirring rods, and glass test pieces. Several coloured translucent and opaque mosaic tesserae were uncovered at the temple of Isis and Serapes and were likely part of the walls' decoration. The table below presents the studied Roman glass fragments, including their colour and oxide composition (wt%) as determined by SEM measurements. The data reveals the sophisticated understanding of glass coloration that Roman glassmakers possessed, with deliberate use of transition metals (Cu, Fe, Mn, Sb) to achieve specific colors ranging from deep blues and greens to yellows, oranges, browns, and purples.
+          </p>
+
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <img 
+              src="/manus-storage/colorhistorytable_0cbc637c.png" 
+              alt="Roman glass fragments composition and color analysis" 
+              className="w-full h-auto object-contain"
+            />
+            <p className="text-stone-400 text-sm mt-4 text-center italic">
+              List of studied Roman glass fragments including their colour and oxide composition (wt%) as determined by SEM measurements (op. – opaque, tr. – transparent). The data spans multiple color categories: Blue, Green to Yellow, Brown, and Purple, demonstrating the diverse palette of colors Roman glassmakers could achieve through controlled use of transition metal oxides and opacifying agents.
+            </p>
+          </div>
+
+          <div className="bg-stone-800/30 rounded-lg p-6 border border-stone-700/30">
+            <h4 className="text-lg font-semibold text-amber-300 mb-3">Key Observations from Roman Glass Analysis</h4>
+            <ul className="space-y-2 text-stone-300 text-sm">
+              <li className="flex items-start">
+                <span className="text-amber-400 mr-3">•</span>
+                <span><strong>Copper oxides (CuO):</strong> Primary colorant for blues and greens, with concentrations ranging from 0.18 to 3.93 wt%</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-amber-400 mr-3">•</span>
+                <span><strong>Iron oxides (Fe₂O₃):</strong> Used for yellows and browns, with systematic variation in oxidation state controlling color</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-amber-400 mr-3">•</span>
+                <span><strong>Manganese (MnO):</strong> Employed as both a colorant and decolorizer, with concentrations up to 3.52 wt%</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-amber-400 mr-3">•</span>
+                <span><strong>Antimony (Sb₂O₃):</strong> Used as an opacifying agent, particularly in blue and purple glasses</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-amber-400 mr-3">•</span>
+                <span><strong>Lead (PbO):</strong> Present in select samples, likely for increased brilliance and workability</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {/* Thermochromism Simulator */}
       <div className="max-w-6xl mx-auto mt-12 mb-12">
         <ThermochromismSimulator />
