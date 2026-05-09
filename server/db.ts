@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, pdfLibrary, InsertPDFLibrary, PDFLibrary, kilnLog, InsertKilnLog, KilnLog } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -154,7 +154,7 @@ export async function deletePDFFromLibrary(id: number, userId: number): Promise<
 
   try {
     await db.delete(pdfLibrary).where(
-      eq(pdfLibrary.id, id) && eq(pdfLibrary.userId, userId)
+      and(eq(pdfLibrary.id, id), eq(pdfLibrary.userId, userId))
     );
     return true;
   } catch (error) {
