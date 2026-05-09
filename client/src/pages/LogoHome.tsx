@@ -27,9 +27,8 @@ export default function LogoHome() {
     // Navigate to explore page when a tab is clicked
     setLocation("/explore");
   };
-
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100">
+    <div className="space-y-6 overflow-hidden bg-stone-950 text-stone-100" style={{ height: '100vh' }}>
       {/* FIXED HEADER */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
         {/* ROW 1: Hamburger Menu and Logo */}
@@ -115,17 +114,18 @@ export default function LogoHome() {
       {/* Close dropdown when clicking outside */}
       {showDrawer && (
         <div
-          className="fixed inset-0 z-20"
+          className="fixed inset-0 z-20 bg-black/50"
           onClick={() => setShowDrawer(false)}
+          style={{ top: '120px', height: 'calc(100vh - 120px)' }}
         />
       )}
 
       {/* MAIN CONTENT - Centered Logo */}
-      <main className="min-h-screen flex items-center justify-center px-4" style={{ marginTop: '120px' }}>
+      <main className="fixed inset-0 top-[120px] flex items-center justify-center px-4 overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
         <img
           src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png"
           alt="BoroPro Logo"
-          className="w-[48rem] h-[48rem] sm:w-[56rem] sm:h-[56rem] md:w-[64rem] md:h-[64rem] lg:w-[80rem] lg:h-[80rem] xl:w-[96rem] xl:h-[96rem] object-contain max-w-[98vw] max-h-[90vh]"
+          className="w-[48rem] h-[48rem] sm:w-[56rem] sm:h-[56rem] md:w-[64rem] md:h-[64rem] lg:w-[80rem] lg:h-[80rem] xl:w-[96rem] xl:h-[96rem] object-contain max-w-[98vw] max-h-[calc(100vh-140px)]"
         />
       </main>
     </div>
