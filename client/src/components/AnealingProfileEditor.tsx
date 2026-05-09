@@ -1421,9 +1421,10 @@ export default function AnealingProfileEditor() {
       {/* Save Dialog */}
       {showSaveDialog && (
         <div className="fixed bg-stone-800 border border-stone-600 p-6 rounded-lg shadow-lg z-50" style={{
-          top: '200px',
-          right: '20px',
-          width: '300px'
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '400px'
         }}>
           <h4 className="text-lg font-bold text-white mb-4">Save Schedule</h4>
           <input
@@ -1433,7 +1434,7 @@ export default function AnealingProfileEditor() {
             onChange={(e) => setScheduleName(e.target.value)}
             className="w-full bg-stone-700 border border-stone-600 rounded px-3 py-2 text-white mb-4 focus:outline-none focus:border-amber-500"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center">
           <button
             onClick={handleSaveSchedule}
             className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded font-semibold mr-2"
