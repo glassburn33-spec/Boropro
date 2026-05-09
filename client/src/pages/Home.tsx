@@ -372,126 +372,65 @@ function StudioTab() {
       </div>
 
       {/* GLASS ANNEALING SCIENCE SECTION */}
-      <div className="border-t border-stone-700 pt-8 mt-8">
-        <h2 className="text-2xl font-bold text-center text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>The Science of Glass Annealing</h2>
-        
-        <div className="max-w-5xl mx-auto">
-          {/* TWO-COLUMN LAYOUT */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {/* LEFT COLUMN: IMAGE */}
-            <div className="flex flex-col items-center justify-start">
-              <div className="relative">
-                <img
-                  src="/manus-storage/viscosityplot_99c24e57.png"
-                  alt="Viscosity-Temperature profile for common glass types. Blue band indicates critical annealing range."
-                  className="w-full max-w-sm rounded-lg border border-stone-600 shadow-lg" 
-                />
-              </div>
-              <p className="text-center text-stone-400 text-xs mt-4 max-w-sm italic">
-                Viscosity–Temperature profile for common glass types. Blue band = critical annealing range.
-              </p>
-            </div>
-
-            {/* RIGHT COLUMN: CONTENT */}
-            <div className="space-y-6" style={{fontFamily: "'IBM Plex Mono', 'Source Sans Pro', sans-serif"}}>
-              {/* SUBSECTION 1: ANNEALING POINT */}
-              <div className="bg-stone-900/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-amber-600/30 border border-amber-600 rounded-full text-amber-300 text-xs font-bold">Annealing Point</span>
-                  <span className="text-amber-400 font-bold">η = 10<sup>12.4</sup> Pa·s</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed">
-                  At this temperature, internal thermal stresses in the glass are relieved by viscous relaxation within <span className="text-amber-300 font-bold">15 minutes</span>. To relieve a glass product of internal stresses, it must be heated to just above the annealing point and subsequently cooled down slowly.
-                </p>
-              </div>
-
-              {/* GLOWING DIVIDER */}
-              <div className="h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent" style={{boxShadow: "0 0 10px rgba(200, 134, 10, 0.5)"}}></div>
-
-              {/* SUBSECTION 2: STRAIN POINT */}
-              <div className="bg-stone-900/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-amber-600/30 border border-amber-600 rounded-full text-amber-300 text-xs font-bold">Strain Point</span>
-                  <span className="text-amber-400 font-bold">η = 10<sup>13.5</sup> Pa·s</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed space-y-2">
-                  <span>Below this temperature, relieving internal stresses is practically impossible. At the strain point itself, stress relief may take up to <span className="text-amber-300 font-bold">15 hours</span>. Between the annealing point and strain point, glass must be cooled gradually, slowly, and uniformly to avoid internal stress formation caused by temperature gradients.</span>
-                  <br/>
-                  <span>Stresses acquired during cooling above the strain point are <span className="text-amber-300 font-bold">permanent stresses</span> unless annealed. Stresses acquired during cooling below the strain point are <span className="text-amber-300 font-bold">temporary stresses</span> but can still cause failure under thermal shock. The goal of annealing is to relieve the permanent stresses created by fast cooling that occurred during the forming process. To avoid permanent stress creation, cooling must be slow within the temperature and viscosity range between the annealing point and the strain point.</span>
-                </p>
-              </div>
-            </div>
+      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+        <h2 className="text-xl font-bold text-amber-400 mb-4">
+          The Science of Glass Annealing
+        </h2>
+        <div className="space-y-4">
+          <div className="w-full flex justify-center my-6">
+            <img
+              src="/manus-storage/viscosityplot_99c24e57.png"
+              alt="Viscosity-Temperature profile for common glass types showing critical annealing range"
+              className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+            />
           </div>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            Annealing is the process of slowly cooling glass from an elevated temperature to room temperature in a controlled manner. This process relieves internal stresses that develop during the formation and shaping of glass. When glass is heated above its annealing point and then cooled too quickly, the outer surface contracts faster than the interior, creating permanent internal stresses. These stresses can cause spontaneous breakage, optical distortion, or delayed fracture that may occur days, weeks, or even years after the piece is created.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The physics of internal stress in glass is fundamentally related to the glass transition temperature (Tg) and the strain point. As glass cools through the annealing point (approximately 565°C for borosilicate glass), the atomic network begins to slow its molecular motion. If the surface and interior cool at different rates, differential contraction creates tensile stress in the surface and compressive stress in the interior. These stresses become permanently "frozen" into the glass structure once it cools below the strain point (approximately 515°C for borosilicate glass), where atomic motion effectively ceases on any practical timescale.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The annealing point is the temperature at which internal thermal stresses can be relieved by viscous relaxation within approximately 15 minutes. At this temperature, the glass is still fluid enough that molecular segments can rearrange to a lower-energy state, gradually dissipating accumulated stresses. The strain point is the lower boundary below which stress relief becomes practically impossible — stresses locked into the glass at this threshold are permanent unless the piece is reheated above the annealing point. The temperature range between the annealing point and strain point is therefore the critical annealing range, where slow, controlled cooling is essential to prevent permanent stress formation.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            Variables that affect the required annealing time and temperature profile include glass composition (different glass types have different transition temperatures), piece thickness and geometry (thicker pieces require slower cooling to prevent internal temperature gradients), and the cooling rate (faster cooling creates larger temperature gradients and higher stresses). Improper annealing can result in spontaneous breakage due to thermal shock, optical distortion from stress-induced birefringence, or delayed fracture from latent internal stresses. Industrial annealing schedules are carefully calculated to minimize stresses in the shortest time possible, balancing energy consumption against the need for complete stress relief.
+          </p>
         </div>
       </div>
 
-      {/* GLASS HEAT TREATMENT PROFILE SECTION */}
-      <div className="border-t border-stone-700 pt-8 mt-8">
-        <h2 className="text-2xl font-bold text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>Glass Heat Treatment Profile</h2>
-        
-        <div className="max-w-5xl mx-auto">
-          {/* TEXT-TO-IMAGE LAYOUT */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 items-start">
-            {/* LEFT COLUMN: TEXT CONTENT */}
-            <div className="space-y-6" style={{fontFamily: "'IBM Plex Mono', 'Source Sans Pro', sans-serif"}}>
-              {/* PHASE 1: RAPID REHEATING */}
-              <div className="bg-stone-900/50 border-l-4 border-red-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-red-600/30 border border-red-600 rounded-full text-red-300 text-xs font-bold">Phase 1 — Rapid Reheating</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed">
-                  The glass article is rapidly reheated to a temperature above the annealing point (T &gt; T<sub>anneal</sub>). Speed here is acceptable because the glass is being brought up uniformly before stress-sensitive cooling begins.
-                </p>
-              </div>
-
-              {/* PHASE 2: DWELL */}
-              <div className="bg-stone-900/50 border-l-4 border-orange-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-orange-600/30 border border-orange-600 rounded-full text-orange-300 text-xs font-bold">Phase 2 — Dwell</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed">
-                  The glass holds at temperature to allow equalization of heat throughout the entire article. This soak ensures no internal temperature gradients exist before the critical cooling phase begins.
-                </p>
-              </div>
-
-              {/* PHASE 3: SLOW COOLING */}
-              <div className="bg-stone-900/50 border-l-4 border-green-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-green-600/30 border border-green-600 rounded-full text-green-300 text-xs font-bold">Phase 3 — Slow Cooling</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed space-y-2">
-                  <span>The glass is cooled slowly and uniformly from above the annealing point down through the strain point. This is the most critical phase. Internal temperature gradients develop depending on <span className="text-amber-300 font-bold">cooling rate</span> and the thermal equalization capacity of the glass. These gradients lead directly to <span className="text-amber-300 font-bold">internal stress</span>. The stress in the glass can be calculated from the cooling rate, the properties of the glass, and the shape of the article. The optimal <span className="text-amber-300 font-bold">cooling rate</span> can be calculated for a maximum allowable <span className="text-amber-300 font-bold">residual stress</span> in the final glass article.</span>
-                </p>
-              </div>
-
-              {/* PHASE 4: MORE RAPID COOLING */}
-              <div className="bg-stone-900/50 border-l-4 border-blue-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)"}}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-3 py-1 bg-blue-600/30 border border-blue-600 rounded-full text-blue-300 text-xs font-bold">Phase 4 — More Rapid Cooling</span>
-                </div>
-                <p className="text-stone-300 text-sm leading-relaxed">
-                  Once the glass has passed below the <span className="text-amber-300 font-bold">strain point</span>, cooling can be accelerated. Stresses formed below the strain point are temporary and lower risk, so energy and time can be saved in this final phase.
-                </p>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: IMAGE */}
-            <div className="flex flex-col items-center justify-start">
-              <div className="relative">
-                <img
-                  src="/manus-storage/boroanealprofile_20331f22.png"
-                  alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
-                  className="w-full max-w-md rounded-lg border border-stone-600 shadow-lg" 
-                />
-              </div>
-              <p className="text-center text-stone-400 text-xs mt-4 max-w-md italic">
-                Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling to below the strain point.
-              </p>
-            </div>
+      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+        <h2 className="text-xl font-bold text-amber-400 mb-4">
+          Glass Heat Treatment Profile
+        </h2>
+        <div className="space-y-4">
+          <div className="w-full flex justify-center my-6">
+            <img
+              src="/manus-storage/boroanealprofile_20331f22.png"
+              alt="Borosilicate Glass Heat Treatment Profile showing four phases of annealing"
+              className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+            />
           </div>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            A glass heat treatment profile, also called a firing schedule or kiln schedule, is a precisely controlled temperature-time curve that guides the heating and cooling of glass through the annealing process. The profile consists of four distinct phases, each with specific thermal objectives. The profile is determined by the glass composition, the thickness and geometry of the piece, and the maximum allowable residual stress in the final product. Proper heat treatment profiles prevent thermal shock, devitrification, and the formation of permanent internal stresses that could cause delayed fracture.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The first phase is rapid reheating to a temperature above the annealing point. Speed is acceptable during this phase because the glass is being brought up uniformly from room temperature before entering the stress-sensitive cooling range. The goal is to reach the target temperature efficiently without creating internal gradients, since the glass is still below its glass transition temperature and cannot yet relieve stresses. Heating rates during this phase are typically 5–15°C per minute, depending on piece thickness.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The second phase is the dwell or soak, where the glass is held at a temperature above the annealing point for a period of time (typically 15–60 minutes depending on thickness). This allows thermal equalization throughout the entire piece, ensuring that the interior and exterior reach the same temperature before cooling begins. Without adequate dwell time, internal temperature gradients would persist into the critical cooling phase, creating permanent stresses. The dwell temperature is typically chosen to be 20–40°C above the annealing point to ensure efficient stress relief while minimizing energy consumption.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The third and most critical phase is slow cooling from above the annealing point down through the strain point. During this phase, the cooling rate must be carefully controlled to limit the temperature gradient that develops between the surface and interior of the piece. The maximum allowable cooling rate is determined by the piece geometry (thickness and outer radius are the primary factors), the glass composition, and the acceptable residual stress level. Cooling rates during this phase are typically 1–3°C per minute for thick pieces, with faster rates (up to 5°C per minute) acceptable for thin pieces. The role of viscosity during this phase is critical: as temperature drops, the glass viscosity increases exponentially, and the ability of the atomic network to relieve stress through viscous flow decreases. By the time the glass reaches the strain point, the viscosity has increased so much that further stress relief becomes negligible.
+          </p>
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The fourth and final phase is more rapid cooling below the strain point. Once the glass has cooled below the strain point, the atomic network is effectively frozen and cannot relieve stresses through viscous flow. Stresses formed below the strain point are temporary in nature and pose lower risk of delayed fracture compared to stresses formed in the critical annealing range. Therefore, cooling can be accelerated in this final phase to save time and energy. Cooling rates below the strain point can be 10–20°C per minute or faster without risk of creating permanent stresses. Common mistakes in heat treatment include cooling too quickly through the critical annealing range (creating permanent stresses), holding at too high a temperature for too long (wasting energy and risking devitrification), or using inappropriate profiles for the glass type (different glasses have different transition temperatures and require different schedules).
+          </p>
+        </div>
+      </div>
 
-          {/* DEVITRIFICATION SECTION */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
+      {/* DEVITRIFICATION SECTION */}
+      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
             <h2 className="text-xl font-bold text-amber-400 mb-4">
               Devitrification
             </h2>
@@ -518,13 +457,11 @@ function StudioTab() {
             </div>
           </div>
 
-          {/* KEY INSIGHT CALLOUT */}
-          <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              <span className="text-amber-300 font-bold">The goal of industrial annealing is to minimize stresses in the glass article in the shortest time possible</span> — because annealing means heating, heating means energy consumption, and energy consumption means cost. Every minute saved in the kiln matters.
-            </p>
-          </div>
-        </div>
+      {/* KEY INSIGHT CALLOUT */}
+      <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
+        <p className="text-stone-300 text-sm leading-relaxed">
+          <span className="text-amber-300 font-bold">The goal of industrial annealing is to minimize stresses in the glass article in the shortest time possible</span> — because annealing means heating, heating means energy consumption, and energy consumption means cost. Every minute saved in the kiln matters.
+        </p>
       </div>
 
       {/* FOOTER NOTE */}
