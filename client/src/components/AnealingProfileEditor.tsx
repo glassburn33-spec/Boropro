@@ -1375,6 +1375,32 @@ export default function AnealingProfileEditor() {
         </div>
       )}
 
-    </div>
+
+
+      {/* Saved Schedules */}
+      {savedSchedules.length > 0 && (
+        <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
+          <h4 className="text-lg font-bold text-amber-300 mb-4">Saved Schedules</h4>
+          <div className="space-y-3">
+            {savedSchedules.map((schedule, idx) => (
+              <div key={idx} className="bg-stone-700/50 p-4 rounded border border-stone-600">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <p className="text-white font-semibold">{schedule.name}</p>
+                    <p className="text-xs text-stone-400">{schedule.timestamp}</p>
+                  </div>
+                  <button
+                    onClick={() => handleSaveScheduleToPDFLibrary(schedule)}
+                    disabled={saveGeneratedMutation.isPending}
+                    className="px-3 py-1 bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white text-sm rounded transition-colors font-semibold whitespace-nowrap"
+                  >
+                    {saveGeneratedMutation.isPending ? 'Saving...' : 'Save to PDF Library'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}    </div>
   );
 }
