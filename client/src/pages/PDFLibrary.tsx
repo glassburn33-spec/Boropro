@@ -76,8 +76,8 @@ export default function PDFLibrary() {
             <span className="font-mono text-sm font-bold uppercase tracking-wider text-white">BORO KILN TOOLS</span>
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Research
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
             </a>
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Simulator
