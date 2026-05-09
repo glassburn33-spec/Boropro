@@ -151,15 +151,12 @@ export default function FlameSimulator() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
-          <a href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full border-2 border-amber-500 flex items-center justify-center">
-              <span className="text-xs font-bold text-amber-500">◆</span>
-            </div>
-            <span className="font-mono text-sm font-bold uppercase tracking-wider text-white">BORO KILN TOOLS</span>
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Research
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
             </a>
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
               Flame Simulator
@@ -169,6 +166,12 @@ export default function FlameSimulator() {
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Firing Tracker
+            </a>
+            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              PDF Library
+            </a>
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
             </a>
           </nav>
         </div>
