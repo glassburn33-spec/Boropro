@@ -1073,20 +1073,42 @@ function ScieEquipTab() {
             Flame annealing is a specialized reducing flame technique that distributes a soot coating on the glass surface at annealing temperature. This process leverages the reducing flame's carbon-rich composition to create a protective soot layer that affects thermal properties and surface characteristics. The soot volume fraction is precisely controlled by adjusting the oxidant-to-fuel ratio in the flame mixture.
           </p>
           
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/glassflameanealing_ac208885.png" 
+              alt="Glass flame annealing technique showing borosilicate glass piece being heated in a flame with soot coating distribution visible"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Soot Volume Fraction Measurement Method</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The soot volume fraction is calculated using Beer-Lambert law, which relates the laser-induced incandescence (LII) signal to soot concentration. A ratio between the LII signal (averaged from multiple measurements) and the soot volume fraction is calculated and used to translate both single-shot and averaged LII images to two-dimensional soot volume fraction images.
+              The soot volume fraction is calculated using Beer-Lambert law, which relates the laser-induced incandescence (LII) signal to soot concentration. A ratio between the LII signal (averaged from multiple measurements) and the soot volume fraction is calculated and used to translate both single-shot and averaged LII images to two-dimensional soot volume fraction images. This method is valid across all cases provided that LII signals are measured using identical optical equipment, laser energy, and camera settings. The strength of this semi-simultaneous extinction calibration method is that calibration is performed on soot at exactly the same location in the furnace, ensuring spatial accuracy and reproducibility.
             </p>
           </div>
           
           <div className="flex justify-center my-6">
             <img 
               src="/manus-storage/sootvolumefraction_plot_c2f3d4e5.png" 
-              alt="Soot volume fraction distribution plot showing variation with flame parameters"
+              alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
               className="w-full max-w-2xl rounded-lg border border-stone-600"
             />
           </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-2">Key Observations from Soot Generation Plot:</h4>
+            <ul className="text-stone-300 space-y-2 text-sm">
+              <li><strong>Low O₂ Concentration (25%):</strong> Produces highest soot volume fractions (~10^-2 ppb), indicating strong reducing conditions</li>
+              <li><strong>Intermediate O₂ (30-35%):</strong> Moderate soot generation (10^-1 to 10^0 ppb) with controlled reducing effect</li>
+              <li><strong>Higher O₂ (40-45%):</strong> Dramatically reduced soot formation (10^1 to 10^3 ppb), approaching neutral flame conditions</li>
+              <li><strong>Stoichiometric Ratio:</strong> Critical transition point where reducing flame characteristics diminish and oxidizing effects begin</li>
+            </ul>
+          </div>
+          
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The logarithmic relationship between oxygen concentration and soot volume fraction demonstrates the precise control required for flame annealing. Studio practitioners can adjust fuel-oxidant ratios to achieve desired soot coating densities, directly influencing glass surface properties, thermal distribution, and final annealing quality.
+          </p>
         </div>
       ),
     },
