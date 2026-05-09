@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlertCircle, Thermometer } from 'lucide-react';
+import { DragonTearsBar } from './DragonTearsBar';
+import { DragonTearsInfoPanel } from './DragonTearsInfoPanel';
 
 export function ThermochromismSimulator() {
   const [temperature, setTemperature] = useState(600);
   const [temperatureUnit, setTemperatureUnit] = useState<'C' | 'F'>('C');
+  const [showDragonTearsInfo, setShowDragonTearsInfo] = useState(false);
 
   const displayTemp = temperatureUnit === 'F' ? Math.round((temperature * 9/5) + 32) : temperature;
 
@@ -105,6 +108,20 @@ export function ThermochromismSimulator() {
           </div>
         </div>
       </Card>
+
+      {/* Dragon Tears v2 Case Study */}
+      <div className="space-y-4">
+        <div className="border-l-4 border-amber-500 pl-6">
+          <h3 className="text-xl font-bold text-amber-400">Featured Case Study: Dragon Tears v2</h3>
+          <p className="text-stone-300 text-sm mt-1">Explore dual-axis color behavior driven by temperature and flame atmosphere</p>
+        </div>
+        <DragonTearsBar temperatureC={temperature} onInfoClick={() => setShowDragonTearsInfo(true)} />
+      </div>
+
+      {/* Dragon Tears Info Panel Modal */}
+      {showDragonTearsInfo && (
+        <DragonTearsInfoPanel onClose={() => setShowDragonTearsInfo(false)} />
+      )}
 
       {/* Scientific Explanation */}
       <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
