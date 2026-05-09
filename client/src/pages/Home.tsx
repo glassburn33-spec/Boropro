@@ -431,26 +431,12 @@ function StudioTab() {
 
       {/* GLASS HEAT TREATMENT PROFILE SECTION */}
       <div className="border-t border-stone-700 pt-8 mt-8">
-        <h2 className="text-2xl font-bold text-center text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>Glass Heat Treatment Profile</h2>
+        <h2 className="text-2xl font-bold text-amber-300 mb-6" style={{fontFamily: "'Playfair Display', 'Cormorant Garamond', serif"}}>Glass Heat Treatment Profile</h2>
         
         <div className="max-w-5xl mx-auto">
-          {/* TWO-COLUMN LAYOUT */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {/* LEFT COLUMN: IMAGE */}
-            <div className="flex flex-col items-center justify-start">
-              <div className="relative">
-                <img
-                  src="/manus-storage/aneelprof_bb8c9ac3.png"
-                  alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
-                  className="w-full max-w-sm rounded-lg" 
-                />
-              </div>
-              <p className="text-center text-stone-400 text-xs mt-4 max-w-sm italic">
-                Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling to below the strain point.
-              </p>
-            </div>
-
-            {/* RIGHT COLUMN: CONTENT */}
+          {/* TEXT-TO-IMAGE LAYOUT */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 items-start">
+            {/* LEFT COLUMN: TEXT CONTENT */}
             <div className="space-y-6" style={{fontFamily: "'IBM Plex Mono', 'Source Sans Pro', sans-serif"}}>
               {/* PHASE 1: RAPID REHEATING */}
               <div className="bg-stone-900/50 border-l-4 border-red-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(40, 30, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
@@ -491,6 +477,20 @@ function StudioTab() {
                   Once the glass has passed below the <span className="text-amber-300 font-bold">strain point</span>, cooling can be accelerated. Stresses formed below the strain point are temporary and lower risk, so energy and time can be saved in this final phase.
                 </p>
               </div>
+            </div>
+
+            {/* RIGHT COLUMN: IMAGE */}
+            <div className="flex flex-col items-center justify-start">
+              <div className="relative">
+                <img
+                  src="/manus-storage/boroanealprofile_20331f22.png"
+                  alt="Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling"
+                  className="w-full max-w-md rounded-lg border border-stone-600 shadow-lg" 
+                />
+              </div>
+              <p className="text-center text-stone-400 text-xs mt-4 max-w-md italic">
+                Borosilicate Glass Heat Treatment Profile — four phases from rapid reheat through controlled slow cooling to below the strain point.
+              </p>
             </div>
           </div>
 
