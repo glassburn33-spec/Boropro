@@ -411,7 +411,8 @@ export default function PDFLibrary() {
                           width: '100%',
                           height: '100%',
                           border: 'none',
-                          borderRadius: '0.5rem'
+                          borderRadius: '0.5rem',
+                          backgroundColor: '#000000'
                         }}
                         title="PDF Viewer"
                       />
