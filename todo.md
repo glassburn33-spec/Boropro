@@ -107,3 +107,9 @@
 - [x] Show error messages when PDF fetch fails
 - [x] Handle undefined pdfData gracefully
 - [x] Test all scenarios with 50 tests passing
+
+## Revert PDF.js Implementation (New)
+- [x] Restore iframe-based PDF viewer
+- [x] Keep responsive sizing but use simpler approach
+- [x] Verify PDF displays correctly
+- [x] Test with all tests passing
