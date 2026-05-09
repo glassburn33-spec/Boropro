@@ -382,7 +382,7 @@ export default function PDFLibrary() {
         {/* Selected PDF Details */}
         {selectedPDF && (
           <section className="border-b border-white/10 py-16">
-            <div style={{ maxWidth: '850px', margin: '0 auto' }}>
+            <div className="container max-w-6xl">
               <h2 className="text-2xl font-bold text-white mb-8">Schedule Details</h2>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
                 {/* PDF Preview Header */}
