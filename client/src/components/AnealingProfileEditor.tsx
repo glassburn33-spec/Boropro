@@ -603,13 +603,17 @@ export default function AnealingProfileEditor() {
             pdf.line(10, yPosition, pageWidth - 10, yPosition);
             yPosition += 5;
 
-            // Add plot
+            // Add plot - capture current plot window snapshot
             const svg = document.querySelector('svg');
             if (svg) {
               try {
+                // Capture the SVG plot with current heat treatment profile settings
                 const canvas = await html2canvas(svg as unknown as HTMLElement, {
                   backgroundColor: '#1c1410',
                   scale: 2,
+                  logging: false,
+                  useCORS: true,
+                  allowTaint: true,
                 });
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = pageWidth - 20;
@@ -624,6 +628,11 @@ export default function AnealingProfileEditor() {
                 yPosition += imgHeight + 8;
               } catch (error) {
                 console.error('Error converting plot to image:', error);
+                // Add fallback text if image capture fails
+                pdf.setFontSize(10);
+                (pdf as any).setFont(undefined, 'normal');
+                pdf.text('Plot image could not be captured. Profile data:', 10, yPosition);
+                yPosition += 5;
               }
             }
 
