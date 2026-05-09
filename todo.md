@@ -60,3 +60,9 @@
 - [x] Show generated timestamp
 - [x] Create temperature/time table layout for extracted data
 - [x] Keep temperature profile chart below the table
+
+## Delete Firing History Section (New)
+- [x] Remove Firing History section from FiringTracker page
+- [x] Remove Add Firing Record button and form
+- [x] Remove localStorage records management code
+- [x] Remove statistics and chart calculations related to firing records

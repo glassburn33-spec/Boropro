@@ -695,14 +695,34 @@ export default function AnealingProfileEditor() {
   // Handler to save schedule to PDF library
   const handleSaveScheduleToPDFLibrary = async (schedule: SavedSchedule) => {
     try {
+      // Generate temperature and time arrays from schedule stages
+      const temperatures: number[] = [];
+      const times: number[] = [];
+      
+      // Extract temperatures and times from the schedule stages
+      temperatures.push(schedule.data.stage1.startTemp);
+      times.push(0);
+      
+      temperatures.push(schedule.data.stage1.targetTemp);
+      times.push(schedule.data.stage1.duration);
+      
+      temperatures.push(schedule.data.stage2.holdTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration);
+      
+      temperatures.push(schedule.data.stage3.endTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration);
+      
+      temperatures.push(schedule.data.stage4.endTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration);
+      
       // Create PDF data from schedule
       const pdfData: KilnLogPDFData = {
         name: schedule.name,
         description: '',
         startTime: new Date(),
         endTime: new Date(),
-        temperatures: [],
-        times: [],
+        temperatures: temperatures,
+        times: times,
         notes: schedule.notes || '',
       };
       
@@ -712,10 +732,10 @@ export default function AnealingProfileEditor() {
       
       // Save to library
       await saveGeneratedMutation.mutateAsync({
-        filename: `${schedule.name}.pdf`,
+        filename: `${schedule.name}_kiln_log.pdf`,
         fileBase64: base64,
-        temperatures: [],
-        times: [],
+        temperatures: temperatures,
+        times: times,
       });
       
       toast.success('Schedule saved to PDF Library');
