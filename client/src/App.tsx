@@ -12,8 +12,8 @@ import FiringTracker from "./pages/FiringTracker";
 import PDFLibrary from "./pages/PDFLibrary";
 import References from "./pages/References";
 
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={LogoHome} />

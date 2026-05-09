@@ -4,52 +4,58 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
 import { useState, useEffect } from "react";
-import { FileText, Upload, Download, Trash2, Plus } from "lucide-react";
-import {
-  extractPDFText,
-  parseScheduleData,
-  savePDFMetadata,
-  getPDFLibrary,
-  deletePDFMetadata,
-  StoredPDFMetadata,
-} from "@/lib/pdfUtils";
+import { FileText, Upload, Trash2 } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
+
+interface PDFItem {
+  id: number;
+  filename: string;
+  temperatures: number[];
+  times: number[];
+  uploadedAt: Date;
+}
 
 export default function PDFLibrary() {
-  const [library, setLibrary] = useState<StoredPDFMetadata[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
-  const [selectedPDF, setSelectedPDF] = useState<StoredPDFMetadata | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
+  const [selectedPDF, setSelectedPDF] = useState<PDFItem | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  // Load library from localStorage
-  useEffect(() => {
-    const stored = getPDFLibrary();
-    setLibrary(stored);
-  }, []);
+  // Fetch PDF library from backend
+  const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
+  const uploadMutation = trpc.pdfLibrary.upload.useMutation();
+  const deleteMutation = trpc.pdfLibrary.delete.useMutation();
+
+  // Convert database records to display format
+  const displayLibrary: PDFItem[] = library.map((pdf: any) => ({
+    id: pdf.id,
+    filename: pdf.filename,
+    temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
+    times: pdf.times ? JSON.parse(pdf.times) : [],
+    uploadedAt: new Date(pdf.uploadedAt),
+  }));
 
   const processFile = async (file: File) => {
-    if (!file.type.includes('pdf')) {
-      alert('Please select a valid PDF file.');
+    if (!file.type.includes("pdf")) {
+      toast.error("Please select a valid PDF file.");
       return;
     }
 
     setIsUploading(true);
     try {
-      const extractedText = await extractPDFText(file);
-      const { temps, times } = parseScheduleData(extractedText);
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
 
-      const id = savePDFMetadata({
+      await uploadMutation.mutateAsync({
         filename: file.name,
-        uploadDate: new Date().toLocaleDateString(),
-        extractedText,
-        temperatures: temps,
-        times,
+        fileData: buffer,
       });
 
-      const updated = getPDFLibrary();
-      setLibrary(updated);
+      toast.success("PDF uploaded successfully!");
+      refetch();
     } catch (error) {
       console.error("Failed to upload PDF:", error);
-      alert("Failed to upload PDF. Please ensure it is a valid PDF file.");
+      toast.error("Failed to upload PDF. Please ensure it is a valid PDF file.");
     } finally {
       setIsUploading(false);
       setIsDragActive(false);
@@ -69,9 +75,9 @@ export default function PDFLibrary() {
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
+    if (e.type === "dragenter" || e.type === "dragover") {
       setIsDragActive(true);
-    } else if (e.type === 'dragleave') {
+    } else if (e.type === "dragleave") {
       setIsDragActive(false);
     }
   };
@@ -80,18 +86,25 @@ export default function PDFLibrary() {
     e.preventDefault();
     e.stopPropagation();
     setIsDragActive(false);
-    
+
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       processFile(files[0]);
     }
   };
 
-  const handleDelete = (id: string) => {
-    deletePDFMetadata(id);
-    const updated = getPDFLibrary();
-    setLibrary(updated);
-    setSelectedPDF(null);
+  const handleDelete = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this PDF?")) return;
+
+    try {
+      await deleteMutation.mutateAsync({ id });
+      toast.success("PDF deleted successfully!");
+      setSelectedPDF(null);
+      refetch();
+    } catch (error) {
+      console.error("Failed to delete PDF:", error);
+      toast.error("Failed to delete PDF.");
+    }
   };
 
   return (
@@ -100,22 +113,41 @@ export default function PDFLibrary() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
+            <img
+              src="/manus-storage/boroprologoicon_47146e54.png"
+              alt="BoroPrologo"
+              className="h-24 w-24 object-contain"
+            />
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a
+              href="/flame-simulator"
+              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
+            >
               Flame Char
             </a>
-            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a
+              href="/color-picker"
+              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
+            >
               Color Database
             </a>
-            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a
+              href="/firing-tracker"
+              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
+            >
               Kiln Log
             </a>
-            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-amber-500">
+            <a
+              href="/pdf-library"
+              className="text-xs uppercase tracking-wider text-amber-500"
+            >
               PDF Library
             </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a
+              href="/references"
+              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
+            >
               References
             </a>
           </nav>
@@ -128,7 +160,9 @@ export default function PDFLibrary() {
           <div className="container max-w-6xl">
             <div className="mb-5 flex items-center gap-2">
               <FileText size={16} className="text-amber-500" />
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Interactive tool</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">
+                Interactive tool
+              </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
               PDF Schedule Library
@@ -150,16 +184,21 @@ export default function PDFLibrary() {
               onDrop={handleDrop}
               className={`rounded-2xl border-2 border-dashed p-12 text-center transition-all ${
                 isDragActive
-                  ? 'border-amber-500 bg-amber-500/20'
-                  : 'border-white/20 bg-white/5 hover:border-amber-500/50'
+                  ? "border-amber-500 bg-amber-500/20"
+                  : "border-white/20 bg-white/5 hover:border-amber-500/50"
               }`}
             >
               <label className="cursor-pointer flex flex-col items-center gap-4">
-                <Upload size={32} className={isDragActive ? 'text-amber-400' : 'text-amber-500'} />
+                <Upload
+                  size={32}
+                  className={isDragActive ? "text-amber-400" : "text-amber-500"}
+                />
                 <div>
                   <p className="text-lg font-bold text-white mb-2">Upload a PDF Schedule</p>
                   <p className="text-sm text-stone-400">
-                    {isDragActive ? 'Drop your PDF here' : 'Drag and drop or click to select. We\'ll extract temperature and time data automatically.'}
+                    {isDragActive
+                      ? "Drop your PDF here"
+                      : "Drag and drop or click to select. We'll extract temperature and time data automatically."}
                   </p>
                 </div>
                 <input
@@ -188,14 +227,18 @@ export default function PDFLibrary() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <h2 className="text-2xl font-bold text-white mb-8">Your Schedule Library</h2>
-            {library.length === 0 ? (
+            {isLoading ? (
+              <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
+                <p className="text-stone-400">Loading your library...</p>
+              </div>
+            ) : displayLibrary.length === 0 ? (
               <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
                 <FileText size={32} className="text-stone-500 mx-auto mb-4" />
                 <p className="text-stone-400">No schedules uploaded yet. Upload a PDF to get started.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
-                {library.map((pdf) => (
+                {displayLibrary.map((pdf) => (
                   <button
                     key={pdf.id}
                     onClick={() => setSelectedPDF(pdf)}
@@ -209,7 +252,9 @@ export default function PDFLibrary() {
                       <div className="flex items-center gap-3">
                         <FileText size={20} className="text-amber-500" />
                         <div>
-                          <p className="font-mono text-xs font-bold uppercase text-amber-500">Schedule</p>
+                          <p className="font-mono text-xs font-bold uppercase text-amber-500">
+                            Schedule
+                          </p>
                           <p className="font-bold text-white truncate">{pdf.filename}</p>
                         </div>
                       </div>
@@ -225,11 +270,17 @@ export default function PDFLibrary() {
                     </div>
                     <div className="space-y-2 text-sm">
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">Uploaded</span>
-                        <span className="text-stone-300">{pdf.uploadDate}</span>
+                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">
+                          Uploaded
+                        </span>
+                        <span className="text-stone-300">
+                          {pdf.uploadedAt.toLocaleDateString()}
+                        </span>
                       </div>
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">Extracted Data</span>
+                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">
+                          Extracted Data
+                        </span>
                         <span className="text-stone-300">
                           {pdf.temperatures.length} temps, {pdf.times.length} times
                         </span>
@@ -249,17 +300,24 @@ export default function PDFLibrary() {
               <h2 className="text-2xl font-bold text-white mb-8">Schedule Details</h2>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
                 <div className="mb-6">
-                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-2">Filename</span>
+                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-2">
+                    Filename
+                  </span>
                   <p className="text-lg font-bold text-white">{selectedPDF.filename}</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                   <div>
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">Extracted Temperatures (°F)</span>
+                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">
+                      Extracted Temperatures (°F)
+                    </span>
                     <div className="space-y-2">
                       {selectedPDF.temperatures.length > 0 ? (
                         selectedPDF.temperatures.map((temp, idx) => (
-                          <div key={idx} className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm">
+                          <div
+                            key={idx}
+                            className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm"
+                          >
                             {temp}°F
                           </div>
                         ))
@@ -270,11 +328,16 @@ export default function PDFLibrary() {
                   </div>
 
                   <div>
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">Extracted Times (hours)</span>
+                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">
+                      Extracted Times (hours)
+                    </span>
                     <div className="space-y-2">
                       {selectedPDF.times.length > 0 ? (
                         selectedPDF.times.map((time, idx) => (
-                          <div key={idx} className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm">
+                          <div
+                            key={idx}
+                            className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm"
+                          >
                             {time}h
                           </div>
                         ))
@@ -284,49 +347,11 @@ export default function PDFLibrary() {
                     </div>
                   </div>
                 </div>
-
-                <div className="pt-8 border-t border-white/10">
-                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">Extracted Text Preview</span>
-                  <div className="bg-black/30 rounded-lg p-4 max-h-48 overflow-y-auto">
-                    <p className="text-xs text-stone-300 font-mono whitespace-pre-wrap break-words">
-                      {selectedPDF.extractedText.substring(0, 500)}
-                      {selectedPDF.extractedText.length > 500 && "..."}
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
         )}
-
-        {/* Info Section */}
-        <section className="py-16">
-          <div className="container max-w-6xl">
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-8">
-              <div className="flex gap-4">
-                <FileText size={24} className="text-amber-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-3">
-                    How to use this library
-                  </h3>
-                  <p className="text-sm leading-relaxed text-stone-300">
-                    Upload kiln schedule PDFs from your kiln manufacturer or previous firings. The system automatically extracts temperature and time data for comparison. You can also generate custom PDFs from the Color Picker tool and download them here for reference. Build a personal database of successful schedules and track what works best for your kiln and glass combinations.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 bg-stone-950/50 py-8">
-        <div className="container max-w-6xl">
-          <p className="text-xs text-stone-500 text-center">
-            PDF Library Tool · Part of the Borosilicate Kiln Research Platform
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
