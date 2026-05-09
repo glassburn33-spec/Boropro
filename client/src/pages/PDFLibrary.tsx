@@ -344,15 +344,7 @@ export default function PDFLibrary() {
                           <p className="font-bold text-white truncate">{pdf.filename}</p>
                         </div>
                       </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(pdf.id);
-                        }}
-                        className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+
                     </div>
                     <div className="space-y-2 text-sm">
                       <div>
