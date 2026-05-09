@@ -41,16 +41,19 @@ export const appRouter = router({
       .input(
         z.object({
           filename: z.string(),
-          fileData: z.instanceof(Buffer),
+          fileBase64: z.string(),
         })
       )
       .mutation(async ({ input, ctx }) => {
         try {
+          // Decode base64 to buffer
+          const fileData = Buffer.from(input.fileBase64, 'base64');
+          
           // Extract text from PDF
           const pdfLib = await getPDFLib();
-          const arrayBuffer = input.fileData.buffer.slice(
-            input.fileData.byteOffset,
-            input.fileData.byteOffset + input.fileData.byteLength
+          const arrayBuffer = fileData.buffer.slice(
+            fileData.byteOffset,
+            fileData.byteOffset + fileData.byteLength
           );
           const pdf = await pdfLib.getDocument({ data: arrayBuffer }).promise;
           let fullText = "";
@@ -88,7 +91,7 @@ export const appRouter = router({
           // Upload to storage
           const { key, url } = await storagePut(
             `pdfs/${ctx.user.id}/${input.filename}`,
-            input.fileData,
+            fileData,
             "application/pdf"
           );
 

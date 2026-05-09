@@ -44,11 +44,14 @@ export default function PDFLibrary() {
     setIsUploading(true);
     try {
       const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
+      const uint8Array = new Uint8Array(arrayBuffer);
+      const binaryArray = Array.from(uint8Array);
+      const binaryString = String.fromCharCode.apply(null, binaryArray as any);
+      const fileBase64 = btoa(binaryString);
 
       await uploadMutation.mutateAsync({
         filename: file.name,
-        fileData: buffer,
+        fileBase64,
       });
 
       toast.success("PDF uploaded successfully!");

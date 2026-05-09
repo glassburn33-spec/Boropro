@@ -80,10 +80,10 @@ describe("pdfLibrary router", () => {
       const caller = appRouter.createCaller(unauthedCtx as any);
       
       try {
-        const buffer = Buffer.from("test");
+        const fileBase64 = Buffer.from("test").toString('base64');
         await caller.pdfLibrary.upload({
           filename: "test.pdf",
-          fileData: buffer,
+          fileBase64,
         });
         expect.fail("Should have thrown UNAUTHORIZED error");
       } catch (error: any) {
@@ -97,8 +97,8 @@ describe("pdfLibrary router", () => {
       try {
         await caller.pdfLibrary.upload({
           filename: "",
-          fileData: Buffer.from(""),
-        } as any);
+          fileBase64: "",
+        });
         // If it doesn't throw, that's okay - the API will handle empty inputs
       } catch (error: any) {
         // Expected - validation should fail on empty filename
