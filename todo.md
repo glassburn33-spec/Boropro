@@ -32,3 +32,10 @@
 - [x] Implement "Export PDF to Computer" button (download)
 - [x] Implement "Add to PDF Library" button (save to database)
 - [x] Add tests for modal and button handlers
+
+## Replace Load Button with Save to PDF Library (New)
+- [x] Replace "Load" button on saved schedules with "Save to PDF Library" button
+- [x] Implement handler to generate PDF from saved schedule data
+- [x] Save generated PDF directly to PDF Library database
+- [x] Add loading state and success/error feedback
+- [x] Add tests for new button functionality

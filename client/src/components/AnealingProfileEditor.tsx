@@ -8,6 +8,10 @@ import { useState, useMemo } from 'react';
 import { AlertCircle, Download, Save } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { trpc } from '@/lib/trpc';
+import { toast } from 'sonner';
+import { generateKilnLogPDF, pdfToBase64 } from '@/lib/pdfUtils';
+import type { KilnLogPDFData } from '@/lib/pdfUtils';
 
 interface StageInputs {
   stage1: {
@@ -354,6 +358,9 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
 export default function AnealingProfileEditor() {
   const [title, setTitle] = useState('Borosilicate Glass Heat Treatment Profile');
   
+  // tRPC mutation for saving to PDF library
+  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
+  
   const [inputs, setInputs] = useState<StageInputs>({
     stage1: { startTemp: 20, targetTemp: 620, duration: 30 },
     stage2: { holdTemp: 620, duration: 20 },
@@ -682,6 +689,40 @@ export default function AnealingProfileEditor() {
 
   const handleDeleteSchedule = (id: string) => {
     setSavedSchedules(prev => prev.filter(s => s.id !== id));
+  };
+
+  
+  // Handler to save schedule to PDF library
+  const handleSaveScheduleToPDFLibrary = async (schedule: SavedSchedule) => {
+    try {
+      // Create PDF data from schedule
+      const pdfData: KilnLogPDFData = {
+        name: schedule.name,
+        description: '',
+        startTime: new Date(),
+        endTime: new Date(),
+        temperatures: [],
+        times: [],
+        notes: schedule.notes || '',
+      };
+      
+      // Generate PDF
+      const pdf = generateKilnLogPDF(pdfData);
+      const base64 = await pdfToBase64(pdf);
+      
+      // Save to library
+      await saveGeneratedMutation.mutateAsync({
+        filename: `${schedule.name}.pdf`,
+        fileBase64: base64,
+        temperatures: [],
+        times: [],
+      });
+      
+      toast.success('Schedule saved to PDF Library');
+    } catch (error) {
+      toast.error('Failed to save to PDF Library');
+      console.error(error);
+    }
   };
 
   return (
@@ -1339,10 +1380,11 @@ export default function AnealingProfileEditor() {
                   <p className="text-xs text-stone-400">{schedule.timestamp}</p>
                 </div>
                 <button
-                  onClick={() => setInputs(schedule.data)}
-                  className="px-3 py-1 bg-stone-600 hover:bg-stone-500 text-white text-sm rounded transition-colors"
+                  onClick={() => handleSaveScheduleToPDFLibrary(schedule)}
+                  disabled={saveGeneratedMutation.isPending}
+                  className="px-3 py-1 bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white text-sm rounded transition-colors"
                 >
-                  Load
+                  {saveGeneratedMutation.isPending ? 'Saving...' : 'Save to PDF Library'}
                 </button>
               </div>
             ))}
