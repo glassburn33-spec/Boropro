@@ -616,9 +616,9 @@ ${combinedSchedule.rationale}`;
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <h1 className="text-5xl font-bold mb-2 text-white">Color Picker</h1>
-        <p className="text-stone-400 mb-12">Select colors to generate optimized combined annealing schedules with compatibility warnings.</p>
+           <div className="container py-12">
+        <h1 className="text-5xl font-bold text-white mb-2">Color Database</h1>
+        <p className="text-stone-400 mb-8">Select colors to generate optimized combined annealing schedules with compatibility warnings.</p>
 
         {/* Search Bar */}
         <div className="mb-8">
