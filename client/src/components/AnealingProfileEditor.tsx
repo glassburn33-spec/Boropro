@@ -656,8 +656,36 @@ export default function AnealingProfileEditor() {
               (pdf as any).text(resultsLines, 10, yPosition);
             }
 
-            // Save PDF
-            pdf.save(`${title.replace(/\s+/g, '_')}.pdf`);
+            // Save PDF and upload to storage
+            const pdfBlob = pdf.output('blob');
+            const fileName = `${title.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            
+            // Create FormData for upload
+            const formData = new FormData();
+            formData.append('file', pdfBlob, fileName);
+            
+            // Upload to storage
+            try {
+              const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+              });
+              
+              if (response.ok) {
+                const data = await response.json();
+                console.log('PDF uploaded successfully:', data.url);
+                // Show success toast
+                alert(`Plot exported successfully! File: ${fileName}`);
+              } else {
+                console.error('Upload failed:', response.statusText);
+                // Fallback to local download
+                pdf.save(fileName);
+              }
+            } catch (error) {
+              console.error('Upload error:', error);
+              // Fallback to local download
+              pdf.save(fileName);
+            }
           }}
           className="flex items-center gap-2 px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
         >
