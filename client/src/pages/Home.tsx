@@ -1187,6 +1187,76 @@ function ScieEquipTab() {
         </div>
       ),
     },
+    {
+      id: 'flame-stability',
+      title: '🌡️ Flame Stability and Blow-off Analysis',
+      content: (
+        <div className="space-y-6">
+          <p className="text-stone-300 leading-relaxed">
+            Understanding flame stability and blow-off phenomena is critical for controlling combustion processes. With increasing velocity of the reactive mixture at a nozzle exit (uR) by controlling a mass flow controller (MFC), the conical flame length becomes longer and sometimes flame tip opening is observed near the blow-off region. The lift-off phenomenon did not occur during the experiments, but at higher flow rates, the flame was directly extinguished (blow-off). Compared with other types of combustion using air, the flame base is lifted off and then finally blown out by increasing the fuel jet or supplying air velocity. This blow out of lifted flames is known to be caused by local extinction and flame-let quenching, which means that the velocity of mass convection exceeds thermal energy propagation. In other words, the chemical reaction is sustainable if thermal energy is sufficiently supplied.
+          </p>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Flame Tip Flickering and Instabilities</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Flame tip flickering was observed in both lean (0.4 &lt; φG &lt; 0.7) and rich (1.4 &lt; φG &lt; 2.0) conditions. This flickering is known to depend on the Lewis number of the reactive mixture (LeR), because LeR is far from unity. From a local point of view, local extinction is related to the chemical reaction rate and preferential instability which is one of the intrinsic instabilities. From a global point of view, flame extinction is related to the flame stretch (strain rate or curvature) and the reactant concentration (gradient).
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/laminarimage_eba8787a.png" 
+              alt="Structure of a laminar premixed oxy-methane flame at φG = 1.1, showing line-of-sight and Abel-inverted CH* measurements with preheat zone, reaction zone, and downstream burned gas region"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">CH* Measurement and Flame Structure</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              To observe the flame structure of oxy-methane combustion, CH* measurement was used. Light emission from CH radicals is known to be a marker of the heat release rate in a reaction zone. In previous works, CH* and OH* are used as indicators of reaction zone because they play an important role in the process of chemical reaction. Donbar et al. observed that in CH and OH PLIF (planar laser induced fluorescence) measurements, the excited CH* layer was thinner than that of OH* and distributed in the preheat zone just before the peak temperature. On the other hand, the excited OH* layer was much broader than that of CH* and widely distributed from the preheat zone to the downstream burned gas region.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The structure of a laminar premixed oxy-methane flame consists of the preheat zone, the reaction zone, and the downstream burned gas region. The intensity of the CH* was maximized in the reaction zone, confirming the role of CH radicals as heat release rate markers.
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/burnoffplot_58acdceb.png" 
+              alt="Flame stabilization curve dividing the attached flame region and blow-off region as a function of reactant velocity and global equivalence ratio"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Flame Stabilization Curve</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              The flame stabilization curve divides the attached flame region from the blow-off region. The attached flame region (shown in green) represents conditions where the flame remains stable and attached to the burner. The blow-off region (shown in red) indicates conditions where the flame cannot sustain combustion and is extinguished. Flame tip flickering occurs at the boundaries of these regions, particularly in lean (0.4 &lt; φG &lt; 0.7) and rich (1.4 &lt; φG &lt; 2.0) conditions.
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/flametable_332f1ae6.png" 
+              alt="Experimental conditions table showing variables and ranges: uR (8-20 m/s), ReR (962-2506), FrR (57-142), φG (0.5-2.0), and initial conditions (TR = 300 K, P∞ = 1 atm)"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-2">Experimental Parameters</h4>
+            <ul className="text-stone-300 space-y-2 text-sm">
+              <li><strong>Reactant Velocity (uR):</strong> 8-20 m/s at nozzle diameter d₀ = 2.0 mm</li>
+              <li><strong>Reynolds Number (ReR):</strong> 962-2506, characterizing flow regime</li>
+              <li><strong>Froude Number (FrR):</strong> 57-142, relating inertial to gravitational forces</li>
+              <li><strong>Global Equivalence Ratio (φG):</strong> 0.5-2.0 in 0.1 steps, from lean to rich conditions</li>
+              <li><strong>Initial Conditions:</strong> Temperature TR = 300 K, Pressure P∞ = 1 atm</li>
+            </ul>
+          </div>
+        </div>
+      ),
+    },
   ];
 
   return (
