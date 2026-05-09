@@ -9,6 +9,7 @@ import FlameSimulator from "./pages/FlameSimulator";
 import ColorPicker from "./pages/ColorPicker";
 import FiringTracker from "./pages/FiringTracker";
 import PDFLibrary from "./pages/PDFLibrary";
+import References from "./pages/References";
 
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
       <Route path={"/color-picker"} component={ColorPicker} />
       <Route path={"/firing-tracker"} component={FiringTracker} />
       <Route path={"/pdf-library"} component={PDFLibrary} />
+      <Route path={"/references"} component={References} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
