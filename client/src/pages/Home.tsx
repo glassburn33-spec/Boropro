@@ -1053,6 +1053,14 @@ function ScieEquipTab() {
               By increasing the oxygen flow slightly beyond the point where the secondary zone disappears one will obtain an oxidizing flame (with excess oxygen). The flame will be shorter and sharper than the neutral flame, with a shorter, more pointed inner cone. This flame is slightly hotter than the neutral flame, and is used for welding cast iron, brass, bronze and zinc alloys, and for some brazing alloys.
             </p>
           </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/oxydizingflame_95ffe39f.webp" 
+              alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
         </div>
       ),
     },
