@@ -120,10 +120,10 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
 
   // Stage regions
   const regions = [
-    { x1: scaleX(cumulativeTimes[0]), x2: scaleX(cumulativeTimes[1]), color: stageColors[0] },
-    { x1: scaleX(cumulativeTimes[1]), x2: scaleX(cumulativeTimes[2]), color: stageColors[1] },
-    { x1: scaleX(cumulativeTimes[2]), x2: scaleX(cumulativeTimes[3]), color: stageColors[2] },
-    { x1: scaleX(cumulativeTimes[3]), x2: scaleX(cumulativeTimes[4]), color: stageColors[3] },
+    { x1: scaleX(cumulativeTimes[0]), x2: scaleX(cumulativeTimes[1]), color: stageColors[0], stage: 1 },
+    { x1: scaleX(cumulativeTimes[1]), x2: scaleX(cumulativeTimes[2]), color: stageColors[1], stage: 2 },
+    { x1: scaleX(cumulativeTimes[2]), x2: scaleX(cumulativeTimes[3]), color: stageColors[2], stage: 3 },
+    { x1: scaleX(cumulativeTimes[3]), x2: scaleX(cumulativeTimes[4]), color: stageColors[3], stage: 4 },
   ];
 
   regions.forEach((region) => {
@@ -135,6 +135,45 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
     rect.setAttribute('fill', region.color);
     rect.setAttribute('opacity', '0.2');
     svg.appendChild(rect);
+  });
+
+  // Vertical stage separators
+  for (let i = 1; i < cumulativeTimes.length - 1; i++) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', (margin.left + scaleX(cumulativeTimes[i])).toString());
+    line.setAttribute('y1', margin.top.toString());
+    line.setAttribute('x2', (margin.left + scaleX(cumulativeTimes[i])).toString());
+    line.setAttribute('y2', (margin.top + plotHeight).toString());
+    line.setAttribute('stroke', '#666');
+    line.setAttribute('stroke-dasharray', '2');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+  }
+
+  // Stage labels (circled numbers)
+  regions.forEach((region, idx) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', (margin.left + (region.x1 + region.x2) / 2).toString());
+    circle.setAttribute('cy', (margin.top - 30).toString());
+    circle.setAttribute('r', Math.max(12, titleFontSize - 2).toString());
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', stageColors[idx]);
+    circle.setAttribute('stroke-width', '2');
+    g.appendChild(circle);
+    
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', (margin.left + (region.x1 + region.x2) / 2).toString());
+    text.setAttribute('y', (margin.top - 22).toString());
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', stageColors[idx]);
+    text.setAttribute('font-size', (titleFontSize - 4).toString());
+    text.setAttribute('font-weight', 'bold');
+    text.textContent = (idx + 1).toString();
+    g.appendChild(text);
+    
+    svg.appendChild(g);
   });
 
   // Reference lines
@@ -157,6 +196,27 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   strainLine.setAttribute('stroke-dasharray', '4');
   strainLine.setAttribute('stroke-width', '2');
   svg.appendChild(strainLine);
+
+  // Reference line labels
+  const labelX = Math.min(margin.left + plotWidth + 8, width - 120);
+  const annealingY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(refLines.annealingPoint) + 4, height - 10));
+  const strainY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(refLines.strainPoint) + 4, height - 10));
+  
+  const annealingLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  annealingLabel.setAttribute('x', labelX.toString());
+  annealingLabel.setAttribute('y', annealingY.toString());
+  annealingLabel.setAttribute('fill', '#fbbf24');
+  annealingLabel.setAttribute('font-size', Math.max(8, labelFontSize - 1).toString());
+  annealingLabel.textContent = 'Annealing point';
+  svg.appendChild(annealingLabel);
+  
+  const strainLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  strainLabel.setAttribute('x', labelX.toString());
+  strainLabel.setAttribute('y', strainY.toString());
+  strainLabel.setAttribute('fill', '#fbbf24');
+  strainLabel.setAttribute('font-size', Math.max(8, labelFontSize - 1).toString());
+  strainLabel.textContent = 'Strain point';
+  svg.appendChild(strainLabel);
 
   // Temperature curve
   const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -185,6 +245,69 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   yAxis.setAttribute('stroke-width', '2');
   svg.appendChild(yAxis);
 
+  // Axis labels
+  const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
+  xLabel.setAttribute('y', (height - 20).toString());
+  xLabel.setAttribute('text-anchor', 'middle');
+  xLabel.setAttribute('fill', '#999');
+  xLabel.setAttribute('font-size', labelFontSize.toString());
+  xLabel.textContent = 'Time →';
+  svg.appendChild(xLabel);
+
+  const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  yLabel.setAttribute('x', '15');
+  yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
+  yLabel.setAttribute('text-anchor', 'middle');
+  yLabel.setAttribute('fill', '#999');
+  yLabel.setAttribute('font-size', Math.max(9, labelFontSize - 1).toString());
+  yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
+  yLabel.textContent = 'Temp (°C)';
+  svg.appendChild(yLabel);
+
+  // Y-axis ticks and labels
+  const tempStep = maxTemp > 600 ? 100 : 50;
+  for (let i = 0; i <= maxTemp; i += tempStep) {
+    const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    tick.setAttribute('x1', (margin.left - 5).toString());
+    tick.setAttribute('y1', (margin.top + scaleY(i)).toString());
+    tick.setAttribute('x2', margin.left.toString());
+    tick.setAttribute('y2', (margin.top + scaleY(i)).toString());
+    tick.setAttribute('stroke', '#999');
+    tick.setAttribute('stroke-width', '1');
+    svg.appendChild(tick);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', (margin.left - 15).toString());
+    label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
+    label.setAttribute('text-anchor', 'end');
+    label.setAttribute('fill', '#999');
+    label.setAttribute('font-size', tickFontSize.toString());
+    label.textContent = `${i}°C`;
+    svg.appendChild(label);
+  }
+
+  // X-axis time markers
+  cumulativeTimes.forEach((time) => {
+    const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    tick.setAttribute('x1', (margin.left + scaleX(time)).toString());
+    tick.setAttribute('y1', (margin.top + plotHeight).toString());
+    tick.setAttribute('x2', (margin.left + scaleX(time)).toString());
+    tick.setAttribute('y2', (margin.top + plotHeight + 5).toString());
+    tick.setAttribute('stroke', '#999');
+    tick.setAttribute('stroke-width', '1');
+    svg.appendChild(tick);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', (margin.left + scaleX(time)).toString());
+    label.setAttribute('y', (margin.top + plotHeight + 20).toString());
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('fill', '#999');
+    label.setAttribute('font-size', tickFontSize.toString());
+    label.textContent = `${time} min`;
+    svg.appendChild(label);
+  });
+
   // Title
   const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
   title.setAttribute('x', (width / 2).toString());
@@ -195,6 +318,35 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   title.setAttribute('font-weight', 'bold');
   title.textContent = scheduleName;
   svg.appendChild(title);
+
+  // Legend
+  stageNames.forEach((name, idx) => {
+    const legendItemHeight = labelFontSize + 6;
+    const legendBoxSize = Math.max(10, labelFontSize - 2);
+    const legendStartX = margin.left + 25;
+    const legendStartY = margin.top + plotHeight + 35;
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', legendStartX.toString());
+    rect.setAttribute('y', (legendStartY + idx * legendItemHeight).toString());
+    rect.setAttribute('width', legendBoxSize.toString());
+    rect.setAttribute('height', legendBoxSize.toString());
+    rect.setAttribute('fill', stageColors[idx]);
+    rect.setAttribute('opacity', '0.7');
+    g.appendChild(rect);
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', (legendStartX + 15).toString());
+    text.setAttribute('y', (legendStartY + 9 + idx * legendItemHeight).toString());
+    text.setAttribute('fill', '#999');
+    text.setAttribute('font-size', labelFontSize.toString());
+    text.textContent = `${idx + 1} = ${name}`;
+    g.appendChild(text);
+
+    svg.appendChild(g);
+  });
 
   return svg;
 }
@@ -926,6 +1078,13 @@ export default function AnealingProfileEditor() {
                             const pageWidth = pdf.internal.pageSize.getWidth();
                             let yPosition = 10;
 
+                            // Add black background to entire page
+                            pdf.setFillColor(0, 0, 0);
+                            pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+
+                            // Set text color to yellow for all text
+                            pdf.setTextColor(255, 187, 36);
+
                             // Add title
                             pdf.setFontSize(16);
                             (pdf as any).setFont(undefined, 'bold');
@@ -938,8 +1097,8 @@ export default function AnealingProfileEditor() {
                             pdf.text(`Saved: ${schedule.timestamp}`, pageWidth / 2, yPosition, { align: 'center' });
                             yPosition += 8;
 
-                            // Add separator line
-                            pdf.setDrawColor(180, 140, 80);
+                            // Add separator line in yellow
+                            pdf.setDrawColor(255, 187, 36);
                             pdf.line(10, yPosition, pageWidth - 10, yPosition);
                             yPosition += 5;
 
@@ -1020,13 +1179,17 @@ export default function AnealingProfileEditor() {
                             // Add separator before profile data
                             if (yPosition + 30 > pageHeight - 10) {
                               pdf.addPage();
+                              // Add black background to new page
+                              pdf.setFillColor(0, 0, 0);
+                              pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                               yPosition = 10;
                             }
-                            pdf.setDrawColor(180, 140, 80);
+                            pdf.setDrawColor(255, 187, 36);
                             pdf.line(10, yPosition, pageWidth - 10, yPosition);
                             yPosition += 5;
 
                             // Add profile data
+                            pdf.setTextColor(255, 187, 36);
                             pdf.setFontSize(12);
                             (pdf as any).setFont(undefined, 'bold');
                             pdf.text('Profile Configuration:', 10, yPosition);
@@ -1052,9 +1215,13 @@ export default function AnealingProfileEditor() {
                             if (schedule.notes) {
                               if (yPosition + 30 > pageHeight - 10) {
                                 pdf.addPage();
+                                // Add black background to new page
+                                pdf.setFillColor(0, 0, 0);
+                                pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                                 yPosition = 10;
                               }
                               
+                              pdf.setTextColor(255, 187, 36);
                               pdf.setFontSize(12);
                               (pdf as any).setFont(undefined, 'bold');
                               pdf.text('Materials & Notes:', 10, yPosition);
@@ -1071,9 +1238,13 @@ export default function AnealingProfileEditor() {
                             if (schedule.results) {
                               if (yPosition + 30 > pageHeight - 10) {
                                 pdf.addPage();
+                                // Add black background to new page
+                                pdf.setFillColor(0, 0, 0);
+                                pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                                 yPosition = 10;
                               }
                               
+                              pdf.setTextColor(255, 187, 36);
                               pdf.setFontSize(12);
                               (pdf as any).setFont(undefined, 'bold');
                               pdf.text('Results & Observations:', 10, yPosition);
