@@ -261,13 +261,22 @@ export default function AnealingProfileEditor() {
           </g>
         ))}
 
-        {/* Reference line labels */}
-        <text x={margin.left + plotWidth + 15} y={margin.top + scaleY(referenceLines.annealingPoint) + 4} fill="#60a5fa" fontSize={labelFontSize}>
-          Annealing point
-        </text>
-        <text x={margin.left + plotWidth + 15} y={margin.top + scaleY(referenceLines.strainPoint) + 4} fill="#60a5fa" fontSize={labelFontSize}>
-          Strain point
-        </text>
+        {/* Reference line labels - positioned to fit in window */}
+        {(() => {
+          const labelX = Math.min(margin.left + plotWidth + 8, width - 120);
+          const annealingY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(referenceLines.annealingPoint) + 4, height - 10));
+          const strainY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(referenceLines.strainPoint) + 4, height - 10));
+          return (
+            <>
+              <text x={labelX} y={annealingY} fill="#60a5fa" fontSize={Math.max(8, labelFontSize - 1)}>
+                Annealing point
+              </text>
+              <text x={labelX} y={strainY} fill="#60a5fa" fontSize={Math.max(8, labelFontSize - 1)}>
+                Strain point
+              </text>
+            </>
+          );
+        })()}
 
         {/* Axes */}
         <line x1={margin.left} y1={margin.top + plotHeight} x2={margin.left + plotWidth} y2={margin.top + plotHeight} stroke="#999" strokeWidth="2" />
@@ -277,8 +286,8 @@ export default function AnealingProfileEditor() {
         <text x={margin.left + plotWidth / 2} y={height - 20} textAnchor="middle" fill="#999" fontSize={labelFontSize}>
           Time →
         </text>
-        <text x={30} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#999" fontSize={labelFontSize} transform={`rotate(-90 30 ${margin.top + plotHeight / 2})`}>
-          Temperature (°C)
+        <text x={15} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#999" fontSize={Math.max(9, labelFontSize - 1)} transform={`rotate(-90 15 ${margin.top + plotHeight / 2})`}>
+          Temp (°C)
         </text>
 
         {/* Y-axis ticks and labels - dynamically scaled */}
