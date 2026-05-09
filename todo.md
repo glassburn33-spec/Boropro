@@ -81,3 +81,10 @@
 - [x] Ensure both use identical formatting and layout
 - [x] Verify temperature data is extracted correctly from both PDFs
 - [x] Test that PDFs display identically in PDF Library viewer
+
+## Bug Fix: Plot Image Not Displaying in PDF Library Schedule Details (New)
+- [x] Investigate why temperature profile chart is not showing in PDF Library
+- [x] Check if plot image is being embedded in PDF correctly
+- [x] Verify PDF extraction is capturing the plot image
+- [x] Fix display in PDFViewer component
+- [x] Test plot image displays in schedule details view

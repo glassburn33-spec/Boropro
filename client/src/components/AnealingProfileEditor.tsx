@@ -712,8 +712,9 @@ export default function AnealingProfileEditor() {
       
       // Generate and capture plot SVG (same as Export PDF button)
       let plotImage: string | undefined;
+      let tempSvgContainer: HTMLDivElement | null = null;
       try {
-        const tempSvgContainer = document.createElement('div');
+        tempSvgContainer = document.createElement('div');
         tempSvgContainer.style.position = 'absolute';
         tempSvgContainer.style.left = '-9999px';
         tempSvgContainer.style.top = '-9999px';
@@ -726,35 +727,39 @@ export default function AnealingProfileEditor() {
         
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        if (ctx) {
-          canvas.width = 1600;
-          canvas.height = 960;
-          ctx.fillStyle = '#1c1917';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          
-          const svgString = new XMLSerializer().serializeToString(svgElement);
-          const svg = new Blob([svgString], { type: 'image/svg+xml' });
-          const url = URL.createObjectURL(svg);
-          const img = new Image();
-          
-          await new Promise<void>((resolve) => {
-            img.onload = () => {
-              ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
-              URL.revokeObjectURL(url);
-              plotImage = canvas.toDataURL('image/png', 0.95);
-              resolve();
-            };
-            img.onerror = () => {
-              console.error('Failed to load SVG image');
-              URL.revokeObjectURL(url);
-              resolve();
-            };
-            img.src = url;
-          });
-        }
-        document.body.removeChild(tempSvgContainer);
+        if (!ctx) throw new Error('Could not get canvas context');
+        
+        canvas.width = 1600;
+        canvas.height = 960;
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        const svgString = new XMLSerializer().serializeToString(svgElement);
+        const svg = new Blob([svgString], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(svg);
+        const img = new Image();
+        
+        await new Promise<void>((resolve) => {
+          img.onload = () => {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url);
+            plotImage = canvas.toDataURL('image/png', 0.95);
+            resolve();
+          };
+          img.onerror = () => {
+            console.error('Failed to load SVG image');
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          img.src = url;
+        });
+        
       } catch (error) {
         console.error('Error capturing plot:', error);
+      } finally {
+        if (tempSvgContainer && tempSvgContainer.parentNode) {
+          document.body.removeChild(tempSvgContainer);
+        }
       }
       
       // Create PDF data using same format as Export PDF button
