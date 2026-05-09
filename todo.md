@@ -7,8 +7,15 @@
 - [x] Fix PDF upload serialization (base64 encoding)
 - [x] Add CSV export functionality for extracted data
 - [x] Add PDF preview modal with extracted data visualization
-- [ ] Implement bulk schedule comparison feature
+- [x] Implement bulk schedule comparison feature
 
 ## Testing
 - [x] Backend API tests (7 tests passing)
-- [ ] Frontend integration tests for CSV export
+- [x] Frontend integration tests for CSV export
+
+## Kiln Log (New Feature)
+- [ ] Create Kiln Log database schema
+- [ ] Build Kiln Log entry form UI
+- [ ] Implement Kiln Log history view with filtering
+- [ ] Add CSV export for kiln logs
+- [ ] Write tests for Kiln Log API and UI

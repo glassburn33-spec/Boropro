@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
-import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary } from "./db";
+import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary, createKilnLog, getKilnLogsByUserId, getKilnLogById, updateKilnLog, deleteKilnLog } from "./db";
 import { storagePut } from "./storage";
 
 let pdfjsLib: any = null;
@@ -119,6 +119,78 @@ export const appRouter = router({
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input, ctx }) => {
         const success = await deletePDFFromLibrary(input.id, ctx.user.id);
+        return { success };
+      }),
+  }),
+
+  kilnLog: router({
+    list: protectedProcedure.query(async ({ ctx }) => {
+      return await getKilnLogsByUserId(ctx.user.id);
+    }),
+
+    create: protectedProcedure
+      .input(
+        z.object({
+          name: z.string(),
+          description: z.string().optional(),
+          temperatures: z.array(z.number()),
+          times: z.array(z.number()),
+          startTime: z.date(),
+          endTime: z.date().optional(),
+          notes: z.string().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const log = await createKilnLog(ctx.user.id, {
+          name: input.name,
+          description: input.description,
+          temperatures: JSON.stringify(input.temperatures),
+          times: JSON.stringify(input.times),
+          startTime: input.startTime,
+          endTime: input.endTime,
+          notes: input.notes,
+        });
+        return log;
+      }),
+
+    get: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input, ctx }) => {
+        return await getKilnLogById(input.id, ctx.user.id);
+      }),
+
+    update: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+          name: z.string().optional(),
+          description: z.string().optional(),
+          temperatures: z.array(z.number()).optional(),
+          times: z.array(z.number()).optional(),
+          startTime: z.date().optional(),
+          endTime: z.date().optional(),
+          notes: z.string().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const { id, ...data } = input;
+        const updateData: any = {};
+        
+        if (data.name !== undefined) updateData.name = data.name;
+        if (data.description !== undefined) updateData.description = data.description;
+        if (data.temperatures !== undefined) updateData.temperatures = JSON.stringify(data.temperatures);
+        if (data.times !== undefined) updateData.times = JSON.stringify(data.times);
+        if (data.startTime !== undefined) updateData.startTime = data.startTime;
+        if (data.endTime !== undefined) updateData.endTime = data.endTime;
+        if (data.notes !== undefined) updateData.notes = data.notes;
+        
+        return await updateKilnLog(id, ctx.user.id, updateData);
+      }),
+
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        const success = await deleteKilnLog(input.id, ctx.user.id);
         return { success };
       }),
   }),

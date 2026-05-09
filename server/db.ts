@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, pdfLibrary, InsertPDFLibrary, PDFLibrary } from "../drizzle/schema";
+import { InsertUser, users, pdfLibrary, InsertPDFLibrary, PDFLibrary, kilnLog, InsertKilnLog, KilnLog } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -159,6 +159,101 @@ export async function deletePDFFromLibrary(id: number, userId: number): Promise<
     return true;
   } catch (error) {
     console.error("[Database] Failed to delete PDF:", error);
+    return false;
+  }
+}
+
+// Kiln Log queries
+export async function createKilnLog(userId: number, data: Omit<InsertKilnLog, 'userId'>): Promise<KilnLog | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create kiln log: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(kilnLog).values({
+      ...data,
+      userId,
+    });
+    
+    const inserted = await db.select().from(kilnLog).where(eq(kilnLog.id, result[0].insertId as number)).limit(1);
+    return inserted.length > 0 ? inserted[0] : null;
+  } catch (error) {
+    console.error("[Database] Failed to create kiln log:", error);
+    throw error;
+  }
+}
+
+export async function getKilnLogsByUserId(userId: number): Promise<KilnLog[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get kiln logs: database not available");
+    return [];
+  }
+
+  try {
+    return await db.select().from(kilnLog).where(eq(kilnLog.userId, userId));
+  } catch (error) {
+    console.error("[Database] Failed to get kiln logs:", error);
+    return [];
+  }
+}
+
+export async function getKilnLogById(id: number, userId: number): Promise<KilnLog | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get kiln log: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.select().from(kilnLog).where(
+      eq(kilnLog.id, id) && eq(kilnLog.userId, userId)
+    ).limit(1);
+    return result.length > 0 ? result[0] : null;
+  } catch (error) {
+    console.error("[Database] Failed to get kiln log:", error);
+    return null;
+  }
+}
+
+export async function updateKilnLog(id: number, userId: number, data: Partial<Omit<InsertKilnLog, 'userId'>>): Promise<KilnLog | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update kiln log: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(kilnLog).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(
+      eq(kilnLog.id, id) && eq(kilnLog.userId, userId)
+    );
+    
+    return await getKilnLogById(id, userId);
+  } catch (error) {
+    console.error("[Database] Failed to update kiln log:", error);
+    throw error;
+  }
+}
+
+export async function deleteKilnLog(id: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete kiln log: database not available");
+    return false;
+  }
+
+  try {
+    await db.delete(kilnLog).where(
+      eq(kilnLog.id, id) && eq(kilnLog.userId, userId)
+    );
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete kiln log:", error);
     return false;
   }
 }

@@ -43,3 +43,23 @@ export const pdfLibrary = mysqlTable("pdf_library", {
 
 export type PDFLibrary = typeof pdfLibrary.$inferSelect;
 export type InsertPDFLibrary = typeof pdfLibrary.$inferInsert;
+/**
+ * Kiln Log table for tracking actual kiln runs
+ * Records temperature readings, times, and metadata for each kiln session
+ */
+export const kilnLog = mysqlTable("kiln_log", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  temperatures: text("temperatures").notNull(),
+  times: text("times").notNull(),
+  startTime: timestamp("startTime").notNull(),
+  endTime: timestamp("endTime"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type KilnLog = typeof kilnLog.$inferSelect;
+export type InsertKilnLog = typeof kilnLog.$inferInsert;

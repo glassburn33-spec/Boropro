@@ -15,6 +15,13 @@
       "when": 1778354472390,
       "tag": "0001_square_prima",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1778357079377,
+      "tag": "0002_broad_power_pack",
+      "breakpoints": true
     }
   ]
 }
