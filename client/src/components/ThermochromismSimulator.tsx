@@ -2,16 +2,27 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, Thermometer } from 'lucide-react';
+import { AlertCircle, Thermometer, ChevronDown, ChevronUp } from 'lucide-react';
 import { DragonTearsBar } from './DragonTearsBar';
-import { DragonTearsInfoPanel } from './DragonTearsInfoPanel';
+import { FeaturedColorBar } from './FeaturedColorBar';
+import { allFeaturedColors } from '@/data/glassAlchemyColors';
 
 export function ThermochromismSimulator() {
   const [temperature, setTemperature] = useState(600);
   const [temperatureUnit, setTemperatureUnit] = useState<'C' | 'F'>('C');
-  const [showDragonTearsInfo, setShowDragonTearsInfo] = useState(false);
+  const [expandedColors, setExpandedColors] = useState<Set<string>>(new Set(['Dragon Tears v2']));
 
   const displayTemp = temperatureUnit === 'F' ? Math.round((temperature * 9/5) + 32) : temperature;
+
+  const toggleColorExpanded = (colorName: string) => {
+    const newExpanded = new Set(expandedColors);
+    if (newExpanded.has(colorName)) {
+      newExpanded.delete(colorName);
+    } else {
+      newExpanded.add(colorName);
+    }
+    setExpandedColors(newExpanded);
+  };
 
   return (
     <div className="space-y-6">
@@ -109,19 +120,69 @@ export function ThermochromismSimulator() {
         </div>
       </Card>
 
-      {/* Dragon Tears v2 Case Study */}
+      {/* Featured Colors Section */}
       <div className="space-y-4">
         <div className="border-l-4 border-amber-500 pl-6">
-          <h3 className="text-xl font-bold text-amber-400">Featured Case Study: Dragon Tears v2</h3>
-          <p className="text-stone-300 text-sm mt-1">Explore dual-axis color behavior driven by temperature and flame atmosphere</p>
+          <h3 className="text-2xl font-bold text-amber-400">Featured Glass Alchemy Colors</h3>
+          <p className="text-stone-300 text-sm mt-1">Dual-axis color behavior: temperature + flame atmosphere responsiveness</p>
         </div>
-        <DragonTearsBar temperatureC={temperature} onInfoClick={() => setShowDragonTearsInfo(true)} />
-      </div>
 
-      {/* Dragon Tears Info Panel Modal */}
-      {showDragonTearsInfo && (
-        <DragonTearsInfoPanel onClose={() => setShowDragonTearsInfo(false)} />
-      )}
+        {/* Colors List with Collapsible Sections */}
+        <div className="space-y-3">
+          {/* Dragon Tears v2 (Legacy Component) */}
+          <div className="border border-stone-700/50 rounded-lg overflow-hidden">
+            <button
+              onClick={() => toggleColorExpanded('Dragon Tears v2')}
+              className="w-full px-6 py-4 bg-stone-800/50 hover:bg-stone-800 transition-colors flex items-center justify-between"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-red-500" />
+                <span className="font-semibold text-amber-400">Dragon Tears v2</span>
+                <span className="text-xs text-stone-400">Glass Alchemy</span>
+              </div>
+              {expandedColors.has('Dragon Tears v2') ? (
+                <ChevronUp className="w-5 h-5 text-stone-400" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-stone-400" />
+              )}
+            </button>
+            {expandedColors.has('Dragon Tears v2') && (
+              <div className="p-6 bg-stone-900/30 border-t border-stone-700/50">
+                <DragonTearsBar temperatureC={temperature} />
+              </div>
+            )}
+          </div>
+
+          {/* Other Featured Colors */}
+          {allFeaturedColors.map((color) => (
+            <div key={color.name} className="border border-stone-700/50 rounded-lg overflow-hidden">
+              <button
+                onClick={() => toggleColorExpanded(color.name)}
+                className="w-full px-6 py-4 bg-stone-800/50 hover:bg-stone-800 transition-colors flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-4 h-4 rounded-full"
+                    style={{ backgroundColor: color.atmosphereData.neutral[Math.floor(color.atmosphereData.neutral.length / 2)].rgb }}
+                  />
+                  <span className="font-semibold text-amber-400">{color.name}</span>
+                  <span className="text-xs text-stone-400">{color.manufacturer}</span>
+                </div>
+                {expandedColors.has(color.name) ? (
+                  <ChevronUp className="w-5 h-5 text-stone-400" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-stone-400" />
+                )}
+              </button>
+              {expandedColors.has(color.name) && (
+                <div className="p-6 bg-stone-900/30 border-t border-stone-700/50">
+                  <FeaturedColorBar color={color} temperatureC={temperature} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Scientific Explanation */}
       <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
