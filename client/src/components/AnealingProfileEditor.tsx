@@ -102,11 +102,16 @@ export default function AnealingProfileEditor() {
 
   // SVG Plot Generation
   const plotSvg = useMemo(() => {
-    const width = 800;
-    const height = 500;
-    const margin = { top: 60, right: 100, bottom: 60, left: 80 };
+    const width = 1000;
+    const height = 600;
+    const margin = { top: 80, right: 120, bottom: 100, left: 100 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
+    
+    // Dynamic text sizing based on plot dimensions
+    const titleFontSize = Math.max(14, Math.min(20, width / 50));
+    const labelFontSize = Math.max(10, Math.min(14, width / 80));
+    const tickFontSize = Math.max(9, Math.min(12, width / 100));
 
     const scaleX = (time: number) => (time / maxTime) * plotWidth;
     const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
@@ -149,7 +154,7 @@ export default function AnealingProfileEditor() {
     }
 
     return (
-      <svg width={width} height={height} className="w-full border border-stone-600 rounded-lg bg-stone-900">
+      <svg width="100%" height="auto" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" className="border border-stone-600 rounded-lg bg-stone-900" style={{ minHeight: '400px' }}>
         {/* Background */}
         <rect width={width} height={height} fill="#1c1917" />
 
@@ -222,18 +227,18 @@ export default function AnealingProfileEditor() {
           <g key={`label-${idx}`}>
             <circle
               cx={margin.left + (region.x1 + region.x2) / 2}
-              cy={margin.top - 20}
-              r="16"
+              cy={margin.top - 30}
+              r={Math.max(12, titleFontSize - 2)}
               fill="none"
               stroke={stageColors[idx]}
               strokeWidth="2"
             />
             <text
               x={margin.left + (region.x1 + region.x2) / 2}
-              y={margin.top - 14}
+              y={margin.top - 22}
               textAnchor="middle"
               fill={stageColors[idx]}
-              fontSize="14"
+              fontSize={titleFontSize - 4}
               fontWeight="bold"
             >
               {idx + 1}
@@ -242,10 +247,10 @@ export default function AnealingProfileEditor() {
         ))}
 
         {/* Reference line labels */}
-        <text x={margin.left + plotWidth + 10} y={margin.top + scaleY(referenceLines.annealingPoint) + 4} fill="#60a5fa" fontSize="12">
+        <text x={margin.left + plotWidth + 15} y={margin.top + scaleY(referenceLines.annealingPoint) + 4} fill="#60a5fa" fontSize={labelFontSize}>
           Annealing point
         </text>
-        <text x={margin.left + plotWidth + 10} y={margin.top + scaleY(referenceLines.strainPoint) + 4} fill="#60a5fa" fontSize="12">
+        <text x={margin.left + plotWidth + 15} y={margin.top + scaleY(referenceLines.strainPoint) + 4} fill="#60a5fa" fontSize={labelFontSize}>
           Strain point
         </text>
 
@@ -254,18 +259,18 @@ export default function AnealingProfileEditor() {
         <line x1={margin.left} y1={margin.top} x2={margin.left} y2={margin.top + plotHeight} stroke="#999" strokeWidth="2" />
 
         {/* Axis labels */}
-        <text x={margin.left + plotWidth / 2} y={height - 10} textAnchor="middle" fill="#999" fontSize="12">
+        <text x={margin.left + plotWidth / 2} y={height - 20} textAnchor="middle" fill="#999" fontSize={labelFontSize}>
           Time →
         </text>
-        <text x={20} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#999" fontSize="12" transform={`rotate(-90 20 ${margin.top + plotHeight / 2})`}>
+        <text x={30} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#999" fontSize={labelFontSize} transform={`rotate(-90 30 ${margin.top + plotHeight / 2})`}>
           Temperature (°C)
         </text>
 
         {/* Y-axis ticks and labels */}
-        {[0, 100, 200, 300, 400, 500, 600].map((temp) => (
+        {[0, 100, 200, 300, 400, 500].map((temp) => (
           <g key={`tick-${temp}`}>
             <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
-            <text x={margin.left - 10} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize="11">
+            <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={tickFontSize}>
               {temp}
             </text>
           </g>
@@ -273,18 +278,22 @@ export default function AnealingProfileEditor() {
 
         {/* Legend */}
         <g>
-          {stageNames.map((name, idx) => (
-            <g key={`legend-${idx}`}>
-              <rect x={margin.left + 20} y={height - 40 + idx * 18} width={12} height={12} fill={stageColors[idx]} opacity="0.7" />
-              <text x={margin.left + 38} y={height - 32 + idx * 18} fill="#999" fontSize="11">
-                {idx + 1} = {name}
-              </text>
-            </g>
-          ))}
+          {stageNames.map((name, idx) => {
+            const legendItemHeight = labelFontSize + 6;
+            const legendBoxSize = Math.max(10, labelFontSize - 2);
+            return (
+              <g key={`legend-${idx}`}>
+                <rect x={margin.left + 25} y={height - margin.bottom + 15 + idx * legendItemHeight} width={legendBoxSize} height={legendBoxSize} fill={stageColors[idx]} opacity="0.7" />
+                <text x={margin.left + 40} y={height - margin.bottom + 24 + idx * legendItemHeight} fill="#999" fontSize={labelFontSize}>
+                  {idx + 1} = {name}
+                </text>
+              </g>
+            );
+          })}
         </g>
 
         {/* Title */}
-        <text x={width / 2} y={30} textAnchor="middle" fill="#fbbf24" fontSize="16" fontWeight="bold">
+        <text x={width / 2} y={titleFontSize + 10} textAnchor="middle" fill="#fbbf24" fontSize={titleFontSize} fontWeight="bold">
           {title}
         </text>
       </svg>
