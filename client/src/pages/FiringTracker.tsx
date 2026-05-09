@@ -163,7 +163,7 @@ export default function FiringTracker() {
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Interactive tool</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
-              Test Firing Tracker
+              Kiln Log
             </h1>
             <p className="text-lg leading-8 text-stone-300 max-w-3xl">
               Log your test firings, track color outcomes over time, and identify patterns in your kiln behavior. Build a personal database of successful schedules and techniques.
