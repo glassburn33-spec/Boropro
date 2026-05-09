@@ -144,6 +144,9 @@ export default function KilnLog() {
   };
 
   const handleDelete = async (id: number) => {
+    const confirmed = window.confirm('Are you sure you want to delete this kiln log? This action cannot be undone.');
+    if (!confirmed) return;
+    
     try {
       await deleteMutation.mutateAsync({ id });
       toast.success("Kiln log deleted successfully!");
