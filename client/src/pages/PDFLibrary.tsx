@@ -8,7 +8,7 @@ import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { PDFViewer } from "@/components/PDFViewer";
+
 
 interface PDFItem {
   id: number;
@@ -16,6 +16,7 @@ interface PDFItem {
   temperatures: number[];
   times: number[];
   uploadedAt: Date;
+  storageKey: string;
 }
 
 export default function PDFLibrary() {
@@ -38,6 +39,7 @@ export default function PDFLibrary() {
     temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
     times: pdf.times ? JSON.parse(pdf.times) : [],
     uploadedAt: new Date(pdf.uploadedAt),
+    storageKey: pdf.storageKey,
   }));
 
   const processFile = async (file: File) => {
@@ -401,8 +403,21 @@ export default function PDFLibrary() {
                   <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
                     PDF Schedule
                   </span>
-                  <div className="bg-white/5 rounded-lg border border-white/10 overflow-hidden">
-                    <PDFViewer pdfId={selectedPDF.id} />
+                  <div className="bg-black rounded-lg border border-white/10 flex items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
+                    {selectedPDF.storageKey ? (
+                      <iframe
+                        src={`/manus-storage/${selectedPDF.storageKey}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          border: 'none',
+                          borderRadius: '0.5rem'
+                        }}
+                        title="PDF Viewer"
+                      />
+                    ) : (
+                      <p className="text-stone-400 text-sm">No PDF file available</p>
+                    )}
                   </div>
                 </div>
 

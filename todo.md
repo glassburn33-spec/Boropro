@@ -113,3 +113,9 @@
 - [x] Keep responsive sizing but use simpler approach
 - [x] Verify PDF displays correctly
 - [x] Test with all tests passing
+
+## Fill White Space with Black in PDF Viewer (New)
+- [x] Remove padding/margin from PDF viewer container
+- [x] Ensure entire 600px height is filled with black background
+- [x] Verify no white space appears around PDF content
+- [x] Test on browser to confirm visual appearance
