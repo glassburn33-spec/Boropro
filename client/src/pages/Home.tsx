@@ -934,335 +934,328 @@ function QuickActionCard({
 }
 
 function ScieEquipTab() {
-  return (
-    <div className="space-y-8">
-      <h2 className="text-xl font-bold text-amber-400">Scientific Equipment & Instrumentation</h2>
-      
-      {/* Flame Structure Section */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Flame Structure and Combustion Zones</h3>
-        
-        <p className="text-stone-300 leading-relaxed">
-          The flame structure is critical for atomic absorption spectroscopy and glass analysis. Figure 1 shows a cross-section through the flame, down the source radiation's optical path. The primary combustion zone usually is rich in gas combustion products that emit radiation, limiting its usefulness for atomic absorption. The interzonal region generally is rich in free atoms and provides the best location for measuring atomic absorption. The hottest part of the flame typically is 2–3 cm above the primary combustion zone. As atoms approach the flame's secondary combustion zone, the decrease in temperature allows for formation of stable molecular species.
-        </p>
-        
-        {/* Flame Diagram */}
-        <div className="flex justify-center my-6">
-          <img 
-            src="/manus-storage/flamediagram_78aea61e.png" 
-            alt="Flame structure showing primary combustion zone, interzonal region, and secondary combustion zone with optical path"
-            className="w-full max-w-2xl rounded-lg border border-stone-600"
-          />
-        </div>
-        
-        <p className="text-stone-300 leading-relaxed">
-          The flame's temperature, which affects the efficiency of atomization, depends on the fuel–oxidant mixture. Of the common combinations, the air–acetylene and the nitrous oxide–acetylene flames are the most popular. Normally the fuel and oxidant are mixed in an approximately stoichiometric ratio; however, a fuel-rich mixture may be necessary for easily oxidized analytes.
-        </p>
-        
-        {/* Fuels and Oxidants Table */}
-        <div className="flex justify-center my-6">
-          <img 
-            src="/manus-storage/gastables_c580dfb1.png" 
-            alt="Table showing fuels and oxidants used for flame combustion with temperature ranges"
-            className="w-full max-w-3xl rounded-lg border border-stone-600"
-          />
-        </div>
-        
-        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
-          <h4 className="text-amber-300 font-bold mb-2">Key Temperature Ranges:</h4>
-          <ul className="text-stone-300 space-y-2 text-sm">
-            <li><strong>Natural gas + Air:</strong> 1700–1900°C</li>
-            <li><strong>Hydrogen + Air:</strong> 2100–2400°C</li>
-            <li><strong>Acetylene + Nitrous oxide:</strong> 2600–2800°C (most popular for high-temperature analysis)</li>
-            <li><strong>Acetylene + Oxygen:</strong> 3050–3150°C (highest temperature, used for refractory materials)</li>
-          </ul>
-        </div>
-      </div>
-      
-      {/* Flame Types Section */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Flame Types: Reducing, Neutral, and Oxidizing</h3>
-        
-        <p className="text-stone-300 leading-relaxed">
-          The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, or oxidizing. Each flame type has distinct characteristics and effects on glass working and analysis.
-        </p>
-        
-        {/* Flame Types Diagram */}
-        <div className="flex justify-center my-6">
-          <img 
-            src="/manus-storage/reducingoxyflametypes_9cf3f07b.png" 
-            alt="Bunsen burner flame analysis showing reducing flame (yellow), neutral flame (blue), and oxidizing flame (pale blue) with inner cone and feather characteristics"
-            className="w-full max-w-2xl rounded-lg border border-stone-600"
-          />
-        </div>
-        
-        <div className="space-y-4">
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-500">
-            <h4 className="text-orange-300 font-bold mb-2">Reducing Flame (Left)</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              The reducing flame has low oxygen and an excess of acetylene. It displays a secondary feather extending from the inner cone, caused by excess acetylene in the flame mixture. This alters the chemical composition by reducing iron oxide (reducing effect) and adding carbon (carburizing effect). The flame has a yellow or yellowish color due to carbon or hydrocarbons.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
-            <h4 className="text-blue-300 font-bold mb-2">Neutral Flame (Center)</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              The neutral flame is produced when the amount of oxygen is precisely enough for complete burning, and neither oxidation nor reduction occurs. The flame is considered neutral because it neither significantly adds nor subtracts any elements from the work. A flame with good balance of oxygen is clear blue and is ideal for most glass working applications.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
-            <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame (Right)</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              The oxidizing flame is produced with an excessive amount of oxygen. As oxygen increases, the flame shortens, its color darkens, and it hisses and roars. Since it oxidizes the metal's surface, this flame has a harmful effect on the properties of ferrous alloys. With some exceptions (e.g., platinum soldering in jewelry), the oxidizing flame is usually undesirable for welding and glass working.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Flame Annealing Technique Section */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Flame Annealing Technique: Soot Coating Distribution</h3>
-        
-        <p className="text-stone-300 leading-relaxed">
-          Flame annealing is a specialized reducing flame technique that distributes a soot coating on the glass surface at annealing temperature. This process leverages the reducing flame's carbon-rich composition to create a protective soot layer that affects thermal properties and surface characteristics. The soot volume fraction is precisely controlled by adjusting the oxidant-to-fuel ratio in the flame mixture.
-        </p>
-        
-        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
-          <h4 className="text-amber-300 font-bold mb-3">Soot Volume Fraction Measurement Method</h4>
-          <p className="text-stone-300 text-sm leading-relaxed mb-3">
-            The soot volume fraction is calculated using Beer-Lambert law, which relates the laser-induced incandescence (LII) signal to soot concentration. A ratio between the LII signal (averaged from multiple measurements) and the soot volume fraction is calculated and used to translate both single-shot and averaged LII images to two-dimensional soot volume fraction images. This method is valid across all cases provided that LII signals are measured using identical optical equipment, laser energy, and camera settings. The strength of this semi-simultaneous extinction calibration method is that calibration is performed on soot at exactly the same location in the furnace, ensuring spatial accuracy and reproducibility.
-          </p>
-        </div>
-        
-        {/* Soot Volume Fraction Plot */}
-        <div className="flex justify-center my-6">
-          <img 
-            src="/manus-storage/sootplot_21f01739.png" 
-            alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
-            className="w-full max-w-2xl rounded-lg border border-stone-600"
-          />
-        </div>
-        
-        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
-          <h4 className="text-amber-300 font-bold mb-2">Key Observations from Soot Generation Plot:</h4>
-          <ul className="text-stone-300 space-y-2 text-sm">
-            <li><strong>Low O₂ Concentration (25%):</strong> Produces highest soot volume fractions (~10^-2 ppb), indicating strong reducing conditions</li>
-            <li><strong>Intermediate O₂ (30-35%):</strong> Moderate soot generation (10^-1 to 10^0 ppb) with controlled reducing effect</li>
-            <li><strong>Higher O₂ (40-45%):</strong> Dramatically reduced soot formation (10^1 to 10^3 ppb), approaching neutral flame conditions</li>
-            <li><strong>Stoichiometric Ratio:</strong> Critical transition point where reducing flame characteristics diminish and oxidizing effects begin</li>
-          </ul>
-        </div>
-        
-        <p className="text-stone-300 text-sm leading-relaxed">
-          The logarithmic relationship between oxygen concentration and soot volume fraction demonstrates the precise control required for flame annealing. Studio practitioners can adjust fuel-oxidant ratios to achieve desired soot coating densities, directly influencing glass surface properties, thermal distribution, and final annealing quality.
-        </p>
-      </div>
-      
-      {/* Flame Annealing Application Guide */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Flame Annealing Application: Studio Technique Guide</h3>
-        
-        {/* Studio Technique Image */}
-        <div className="flex justify-center my-6">
-          <img 
-            src="/manus-storage/glassflameanealing_dfa61208.png" 
-            alt="Glass flame annealing technique showing torch application with soot coating on borosilicate glass piece in studio setting"
-            className="w-full max-w-2xl rounded-lg border border-stone-600"
-          />
-        </div>
-        
-        <div className="space-y-4">
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
-            <h4 className="text-amber-300 font-bold mb-2">Section 1: What Flame Annealing Actually Does</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              Flame annealing does not anneal glass any more than bench cooling does. However, it is genuinely useful for production items and smaller pieces where kiln access is limited or timing is impractical.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
-            <h4 className="text-amber-300 font-bold mb-2">Section 2: The Core Principle — Even Temperature Throughout</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              Annealing is about allowing the thickest and thinnest parts of the glass to cool at an even temperature all the way through. Varying thicknesses and temperatures across a piece create stress, which causes cracking. When flame annealing, keep a mental map of which areas of your piece hold the most heat, moderate heat, or none — then bring each zone up or down to the annealing temperature of approximately 1050°F.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-amber-500">
-            <h4 className="text-amber-300 font-bold mb-2">Section 3: Technique</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              Use a bushy, propane-heavy flame. Start with the piece far back in the flame and slowly work it closer. When running more propane than oxygen, the flame deposits soot on any glass that has not reached annealing temperature — soot burns off at around 1000°F, making it a reliable visual indicator. Keep a small amount of oxygen in the mix to help propel the soot onto the glass surface.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              Leave the soot layer on the piece. It reduces cracking risk, especially if the piece will not go directly into a kiln. The soot burns off on its own during kilning, or can be removed by bringing the piece back up to temperature in the flame.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed text-orange-300 font-semibold">
-              Note: Running near-pure propane can dirty and wear out torch ports — keep them clean.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-500">
-            <h4 className="text-red-300 font-bold mb-2">Section 4: Limitations and Honest Warnings</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              Nothing replaces a kiln. True flame annealing — cooling a piece slowly enough to eliminate internal stress — is theoretically possible with a flame but practically very unlikely to succeed. The kiln exists to cool glass as slowly and evenly as possible without adding stress.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              For large or functional pieces that will regularly contact heat, flame annealing is hard, expensive, and impractical. If a sold piece cracks due to improper flame annealing, the consequences range from unsatisfied customers to lost consignment or wholesale contracts.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-green-500">
-            <h4 className="text-green-300 font-bold mb-2">Section 5: When to Use It</h4>
-            <p className="text-stone-300 text-sm leading-relaxed">
-              Flame annealing is best used as a bridge technique — most effective for small production items, with kilning to follow as soon as possible. It is not a substitute for proper kiln annealing on work that matters.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Spectroscopy Instrumentation Section */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Spectroscopy Instrumentation for Glass Analysis</h3>
-        
-        <p className="text-stone-300 leading-relaxed">
-          Spectroscopy is the primary analytical technique for characterizing borosilicate glass composition, identifying metal ion dopants, and measuring optical properties. Different spectroscopic methods probe different aspects of glass structure and chemistry, from elemental composition to local coordination geometry.
-        </p>
-        
-        <div className="space-y-4">
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
-            <h4 className="text-blue-300 font-bold mb-2">Atomic Absorption Spectroscopy (AAS)</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              AAS measures the absorption of light by free metal atoms in the ground state. The flame (or graphite furnace) atomizes the sample, and a hollow cathode lamp provides resonance radiation at the absorption wavelength of the target element. This technique is quantitative and highly selective, making it ideal for measuring trace metal concentrations in glass melts and finished products.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
-              Studio Application: Verify chromium, cobalt, or nickel concentration in colored glass batches to ensure consistent hue and saturation.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-purple-400">
-            <h4 className="text-purple-300 font-bold mb-2">UV-Visible (UV-Vis) Absorption Spectroscopy</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              UV-Vis spectroscopy measures how light is absorbed across the ultraviolet and visible spectrum (200–800 nm). For glass, this reveals electronic transitions of metal ions and provides information about coordination state, oxidation state, and local environment. The absorption spectrum is a fingerprint of the glass composition and thermal history.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              Key insight: The same metal ion (e.g., Ni²⁺) produces different absorption bands depending on its coordination geometry (tetrahedral, octahedral, square planar). Comparing experimental spectra to reference databases allows identification of coordination states and prediction of color shifts with temperature.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
-              Studio Application: Measure color stability across temperature ranges; detect unwanted iron contamination (Fe²⁺ and Fe³⁺ have distinct absorption profiles).
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-green-400">
-            <h4 className="text-green-300 font-bold mb-2">Raman Spectroscopy</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              Raman spectroscopy probes vibrational modes of the glass network itself — the Si–O–Si, B–O–B, and B–O–Si bonds. Unlike IR spectroscopy, Raman is sensitive to symmetric stretching modes and provides direct information about network connectivity and local structure. For borosilicate glass, Raman spectra reveal the ratio of tetrahedral to trigonal boron, which directly affects mechanical and thermal properties.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              The Raman shift (measured in cm⁻¹) identifies specific bond types: Si–O stretches appear around 800–1200 cm⁻¹, B–O stretches around 700–1000 cm⁻¹, and defect modes (non-bridging oxygens) at lower frequencies. Changes in peak position and intensity reflect changes in glass composition or thermal history.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
-              Studio Application: Detect phase separation or crystallization by monitoring changes in network structure; verify batch consistency by comparing Raman spectra of new glass to reference standards.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Temperature Measurement Section */}
-      <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
-        <h3 className="text-lg font-bold text-amber-300">Temperature Measurement: Thermocouples and Pyrometers</h3>
-        
-        <p className="text-stone-300 leading-relaxed">
-          Accurate temperature measurement is essential for controlling kiln ramp rates, dwell times, and cooling schedules. Two primary technologies dominate glass studio practice: thermocouples (contact-based, low cost, reliable) and optical pyrometers (non-contact, fast response, ideal for moving pieces or high-temperature zones).
-        </p>
-        
-        <div className="space-y-4">
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-400">
-            <h4 className="text-orange-300 font-bold mb-2">Thermocouples: The Studio Standard</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              A thermocouple is a pair of dissimilar metals joined at one end. When the junction is heated, a small voltage (millivolts) is generated proportional to temperature. This voltage is measured by a controller or data logger and converted to temperature using a calibration curve. Thermocouples are inexpensive, durable, and accurate to ±1–2°C when properly calibrated.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              <strong>Common thermocouple types for glass studios:</strong>
-            </p>
-            <ul className="text-stone-300 space-y-1 text-sm ml-4">
-              <li>• <strong>Type K (Chromel-Alumel):</strong> −200 to +1372°C, most common, good accuracy, inexpensive</li>
-              <li>• <strong>Type R (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, high accuracy, expensive, used for precision work</li>
-              <li>• <strong>Type S (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, similar to Type R, slightly different sensitivity</li>
-            </ul>
-            <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
-              Studio Tip: Type K thermocouples are adequate for most kiln monitoring. Place the junction in a ceramic protection tube at the geometric center of the kiln chamber for representative temperature readings. Avoid contact with kiln walls or heating elements, which can cause localized heating errors.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-400">
-            <h4 className="text-red-300 font-bold mb-2">Optical Pyrometers: Non-Contact Measurement</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              An optical pyrometer measures the intensity of thermal radiation emitted by a hot object. The instrument focuses infrared light from the target onto a detector and converts the signal to temperature using the Stefan-Boltzmann law and Planck's radiation law. Optical pyrometers are non-contact, making them ideal for measuring moving pieces, high-temperature zones, or situations where a thermocouple cannot be placed.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              <strong>Key considerations:</strong>
-            </p>
-            <ul className="text-stone-300 space-y-1 text-sm ml-4">
-              <li>• <strong>Emissivity:</strong> Glass emissivity varies with wavelength and temperature. Borosilicate glass has emissivity around 0.85–0.95 in the infrared. Pyrometers typically assume emissivity = 1 (blackbody), so readings may be 20–50°C high for glass. Calibration against a thermocouple is essential.</li>
-              <li>• <strong>Field of View:</strong> Narrow field of view (small target area) reduces measurement error from surrounding cooler surfaces. For kiln monitoring, use a pyrometer with at least 12:1 distance-to-spot ratio.</li>
-              <li>• <strong>Response Time:</strong> Optical pyrometers respond in milliseconds, making them ideal for tracking rapid temperature changes during ramps.</li>
-            </ul>
-            <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
-              Studio Tip: For borosilicate glass, set pyrometer emissivity to 0.90 and verify against a thermocouple reading at 1000°C. Adjust emissivity if readings differ by more than 10°C.
-            </p>
-          </div>
-          
-          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
-            <h4 className="text-cyan-300 font-bold mb-2">Thermal Imaging: Spatial Temperature Distribution</h4>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              Thermal imaging cameras (infrared cameras) capture the temperature distribution across an entire surface in real time. Each pixel represents a temperature value, displayed as a color-coded image. For kiln monitoring, thermal imaging reveals hot spots, dead zones, and temperature gradients that single-point thermocouples cannot detect.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed mb-2">
-              Thermal imaging is particularly valuable for diagnosing kiln performance issues: uneven heating suggests element failure or refractory damage; rapid cooling in one zone indicates air leakage; and temperature stratification (hotter at top, cooler at bottom) reveals convection patterns and can inform piece placement strategies.
-            </p>
-            <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
-              Studio Application: Use thermal imaging during the first kiln run after repairs or refractory replacement to verify even heating and identify problem areas before production work begins.
-            </p>
-          </div>
-        </div>
-        
-        <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
-          <h4 className="text-amber-300 font-bold mb-3">Recommended Temperature Measurement Strategy</h4>
-          <p className="text-stone-300 text-sm leading-relaxed mb-3">
-            For production work, combine thermocouple and pyrometer measurements: use thermocouples for continuous kiln monitoring and controller feedback (they are reliable and inexpensive), and use optical pyrometers or thermal imaging to verify piece temperature and detect spatial gradients. This dual approach provides both accuracy and diagnostic capability.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            Calibrate all instruments annually against a reference standard. For thermocouples, use an ice bath (0°C) and boiling water (100°C) as quick checks; for pyrometers, compare readings against a calibrated thermocouple at multiple temperatures between 600–1200°C.
-          </p>
-        </div>
-      </div>
-      
-      <p className="text-stone-400 text-sm">Scientific equipment and instrumentation for borosilicate glass research and analysis.</p>
-    </div>
-  );
-}
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
-function NavButton({
-  icon,
-  label,
-  active,
-  onClick,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
+
   return (
-    <button
-      onClick={onClick}
-      className={`flex-1 flex flex-col items-center justify-center gap-1 py-2 rounded transition-all ${
-        active
-          ? "bg-amber-900/30 text-amber-400 border-b-2 border-amber-500"
-          : "text-stone-400 hover:text-stone-300"
-      }`}
-    >
-      {icon}
-      <span className="text-xs font-bold">{label}</span>
-    </button>
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold text-amber-400 mb-6">Scientific Equipment & Instrumentation</h2>
+      
+      {/* Accordion Buttons */}
+      <div className="space-y-2">
+        {/* Flame Structure Button */}
+        <button
+          onClick={() => toggleSection('flame-structure')}
+          className="w-full flex items-center justify-between p-4 bg-stone-900/50 hover:bg-stone-800/50 border border-stone-700 rounded-lg transition-colors duration-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-xl">🔥</span>
+            <span className="text-lg font-bold text-amber-300 text-left">Flame Structure and Combustion Zones</span>
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-amber-400 transition-transform duration-200 ${
+              expandedSection === 'flame-structure' ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {/* Flame Types Button */}
+        <button
+          onClick={() => toggleSection('flame-types')}
+          className="w-full flex items-center justify-between p-4 bg-stone-900/50 hover:bg-stone-800/50 border border-stone-700 rounded-lg transition-colors duration-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-xl">🌡️</span>
+            <span className="text-lg font-bold text-amber-300 text-left">Flame Types: Reducing, Neutral, and Oxidizing</span>
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-amber-400 transition-transform duration-200 ${
+              expandedSection === 'flame-types' ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {/* Flame Annealing Button */}
+        <button
+          onClick={() => toggleSection('flame-annealing')}
+          className="w-full flex items-center justify-between p-4 bg-stone-900/50 hover:bg-stone-800/50 border border-stone-700 rounded-lg transition-colors duration-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-xl">💨</span>
+            <span className="text-lg font-bold text-amber-300 text-left">Flame Annealing Technique: Soot Coating Distribution</span>
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-amber-400 transition-transform duration-200 ${
+              expandedSection === 'flame-annealing' ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {/* Spectroscopy Button */}
+        <button
+          onClick={() => toggleSection('spectroscopy')}
+          className="w-full flex items-center justify-between p-4 bg-stone-900/50 hover:bg-stone-800/50 border border-stone-700 rounded-lg transition-colors duration-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-xl">🔬</span>
+            <span className="text-lg font-bold text-amber-300 text-left">Spectroscopy Instrumentation for Glass Analysis</span>
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-amber-400 transition-transform duration-200 ${
+              expandedSection === 'spectroscopy' ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {/* Temperature Measurement Button */}
+        <button
+          onClick={() => toggleSection('temperature')}
+          className="w-full flex items-center justify-between p-4 bg-stone-900/50 hover:bg-stone-800/50 border border-stone-700 rounded-lg transition-colors duration-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-xl">📊</span>
+            <span className="text-lg font-bold text-amber-300 text-left">Temperature Measurement: Thermocouples and Pyrometers</span>
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-amber-400 transition-transform duration-200 ${
+              expandedSection === 'temperature' ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+      </div>
+      
+      {/* Expanded Content Sections */}
+      <div className="space-y-6 mt-6">
+        
+        {/* Flame Structure Section */}
+        {expandedSection === 'flame-structure' && (
+        <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+          <h3 className="text-lg font-bold text-amber-300">Flame Structure and Combustion Zones</h3>
+          
+          <p className="text-stone-300 leading-relaxed">
+            The flame structure is critical for atomic absorption spectroscopy and glass analysis. Figure 1 shows a cross-section through the flame, down the source radiation's optical path. The primary combustion zone usually is rich in gas combustion products that emit radiation, limiting its usefulness for atomic absorption. The interzonal region generally is rich in free atoms and provides the best location for measuring atomic absorption. The hottest part of the flame typically is 2–3 cm above the primary combustion zone. As atoms approach the flame's secondary combustion zone, the decrease in temperature allows for formation of stable molecular species.
+          </p>
+          
+          {/* Flame Diagram */}
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/flamediagram_78aea61e.png" 
+              alt="Flame structure showing primary combustion zone, interzonal region, and secondary combustion zone with optical path"
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <p className="text-stone-300 leading-relaxed">
+            The flame's temperature, which affects the efficiency of atomization, depends on the fuel–oxidant mixture. Of the common combinations, the air–acetylene and the nitrous oxide–acetylene flames are the most popular. Normally the fuel and oxidant are mixed in an approximately stoichiometric ratio; however, a fuel-rich mixture may be necessary for easily oxidized analytes.
+          </p>
+          
+          {/* Fuels and Oxidants Table */}
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/gastables_c580dfb1.png" 
+              alt="Table showing fuels and oxidants used for flame combustion with temperature ranges"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-2">Key Temperature Ranges:</h4>
+            <ul className="text-stone-300 space-y-2 text-sm">
+              <li><strong>Natural gas + Air:</strong> 1700–1900°C</li>
+              <li><strong>Hydrogen + Air:</strong> 2100–2400°C</li>
+              <li><strong>Acetylene + Nitrous oxide:</strong> 2600–2800°C (most popular for high-temperature analysis)</li>
+              <li><strong>Acetylene + Oxygen:</strong> 3050–3150°C (highest temperature, used for refractory materials)</li>
+            </ul>
+          </div>
+        </div>
+        )}
+        
+        {/* Flame Types Section */}
+        {expandedSection === 'flame-types' && (
+        <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+          <h3 className="text-lg font-bold text-amber-300">Flame Types: Reducing, Neutral, and Oxidizing</h3>
+          
+          <p className="text-stone-300 leading-relaxed">
+            The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, or oxidizing. Each flame type has distinct characteristics and effects on glass working and analysis.
+          </p>
+          
+          {/* Flame Types Diagram */}
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/reducingoxyflametypes_9cf3f07b.png" 
+              alt="Bunsen burner flame analysis showing reducing flame (yellow), neutral flame (blue), and oxidizing flame (pale blue) with inner cone and feather characteristics"
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-500">
+              <h4 className="text-orange-300 font-bold mb-2">Reducing Flame (Left)</h4>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                The reducing flame has low oxygen and an excess of acetylene. It displays a secondary feather extending from the inner cone, caused by excess acetylene in the flame mixture. This alters the chemical composition by reducing iron oxide (reducing effect) and adding carbon (carburizing effect). The flame has a yellow or yellowish color due to carbon or hydrocarbons.
+              </p>
+            </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+              <h4 className="text-blue-300 font-bold mb-2">Neutral Flame (Center)</h4>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                The neutral flame is produced when the amount of oxygen is precisely enough for complete burning, and neither oxidation nor reduction occurs. The flame is considered neutral because it neither significantly adds nor subtracts any elements from the work. A flame with good balance of oxygen is clear blue and is ideal for most glass working applications.
+              </p>
+            </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
+              <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame (Right)</h4>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                The oxidizing flame is produced with an excessive amount of oxygen. As oxygen increases, the flame shortens, its color darkens, and it hisses and roars. Since it oxidizes the metal's surface, this flame has a harmful effect on the properties of ferrous alloys. With some exceptions (e.g., platinum soldering in jewelry), the oxidizing flame is usually undesirable for welding and glass working.
+              </p>
+            </div>
+          </div>
+        </div>
+        )}
+        
+        {/* Flame Annealing Technique Section */}
+        {expandedSection === 'flame-annealing' && (
+        <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+          <h3 className="text-lg font-bold text-amber-300">Flame Annealing Technique: Soot Coating Distribution</h3>
+          
+          <p className="text-stone-300 leading-relaxed">
+            Flame annealing is a specialized reducing flame technique that distributes a soot coating on the glass surface at annealing temperature. This process leverages the reducing flame's carbon-rich composition to create a protective soot layer that affects thermal properties and surface characteristics. The soot volume fraction is precisely controlled by adjusting the oxidant-to-fuel ratio in the flame mixture.
+          </p>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Soot Volume Fraction Measurement Method</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              The soot volume fraction is calculated using Beer-Lambert law, which relates the laser-induced incandescence (LII) signal to soot concentration. A ratio between the LII signal (averaged from multiple measurements) and the soot volume fraction is calculated and used to translate both single-shot and averaged LII images to two-dimensional soot volume fraction images. This method is valid across all cases provided that LII signals are measured using identical optical equipment, laser energy, and camera settings. The strength of this semi-simultaneous extinction calibration method is that calibration is performed on soot at exactly the same location in the furnace, ensuring spatial accuracy and reproducibility.
+            </p>
+          </div>
+          
+          {/* Soot Volume Fraction Plot */}
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/sootplot_21f01739.png" 
+              alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-2">Key Observations from Soot Generation Plot:</h4>
+            <ul className="text-stone-300 space-y-2 text-sm">
+              <li><strong>Low O₂ Concentration (25%):</strong> Produces highest soot volume fractions (~10^-2 ppb), indicating strong reducing conditions</li>
+              <li><strong>Intermediate O₂ (30-35%):</strong> Moderate soot generation (10^-1 to 10^0 ppb) with controlled reducing effect</li>
+              <li><strong>Higher O₂ (40-45%):</strong> Dramatically reduced soot formation (10^1 to 10^3 ppb), approaching neutral flame conditions</li>
+              <li><strong>Stoichiometric Ratio:</strong> Critical transition point where reducing flame characteristics diminish and oxidizing effects begin</li>
+            </ul>
+          </div>
+          
+          <p className="text-stone-300 text-sm leading-relaxed">
+            The logarithmic relationship between oxygen concentration and soot volume fraction demonstrates the precise control required for flame annealing. Studio practitioners can adjust fuel-oxidant ratios to achieve desired soot coating densities, directly influencing glass surface properties, thermal distribution, and final annealing quality.
+          </p>
+        </div>
+        )}
+        
+        {/* Spectroscopy Instrumentation Section */}
+        {expandedSection === 'spectroscopy' && (
+        <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+          <h3 className="text-lg font-bold text-amber-300">Spectroscopy Instrumentation for Glass Analysis</h3>
+          
+          <p className="text-stone-300 leading-relaxed">
+            Spectroscopy is the primary analytical technique for characterizing borosilicate glass composition, identifying metal ion dopants, and measuring optical properties. Different spectroscopic methods probe different aspects of glass structure and chemistry, from elemental composition to local coordination geometry.
+          </p>
+          
+          <div className="space-y-4">
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+              <h4 className="text-blue-300 font-bold mb-2">Atomic Absorption Spectroscopy (AAS)</h4>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                AAS measures the absorption of light by free metal atoms in the ground state. The flame (or graphite furnace) atomizes the sample, and a hollow cathode lamp provides resonance radiation at the absorption wavelength of the target element. This technique is quantitative and highly selective, making it ideal for measuring trace metal concentrations in glass melts and finished products.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+                Studio Application: Verify chromium, cobalt, or nickel concentration in colored glass batches to ensure consistent hue and saturation.
+              </p>
+            </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-purple-400">
+              <h4 className="text-purple-300 font-bold mb-2">UV-Visible (UV-Vis) Absorption Spectroscopy</h4>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                UV-Vis spectroscopy measures how light is absorbed across the ultraviolet and visible spectrum (200–800 nm). For glass, this reveals electronic transitions of metal ions and provides information about coordination state, oxidation state, and local environment. The absorption spectrum is a fingerprint of the glass composition and thermal history.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                Key insight: The same metal ion (e.g., Ni²⁺) produces different absorption bands depending on its coordination geometry (tetrahedral, octahedral, square planar). Comparing experimental spectra to reference databases allows identification of coordination states and prediction of color shifts with temperature.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+                Studio Application: Measure color stability across temperature ranges; detect unwanted iron contamination (Fe²⁺ and Fe³⁺ have distinct absorption profiles).
+              </p>
+            </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-green-400">
+              <h4 className="text-green-300 font-bold mb-2">Raman Spectroscopy</h4>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                Raman spectroscopy probes vibrational modes of the glass network itself — the Si–O–Si, B–O–B, and B–O–Si bonds. Unlike IR spectroscopy, Raman is sensitive to symmetric stretching modes and provides direct information about network connectivity and local structure. For borosilicate glass, Raman spectra reveal the ratio of tetrahedral to trigonal boron, which directly affects mechanical and thermal properties.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                The Raman shift (measured in cm⁻¹) identifies specific bond types: Si–O stretches appear around 800–1200 cm⁻¹, B–O stretches around 700–1000 cm⁻¹, and defect modes (non-bridging oxygens) at lower frequencies. Changes in peak position and intensity reflect changes in glass composition or thermal history.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed text-amber-200 font-semibold">
+                Studio Application: Detect phase separation or crystallization by monitoring changes in network structure; verify batch consistency by comparing Raman spectra of new glass to reference standards.
+              </p>
+            </div>
+          </div>
+        </div>
+        )}
+        
+        {/* Temperature Measurement Section */}
+        {expandedSection === 'temperature' && (
+        <div className="space-y-6 bg-stone-900/50 p-6 rounded-lg border border-stone-700">
+          <h3 className="text-lg font-bold text-amber-300">Temperature Measurement: Thermocouples and Pyrometers</h3>
+          
+          <p className="text-stone-300 leading-relaxed">
+            Accurate temperature measurement is essential for controlling kiln ramp rates, dwell times, and cooling schedules. Two primary technologies dominate glass studio practice: thermocouples (contact-based, low cost, reliable) and optical pyrometers (non-contact, fast response, ideal for moving pieces or high-temperature zones).
+          </p>
+          
+          <div className="space-y-4">
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-400">
+              <h4 className="text-orange-300 font-bold mb-2">Thermocouples: The Studio Standard</h4>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                A thermocouple is a pair of dissimilar metals joined at one end. When the junction is heated, a small voltage (millivolts) is generated proportional to temperature. This voltage is measured by a controller or data logger and converted to temperature using a calibration curve. Thermocouples are inexpensive, durable, and accurate to ±1–2°C when properly calibrated.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                <strong>Common thermocouple types for glass studios:</strong>
+              </p>
+              <ul className="text-stone-300 space-y-1 text-sm ml-4">
+                <li>• <strong>Type K (Chromel-Alumel):</strong> −200 to +1372°C, most common, good accuracy, inexpensive</li>
+                <li>• <strong>Type R (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, high accuracy, expensive, used for precision work</li>
+                <li>• <strong>Type S (Platinum-Platinum/Rhodium):</strong> 0 to +1768°C, similar to Type R, slightly different sensitivity</li>
+              </ul>
+              <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
+                Studio Tip: Type K thermocouples are adequate for most kiln monitoring. Place the junction in a ceramic protection tube at the geometric center of the kiln chamber for representative temperature readings. Avoid contact with kiln walls or heating elements, which can cause localized heating errors.
+              </p>
+            </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-400">
+              <h4 className="text-red-300 font-bold mb-2">Optical Pyrometers: Non-Contact Measurement</h4>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                An optical pyrometer measures the intensity of thermal radiation emitted by a hot object. The instrument focuses infrared light from the target onto a detector and converts the signal to temperature using the Stefan-Boltzmann law and Planck's radiation law. Optical pyrometers are non-contact, making them ideal for measuring moving pieces, high-temperature zones, or situations where a thermocouple cannot be placed.
+              </p>
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                <strong>Key considerations:</strong>
+              </p>
+              <ul className="text-stone-300 space-y-1 text-sm ml-4">
+                <li>• Emissivity: Different materials emit different amounts of infrared radiation at the same temperature. Glass has an emissivity of ~0.6–0.8 depending on composition and surface condition. Pyrometers must be calibrated or adjusted for the target material.</li>
+                <li>• Response time: Optical pyrometers respond in milliseconds, making them ideal for dynamic measurements.</li>
+                <li>• Distance: Most optical pyrometers have a fixed distance-to-spot ratio (e.g., 50:1), meaning you must be at a specific distance from the target for accurate readings.</li>
+              </ul>
+              <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
+                Studio Tip: Use optical pyrometers to monitor glass temperature during working or annealing without interrupting the process. Always calibrate against a known temperature source (e.g., a thermocouple reading) before relying on pyrometer data.
+              </p>
+            </div>
+          </div>
+        </div>
+        )}
+        
+      </div>
+    </div>
   );
 }
