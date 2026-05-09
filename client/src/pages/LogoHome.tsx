@@ -9,7 +9,7 @@ import { useLocation } from "wouter";
 
 export default function LogoHome() {
   const [showDrawer, setShowDrawer] = useState(false);
-  const [headerImage, setHeaderImage] = useState<string>("");
+  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
   const [, setLocation] = useLocation();
 
   const handleHeaderImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,11 +121,11 @@ export default function LogoHome() {
       )}
 
       {/* MAIN CONTENT - Centered Logo */}
-      <main className="min-h-screen flex items-center justify-center" style={{ marginTop: '120px' }}>
+      <main className="min-h-screen flex items-center justify-center px-4" style={{ marginTop: '120px' }}>
         <img
           src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png"
           alt="BoroPro Logo"
-          className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain max-w-[80vw] max-h-[80vh]"
+          className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain max-w-[90vw] max-h-[70vh]"
         />
       </main>
     </div>
