@@ -600,20 +600,30 @@ ${combinedSchedule.rationale}`;
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <div className="border-b border-amber-500 bg-black px-6 py-8">
-        <div className="flex items-center gap-6 mb-8">
-          <a href="/" className="hover:opacity-80 transition-opacity">
-            <img src="https://manus-storage.s3.us-west-2.amazonaws.com/webdev/boroprologoicon.png" alt="BoroPrologo" className="h-24 w-24" />
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-4">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
-          <nav className="flex gap-8 text-stone-400">
-            <a href="/flame-simulator" className="hover:text-amber-400 transition-colors">FLAME CHAR</a>
-            <a href="/color-picker" className="text-amber-400">COLOR DATABASE</a>
-            <a href="/firing-tracker" className="hover:text-amber-400 transition-colors">KILN LOG</a>
-            <a href="/pdf-library" className="hover:text-amber-400 transition-colors">PDF LIBRARY</a>
-            <a href="/references" className="hover:text-amber-400 transition-colors">REFERENCES</a>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Flame Char
+            </a>
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-amber-500">
+              Color Database
+            </a>
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Kiln Log
+            </a>
+            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              PDF Library
+            </a>
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
+            </a>
           </nav>
         </div>
-      </div>
+      </header>
 
       {/* Main Content */}
            <div className="container py-12">
