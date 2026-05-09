@@ -1041,10 +1041,17 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
-              src="/manus-storage/oxydizingflame_e3c191a0.webp" 
+              src="/manus-storage/oxydizingflame_065fda8f.webp" 
               alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
             />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
+            <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame Image Description</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              By increasing the oxygen flow slightly beyond the point where the secondary zone disappears one will obtain an oxidizing flame (with excess oxygen). The flame will be shorter and sharper than the neutral flame, with a shorter, more pointed inner cone. This flame is slightly hotter than the neutral flame, and is used for welding cast iron, brass, bronze and zinc alloys, and for some brazing alloys.
+            </p>
           </div>
         </div>
       ),
