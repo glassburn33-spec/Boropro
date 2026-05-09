@@ -437,7 +437,7 @@ function StudioTab() {
             <div className="space-y-4">
               <div className="w-full flex justify-center my-6">
                 <img
-                  src="/manus-storage/devitrifiedtube_9340acf2.png"
+                  src="/manus-storage/devitrifiedtube_b150dc7c.png"
                   alt="Devitrified glass tube showing crystalline formation and hazy appearance"
                   className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
                 />
