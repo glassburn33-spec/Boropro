@@ -1347,6 +1347,76 @@ function ScieEquipTab() {
         </div>
       ),
     },
+    {
+      id: 'flashback-arresters',
+      title: '🛡️ Flashback Arresters',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Experimental Setup and Methodology</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              The pipeline and flame arrester were evacuated and then filled with the fuel gas/oxygen mixture produced in a mixing vessel up to the various experimental pressures. The mixture was ignited at the end of the pipeline attached ahead of the arrester by means of a melting metal wire. Experiments were carried out in which the sintered metal flame arrester element was stressed from the outside (Figure 1a) and from the inside (Figure 1b) by the incoming reaction front.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Sintered metal elements of quality SIKA-R30, R20, R10 and R3 were used. The numbers in the quality marks give the maximum width of the gaps in the pores of the sintered metal in micrometers. The strength of the material increases with decreasing pore size. The experimental flame arrester had dimensions of Ø27 × Ø20 × 40 mm and could be fixed in the housing. The screwed connection part had a 5 mm deep recess to fix the arrester element, 3 mm of which had a conical taper of 1:10 and 2 mm had a bevel-edge of 30°.
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/flashbackcrosssection_d8a17dcd.png" 
+              alt="Experimental flame arrester cross-section showing stressing of the sintered metal element by the incoming reaction front: (a) from outside; (b) from inside. Shows the housing, sintered metal element (orange), ignition vector, and cross-drilled bores for gas stream direction."
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Flame Arrester Design and Assembly</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              The cone-shaped surface on the housing parts is shaped in such a way that, when the device is assembled, the sintered metal element is compressed from the outside at one end and widened out from within at the other end. Thus, over the 3 mm long cone-shaped surface, a connection is produced that is safe against flame transmission between the components. Any flame transmission is only possible via the pores of the sintered metal element or via cracks in the sintered metal element which might be formed as a result of severe stresses.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Experimental Results with Acetylene/Oxygen Mixtures</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              The diagram in Figure 2 gives results obtained with the experimental flame arrester and with acetylene/oxygen mixtures. The limiting pressure for safety against flame transmission for sintered metal elements is shown in relation to the composition of the acetylene/oxygen mixture. The parameter is the quality of the sintered metal. Elements of quality SIKA-R30, R10 and R3 were used. The length of the pipeline attached ahead of the unit was L = 5000 mm for all experiments.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Experiments were carried out with the experimental flame arrester and arrester elements of quality SIKA-R3 in which the arrester element was stressed by the incoming reaction front not only from the outside but also from the inside. In these experiments, with an initial pressure of 4.5 bar, a mixture of 42% by volume of acetylene and a stressing of the arrester element from inside by the incoming reaction front, break up of the arrester element occurred.
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/flashbackplot_53ebe88b.png" 
+              alt="Limiting pressure for safety against flame transmission for experimental flame arrester with sintered metal elements of quality SIKA-R3, R10 and R30 with flashback in acetylene/oxygen mixtures. Shows pressure (bar) vs. content by volume of acetylene. Pipeline length L = 5000 mm. Includes notes on sintered metal element cracks and stressing from outside and inside."
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Fuel Gas Mixture Ratios and Safety Limits</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              With fuel gas/oxygen mixtures incorporating the fuel gases acetylene, hydrogen, propane and methane, the lowest limiting pressures for safety against flame transmission for sintered metal elements of quality SIKA-R30 are in a ratio of approximately 1:2:3:4. These occur at mixtures of 32% acetylene by volume, 14% propane by volume, 28% methane by volume and 42% hydrogen by volume.
+            </p>
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Shock Waves and Pressure Dynamics</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              On the basis of the discussion of the experimental results, it is possible to conclude that, in the case of barrier layers made of sintered metal, the limiting pressure for safety against flame transmission increases quite considerably due to shock waves arriving at the arrester element ahead of the reaction front. The particular processes in operation here can only be a matter of conjecture at the present time.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              With below-stoichiometric hydrogen/oxygen mixtures, this state of affairs, where the limiting pressure can no longer be increased by incoming shock waves, occurs in those mixtures where the limiting pressure is still relatively low being increased by incoming shock waves. This is why lower limiting pressures are achieved in experiments with short pipeline lengths and mixtures with less than 27% hydrogen by volume than in the case of experiments with longer pipelines (L = 5 m) and the same mixture compositions.
+            </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              However, in order to achieve lower limiting pressures for these mixtures than for experiments with long pipelines and mixtures at about 42% hydrogen by volume, the length of the pipeline selected must be less than 1 m. The length L = 1.5 m (5 feet) for the pipeline required for tests given in the American testing rules has probably been selected because, in tests with this pipe length and conditions at the detonation limit, the mechanical stress on the sintered metal element is considerably greater than in tests with a longer pipeline of 4.5 m (15 feet) and stable detonations at stationary conditions.
+            </p>
+          </div>
+        </div>
+      ),
+    },
   ];
 
   return (
