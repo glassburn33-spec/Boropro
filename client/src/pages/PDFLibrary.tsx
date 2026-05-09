@@ -173,6 +173,9 @@ export default function PDFLibrary() {
   };
 
   const handleDelete = async (id: number) => {
+    const confirmed = window.confirm('Are you sure you want to delete this schedule? This action cannot be undone.');
+    if (!confirmed) return;
+    
     try {
       await deleteMutation.mutateAsync({ id });
       toast.success("PDF deleted successfully!");
