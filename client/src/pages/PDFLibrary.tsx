@@ -425,7 +425,7 @@ export default function PDFLibrary() {
                   </div>
                   
                   {/* Image Window */}
-                  <div className="w-64">
+                  <div className="w-40">
                     <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
                       Reference Image
                     </span>
