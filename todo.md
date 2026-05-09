@@ -93,3 +93,10 @@
 - [x] Update PDFViewer to use full-screen responsive sizing
 - [x] Update loading and error states for full-screen layout
 - [x] Verify all tests pass with new responsive layout
+
+## Embedded PDF Viewer with Proportional Scaling (New)
+- [x] Implement PDF.js for native PDF rendering
+- [x] Add proportional scaling to fit viewport while maintaining aspect ratio
+- [x] Add page navigation controls for multi-page PDFs
+- [x] Handle window resize for responsive scaling
+- [x] Test with all 50 tests passing
