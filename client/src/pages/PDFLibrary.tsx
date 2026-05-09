@@ -4,7 +4,8 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
 import { useState, useEffect } from "react";
-import { FileText, Trash2, Download, Upload } from "lucide-react";
+import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -20,6 +21,7 @@ export default function PDFLibrary() {
   const [isDragActive, setIsDragActive] = useState(false);
   const [selectedPDF, setSelectedPDF] = useState<PDFItem | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -94,6 +96,14 @@ export default function PDFLibrary() {
     if (files && files.length > 0) {
       processFile(files[0]);
     }
+  };
+
+  const handleOpenPreview = () => {
+    setShowPreviewModal(true);
+  };
+
+  const handleClosePreview = () => {
+    setShowPreviewModal(false);
   };
 
   const handleExportCSV = () => {
@@ -348,7 +358,14 @@ export default function PDFLibrary() {
                   <p className="text-lg font-bold text-white">{selectedPDF.filename}</p>
                 </div>
 
-                <div className="flex justify-end mb-6">
+                <div className="flex justify-end gap-3 mb-6">
+                  <button
+                    onClick={handleOpenPreview}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-stone-700 hover:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors"
+                  >
+                    <BarChart3 size={16} />
+                    Preview Data
+                  </button>
                   <button
                     onClick={handleExportCSV}
                     className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors"
@@ -402,6 +419,131 @@ export default function PDFLibrary() {
               </div>
             </div>
           </section>
+        )}
+
+        {/* Preview Modal */}
+        {showPreviewModal && selectedPDF && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/20 bg-stone-900 p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-white">{selectedPDF.filename}</h3>
+                <button
+                  onClick={handleClosePreview}
+                  className="p-2 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Temperature vs Time Chart */}
+              {selectedPDF.temperatures.length > 0 && selectedPDF.times.length > 0 && (
+                <div className="mb-8">
+                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                    Temperature Schedule Chart
+                  </span>
+                  <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart
+                        data={selectedPDF.temperatures.map((temp, idx) => ({
+                          time: selectedPDF.times[idx] || idx,
+                          temperature: temp,
+                        }))}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                        <XAxis dataKey="time" label={{ value: "Time (hours)", position: "insideBottomRight", offset: -5 }} stroke="rgba(255,255,255,0.5)" />
+                        <YAxis label={{ value: "Temperature (°F)", angle: -90, position: "insideLeft" }} stroke="rgba(255,255,255,0.5)" />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: "rgba(0,0,0,0.8)", border: "1px solid rgba(255,255,255,0.2)" }}
+                          labelStyle={{ color: "#fff" }}
+                        />
+                        <Legend />
+                        <Line
+                          type="monotone"
+                          dataKey="temperature"
+                          stroke="#d97706"
+                          dot={{ fill: "#d97706", r: 4 }}
+                          activeDot={{ r: 6 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                    Temperature Profile (°F)
+                  </span>
+                  <div className="space-y-2">
+                    {selectedPDF.temperatures.length > 0 ? (
+                      <>
+                        <div className="text-sm text-stone-300 mb-3 bg-white/5 p-3 rounded-lg">
+                          <p>Count: {selectedPDF.temperatures.length}</p>
+                          <p>Min: {Math.min(...selectedPDF.temperatures)}°F</p>
+                          <p>Max: {Math.max(...selectedPDF.temperatures)}°F</p>
+                          <p>Avg: {(selectedPDF.temperatures.reduce((a, b) => a + b, 0) / selectedPDF.temperatures.length).toFixed(0)}°F</p>
+                        </div>
+                        <div className="space-y-1 max-h-64 overflow-y-auto">
+                          {selectedPDF.temperatures.map((temp, idx) => (
+                            <div
+                              key={idx}
+                              className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm flex items-center justify-between"
+                            >
+                              <span>#{idx + 1}</span>
+                              <span className="text-amber-400">{temp}°F</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-stone-400">No temperatures extracted</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                    Time Schedule (hours)
+                  </span>
+                  <div className="space-y-2">
+                    {selectedPDF.times.length > 0 ? (
+                      <>
+                        <div className="text-sm text-stone-300 mb-3 bg-white/5 p-3 rounded-lg">
+                          <p>Count: {selectedPDF.times.length}</p>
+                          <p>Min: {Math.min(...selectedPDF.times).toFixed(2)}h</p>
+                          <p>Max: {Math.max(...selectedPDF.times).toFixed(2)}h</p>
+                          <p>Total: {selectedPDF.times.reduce((a, b) => a + b, 0).toFixed(2)}h</p>
+                        </div>
+                        <div className="space-y-1 max-h-64 overflow-y-auto">
+                          {selectedPDF.times.map((time, idx) => (
+                            <div
+                              key={idx}
+                              className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-white font-mono text-sm flex items-center justify-between"
+                            >
+                              <span>#{idx + 1}</span>
+                              <span className="text-amber-400">{time.toFixed(2)}h</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-stone-400">No times extracted</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
+                <button
+                  onClick={handleClosePreview}
+                  className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white font-mono text-xs font-bold uppercase transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </main>
     </div>
