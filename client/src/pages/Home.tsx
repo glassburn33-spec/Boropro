@@ -1257,6 +1257,96 @@ function ScieEquipTab() {
         </div>
       ),
     },
+    {
+      id: 'safety',
+      title: '🛡️ Safety',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Fire Triangle</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-3">
+              A fire can arise when the 3 components of the Fire Triangle - heat, fuel, and oxygen - are present simultaneously. Removing any of these elements can prevent or extinguish a fire. Various fire extinguisher types and fire suppression methods are designed to eliminate these elements to effectively combat fires:
+            </p>
+            <ul className="text-stone-300 space-y-2 text-sm mb-3">
+              <li><strong>Water extinguishers</strong> cool the fire, thus, removing the heat element from the Fire Triangle.</li>
+              <li><strong>Carbon dioxide extinguishers and fire blankets</strong> work by displacing or removing the oxygen element from the Fire Triangle.</li>
+              <li><strong>Flame-retardant materials</strong> act on the fuel element by slowing down or inhibiting the combustion process.</li>
+            </ul>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              In addition to these fire suppression methods, proper design and adherence to process safety protocols are essential for eliminating ignition sources and preventing fires (Bosch, 2005).
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/triangleflame_6a0855e5.png" 
+              alt="Fire Triangle showing the three essential components: Heat (ignition source), Fuel (combustible material), and Oxygen (oxidizing agent). Removing any one element prevents or extinguishes fire."
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Fire Tetrahedron</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The Fire Tetrahedron is an expanded model that incorporates a fourth element, the chemical reaction, into the traditional Fire Triangle. Just like the Fire Triangle, the removal of any one of these elements results in the extinguishment of the fire. This understanding provides a foundation for us to delve into the explanation of various aspects of fire safety (Perry, 1997).
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/firetetrahedron_d4f4e5e5.png" 
+              alt="Fire Tetrahedron showing four essential components: Heat (ignition source), Fuel, Oxidising Agent (oxygen), and Chemical Chain Reaction. All four elements must be present for combustion to occur."
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Fuels</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-4">
+              Any material that can undergo combustion is considered a fuel. Fuels can be classified into solids, liquids, or gases, each with unique properties and behaviours during combustion. This classification system provides a valuable framework for understanding the distinct characteristics and behaviours of different fuel types, crucial information in the realm of fire safety and combustion. Before ignition, fuels may undergo diverse chemical or state changes before becoming active participants in a fire.
+            </p>
+            
+            <div className="ml-4 space-y-4">
+              <div>
+                <h5 className="text-cyan-300 font-semibold mb-2">Gases</h5>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  Gaseous fuels, such as natural gas and propane, are highly flammable in their vapour form. Their combustion is characterised by rapid ignition and high flame temperatures. The flammability of gases is characterised by flammability limits - concentrations in air within which they can ignite and sustain combustion.
+                </p>
+              </div>
+              
+              <div>
+                <h5 className="text-cyan-300 font-semibold mb-2">Liquids</h5>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  Liquid fuels include substances like gasoline, diesel, and various industrial chemicals. Liquids ignite more readily than solids and often produce flammable vapours that can form explosive mixtures with air. Flashpoint and autoignition temperature are critical characteristics influencing the flammability of liquid fuels. Prior to the ignition, liquids can evaporate while retaining their chemical composition or undergo decomposition and subsequent evaporation.
+                </p>
+              </div>
+              
+              <div>
+                <h5 className="text-cyan-300 font-semibold mb-2">Solids</h5>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  Solids encompass a wide range of materials, including wood, paper, fabrics, and plastics. Different types of solids respond differently to heat. Some solids melt before forming fuel vapour, while others produce vapour directly upon heating. Some solids may undergo direct sublimation into gases or follow a path of decomposition (pyrolysis) before evolving into vapours, followed by their ignition. Other solids melt before forming fuel vapour, either maintaining their original chemical composition or decomposing, which adds another layer of complexity. The rate of combustion in solids depends on factors such as density, moisture content, and the presence of accelerants.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/phasetransitions_d4a8bb1b.png" 
+              alt="Phase transitions showing solid, liquid, and gas states with processes of sublimation, evaporation, and decomposition. Includes melting and decomposition pathways for different fuel types."
+              className="w-full max-w-2xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
+            <h4 className="text-amber-300 font-bold mb-3">Heat</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              The ignition of a flammable mixture can occur through various means. It may result from the flammable mixture encountering an external ignition source with sufficient energy or when the gas reaches an autoignition temperature, igniting without the need for an external source. The energy required for ignition depends on factors such as substance, concentration, pressure, and temperature.
+            </p>
+          </div>
+        </div>
+      ),
+    },
   ];
 
   return (
