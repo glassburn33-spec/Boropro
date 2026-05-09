@@ -1420,7 +1420,11 @@ export default function AnealingProfileEditor() {
 
       {/* Save Dialog */}
       {showSaveDialog && (
-        <div className="bg-stone-800 border border-stone-600 p-6 rounded-lg">
+        <div className="fixed bg-stone-800 border border-stone-600 p-6 rounded-lg shadow-lg z-50" style={{
+          top: '200px',
+          right: '20px',
+          width: '300px'
+        }}>
           <h4 className="text-lg font-bold text-white mb-4">Save Schedule</h4>
           <input
             type="text"
