@@ -979,11 +979,11 @@ function ScieEquipTab() {
     },
     {
       id: 'flame-types',
-      title: '🌡️ Flame Types: Reducing, Neutral, and Oxidizing',
+      title: '🌡️ Flame Types: Reducing, Neutral, Oxidizing, and Carburizing',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, or oxidizing. Each flame type has distinct characteristics and effects on glass working and analysis.
+            The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, oxidizing, or carburizing. Each flame type has distinct characteristics and effects on glass working and analysis.
           </p>
           
           <div className="flex justify-center my-6">
