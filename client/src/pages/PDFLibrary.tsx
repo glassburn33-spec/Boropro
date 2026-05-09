@@ -424,11 +424,19 @@ export default function PDFLibrary() {
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button
-                    onClick={handleExportCSV}
+                    onClick={() => {
+                      if (selectedPDF?.storageKey) {
+                        const link = document.createElement('a');
+                        link.href = `/manus-storage/${selectedPDF.storageKey}`;
+                        link.download = selectedPDF.filename;
+                        link.click();
+                        toast.success('PDF downloaded successfully!');
+                      }
+                    }}
                     className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
                   >
                     <Download size={16} />
-                    Export CSV
+                    Export PDF
                   </button>
                 </div>
               </div>
