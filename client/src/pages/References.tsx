@@ -4,7 +4,6 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
 import { BookOpen, ExternalLink } from "lucide-react";
-import AnealingProfileEditor from "@/components/AnealingProfileEditor";
 
 interface Reference {
   id: string;
@@ -246,24 +245,6 @@ export default function References() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Annealing Profile Editor */}
-        <section className="py-12 border-b border-white/10">
-          <div className="container">
-            <div className="flex items-start gap-4 mb-8">
-              <div className="w-8 h-8 rounded-full border-2 border-amber-500 flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-xs font-bold text-amber-500">◆</span>
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle Profile Editor</h2>
-                <p className="text-stone-400 text-lg">
-                  Create custom borosilicate glass heat treatment profiles with interactive 4-stage temperature curves.
-                </p>
-              </div>
-            </div>
-            <AnealingProfileEditor />
           </div>
         </section>
 
