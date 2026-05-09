@@ -396,6 +396,42 @@ export default function ColorScienceTab() {
             Macroscopic picture of amber glass samples. Amber1, the lightest amber glass, appears pale yellow, and Amber8, the darkest, is brown. The progression demonstrates how iron and sulfur content creates a continuous color spectrum from nearly colorless to deep brown.
           </p>
         </div>
+
+        {/* Optical Absorption Spectra - All Amber Glasses */}
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-amber-400">Optical Absorption Spectra of Amber Glasses</h3>
+          <p className="text-stone-300">
+            Optical absorption spectra characterizing the amber chromophore in the amber glasses investigated (Amber1 to Amber8), as measured at room temperature after subtraction of the ultraviolet (UV)-edge contribution. An absorbance interval of 2 cm<sup>−1</sup> separates each glass from bottom (Amber1) to top (Amber8) for clarity reasons.
+          </p>
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <img 
+              src="/manus-storage/amberwavelengthplot_91469176.png" 
+              alt="Optical absorption spectra of amber glasses Amber1 to Amber8" 
+              className="w-full h-auto object-contain"
+            />
+            <p className="text-stone-400 text-sm mt-4 text-center italic">
+              Linear absorbance (cm<sup>−1</sup>) plotted against wavenumber (cm<sup>−1</sup>) and wavelength (nm), showing the systematic increase in absorption intensity with increasing sulfur content from Amber1 (lightest) to Amber8 (darkest).
+            </p>
+          </div>
+        </div>
+
+        {/* Temperature-Dependent Absorption Spectra - Amber8 */}
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-amber-400">Temperature Dependence of Optical Absorption: Amber8</h3>
+          <p className="text-stone-300">
+            Evolution of optical absorption spectra of Amber8 glass from room temperature (red, 293 K) to 40 K (blue). The inset is a zoom on the 34,000 cm<sup>−1</sup> band, showing that the band becomes sharper and shifts slightly toward higher wavenumbers as temperature decreases. This temperature-dependent behavior reveals the dynamic nature of the chromophore's electronic structure and its sensitivity to thermal effects on the glass matrix.
+          </p>
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <img 
+              src="/manus-storage/amber8lwavelenght_d9db5741.png" 
+              alt="Temperature-dependent optical absorption spectra of Amber8 glass" 
+              className="w-full h-auto object-contain"
+            />
+            <p className="text-stone-400 text-sm mt-4 text-center italic">
+              Linear absorbance (cm<sup>−1</sup>) plotted against wavenumber (cm<sup>−1</sup>) and wavelength (nm) at multiple temperatures from 40 K to 293 K. The color gradient from blue (cold) to red (warm) illustrates how thermal energy affects the optical absorption characteristics of the amber chromophore, with the inset highlighting the 34,000 cm<sup>−1</sup> band narrowing at lower temperatures.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Thermochromism Simulator */}
