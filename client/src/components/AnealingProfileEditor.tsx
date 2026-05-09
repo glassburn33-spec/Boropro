@@ -624,7 +624,7 @@ export default function AnealingProfileEditor() {
         ))}
 
         {/* Title */}
-        <text x={width / 2} y={titleFontSize + 15} textAnchor="middle" fill="#fbbf24" fontSize={titleFontSize} fontWeight="bold">
+        <text x={width / 2} y={titleFontSize - 5} textAnchor="middle" fill="#fbbf24" fontSize={titleFontSize} fontWeight="bold">
           {title}
         </text>
 
