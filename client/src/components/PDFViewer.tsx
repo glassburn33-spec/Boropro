@@ -19,11 +19,27 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
   const pdfDocRef = useRef<any>(null);
 
   // Fetch the PDF file from the backend
-  const { data: pdfData } = trpc.pdfLibrary.getPDF.useQuery({ id: pdfId });
+  const { data: pdfData, isLoading: isQueryLoading, error: queryError } = trpc.pdfLibrary.getPDF.useQuery({ id: pdfId });
 
   // Load and render PDF
   useEffect(() => {
-    if (!pdfData?.fileBase64) return;
+    // Check for query errors
+    if (queryError) {
+      setError(`Failed to fetch PDF: ${queryError.message}`);
+      setIsLoading(false);
+      return;
+    }
+
+    // If query is still loading, don't proceed
+    if (isQueryLoading) {
+      return;
+    }
+
+    if (!pdfData?.fileBase64) {
+      setError('No PDF data available');
+      setIsLoading(false);
+      return;
+    }
 
     const loadPDF = async () => {
       try {
@@ -48,7 +64,7 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
     };
 
     loadPDF();
-  }, [pdfData]);
+  }, [pdfData, isQueryLoading, queryError]);
 
   // Render current page
   useEffect(() => {
@@ -121,10 +137,13 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (isLoading) {
+  if (isLoading || isQueryLoading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-stone-800/50">
-        <p className="text-stone-400">Loading PDF...</p>
+        <div className="text-center">
+          <p className="text-stone-400 mb-2">Loading PDF...</p>
+          {isQueryLoading && <p className="text-stone-500 text-sm">Fetching from server...</p>}
+        </div>
       </div>
     );
   }
