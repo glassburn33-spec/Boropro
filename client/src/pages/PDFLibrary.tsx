@@ -18,6 +18,7 @@ export default function PDFLibrary() {
   const [library, setLibrary] = useState<StoredPDFMetadata[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [selectedPDF, setSelectedPDF] = useState<StoredPDFMetadata | null>(null);
+  const [isDragActive, setIsDragActive] = useState(false);
 
   // Load library from localStorage
   useEffect(() => {
@@ -25,9 +26,11 @@ export default function PDFLibrary() {
     setLibrary(stored);
   }, []);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const processFile = async (file: File) => {
+    if (!file.type.includes('pdf')) {
+      alert('Please select a valid PDF file.');
+      return;
+    }
 
     setIsUploading(true);
     try {
@@ -44,16 +47,43 @@ export default function PDFLibrary() {
 
       const updated = getPDFLibrary();
       setLibrary(updated);
-
-      // Reset input
-      if (event.target) {
-        event.target.value = "";
-      }
     } catch (error) {
       console.error("Failed to upload PDF:", error);
       alert("Failed to upload PDF. Please ensure it is a valid PDF file.");
     } finally {
       setIsUploading(false);
+      setIsDragActive(false);
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    processFile(file);
+    // Reset input
+    if (event.target) {
+      event.target.value = "";
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setIsDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setIsDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+    
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      processFile(files[0]);
     }
   };
 
@@ -113,13 +143,23 @@ export default function PDFLibrary() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <h2 className="text-2xl font-bold text-white mb-8">Upload Schedule PDF</h2>
-            <div className="rounded-2xl border-2 border-dashed border-white/20 bg-white/5 p-12 text-center hover:border-amber-500/50 transition-colors">
+            <div
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              className={`rounded-2xl border-2 border-dashed p-12 text-center transition-all ${
+                isDragActive
+                  ? 'border-amber-500 bg-amber-500/20'
+                  : 'border-white/20 bg-white/5 hover:border-amber-500/50'
+              }`}
+            >
               <label className="cursor-pointer flex flex-col items-center gap-4">
-                <Upload size={32} className="text-amber-500" />
+                <Upload size={32} className={isDragActive ? 'text-amber-400' : 'text-amber-500'} />
                 <div>
                   <p className="text-lg font-bold text-white mb-2">Upload a PDF Schedule</p>
                   <p className="text-sm text-stone-400">
-                    Drag and drop or click to select. We'll extract temperature and time data automatically.
+                    {isDragActive ? 'Drop your PDF here' : 'Drag and drop or click to select. We\'ll extract temperature and time data automatically.'}
                   </p>
                 </div>
                 <input
