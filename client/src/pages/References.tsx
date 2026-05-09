@@ -204,10 +204,7 @@ export default function References() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="h-10 w-10 rounded-full border-2 border-amber-500 flex items-center justify-center bg-stone-900">
-              <span className="text-lg font-bold text-amber-500">◆</span>
-            </div>
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-amber-500">BoroPrologo</span>
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             <a href="/" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
