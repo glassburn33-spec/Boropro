@@ -13,6 +13,12 @@ import { CalculatorIcon } from "@/components/icons/CalculatorIcon";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { torchDatabase } from "@/data/torches_expanded";
 
 import { searchContent, SearchResult } from "@/lib/searchIndex";
@@ -212,11 +218,7 @@ export default function Home() {
 function StudioTab() {
   return (
     <div className="space-y-6">
-
-
-
-
-      {/* GLASS SCIENCE SECTION */}
+      {/* GLASS SCIENCE HEADER AND STRUCTURE IMAGE */}
       <div className="border-t border-stone-700 pt-8 mt-8">
         <div className="w-full flex flex-col items-center mb-6">
           <img
@@ -230,232 +232,263 @@ function StudioTab() {
         </div>
 
         <div className="max-w-2xl mx-auto space-y-4 pb-10 px-2">
-          {/* CHEMICAL COMPOSITION SECTION */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
-            <h2 className="text-xl font-bold text-amber-400 mb-4">
-              Chemical Composition of Borosilicate Glass
-            </h2>
-            <div className="space-y-4">
-              <p className="text-stone-300 text-sm leading-relaxed">
-                Borosilicate glass is made of high proportions of silicon dioxide (SiO<sub>2</sub>) and boron trioxide (B<sub>2</sub>O<sub>3</sub>). It is above all the boric oxide content of roughly 13% and the silica proportion of over 80% in the glass matrix that leads to its high resistance to water, chemicals, and drug substances.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                DURAN® borosilicate glass 3.3 has the following chemical composition (per cent weight by weight): Silicon dioxide (SiO<sub>2</sub>): 81%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 13%, Sodium oxide (Na<sub>2</sub>O) and potassium oxide (K<sub>2</sub>O): 4%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 2%
-              </p>
-              <div className="w-full flex justify-center my-6">
-                <img
-                  src="/manus-storage/chemcompboro_fdd7eb5c.png"
-                  alt="Chemical composition of borosilicate glass showing SiO2 81%, B2O3 13%, Na2O/K2O 4%, Al2O3 2%"
-                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                />
-              </div>
-              <p className="text-stone-500 text-xs italic text-center">
-                DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
-              </p>
-            </div>
-          </div>
+          <Accordion type="single" collapsible>
+            {/* SECTION 1: CHEMICAL COMPOSITION */}
+            <AccordionItem value="composition">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  Chemical Composition of Borosilicate Glass
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Borosilicate glass is made of high proportions of silicon dioxide (SiO<sub>2</sub>) and boron trioxide (B<sub>2</sub>O<sub>3</sub>). It is above all the boric oxide content of roughly 13% and the silica proportion of over 80% in the glass matrix that leads to its high resistance to water, chemicals, and drug substances.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    DURAN® borosilicate glass 3.3 has the following chemical composition (per cent weight by weight): Silicon dioxide (SiO<sub>2</sub>): 81%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 13%, Sodium oxide (Na<sub>2</sub>O) and potassium oxide (K<sub>2</sub>O): 4%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 2%
+                  </p>
+                  <div className="w-full flex justify-center my-6">
+                    <img
+                      src="/manus-storage/chemcompboro_fdd7eb5c.png"
+                      alt="Chemical composition of borosilicate glass showing SiO2 81%, B2O3 13%, Na2O/K2O 4%, Al2O3 2%"
+                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                    />
+                  </div>
+                  <p className="text-stone-500 text-xs italic text-center">
+                    DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
-          {/* THERMAL PROPERTIES SECTION */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
-            <h2 className="text-xl font-bold text-amber-400 mb-4">
-              Thermal Properties
-            </h2>
-            <div className="space-y-4">
-              <p className="text-stone-300 text-sm leading-relaxed">
-                As the co-efficient of thermal expansion of borosilicate glass is low, the thermal stresses under a given temperature gradient are consequently low and the glass can withstand higher temperature gradients and also sudden temperature changes/thermal shocks. Minute scratching of glass surface can however reduce its thermal resistance.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                In general, the <span className="text-amber-300 font-semibold">"Strain point"</span> should be regarded as the maximum safe operating temperature of borosilicate glassware. When heated above 500° C the glass may acquire permanent stresses on cooling.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                All borosilicate labware is annealed in modern Lehr ovens under strictly controlled conditions to ensure minimal residual stress in the products.
-              </p>
-              <div className="w-full flex justify-center my-6">
-                <img
-                  src="/manus-storage/thermpropboro_81841fb8.png"
-                  alt="Thermal properties of borosilicate glassware including strain point, annealing point, softening point, and thermal conductivity"
-                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                />
-              </div>
-              <p className="text-stone-500 text-xs italic text-center">
-                Typical thermal properties of borosilicate glassware. The low coefficient of linear expansion (32.5 × 10⁻⁷/° C) enables excellent thermal shock resistance.
-              </p>
-            </div>
-          </div>
+            {/* SECTION 2: THERMAL PROPERTIES */}
+            <AccordionItem value="thermal">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  Thermal Properties
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    As the co-efficient of thermal expansion of borosilicate glass is low, the thermal stresses under a given temperature gradient are consequently low and the glass can withstand higher temperature gradients and also sudden temperature changes/thermal shocks. Minute scratching of glass surface can however reduce its thermal resistance.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    In general, the <span className="text-amber-300 font-semibold">"Strain point"</span> should be regarded as the maximum safe operating temperature of borosilicate glassware. When heated above 500° C the glass may acquire permanent stresses on cooling.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    All borosilicate labware is annealed in modern Lehr ovens under strictly controlled conditions to ensure minimal residual stress in the products.
+                  </p>
+                  <div className="w-full flex justify-center my-6">
+                    <img
+                      src="/manus-storage/thermpropboro_81841fb8.png"
+                      alt="Thermal properties of borosilicate glassware including strain point, annealing point, softening point, and thermal conductivity"
+                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                    />
+                  </div>
+                  <p className="text-stone-500 text-xs italic text-center">
+                    Typical thermal properties of borosilicate glassware. The low coefficient of linear expansion (32.5 × 10⁻⁷/° C) enables excellent thermal shock resistance.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
-          <h2 className="text-xl font-bold text-amber-400 mb-4">
-            The Structure of Glass: Why It Behaves the Way It Does
-          </h2>
+            {/* SECTION 3: STRUCTURE OF GLASS */}
+            <AccordionItem value="structure">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  The Structure of Glass: Why It Behaves the Way It Does
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  {/* SUBSECTION 1 */}
+                  <div>
+                    <h3 className="text-amber-400 font-bold text-base mb-2">
+                      Glass Is Not a Solid in the Classical Sense
+                    </h3>
+                    <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+                      <p>
+                        Most materials are either crystalline solids — in which atoms are arranged in a repeating, periodic lattice — or liquids, in which atoms move freely with no fixed arrangement. Glass occupies a unique intermediate state called an <span className="text-amber-300 font-semibold">amorphous solid</span> or a <span className="text-amber-300 font-semibold">supercooled liquid</span>. When molten silica (or borosilicate glass) cools, its atoms do not have time to organize into the ordered crystal structure that quartz would form. Instead, they freeze into a disordered, network-like arrangement — random and tangled, but rigid.
+                      </p>
+                      <p>
+                        This disordered network is the fundamental reason glass behaves so differently from crystalline materials. Crystals have a sharp melting point at which the entire lattice collapses at once. Glass has no such point. Instead, it passes through a continuous range of viscosity states as temperature rises — from rigid solid, to increasingly pliable, to fully fluid — because there is no ordered structure to abruptly break down.
+                      </p>
+                    </div>
+                  </div>
 
-          {/* SUBSECTION 1 */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
-            <h3 className="text-amber-400 font-bold text-base mb-2">
-              Glass Is Not a Solid in the Classical Sense
-            </h3>
-            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
-              <p>
-                Most materials are either crystalline solids — in which atoms are arranged in a repeating, periodic lattice — or liquids, in which atoms move freely with no fixed arrangement. Glass occupies a unique intermediate state called an <span className="text-amber-300 font-semibold">amorphous solid</span> or a <span className="text-amber-300 font-semibold">supercooled liquid</span>. When molten silica (or borosilicate glass) cools, its atoms do not have time to organize into the ordered crystal structure that quartz would form. Instead, they freeze into a disordered, network-like arrangement — random and tangled, but rigid.
-              </p>
-              <p>
-                This disordered network is the fundamental reason glass behaves so differently from crystalline materials. Crystals have a sharp melting point at which the entire lattice collapses at once. Glass has no such point. Instead, it passes through a continuous range of viscosity states as temperature rises — from rigid solid, to increasingly pliable, to fully fluid — because there is no ordered structure to abruptly break down.
-              </p>
-            </div>
-          </div>
+                  {/* SUBSECTION 2 */}
+                  <div className="pt-4 border-t border-stone-700">
+                    <h3 className="text-amber-400 font-bold text-base mb-2">
+                      From Rigid to Pliable: The Glass Transition Temperature (Tg)
+                    </h3>
+                    <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+                      <p>
+                        The <span className="text-amber-300 font-semibold">glass transition temperature (Tg)</span> is the temperature at which glass changes from a brittle, glassy state into a rubbery, supercooled liquid state. For borosilicate glass, Tg is approximately <span className="text-amber-300 font-semibold">565 °C</span>. Below this temperature the atomic network is locked — atoms vibrate in place but cannot rearrange. Above Tg, enough thermal energy exists to allow segments of the network to begin slowly shifting relative to one another. The glass does not instantly become soft; it becomes progressively less viscous as temperature rises.
+                      </p>
+                      <p>
+                        This is why the glass transition temperature is also the <span className="text-amber-300 font-semibold">annealing point</span> — the temperature at which internal stresses introduced during working can be relieved as the network very slowly rearranges to a lower-energy state, without the glass being so fluid that it deforms under its own weight.
+                      </p>
+                    </div>
+                  </div>
 
-          {/* SUBSECTION 2 */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
-            <h3 className="text-amber-400 font-bold text-base mb-2">
-              From Rigid to Pliable: The Glass Transition Temperature (Tg)
-            </h3>
-            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
-              <p>
-                The <span className="text-amber-300 font-semibold">glass transition temperature (Tg)</span> is the temperature at which glass changes from a brittle, glassy state into a rubbery, supercooled liquid state. For borosilicate glass, Tg is approximately <span className="text-amber-300 font-semibold">565 °C</span>. Below this temperature the atomic network is locked — atoms vibrate in place but cannot rearrange. Above Tg, enough thermal energy exists to allow segments of the network to begin slowly shifting relative to one another. The glass does not instantly become soft; it becomes progressively less viscous as temperature rises.
-              </p>
-              <p>
-                This is why the glass transition temperature is also the <span className="text-amber-300 font-semibold">annealing point</span> — the temperature at which internal stresses introduced during working can be relieved as the network very slowly rearranges to a lower-energy state, without the glass being so fluid that it deforms under its own weight.
-              </p>
-            </div>
-          </div>
+                  {/* SUBSECTION 3 */}
+                  <div className="pt-4 border-t border-stone-700">
+                    <h3 className="text-amber-400 font-bold text-base mb-2">
+                      The Lower Boundary: Strain Point (~515 °C)
+                    </h3>
+                    <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+                      <p>
+                        The <span className="text-amber-300 font-semibold">strain point</span> is the temperature below which the atomic network is effectively frozen on any practical timescale. Below this temperature, stresses locked into the glass during rapid cooling or working cannot be relieved — they are permanently fixed in the structure. This is the critical lower threshold that the BoroPro calculator tracks: once a piece of glass cools below 515 °C outside the kiln, its internal stress state is set, and no amount of subsequent slow cooling will change it. Pieces that pass through this threshold with high thermal gradients across their cross-section carry permanent internal stress and are at elevated risk of delayed fracture.
+                      </p>
+                    </div>
+                  </div>
 
-          {/* SUBSECTION 3 */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
-            <h3 className="text-amber-400 font-bold text-base mb-2">
-              The Lower Boundary: Strain Point (~515 °C)
-            </h3>
-            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
-              <p>
-                The <span className="text-amber-300 font-semibold">strain point</span> is the temperature below which the atomic network is effectively frozen on any practical timescale. Below this temperature, stresses locked into the glass during rapid cooling or working cannot be relieved — they are permanently fixed in the structure. This is the critical lower threshold that the BoroPro calculator tracks: once a piece of glass cools below 515 °C outside the kiln, its internal stress state is set, and no amount of subsequent slow cooling will change it. Pieces that pass through this threshold with high thermal gradients across their cross-section carry permanent internal stress and are at elevated risk of delayed fracture.
-              </p>
-            </div>
-          </div>
+                  {/* SUBSECTION 4 */}
+                  <div className="pt-4 border-t border-stone-700">
+                    <h3 className="text-amber-400 font-bold text-base mb-2">
+                      Where the Artist Works: Softening and Working Temperatures
+                    </h3>
+                    <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+                      <p>
+                        As temperature continues to rise above Tg, the viscosity of the glass network drops progressively. Two key points define the working range.
+                      </p>
+                      <p>
+                        <span className="text-amber-300 font-semibold">Softening Point (~820 °C for borosilicate):</span> The temperature at which glass is soft enough to deform measurably under its own weight. At this point viscosity has dropped to approximately 10⁷·⁶ Pa·s. The atomic network is mobile enough that large-scale shape changes occur with modest applied force.
+                      </p>
+                      <p>
+                        <span className="text-amber-300 font-semibold">Working Point (~1050–1100 °C for borosilicate):</span> The temperature at which glass flows freely enough for most flameworking operations. Viscosity is approximately 10³ Pa·s. The network segments are sliding past one another with relative ease. At this viscosity glass can be pulled, blown, pressed, and joined. The key physical phenomenon is that the Si–O–Si and B–O–B network bonds are not breaking — they are thermally activated to rotate and slide within the disordered network. This is what allows glass to be shaped without the piece ever crystallizing or losing its optical clarity.
+                      </p>
+                      <p>
+                        <span className="text-amber-300 font-semibold">Why the Working Range Is Forgiving:</span> Because glass has no fixed melting point and no abrupt structural transition in the working range, the artist has a window — not a single temperature — in which to work. The disordered structure is inherently forgiving of temperature gradients that would cause a crystal to crack or shatter along cleavage planes. The network distributes stress over a continuous, directionless tangle rather than concentrating it at crystallographic defect sites.
+                      </p>
+                    </div>
+                  </div>
 
-          {/* SUBSECTION 4 */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
-            <h3 className="text-amber-400 font-bold text-base mb-2">
-              Where the Artist Works: Softening and Working Temperatures
-            </h3>
-            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
-              <p>
-                As temperature continues to rise above Tg, the viscosity of the glass network drops progressively. Two key points define the working range.
-              </p>
-              <p>
-                <span className="text-amber-300 font-semibold">Softening Point (~820 °C for borosilicate):</span> The temperature at which glass is soft enough to deform measurably under its own weight. At this point viscosity has dropped to approximately 10⁷·⁶ Pa·s. The atomic network is mobile enough that large-scale shape changes occur with modest applied force.
-              </p>
-              <p>
-                <span className="text-amber-300 font-semibold">Working Point (~1050–1100 °C for borosilicate):</span> The temperature at which glass flows freely enough for most flameworking operations. Viscosity is approximately 10³ Pa·s. The network segments are sliding past one another with relative ease. At this viscosity glass can be pulled, blown, pressed, and joined. The key physical phenomenon is that the Si–O–Si and B–O–B network bonds are not breaking — they are thermally activated to rotate and slide within the disordered network. This is what allows glass to be shaped without the piece ever crystallizing or losing its optical clarity.
-              </p>
-              <p>
-                <span className="text-amber-300 font-semibold">Why the Working Range Is Forgiving:</span> Because glass has no fixed melting point and no abrupt structural transition in the working range, the artist has a window — not a single temperature — in which to work. The disordered structure is inherently forgiving of temperature gradients that would cause a crystal to crack or shatter along cleavage planes. The network distributes stress over a continuous, directionless tangle rather than concentrating it at crystallographic defect sites.
-              </p>
-            </div>
-          </div>
+                  {/* SUBSECTION 5 */}
+                  <div className="pt-4 border-t border-stone-700">
+                    <h3 className="text-amber-400 font-bold text-base mb-2">
+                      Why Cooling Rate Determines Survival
+                    </h3>
+                    <div className="text-stone-300 text-sm leading-relaxed space-y-3">
+                      <p>
+                        When a shaped piece leaves the flame or kiln, its surface cools faster than its interior. In a crystalline material, differential contraction would cause cracking along crystal planes. In glass, the same differential contraction produces internal stress — the surface wants to contract but is constrained by the still-warm interior. If the temperature gradient across the cross-section is large enough when the piece passes through the glass transition range (515–565 °C), those stresses become permanently frozen into the network at the strain point, and the piece carries a latent fracture risk that may not manifest for days, weeks, or years.
+                      </p>
+                      <p>
+                        The maximum safe cooling rate is directly controlled by the cross-sectional geometry: thicker pieces build larger temperature gradients across their wall at any given surface cooling rate, which is why wall thickness and outer radius are the primary inputs to the working-time calculation. The physics the calculator encodes is exactly this relationship — how quickly the glass body as a whole approaches the strain point under natural convection cooling, and whether the thermal gradient that develops in doing so exceeds the tensile strength of the borosilicate network.
+                      </p>
+                    </div>
+                  </div>
 
-          {/* SUBSECTION 5 */}
-          <div className="bg-stone-800 border border-stone-700 rounded-xl p-5">
-            <h3 className="text-amber-400 font-bold text-base mb-2">
-              Why Cooling Rate Determines Survival
-            </h3>
-            <div className="text-stone-300 text-sm leading-relaxed space-y-3">
-              <p>
-                When a shaped piece leaves the flame or kiln, its surface cools faster than its interior. In a crystalline material, differential contraction would cause cracking along crystal planes. In glass, the same differential contraction produces internal stress — the surface wants to contract but is constrained by the still-warm interior. If the temperature gradient across the cross-section is large enough when the piece passes through the glass transition range (515–565 °C), those stresses become permanently frozen into the network at the strain point, and the piece carries a latent fracture risk that may not manifest for days, weeks, or years.
-              </p>
-              <p>
-                The maximum safe cooling rate is directly controlled by the cross-sectional geometry: thicker pieces build larger temperature gradients across their wall at any given surface cooling rate, which is why wall thickness and outer radius are the primary inputs to the working-time calculation. The physics the calculator encodes is exactly this relationship — how quickly the glass body as a whole approaches the strain point under natural convection cooling, and whether the thermal gradient that develops in doing so exceeds the tensile strength of the borosilicate network.
-              </p>
-            </div>
-          </div>
+                  <p className="text-stone-500 text-xs italic mt-4">
+                    All temperature values referenced above are for Pyrex-type borosilicate glass (33 × 10⁻⁷/°C expansion coefficient). Soda-lime, soft glass, and other borosilicate formulations have different transition temperatures and viscosity profiles. Never mix glass types in a single piece.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
-          <p className="text-stone-500 text-xs italic mt-4">
-            All temperature values referenced above are for Pyrex-type borosilicate glass (33 × 10⁻⁷/°C expansion coefficient). Soda-lime, soft glass, and other borosilicate formulations have different transition temperatures and viscosity profiles. Never mix glass types in a single piece.
-          </p>
+            {/* SECTION 4: SCIENCE OF GLASS ANNEALING */}
+            <AccordionItem value="annealing">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  The Science of Glass Annealing
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  <div className="w-full flex justify-center my-6">
+                    <img
+                      src="/manus-storage/viscosityplot_99c24e57.png"
+                      alt="Viscosity-Temperature profile for common glass types showing critical annealing range"
+                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                    />
+                  </div>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Annealing is the process of slowly cooling glass from an elevated temperature to room temperature in a controlled manner. This process relieves internal stresses that develop during the formation and shaping of glass. When glass is heated above its annealing point and then cooled too quickly, the outer surface contracts faster than the interior, creating permanent internal stresses. These stresses can cause spontaneous breakage, optical distortion, or delayed fracture that may occur days, weeks, or even years after the piece is created.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The physics of internal stress in glass is fundamentally related to the glass transition temperature (Tg) and the strain point. As glass cools through the annealing point (approximately 565°C for borosilicate glass), the atomic network begins to slow its molecular motion. If the surface and interior cool at different rates, differential contraction creates tensile stress in the surface and compressive stress in the interior. These stresses become permanently "frozen" into the glass structure once it cools below the strain point (approximately 515°C for borosilicate glass), where atomic motion effectively ceases on any practical timescale.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The annealing point is the temperature at which internal thermal stresses can be relieved by viscous relaxation within approximately 15 minutes. At this temperature, the glass is still fluid enough that molecular segments can rearrange to a lower-energy state, gradually dissipating accumulated stresses. The strain point is the lower boundary below which stress relief becomes practically impossible — stresses locked into the glass at this threshold are permanent unless the piece is reheated above the annealing point. The temperature range between the annealing point and strain point is therefore the critical annealing range, where slow, controlled cooling is essential to prevent permanent stress formation.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Variables that affect the required annealing time and temperature profile include glass composition (different glass types have different transition temperatures), piece thickness and geometry (thicker pieces require slower cooling to prevent internal temperature gradients), and the cooling rate (faster cooling creates larger temperature gradients and higher stresses). Improper annealing can result in spontaneous breakage due to thermal shock, optical distortion from stress-induced birefringence, or delayed fracture from latent internal stresses. Industrial annealing schedules are carefully calculated to minimize stresses in the shortest time possible, balancing energy consumption against the need for complete stress relief.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* SECTION 5: GLASS HEAT TREATMENT PROFILE */}
+            <AccordionItem value="heattreatment">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  Glass Heat Treatment Profile
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  <div className="w-full flex justify-center my-6">
+                    <img
+                      src="/manus-storage/boroanealprofile_20331f22.png"
+                      alt="Borosilicate Glass Heat Treatment Profile showing four phases of annealing"
+                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                    />
+                  </div>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    A glass heat treatment profile, also called a firing schedule or kiln schedule, is a precisely controlled temperature-time curve that guides the heating and cooling of glass through the annealing process. The profile consists of four distinct phases, each with specific thermal objectives. The profile is determined by the glass composition, the thickness and geometry of the piece, and the maximum allowable residual stress in the final product. Proper heat treatment profiles prevent thermal shock, devitrification, and the formation of permanent internal stresses that could cause delayed fracture.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The first phase is rapid reheating to a temperature above the annealing point. Speed is acceptable during this phase because the glass is being brought up uniformly from room temperature before entering the stress-sensitive cooling range. The goal is to reach the target temperature efficiently without creating internal gradients, since the glass is still below its glass transition temperature and cannot yet relieve stresses. Heating rates during this phase are typically 5–15°C per minute, depending on piece thickness.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The second phase is the dwell or soak, where the glass is held at a temperature above the annealing point for a period of time (typically 15–60 minutes depending on thickness). This allows thermal equalization throughout the entire piece, ensuring that the interior and exterior reach the same temperature before cooling begins. Without adequate dwell time, internal temperature gradients would persist into the critical cooling phase, creating permanent stresses. The dwell temperature is typically chosen to be 20–40°C above the annealing point to ensure efficient stress relief while minimizing energy consumption.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The third and most critical phase is slow cooling from above the annealing point down through the strain point. During this phase, the cooling rate must be carefully controlled to limit the temperature gradient that develops between the surface and interior of the piece. The maximum allowable cooling rate is determined by the piece geometry (thickness and outer radius are the primary factors), the glass composition, and the acceptable residual stress level. Cooling rates during this phase are typically 1–3°C per minute for thick pieces, with faster rates (up to 5°C per minute) acceptable for thin pieces. The role of viscosity during this phase is critical: as temperature drops, the glass viscosity increases exponentially, and the ability of the atomic network to relieve stress through viscous flow decreases. By the time the glass reaches the strain point, the viscosity has increased so much that further stress relief becomes negligible.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The fourth and final phase is more rapid cooling below the strain point. Once the glass has cooled below the strain point, the atomic network is effectively frozen and cannot relieve stresses through viscous flow. Stresses formed below the strain point are temporary in nature and pose lower risk of delayed fracture compared to stresses formed in the critical annealing range. Therefore, cooling can be accelerated in this final phase to save time and energy. Cooling rates below the strain point can be 10–20°C per minute or faster without risk of creating permanent stresses. Common mistakes in heat treatment include cooling too quickly through the critical annealing range (creating permanent stresses), holding at too high a temperature for too long (wasting energy and risking devitrification), or using inappropriate profiles for the glass type (different glasses have different transition temperatures and require different schedules).
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* SECTION 6: DEVITRIFICATION */}
+            <AccordionItem value="devitrification">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-lg font-semibold text-amber-400">
+                  Devitrification
+                </h2>
+              </AccordionTrigger>
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+                <div className="space-y-4">
+                  <div className="w-full flex justify-center my-6">
+                    <img
+                      src="/manus-storage/devitrifiedtube_b150dc7c.png"
+                      alt="Devitrified glass tube showing crystalline formation and hazy appearance"
+                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                    />
+                  </div>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Devitrification results in a loss of translucency, and devitrified glass is often described as having a white or grey, "hazy," "scummy," "chalky," or "misty" appearance combined with a roughened surface texture (nicknamed "devit" by glass artists). Devitrification can occur both on the surface of glass or internally, though it is most commonly seen on the surface. The crystal formation causes contraction of the glass, and a crinkled surface appearance or cracking can occur as a result; this crystallization-induced cracking is separate from deterioration that produces crizzling made by poor annealing or thermal shock or due to glass weathering. Devitrification is often accidental, but can also be purposefully induced for artistic effect; it cannot be removed by washing the glass.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Devitrification can occur in a number of different ways. When glass that is kiln fired is kept at the liquidus temperature (the temperature above which a material is completely liquid) or in the "devitrification zone" for a sufficient amount of time, and/or cooled too slowly, crystal structures can have time to grow within the glass. The "devitrification zone" or "devitrification range" is the temperature range at which devitrification becomes more likely and typically occurs in most glasses at approximately 1300 to 1550°C, although glass with different compositions may have different devitrification zones. Glass that has not been properly cleaned before firing is also more prone to devitrification, as fingerprints, dust, and other contaminants on the glass surface can act as nucleation centers for crystalline growth.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    The composition of the glass affects the crystallization probability. Devitrification may be less common in ancient glass, which typically has complex compositions, than in modern glasses, with simpler compositions. Glass that contains boron is more resistant to devitrification, while glass with an excess of lime (calcium) cools more slowly, resulting in an increased opportunity for the development of devitrification. Glass with opalizing agents, opaque glass, and colored glass all are also more likely to devitrify. These additives create "microcrystalline areas" in the glass where devitrification can more easily occur.
+                  </p>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Though devitrification can appear similar to certain types of glass degradation, like weathering, or can be mistaken as a type of glass degradation itself, devitrification is not a deterioration process. Glass deterioration occurs because of a chemical interaction between glass and its environment; devitrification, however, occurs during the creation of the glass, and therefore should not be used in a general sense to mean "loss of vitreous nature." Devitrification does not result in a change to the overall chemical composition of the glass. Because it is a feature of the "original" state of the glass and is not in itself degradation, devitrification is not typically seen as needing to be treated or removed in the conservation of glass objects.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
-
-      {/* GLASS ANNEALING SCIENCE SECTION */}
-      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
-        <h2 className="text-xl font-bold text-amber-400 mb-4">
-          The Science of Glass Annealing
-        </h2>
-        <div className="space-y-4">
-          <div className="w-full flex justify-center my-6">
-            <img
-              src="/manus-storage/viscosityplot_99c24e57.png"
-              alt="Viscosity-Temperature profile for common glass types showing critical annealing range"
-              className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-            />
-          </div>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            Annealing is the process of slowly cooling glass from an elevated temperature to room temperature in a controlled manner. This process relieves internal stresses that develop during the formation and shaping of glass. When glass is heated above its annealing point and then cooled too quickly, the outer surface contracts faster than the interior, creating permanent internal stresses. These stresses can cause spontaneous breakage, optical distortion, or delayed fracture that may occur days, weeks, or even years after the piece is created.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The physics of internal stress in glass is fundamentally related to the glass transition temperature (Tg) and the strain point. As glass cools through the annealing point (approximately 565°C for borosilicate glass), the atomic network begins to slow its molecular motion. If the surface and interior cool at different rates, differential contraction creates tensile stress in the surface and compressive stress in the interior. These stresses become permanently "frozen" into the glass structure once it cools below the strain point (approximately 515°C for borosilicate glass), where atomic motion effectively ceases on any practical timescale.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The annealing point is the temperature at which internal thermal stresses can be relieved by viscous relaxation within approximately 15 minutes. At this temperature, the glass is still fluid enough that molecular segments can rearrange to a lower-energy state, gradually dissipating accumulated stresses. The strain point is the lower boundary below which stress relief becomes practically impossible — stresses locked into the glass at this threshold are permanent unless the piece is reheated above the annealing point. The temperature range between the annealing point and strain point is therefore the critical annealing range, where slow, controlled cooling is essential to prevent permanent stress formation.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            Variables that affect the required annealing time and temperature profile include glass composition (different glass types have different transition temperatures), piece thickness and geometry (thicker pieces require slower cooling to prevent internal temperature gradients), and the cooling rate (faster cooling creates larger temperature gradients and higher stresses). Improper annealing can result in spontaneous breakage due to thermal shock, optical distortion from stress-induced birefringence, or delayed fracture from latent internal stresses. Industrial annealing schedules are carefully calculated to minimize stresses in the shortest time possible, balancing energy consumption against the need for complete stress relief.
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
-        <h2 className="text-xl font-bold text-amber-400 mb-4">
-          Glass Heat Treatment Profile
-        </h2>
-        <div className="space-y-4">
-          <div className="w-full flex justify-center my-6">
-            <img
-              src="/manus-storage/boroanealprofile_20331f22.png"
-              alt="Borosilicate Glass Heat Treatment Profile showing four phases of annealing"
-              className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-            />
-          </div>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            A glass heat treatment profile, also called a firing schedule or kiln schedule, is a precisely controlled temperature-time curve that guides the heating and cooling of glass through the annealing process. The profile consists of four distinct phases, each with specific thermal objectives. The profile is determined by the glass composition, the thickness and geometry of the piece, and the maximum allowable residual stress in the final product. Proper heat treatment profiles prevent thermal shock, devitrification, and the formation of permanent internal stresses that could cause delayed fracture.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The first phase is rapid reheating to a temperature above the annealing point. Speed is acceptable during this phase because the glass is being brought up uniformly from room temperature before entering the stress-sensitive cooling range. The goal is to reach the target temperature efficiently without creating internal gradients, since the glass is still below its glass transition temperature and cannot yet relieve stresses. Heating rates during this phase are typically 5–15°C per minute, depending on piece thickness.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The second phase is the dwell or soak, where the glass is held at a temperature above the annealing point for a period of time (typically 15–60 minutes depending on thickness). This allows thermal equalization throughout the entire piece, ensuring that the interior and exterior reach the same temperature before cooling begins. Without adequate dwell time, internal temperature gradients would persist into the critical cooling phase, creating permanent stresses. The dwell temperature is typically chosen to be 20–40°C above the annealing point to ensure efficient stress relief while minimizing energy consumption.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The third and most critical phase is slow cooling from above the annealing point down through the strain point. During this phase, the cooling rate must be carefully controlled to limit the temperature gradient that develops between the surface and interior of the piece. The maximum allowable cooling rate is determined by the piece geometry (thickness and outer radius are the primary factors), the glass composition, and the acceptable residual stress level. Cooling rates during this phase are typically 1–3°C per minute for thick pieces, with faster rates (up to 5°C per minute) acceptable for thin pieces. The role of viscosity during this phase is critical: as temperature drops, the glass viscosity increases exponentially, and the ability of the atomic network to relieve stress through viscous flow decreases. By the time the glass reaches the strain point, the viscosity has increased so much that further stress relief becomes negligible.
-          </p>
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The fourth and final phase is more rapid cooling below the strain point. Once the glass has cooled below the strain point, the atomic network is effectively frozen and cannot relieve stresses through viscous flow. Stresses formed below the strain point are temporary in nature and pose lower risk of delayed fracture compared to stresses formed in the critical annealing range. Therefore, cooling can be accelerated in this final phase to save time and energy. Cooling rates below the strain point can be 10–20°C per minute or faster without risk of creating permanent stresses. Common mistakes in heat treatment include cooling too quickly through the critical annealing range (creating permanent stresses), holding at too high a temperature for too long (wasting energy and risking devitrification), or using inappropriate profiles for the glass type (different glasses have different transition temperatures and require different schedules).
-          </p>
-        </div>
-      </div>
-
-      {/* DEVITRIFICATION SECTION */}
-      <div className="bg-stone-800 border border-stone-700 rounded-xl p-6 mb-8">
-            <h2 className="text-xl font-bold text-amber-400 mb-4">
-              Devitrification
-            </h2>
-            <div className="space-y-4">
-              <div className="w-full flex justify-center my-6">
-                <img
-                  src="/manus-storage/devitrifiedtube_b150dc7c.png"
-                  alt="Devitrified glass tube showing crystalline formation and hazy appearance"
-                  className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                />
-              </div>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                Devitrification results in a loss of translucency, and devitrified glass is often described as having a white or grey, "hazy," "scummy," "chalky," or "misty" appearance combined with a roughened surface texture (nicknamed "devit" by glass artists). Devitrification can occur both on the surface of glass or internally, though it is most commonly seen on the surface. The crystal formation causes contraction of the glass, and a crinkled surface appearance or cracking can occur as a result; this crystallization-induced cracking is separate from deterioration that produces crizzling made by poor annealing or thermal shock or due to glass weathering. Devitrification is often accidental, but can also be purposefully induced for artistic effect; it cannot be removed by washing the glass.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                Devitrification can occur in a number of different ways. When glass that is kiln fired is kept at the liquidus temperature (the temperature above which a material is completely liquid) or in the "devitrification zone" for a sufficient amount of time, and/or cooled too slowly, crystal structures can have time to grow within the glass. The "devitrification zone" or "devitrification range" is the temperature range at which devitrification becomes more likely and typically occurs in most glasses at approximately 1300 to 1550°C, although glass with different compositions may have different devitrification zones. Glass that has not been properly cleaned before firing is also more prone to devitrification, as fingerprints, dust, and other contaminants on the glass surface can act as nucleation centers for crystalline growth.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                The composition of the glass affects the crystallization probability. Devitrification may be less common in ancient glass, which typically has complex compositions, than in modern glasses, with simpler compositions. Glass that contains boron is more resistant to devitrification, while glass with an excess of lime (calcium) cools more slowly, resulting in an increased opportunity for the development of devitrification. Glass with opalizing agents, opaque glass, and colored glass all are also more likely to devitrify. These additives create "microcrystalline areas" in the glass where devitrification can more easily occur.
-              </p>
-              <p className="text-stone-300 text-sm leading-relaxed">
-                Though devitrification can appear similar to certain types of glass degradation, like weathering, or can be mistaken as a type of glass degradation itself, devitrification is not a deterioration process. Glass deterioration occurs because of a chemical interaction between glass and its environment; devitrification, however, occurs during the creation of the glass, and therefore should not be used in a general sense to mean "loss of vitreous nature." Devitrification does not result in a change to the overall chemical composition of the glass. Because it is a feature of the "original" state of the glass and is not in itself degradation, devitrification is not typically seen as needing to be treated or removed in the conservation of glass objects.
-              </p>
-            </div>
-          </div>
 
       {/* KEY INSIGHT CALLOUT */}
       <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
