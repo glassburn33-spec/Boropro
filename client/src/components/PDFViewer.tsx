@@ -59,7 +59,7 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
 
   if (isLoading || isQueryLoading) {
     return (
-      <div className="h-96 flex items-center justify-center bg-stone-800/50 rounded-lg">
+      <div className="w-full h-96 flex items-center justify-center bg-stone-800/50 rounded-lg">
         <div className="text-center">
           <p className="text-stone-400 mb-2">Loading PDF...</p>
           {isQueryLoading && <p className="text-stone-500 text-sm">Fetching from server...</p>}
@@ -70,7 +70,7 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
 
   if (error) {
     return (
-      <div className="h-96 flex items-center justify-center bg-stone-800/50 rounded-lg">
+      <div className="w-full h-96 flex items-center justify-center bg-stone-800/50 rounded-lg">
         <div className="text-center">
           <p className="text-red-400 font-semibold mb-2">Error Loading PDF</p>
           <p className="text-stone-400 text-sm">{error}</p>
@@ -80,10 +80,10 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
   }
 
   return (
-    <div className="h-96 bg-stone-800/50 rounded-lg overflow-hidden shadow-lg">
+    <div className="w-full h-96 bg-stone-800/50 rounded-lg overflow-hidden shadow-lg">
       <iframe
         ref={iframeRef}
-        className="h-full border-0"
+        className="w-full h-full border-0"
         title="PDF Viewer"
       />
     </div>
