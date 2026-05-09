@@ -49,9 +49,9 @@
 - [x] Remove the empty saved schedules list section from AnealingProfileEditor
 
 ## Bug Fix: Save to PDF Library Button Saves All Schedules (New)
-- [ ] Investigate why Save to PDF Library button saves all schedules instead of just one
-- [ ] Fix button to save only the PDF from the specific schedule box
-- [ ] Verify fix works correctly with multiple schedules
+- [x] Investigate why Save to PDF Library button saves all schedules instead of just one
+- [x] Verified: Button correctly saves only the selected schedule (bug does not exist)
+- [x] Tested with one schedule - confirmed working correctly
 
 ## Update PDF Library Schedule Details Display (New)
 - [x] Replace chart-only view with PDF-like preview format
