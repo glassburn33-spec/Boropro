@@ -607,7 +607,7 @@ ${combinedSchedule.rationale}`;
           </a>
           <nav className="flex gap-8 text-stone-400">
             <a href="/flame-simulator" className="hover:text-amber-400 transition-colors">FLAME CHAR</a>
-            <a href="/color-picker" className="text-amber-400">COLOR PICKER</a>
+            <a href="/color-picker" className="text-amber-400">COLOR DATABASE</a>
             <a href="/firing-tracker" className="hover:text-amber-400 transition-colors">KILN LOG</a>
             <a href="/pdf-library" className="hover:text-amber-400 transition-colors">PDF LIBRARY</a>
             <a href="/references" className="hover:text-amber-400 transition-colors">REFERENCES</a>

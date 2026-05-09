@@ -159,7 +159,7 @@ export default function FlameChemistryCharacterization() {
               Flame Char
             </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Color Picker
+              Color Database
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Kiln Log
