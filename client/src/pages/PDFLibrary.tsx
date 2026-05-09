@@ -26,6 +26,7 @@ export default function PDFLibrary() {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<number[]>([]);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -398,27 +399,73 @@ export default function PDFLibrary() {
                   </div>
                 </div>
 
-                {/* PDF Viewer */}
-                <div className="mb-8">
-                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                    PDF Schedule
-                  </span>
-                  <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
-                    {selectedPDF.storageKey ? (
-                      <iframe
-                        src={`/manus-storage/${selectedPDF.storageKey}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          border: 'none',
-                          borderRadius: '0.5rem',
-                          backgroundColor: '#000000'
-                        }}
-                        title="PDF Viewer"
-                      />
-                    ) : (
-                      <p className="text-stone-400 text-sm">No PDF file available</p>
-                    )}
+                {/* PDF Viewer and Image Window */}
+                <div className="mb-8 flex gap-4">
+                  <div className="flex-1">
+                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                      PDF Schedule
+                    </span>
+                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
+                      {selectedPDF.storageKey ? (
+                        <iframe
+                          src={`/manus-storage/${selectedPDF.storageKey}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            border: 'none',
+                            borderRadius: '0.5rem',
+                            backgroundColor: '#000000'
+                          }}
+                          title="PDF Viewer"
+                        />
+                      ) : (
+                        <p className="text-stone-400 text-sm">No PDF file available</p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Image Window */}
+                  <div className="w-64">
+                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                      Reference Image
+                    </span>
+                    <div className="bg-black rounded-lg border border-white/10 flex flex-col items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
+                      {selectedImage ? (
+                        <div className="w-full h-full relative">
+                          <img
+                            src={selectedImage}
+                            alt="Reference"
+                            className="w-full h-full object-contain"
+                          />
+                          <button
+                            onClick={() => setSelectedImage(null)}
+                            className="absolute top-2 right-2 bg-stone-800/80 hover:bg-stone-700 text-white p-2 rounded transition-colors"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-white/5 transition-colors">
+                          <Upload size={24} className="text-stone-500 mb-2" />
+                          <span className="text-xs text-stone-400 text-center px-2">Click to add image</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (event) => {
+                                  setSelectedImage(event.target?.result as string);
+                                };
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                      )}
+                    </div>
                   </div>
                 </div>
 
