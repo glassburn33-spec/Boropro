@@ -36,7 +36,7 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
 
   if (isLoading) {
     return (
-      <div className="w-full h-96 flex items-center justify-center bg-stone-800/50">
+      <div className="w-full h-screen flex items-center justify-center bg-stone-800/50">
         <p className="text-stone-400">Loading PDF...</p>
       </div>
     );
@@ -44,19 +44,21 @@ export function PDFViewer({ pdfId }: PDFViewerProps) {
 
   if (error || !pdfUrl) {
     return (
-      <div className="w-full h-96 flex items-center justify-center bg-stone-800/50">
+      <div className="w-full h-screen flex items-center justify-center bg-stone-800/50">
         <p className="text-red-400">{error || "Failed to load PDF"}</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-stone-800/50">
-      <iframe
-        src={pdfUrl}
-        className="w-full h-96 border-0 rounded"
-        title="PDF Viewer"
-      />
+    <div className="w-full h-screen flex flex-col bg-stone-800/50">
+      <div className="flex-1 overflow-hidden">
+        <iframe
+          src={pdfUrl}
+          className="w-full h-full border-0 rounded"
+          title="PDF Viewer"
+        />
+      </div>
     </div>
   );
 }

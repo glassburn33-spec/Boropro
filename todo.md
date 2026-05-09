@@ -88,3 +88,8 @@
 - [x] Verify PDF extraction is capturing the plot image
 - [x] Fix display in PDFViewer component
 - [x] Test plot image displays in schedule details view
+
+## Responsive PDF Viewer (New)
+- [x] Update PDFViewer to use full-screen responsive sizing
+- [x] Update loading and error states for full-screen layout
+- [x] Verify all tests pass with new responsive layout
