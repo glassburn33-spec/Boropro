@@ -66,3 +66,11 @@
 - [x] Remove Add Firing Record button and form
 - [x] Remove localStorage records management code
 - [x] Remove statistics and chart calculations related to firing records
+
+## Replace Schedule Details with PDF Viewer (New)
+- [x] Create PDFViewer component to display PDF files using iframe
+- [x] Add getPDF query to server routers to fetch PDF base64 data
+- [x] Remove temperature schedule table from Schedule Details
+- [x] Remove temperature profile chart from Schedule Details
+- [x] Integrate PDF viewer into Schedule Details section
+- [x] Test PDF viewer with saved PDFs from PDF Library

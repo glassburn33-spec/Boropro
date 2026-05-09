@@ -8,6 +8,7 @@ import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { PDFViewer } from "@/components/PDFViewer";
 
 interface PDFItem {
   id: number;
@@ -395,57 +396,15 @@ export default function PDFLibrary() {
                   </div>
                 </div>
 
-                {/* Temperature Schedule Table */}
-                {selectedPDF.temperatures.length > 0 && (
-                  <div className="mb-8">
-                    <h4 className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                      Temperature Schedule
-                    </h4>
-                    <div className="bg-white/5 rounded-lg border border-white/10 overflow-hidden">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b border-white/10">
-                            <th className="px-6 py-3 text-left text-sm font-bold text-amber-500">Temperature (°F)</th>
-                            <th className="px-6 py-3 text-left text-sm font-bold text-amber-500">Time (hours)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {selectedPDF.temperatures.map((temp, idx) => (
-                            <tr key={idx} className="border-b border-white/10 last:border-b-0">
-                              <td className="px-6 py-3 text-sm text-stone-300">{temp}°F</td>
-                              <td className="px-6 py-3 text-sm text-stone-300">{selectedPDF.times[idx] !== undefined ? selectedPDF.times[idx] + 'h' : '-'}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                {/* PDF Viewer */}
+                <div className="mb-8">
+                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                    PDF Schedule
+                  </span>
+                  <div className="bg-white/5 rounded-lg border border-white/10 overflow-hidden">
+                    <PDFViewer pdfId={selectedPDF.id} />
                   </div>
-                )}
-
-                {/* Temperature Chart */}
-                {selectedPDF.temperatures.length > 0 && (
-                  <div className="mb-8">
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                      Temperature Profile Chart
-                    </span>
-                    <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                      <ResponsiveContainer width="100%" height={300}>
-                        <LineChart
-                          data={selectedPDF.temperatures.map((temp, idx) => ({
-                            time: selectedPDF.times[idx] || idx,
-                            temperature: temp,
-                          }))}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                          <XAxis dataKey="time" label={{ value: "Time (hours)", position: "insideBottomRight", offset: -5 }} stroke="rgba(255,255,255,0.5)" />
-                          <YAxis label={{ value: "Temperature (°F)", angle: -90, position: "insideLeft" }} stroke="rgba(255,255,255,0.5)" />
-                          <Tooltip contentStyle={{ backgroundColor: "rgba(0,0,0,0.8)", border: "1px solid rgba(255,255,255,0.2)" }} labelStyle={{ color: "#fff" }} />
-                          <Line type="monotone" dataKey="temperature" stroke="#d97706" dot={false} />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                )}
+                </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button

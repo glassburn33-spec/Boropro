@@ -3,8 +3,8 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
-import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary, createKilnLog, getKilnLogsByUserId, getKilnLogById, updateKilnLog, deleteKilnLog } from "./db";
-import { storagePut } from "./storage";
+import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary, getPDFById, createKilnLog, getKilnLogsByUserId, getKilnLogById, updateKilnLog, deleteKilnLog } from "./db";
+import { storagePut, storageGetSignedUrl } from "./storage";
 
 let pdfjsLib: any = null;
 
@@ -155,6 +155,25 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         const success = await deletePDFFromLibrary(input.id, ctx.user.id);
         return { success };
+      }),
+
+    getPDF: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input, ctx }) => {
+        const pdf = await getPDFById(input.id, ctx.user.id);
+        if (!pdf) {
+          throw new Error('PDF not found');
+        }
+        const signedUrl = await storageGetSignedUrl(pdf.storageKey);
+        const response = await fetch(signedUrl);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const fileBase64 = buffer.toString('base64');
+        return {
+          id: pdf.id,
+          filename: pdf.filename,
+          fileBase64,
+        };
       }),
   }),
 
