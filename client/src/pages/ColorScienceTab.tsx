@@ -470,7 +470,7 @@ export default function ColorScienceTab() {
 
           <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
             <img 
-              src="/manus-storage/colorhistorytable_0cbc637c.png" 
+              src="/manus-storage/colorhistorytable_72ac83b4.png" 
               alt="Roman glass fragments composition and color analysis" 
               className="w-full h-auto object-contain"
             />
