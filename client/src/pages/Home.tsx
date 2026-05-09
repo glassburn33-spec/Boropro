@@ -1015,6 +1015,21 @@ function ScieEquipTab() {
                 The oxidizing flame is produced with an excessive amount of oxygen. As oxygen increases, the flame shortens, its color darkens, and it hisses and roars. Since it oxidizes the metal's surface, this flame has a harmful effect on the properties of ferrous alloys. With some exceptions (e.g., platinum soldering in jewelry), the oxidizing flame is usually undesirable for welding and glass working.
               </p>
             </div>
+            
+            <div className="bg-stone-800/50 p-4 rounded border-l-4 border-yellow-500">
+              <h4 className="text-yellow-300 font-bold mb-2">Carburizing Flame</h4>
+              <p className="text-stone-300 text-sm leading-relaxed">
+                The carburizing flame has an excess of acetylene, and is recognized by a secondary flame zone between the inner cone and the flame envelope. This zone is less bright and whiter in colour than the inner cone, but is considerably brighter than the flame envelope. This soft flame (also called a reducing flame) is used for welding of aluminium and aluminium alloys, and for soft soldering.
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/reductinonflame_3b0d76ef.webp" 
+              alt="Carburizing flame showing torch nozzle with blue inner cone transitioning to multicolored flame with yellow, orange, pink, and rainbow-colored feather extending outward"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
           </div>
         </div>
       ),
