@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import LogoHome from "./pages/LogoHome";
 import Home from "./pages/Home";
 import FlameSimulator from "./pages/FlameSimulator";
 import ColorPicker from "./pages/ColorPicker";
@@ -15,7 +16,8 @@ import References from "./pages/References";
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={LogoHome} />
+      <Route path={"/explore"} component={Home} />
       <Route path={"/flame-simulator"} component={FlameSimulator} />
       <Route path={"/color-picker"} component={ColorPicker} />
       <Route path={"/firing-tracker"} component={FiringTracker} />
