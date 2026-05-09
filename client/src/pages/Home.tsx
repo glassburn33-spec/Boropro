@@ -1005,14 +1005,14 @@ function ScieEquipTab() {
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
               <h4 className="text-blue-300 font-bold mb-2">Neutral Flame (Center)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                The neutral flame is produced when the amount of oxygen is precisely enough for complete burning, and neither oxidation nor reduction occurs. The flame is considered neutral because it neither significantly adds nor subtracts any elements from the work. A flame with good balance of oxygen is clear blue and is ideal for most glass working applications.
+                Two distinct zones may be seen in the neutral flame. The inner core of the flame has a bright white-bluish light and extends only a short distance from the tip. Around this inner cone is the flame envelope which is darker and less intensely blue. This flame is metallurgically neutral, and is used for welding, heating and cutting of steel. There is also a transparent reducing zone in front of the white inner cone. It is difficult to distinguish but it is the main factor for welding steel without a fluxing agent.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
               <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame (Right)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                The oxidizing flame is produced with an excessive amount of oxygen. As oxygen increases, the flame shortens, its color darkens, and it hisses and roars. Since it oxidizes the metal's surface, this flame has a harmful effect on the properties of ferrous alloys. With some exceptions (e.g., platinum soldering in jewelry), the oxidizing flame is usually undesirable for welding and glass working.
+                By increasing the oxygen flow slightly beyond the point where the secondary zone disappears one will obtain an oxidizing flame (with excess oxygen). The flame will be shorter and sharper than the neutral flame, with a shorter, more pointed inner cone. This flame is slightly hotter than the neutral flame, and is used for welding cast iron, brass, bronze and zinc alloys, and for some brazing alloys.
               </p>
             </div>
             
@@ -1026,8 +1026,8 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
-              src="/manus-storage/reductinonflame_3b0d76ef.webp" 
-              alt="Carburizing flame showing torch nozzle with blue inner cone transitioning to multicolored flame with yellow, orange, pink, and rainbow-colored feather extending outward"
+              src="/manus-storage/oxydizingflame_e3c191a0.webp" 
+              alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
             />
           </div>
