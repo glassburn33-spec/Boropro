@@ -432,6 +432,24 @@ export default function ColorScienceTab() {
             </p>
           </div>
         </div>
+
+        {/* Beer-Lambert Chromaticity Diagram */}
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-amber-400">Chromaticity Analysis: Beer-Lambert Behavior</h3>
+          <p className="text-stone-300">
+            Chromaticity diagram showing chromatic coordinates of the eight amber glasses obtained from their optical spectra and calculated with the illuminant D65 and standard observer 2°. The experimental data obtained for all Amber glasses investigated in this study are in perfect agreement with the position of the Beer-Lambert trend line extrapolated from Amber8 glass. This demonstrates that glass color is caused by the same chromophore, the concentration of which governs the intensity of this coloration.
+          </p>
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <img 
+              src="/manus-storage/beerlambertcurve_fac44eaf.png" 
+              alt="CIE chromaticity diagram showing Beer-Lambert curve for amber glasses" 
+              className="w-full h-auto object-contain"
+            />
+            <p className="text-stone-400 text-sm mt-4 text-center italic">
+              CIE chromaticity diagram with D65 illuminant and 2° standard observer showing the Beer-Lambert trend line (dotted curve) and the positions of all eight amber glass samples. The linear relationship between chromophore concentration and color shift demonstrates the Beer-Lambert law's applicability to glass coloration.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Thermochromism Simulator */}
