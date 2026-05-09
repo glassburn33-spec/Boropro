@@ -39,3 +39,11 @@
 - [x] Save generated PDF directly to PDF Library database
 - [x] Add loading state and success/error feedback
 - [x] Add tests for new button functionality
+
+## Move Save to PDF Library Button (New)
+- [x] Remove Save to PDF Library button from saved schedules list row
+- [x] Add Save to PDF Library button to schedule details action buttons section
+- [x] Ensure button is grouped with Export PDF, Edit, and Delete buttons
+
+## Remove Empty Saved Schedules Section (New)
+- [x] Remove the empty saved schedules list section from AnealingProfileEditor
