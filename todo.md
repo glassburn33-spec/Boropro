@@ -25,3 +25,10 @@
 - [x] Implement PDF generation from Kiln Log data (temperature profile + metadata)
 - [x] Create backend endpoint to save generated PDF to S3 and PDF Library
 - [x] Add tests for PDF generation and library save functionality
+
+## Save Schedule Confirmation Modal (New)
+- [x] Create SaveScheduleModal component with dual action buttons
+- [x] Show modal after successful Kiln Log creation
+- [x] Implement "Export PDF to Computer" button (download)
+- [x] Implement "Add to PDF Library" button (save to database)
+- [x] Add tests for modal and button handlers

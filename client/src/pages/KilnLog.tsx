@@ -10,6 +10,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
 import type { KilnLogPDFData } from "@/lib/pdfUtils";
+import { SaveScheduleModal } from "@/components/SaveScheduleModal";
 
 interface KilnLogEntry {
   id: number;
@@ -28,6 +29,8 @@ export default function KilnLog() {
   const [selectedLog, setSelectedLog] = useState<KilnLogEntry | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterBy, setFilterBy] = useState<"all" | "recent" | "oldest">("all");
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [savedKilnLog, setSavedKilnLog] = useState<KilnLogEntry | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -96,7 +99,7 @@ export default function KilnLog() {
         return;
       }
 
-      await createMutation.mutateAsync({
+      const result = await createMutation.mutateAsync({
         name: formData.name,
         description: formData.description || undefined,
         temperatures: temps,
@@ -105,6 +108,22 @@ export default function KilnLog() {
         endTime: formData.endTime ? new Date(formData.endTime) : undefined,
         notes: formData.notes || undefined,
       });
+
+      // Show save modal with the newly created log
+      if (result) {
+        setSavedKilnLog({
+          id: result.id,
+          name: result.name,
+          description: result.description || undefined,
+          temperatures: Array.isArray(result.temperatures) ? result.temperatures : [],
+          times: Array.isArray(result.times) ? result.times : [],
+          startTime: new Date(result.startTime),
+          endTime: result.endTime ? new Date(result.endTime) : undefined,
+          notes: result.notes || undefined,
+          createdAt: new Date(result.createdAt),
+        });
+        setShowSaveModal(true);
+      }
 
       toast.success("Kiln log created successfully!");
       setFormData({
@@ -641,6 +660,24 @@ export default function KilnLog() {
               </div>
             </div>
           </section>
+        )}
+
+        {/* Save Schedule Modal */}
+        {savedKilnLog && (
+          <SaveScheduleModal
+            isOpen={showSaveModal}
+            kilnLog={savedKilnLog}
+            onClose={() => setShowSaveModal(false)}
+            onAddToLibrary={async (base64, filename) => {
+              await saveGeneratedMutation.mutateAsync({
+                filename,
+                fileBase64: base64,
+                temperatures: savedKilnLog.temperatures,
+                times: savedKilnLog.times,
+              });
+            }}
+            isAddingToLibrary={saveGeneratedMutation.isPending}
+          />
         )}
       </main>
     </div>
