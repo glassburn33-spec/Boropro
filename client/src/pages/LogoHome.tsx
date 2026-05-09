@@ -125,7 +125,7 @@ export default function LogoHome() {
         <img
           src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png"
           alt="BoroPro Logo"
-          className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain max-w-[90vw] max-h-[70vh]"
+          className="w-96 h-96 sm:w-[28rem] sm:h-[28rem] md:w-[32rem] md:h-[32rem] lg:w-[40rem] lg:h-[40rem] xl:w-[48rem] xl:h-[48rem] object-contain max-w-[95vw] max-h-[80vh]"
         />
       </main>
     </div>
