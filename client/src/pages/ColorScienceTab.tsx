@@ -356,6 +356,48 @@ export default function ColorScienceTab() {
         </div>
       </div>
 
+      {/* Amber Glass Series Section */}
+      <div className="max-w-6xl mx-auto space-y-12 mb-12">
+        {/* Title */}
+        <div className="border-l-4 border-amber-500 pl-6">
+          <h2 className="text-3xl font-bold text-amber-400 mb-2">Iron and Sulfur Coloration: The Amber Glass Series</h2>
+          <p className="text-stone-300 text-sm">Compositional Analysis and Visual Spectrum of Soda-Lime Glasses</p>
+        </div>
+
+        {/* Main Content */}
+        <div className="bg-stone-800/50 backdrop-blur rounded-lg p-8 border border-stone-700/50">
+          <div className="space-y-6 text-stone-200 leading-relaxed">
+            <p>
+              All glasses, even the colorless ones, contain Fe and S. Glass coloration increases from pale-yellow (Amber1) to brown (Amber8). These soda-lime glasses have a similar base glass composition and mostly differ by their sulfur content. The compositions of the commercial glasses were obtained by electron probe microanalysis (EPMA) using a Cameca electron microprobe SX-5 at the CAMPARIS platform (Sorbonne Université, Paris). The following standards were used for quantification: albite (Na), garnet (Mg, Si, Ca), orthoclase (Al, K), baryte (S), hematite (Fe). The acceleration voltage was set to 25 kV, and a defocused beam of 15 µm was used to minimize alkali losses. About 10 analytical points were measured in order to take into account possible heterogeneities of the glasses. The average dispersion of the data was evaluated at 0.1%. The average chemical composition values obtained are presented in the composition table below.
+            </p>
+          </div>
+        </div>
+
+        {/* Composition Table Image */}
+        <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+          <img 
+            src="/manus-storage/ambertable_15f1d048.png" 
+            alt="Chemical compositions of amber glass samples" 
+            className="w-full h-auto object-contain"
+          />
+          <p className="text-stone-400 text-sm mt-4 text-center italic">
+            Chemical compositions of the glasses, as measured by electron microprobe and averaged over 10 measurement points. Note the increasing sulfur content (SO₃) correlating with darker amber coloration.
+          </p>
+        </div>
+
+        {/* Spectrum Image */}
+        <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+          <img 
+            src="/manus-storage/amberspectrum_2b59b923.png" 
+            alt="Macroscopic picture of amber glass samples" 
+            className="w-full h-auto object-contain"
+          />
+          <p className="text-stone-400 text-sm mt-4 text-center italic">
+            Macroscopic picture of amber glass samples. Amber1, the lightest amber glass, appears pale yellow, and Amber8, the darkest, is brown. The progression demonstrates how iron and sulfur content creates a continuous color spectrum from nearly colorless to deep brown.
+          </p>
+        </div>
+      </div>
+
       {/* Thermochromism Simulator */}
       <div className="max-w-6xl mx-auto mt-12 mb-12">
         <ThermochromismSimulator />
