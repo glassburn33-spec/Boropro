@@ -119,7 +119,7 @@ export default function AnealingProfileEditor() {
   const plotSvg = useMemo(() => {
     const width = 1000;
     const height = 600;
-    const margin = { top: 80, right: 120, bottom: 100, left: 100 };
+    const margin = { top: 80, right: 80, bottom: 120, left: 70 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     
@@ -308,26 +308,28 @@ export default function AnealingProfileEditor() {
           </g>
         ))}
 
+        {/* Title */}
+        <text x={width / 2} y={titleFontSize + 15} textAnchor="middle" fill="#fbbf24" fontSize={titleFontSize} fontWeight="bold">
+          {title}
+        </text>
+
         {/* Legend */}
         <g>
           {stageNames.map((name, idx) => {
             const legendItemHeight = labelFontSize + 6;
             const legendBoxSize = Math.max(10, labelFontSize - 2);
+            const legendStartX = margin.left + 25;
+            const legendStartY = margin.top + plotHeight + 35;
             return (
               <g key={`legend-${idx}`}>
-                <rect x={margin.left + 25} y={height - margin.bottom + 15 + idx * legendItemHeight} width={legendBoxSize} height={legendBoxSize} fill={stageColors[idx]} opacity="0.7" />
-                <text x={margin.left + 40} y={height - margin.bottom + 24 + idx * legendItemHeight} fill="#999" fontSize={labelFontSize}>
+                <rect x={legendStartX} y={legendStartY + idx * legendItemHeight} width={legendBoxSize} height={legendBoxSize} fill={stageColors[idx]} opacity="0.7" />
+                <text x={legendStartX + 15} y={legendStartY + 9 + idx * legendItemHeight} fill="#999" fontSize={labelFontSize}>
                   {idx + 1} = {name}
                 </text>
               </g>
             );
           })}
         </g>
-
-        {/* Title */}
-        <text x={width / 2} y={titleFontSize + 10} textAnchor="middle" fill="#fbbf24" fontSize={titleFontSize} fontWeight="bold">
-          {title}
-        </text>
       </svg>
     );
   }, [inputs, referenceLines, cumulativeTimes, plotData, title, maxTemp, maxTime]);
