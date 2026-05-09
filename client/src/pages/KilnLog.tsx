@@ -4,10 +4,12 @@ Persistent database storage for complete history
 */
 
 import { useState } from "react";
-import { Plus, Trash2, Download, Clock, Thermometer } from "lucide-react";
+import { Plus, Trash2, Download, Clock, Thermometer, Save } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
+import type { KilnLogPDFData } from "@/lib/pdfUtils";
 
 interface KilnLogEntry {
   id: number;
@@ -40,6 +42,7 @@ export default function KilnLog() {
   const { data: logs = [], refetch, isLoading } = trpc.kilnLog.list.useQuery();
   const createMutation = trpc.kilnLog.create.useMutation();
   const deleteMutation = trpc.kilnLog.delete.useMutation();
+  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
 
   // Convert database records to display format
   let displayLogs: KilnLogEntry[] = logs.map((log: any) => ({
@@ -167,6 +170,39 @@ export default function KilnLog() {
     document.body.removeChild(link);
 
     toast.success("CSV exported successfully!");
+  };
+  const handleSaveToPDFLibrary = async () => {
+    if (!selectedLog) return;
+
+    try {
+      // Generate PDF from kiln log data
+      const pdfData: KilnLogPDFData = {
+        name: selectedLog.name,
+        description: selectedLog.description,
+        temperatures: selectedLog.temperatures,
+        times: selectedLog.times,
+        startTime: selectedLog.startTime,
+        endTime: selectedLog.endTime,
+        notes: selectedLog.notes,
+      };
+
+      const doc = generateKilnLogPDF(pdfData);
+      const base64 = pdfToBase64(doc);
+
+      // Save to PDF library via backend
+      await saveGeneratedMutation.mutateAsync({
+        filename: `${selectedLog.name}_kiln_log.pdf`,
+        fileBase64: base64,
+        temperatures: selectedLog.temperatures,
+        times: selectedLog.times,
+      });
+
+      toast.success("Kiln log saved to PDF Library!");
+      refetch();
+    } catch (error) {
+      console.error("Failed to save to PDF library:", error);
+      toast.error("Failed to save to PDF library");
+    }
   };
 
   return (
@@ -586,6 +622,14 @@ export default function KilnLog() {
                 )}
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
+                  <button
+                    onClick={handleSaveToPDFLibrary}
+                    disabled={saveGeneratedMutation.isPending}
+                    className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
+                  >
+                    <Save size={16} />
+                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to PDF Library"}
+                  </button>
                   <button
                     onClick={handleExportCSV}
                     className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"

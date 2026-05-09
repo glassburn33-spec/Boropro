@@ -19,3 +19,9 @@
 - [x] Implement Kiln Log history view with filtering
 - [x] Add CSV export for kiln logs
 - [x] Write tests for Kiln Log API and UI
+
+## Kiln Log to PDF Library Integration (New)
+- [x] Add "Save to PDF Library" button to Kiln Log detail view
+- [x] Implement PDF generation from Kiln Log data (temperature profile + metadata)
+- [x] Create backend endpoint to save generated PDF to S3 and PDF Library
+- [x] Add tests for PDF generation and library save functionality

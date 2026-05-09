@@ -115,6 +115,41 @@ export const appRouter = router({
         }
       }),
 
+    saveGenerated: protectedProcedure
+      .input(
+        z.object({
+          filename: z.string(),
+          fileBase64: z.string(),
+          temperatures: z.array(z.number()),
+          times: z.array(z.number()),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        try {
+          const fileData = Buffer.from(input.fileBase64, 'base64');
+          const { key, url } = await storagePut(
+            `pdfs/${ctx.user.id}/${input.filename}`,
+            fileData,
+            "application/pdf"
+          );
+          const pdf_record = await savePDFToLibrary(ctx.user.id, {
+            filename: input.filename,
+            storageKey: key,
+            extractedText: `Kiln Log: ${input.filename}`,
+            temperatures: JSON.stringify(input.temperatures),
+            times: JSON.stringify(input.times),
+          });
+          return {
+            success: true,
+            pdf: pdf_record,
+            storageUrl: url,
+          };
+        } catch (error) {
+          console.error("PDF save error:", error);
+          throw error;
+        }
+      }),
+
     delete: protectedProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input, ctx }) => {
