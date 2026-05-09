@@ -1026,8 +1026,8 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
-              src="/manus-storage/neutralizingflame_88598926.webp" 
-              alt="Neutral flame showing torch nozzle with bright white-bluish inner core transitioning to darker blue flame envelope. Two distinct zones visible: the short bright white-bluish inner core and the darker, less intensely blue flame envelope surrounding it."
+              src="/manus-storage/reductinonflame_4068cb4a.webp" 
+              alt="Reducing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
             />
           </div>
@@ -1058,6 +1058,14 @@ function ScieEquipTab() {
             <img 
               src="/manus-storage/oxydizingflame_95ffe39f.webp" 
               alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
+              src="/manus-storage/neutralizingflame_88598926.webp" 
+              alt="Carburizing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
             />
           </div>
