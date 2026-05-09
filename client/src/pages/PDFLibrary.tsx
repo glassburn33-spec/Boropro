@@ -4,7 +4,7 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
 import { useState, useEffect } from "react";
-import { FileText, Upload, Trash2 } from "lucide-react";
+import { FileText, Trash2, Download, Upload } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -94,6 +94,45 @@ export default function PDFLibrary() {
     if (files && files.length > 0) {
       processFile(files[0]);
     }
+  };
+
+  const handleExportCSV = () => {
+    if (!selectedPDF) return;
+
+    // Create CSV content
+    const headers = ["Temperature (°F)", "Time (hours)"];
+    const rows: string[][] = [];
+
+    // Get max length to pad rows
+    const maxLength = Math.max(selectedPDF.temperatures.length, selectedPDF.times.length);
+
+    for (let i = 0; i < maxLength; i++) {
+      const temp = selectedPDF.temperatures[i] ?? "";
+      const time = selectedPDF.times[i] ?? "";
+      rows.push([temp.toString(), time.toString()]);
+    }
+
+    // Create CSV string
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.join(",")),
+    ].join("\n");
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
+    const filename = selectedPDF.filename.replace(".pdf", ".csv");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = "hidden";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast.success(`Downloaded ${filename}`);
   };
 
   const handleDelete = async (id: number) => {
@@ -307,6 +346,16 @@ export default function PDFLibrary() {
                     Filename
                   </span>
                   <p className="text-lg font-bold text-white">{selectedPDF.filename}</p>
+                </div>
+
+                <div className="flex justify-end mb-6">
+                  <button
+                    onClick={handleExportCSV}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors"
+                  >
+                    <Download size={16} />
+                    Export CSV
+                  </button>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
