@@ -958,15 +958,47 @@ export default function AnealingProfileEditor() {
                               const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines);
                               tempSvgContainer.appendChild(svgElement);
 
-                              // Capture the SVG as an image
-                              const canvas = await html2canvas(svgElement as unknown as HTMLElement, {
-                                backgroundColor: '#1c1410',
-                                scale: 2,
-                                logging: false,
-                                useCORS: true,
-                                allowTaint: true,
+                              // Capture the SVG as PNG image
+                              const canvas = document.createElement('canvas');
+                              const ctx = canvas.getContext('2d');
+                              if (!ctx) throw new Error('Could not get canvas context');
+
+                              // Set canvas size for high quality
+                              canvas.width = 1600;
+                              canvas.height = 960;
+
+                              // Draw background
+                              ctx.fillStyle = '#1c1917';
+                              ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                              // Serialize SVG to string and create image
+                              const svgString = new XMLSerializer().serializeToString(svgElement);
+                              const svg = new Blob([svgString], { type: 'image/svg+xml' });
+                              const url = URL.createObjectURL(svg);
+
+                              // Create image from SVG
+                              const img = new Image();
+                              img.onload = () => {
+                                ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                URL.revokeObjectURL(url);
+                              };
+                              img.onerror = () => {
+                                console.error('Failed to load SVG image');
+                                URL.revokeObjectURL(url);
+                              };
+                              img.src = url;
+
+                              // Wait for image to load
+                              await new Promise(resolve => {
+                                img.onload = () => {
+                                  ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                  URL.revokeObjectURL(url);
+                                  resolve(null);
+                                };
                               });
-                              const imgData = canvas.toDataURL('image/png');
+
+                              // Convert canvas to PNG
+                              const imgData = canvas.toDataURL('image/png', 0.95);
                               const imgWidth = pageWidth - 20;
                               const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
