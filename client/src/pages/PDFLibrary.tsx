@@ -382,18 +382,51 @@ export default function PDFLibrary() {
             <div className="container max-w-6xl">
               <h2 className="text-2xl font-bold text-white mb-8">Schedule Details</h2>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-                <div className="mb-6">
-                  <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-2">
-                    Filename
-                  </span>
-                  <p className="text-lg text-white font-bold">{selectedPDF.filename}</p>
+                {/* PDF Preview Header */}
+                <div className="mb-8 pb-6 border-b border-white/20">
+                  <div className="text-center mb-4">
+                    <h3 className="text-2xl font-bold text-white">KILN LOG RECORD</h3>
+                  </div>
+                  <div className="text-center mb-2">
+                    <p className="text-lg font-bold text-white">{selectedPDF.filename.replace('_kiln_log.pdf', '')}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs text-stone-400">Generated: {new Date().toLocaleString()}</p>
+                  </div>
                 </div>
+
+                {/* Temperature Schedule Table */}
+                {selectedPDF.temperatures.length > 0 && (
+                  <div className="mb-8">
+                    <h4 className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
+                      Temperature Schedule
+                    </h4>
+                    <div className="bg-white/5 rounded-lg border border-white/10 overflow-hidden">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b border-white/10">
+                            <th className="px-6 py-3 text-left text-sm font-bold text-amber-500">Temperature (°F)</th>
+                            <th className="px-6 py-3 text-left text-sm font-bold text-amber-500">Time (hours)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {selectedPDF.temperatures.map((temp, idx) => (
+                            <tr key={idx} className="border-b border-white/10 last:border-b-0">
+                              <td className="px-6 py-3 text-sm text-stone-300">{temp}°F</td>
+                              <td className="px-6 py-3 text-sm text-stone-300">{selectedPDF.times[idx] !== undefined ? selectedPDF.times[idx] + 'h' : '-'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
 
                 {/* Temperature Chart */}
                 {selectedPDF.temperatures.length > 0 && (
                   <div className="mb-8">
                     <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                      Temperature Profile
+                      Temperature Profile Chart
                     </span>
                     <div className="bg-white/5 rounded-lg p-4 border border-white/10">
                       <ResponsiveContainer width="100%" height={300}>
@@ -413,50 +446,6 @@ export default function PDFLibrary() {
                     </div>
                   </div>
                 )}
-
-                {/* Extracted Data */}
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div>
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">
-                      Temperatures (°F)
-                    </span>
-                    {selectedPDF.temperatures.length > 0 ? (
-                      <>
-                        <div className="bg-white/5 rounded-lg p-4 border border-white/10 max-h-48 overflow-y-auto">
-                          <div className="space-y-1">
-                            {selectedPDF.temperatures.map((temp, idx) => (
-                              <div key={idx} className="text-sm text-stone-300">
-                                {idx + 1}. {temp}°F
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <p className="text-stone-400">No temperatures extracted</p>
-                    )}
-                  </div>
-                  <div>
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-3">
-                      Times (hours)
-                    </span>
-                    {selectedPDF.times.length > 0 ? (
-                      <>
-                        <div className="bg-white/5 rounded-lg p-4 border border-white/10 max-h-48 overflow-y-auto">
-                          <div className="space-y-1">
-                            {selectedPDF.times.map((time, idx) => (
-                              <div key={idx} className="text-sm text-stone-300">
-                                {idx + 1}. {time}h
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <p className="text-stone-400">No times extracted</p>
-                    )}
-                  </div>
-                </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button

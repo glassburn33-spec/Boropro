@@ -194,6 +194,7 @@ export default function KilnLog() {
     if (!selectedLog) return;
 
     try {
+
       // Generate PDF from kiln log data
       const pdfData: KilnLogPDFData = {
         name: selectedLog.name,
@@ -221,6 +222,7 @@ export default function KilnLog() {
     } catch (error) {
       console.error("Failed to save to PDF library:", error);
       toast.error("Failed to save to PDF library");
+    } finally {
     }
   };
 

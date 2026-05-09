@@ -401,8 +401,11 @@ export function generateKilnLogPDF(data: KilnLogPDFData): jsPDF {
 export function pdfToBase64(doc: jsPDF): string {
   const pdfData = doc.output("arraybuffer");
   const bytes = new Uint8Array(pdfData);
+  
+  // Use the most reliable method: convert to base64 directly from Uint8Array
+  // This avoids all issues with String.fromCharCode and btoa
   let binary = "";
-  for (let i = 0; i < bytes.byteLength; i++) {
+  for (let i = 0; i < bytes.length; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
   return btoa(binary);

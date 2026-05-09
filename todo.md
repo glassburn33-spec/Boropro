@@ -47,3 +47,16 @@
 
 ## Remove Empty Saved Schedules Section (New)
 - [x] Remove the empty saved schedules list section from AnealingProfileEditor
+
+## Bug Fix: Save to PDF Library Button Saves All Schedules (New)
+- [ ] Investigate why Save to PDF Library button saves all schedules instead of just one
+- [ ] Fix button to save only the PDF from the specific schedule box
+- [ ] Verify fix works correctly with multiple schedules
+
+## Update PDF Library Schedule Details Display (New)
+- [x] Replace chart-only view with PDF-like preview format
+- [x] Add "KILN LOG RECORD" header to Schedule Details section
+- [x] Display filename (without _kiln_log.pdf suffix)
+- [x] Show generated timestamp
+- [x] Create temperature/time table layout for extracted data
+- [x] Keep temperature profile chart below the table
