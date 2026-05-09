@@ -1090,7 +1090,7 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
-              src="/manus-storage/sootvolumefraction_plot_c2f3d4e5.png" 
+              src="/manus-storage/sootplot_e2efdeba.png" 
               alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
               className="w-full max-w-2xl rounded-lg border border-stone-600"
             />
