@@ -281,22 +281,29 @@ export default function AnealingProfileEditor() {
           Temperature (°C)
         </text>
 
-        {/* Y-axis ticks and labels */}
-        {[0, 100, 200, 300, 400, 500].map((temp) => (
-          <g key={`tick-${temp}`}>
-            <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
-            <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={tickFontSize}>
-              {temp}
-            </text>
-          </g>
-        ))}
+        {/* Y-axis ticks and labels - dynamically scaled */}
+        {(() => {
+          const tempStep = maxTemp > 600 ? 100 : 50;
+          const tempMarkers = [];
+          for (let i = 0; i <= maxTemp; i += tempStep) {
+            tempMarkers.push(i);
+          }
+          return tempMarkers.map((temp) => (
+            <g key={`tick-${temp}`}>
+              <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
+              <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={tickFontSize}>
+                {temp}°C
+              </text>
+            </g>
+          ));
+        })()}
 
         {/* X-axis time markers */}
         {cumulativeTimes.map((time, idx) => (
           <g key={`time-marker-${idx}`}>
             <line x1={margin.left + scaleX(time)} y1={margin.top + plotHeight} x2={margin.left + scaleX(time)} y2={margin.top + plotHeight + 5} stroke="#999" strokeWidth="1" />
             <text x={margin.left + scaleX(time)} y={margin.top + plotHeight + 20} textAnchor="middle" fill="#999" fontSize={tickFontSize}>
-              {time}
+              {time} min
             </text>
           </g>
         ))}
