@@ -45,6 +45,160 @@ interface SavedSchedule {
   results: string;
 }
 
+// Helper function to generate plot SVG from schedule data
+function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLines: ReferenceLines): SVGSVGElement {
+  const width = 1000;
+  const height = 600;
+  const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+
+  // Calculate cumulative times
+  const cumulativeTimes = [
+    0,
+    scheduleData.stage1.duration,
+    scheduleData.stage1.duration + scheduleData.stage2.duration,
+    scheduleData.stage1.duration + scheduleData.stage2.duration + scheduleData.stage3.duration,
+    scheduleData.stage1.duration + scheduleData.stage2.duration + scheduleData.stage3.duration + scheduleData.stage4.duration,
+  ];
+
+  // Calculate plot data points
+  const plotData = [
+    { time: cumulativeTimes[0], temp: scheduleData.stage1.startTemp },
+    { time: cumulativeTimes[1], temp: scheduleData.stage1.targetTemp },
+    { time: cumulativeTimes[2], temp: scheduleData.stage2.holdTemp },
+    { time: cumulativeTimes[3], temp: scheduleData.stage3.endTemp },
+    { time: cumulativeTimes[4], temp: scheduleData.stage4.endTemp },
+  ];
+
+  const maxTemp = Math.max(scheduleData.stage1.targetTemp, scheduleData.stage2.holdTemp) + 50;
+  const maxTime = cumulativeTimes[4];
+
+  const titleFontSize = Math.max(14, Math.min(20, width / 50));
+  const labelFontSize = Math.max(10, Math.min(14, width / 80));
+  const tickFontSize = Math.max(9, Math.min(12, width / 100));
+
+  const scaleX = (time: number) => (time / maxTime) * plotWidth;
+  const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
+
+  const stageColors = ['#dc2626', '#ea580c', '#22c55e', '#3b82f6'];
+  const stageNames = ['Rapid reheating', 'Dwell – equalization', 'Slow cooling', 'More rapid cooling'];
+
+  // Build path for temperature curve
+  let pathD = `M ${margin.left + scaleX(plotData[0].time)} ${margin.top + scaleY(plotData[0].temp)}`;
+  for (let i = 1; i < plotData.length; i++) {
+    pathD += ` L ${margin.left + scaleX(plotData[i].time)} ${margin.top + scaleY(plotData[i].temp)}`;
+  }
+
+  // Create SVG element
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', width.toString());
+  svg.setAttribute('height', height.toString());
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.setAttribute('style', 'background-color: #1c1917;');
+
+  // Background
+  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bg.setAttribute('width', width.toString());
+  bg.setAttribute('height', height.toString());
+  bg.setAttribute('fill', '#1c1917');
+  svg.appendChild(bg);
+
+  // Gridlines
+  for (let temp = 0; temp <= 500; temp += 100) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', margin.left.toString());
+    line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
+    line.setAttribute('x2', (margin.left + plotWidth).toString());
+    line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
+    line.setAttribute('stroke', '#404040');
+    line.setAttribute('stroke-dasharray', '4');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+  }
+
+  // Stage regions
+  const regions = [
+    { x1: scaleX(cumulativeTimes[0]), x2: scaleX(cumulativeTimes[1]), color: stageColors[0] },
+    { x1: scaleX(cumulativeTimes[1]), x2: scaleX(cumulativeTimes[2]), color: stageColors[1] },
+    { x1: scaleX(cumulativeTimes[2]), x2: scaleX(cumulativeTimes[3]), color: stageColors[2] },
+    { x1: scaleX(cumulativeTimes[3]), x2: scaleX(cumulativeTimes[4]), color: stageColors[3] },
+  ];
+
+  regions.forEach((region) => {
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', (margin.left + region.x1).toString());
+    rect.setAttribute('y', margin.top.toString());
+    rect.setAttribute('width', (region.x2 - region.x1).toString());
+    rect.setAttribute('height', plotHeight.toString());
+    rect.setAttribute('fill', region.color);
+    rect.setAttribute('opacity', '0.2');
+    svg.appendChild(rect);
+  });
+
+  // Reference lines
+  const annealingLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  annealingLine.setAttribute('x1', margin.left.toString());
+  annealingLine.setAttribute('y1', (margin.top + scaleY(refLines.annealingPoint)).toString());
+  annealingLine.setAttribute('x2', (margin.left + plotWidth).toString());
+  annealingLine.setAttribute('y2', (margin.top + scaleY(refLines.annealingPoint)).toString());
+  annealingLine.setAttribute('stroke', '#60a5fa');
+  annealingLine.setAttribute('stroke-dasharray', '4');
+  annealingLine.setAttribute('stroke-width', '2');
+  svg.appendChild(annealingLine);
+
+  const strainLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  strainLine.setAttribute('x1', margin.left.toString());
+  strainLine.setAttribute('y1', (margin.top + scaleY(refLines.strainPoint)).toString());
+  strainLine.setAttribute('x2', (margin.left + plotWidth).toString());
+  strainLine.setAttribute('y2', (margin.top + scaleY(refLines.strainPoint)).toString());
+  strainLine.setAttribute('stroke', '#60a5fa');
+  strainLine.setAttribute('stroke-dasharray', '4');
+  strainLine.setAttribute('stroke-width', '2');
+  svg.appendChild(strainLine);
+
+  // Temperature curve
+  const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  curve.setAttribute('d', pathD);
+  curve.setAttribute('stroke', '#fbbf24');
+  curve.setAttribute('stroke-width', '3');
+  curve.setAttribute('fill', 'none');
+  svg.appendChild(curve);
+
+  // Axes
+  const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  xAxis.setAttribute('x1', margin.left.toString());
+  xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
+  xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
+  xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+  xAxis.setAttribute('stroke', '#999');
+  xAxis.setAttribute('stroke-width', '2');
+  svg.appendChild(xAxis);
+
+  const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  yAxis.setAttribute('x1', margin.left.toString());
+  yAxis.setAttribute('y1', margin.top.toString());
+  yAxis.setAttribute('x2', margin.left.toString());
+  yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+  yAxis.setAttribute('stroke', '#999');
+  yAxis.setAttribute('stroke-width', '2');
+  svg.appendChild(yAxis);
+
+  // Title
+  const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  title.setAttribute('x', (width / 2).toString());
+  title.setAttribute('y', (titleFontSize + 15).toString());
+  title.setAttribute('text-anchor', 'middle');
+  title.setAttribute('fill', '#fbbf24');
+  title.setAttribute('font-size', titleFontSize.toString());
+  title.setAttribute('font-weight', 'bold');
+  title.textContent = scheduleName;
+  svg.appendChild(title);
+
+  return svg;
+}
+
 export default function AnealingProfileEditor() {
   const [title, setTitle] = useState('Borosilicate Glass Heat Treatment Profile');
   
@@ -785,6 +939,57 @@ export default function AnealingProfileEditor() {
                             yPosition += 8;
 
                             // Add separator line
+                            pdf.setDrawColor(180, 140, 80);
+                            pdf.line(10, yPosition, pageWidth - 10, yPosition);
+                            yPosition += 5;
+
+                            // Generate and capture plot SVG for this schedule
+                            try {
+                              // Create a temporary SVG element with the schedule data
+                              const tempSvgContainer = document.createElement('div');
+                              tempSvgContainer.style.position = 'absolute';
+                              tempSvgContainer.style.left = '-9999px';
+                              tempSvgContainer.style.top = '-9999px';
+                              tempSvgContainer.style.width = '800px';
+                              tempSvgContainer.style.height = '500px';
+                              document.body.appendChild(tempSvgContainer);
+
+                              // Create SVG with schedule data
+                              const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines);
+                              tempSvgContainer.appendChild(svgElement);
+
+                              // Capture the SVG as an image
+                              const canvas = await html2canvas(svgElement as unknown as HTMLElement, {
+                                backgroundColor: '#1c1410',
+                                scale: 2,
+                                logging: false,
+                                useCORS: true,
+                                allowTaint: true,
+                              });
+                              const imgData = canvas.toDataURL('image/png');
+                              const imgWidth = pageWidth - 20;
+                              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                              // Add plot image to PDF
+                              if (yPosition + imgHeight > pageHeight - 20) {
+                                pdf.addPage();
+                                yPosition = 10;
+                              }
+                              pdf.addImage(imgData, 'PNG', 10, yPosition, imgWidth, imgHeight);
+                              yPosition += imgHeight + 8;
+
+                              // Clean up temporary element
+                              document.body.removeChild(tempSvgContainer);
+                            } catch (error) {
+                              console.error('Error capturing plot:', error);
+                              // Continue without plot if capture fails
+                            }
+
+                            // Add separator before profile data
+                            if (yPosition + 30 > pageHeight - 10) {
+                              pdf.addPage();
+                              yPosition = 10;
+                            }
                             pdf.setDrawColor(180, 140, 80);
                             pdf.line(10, yPosition, pageWidth - 10, yPosition);
                             yPosition += 5;
