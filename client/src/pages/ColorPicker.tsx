@@ -504,12 +504,15 @@ interface CombinedSchedule {
 export default function ColorPicker() {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [expandedColor, setExpandedColor] = useState<string | null>(null);
 
   const toggleColor = (colorName: string) => {
     setSelectedColors((prev) =>
       prev.includes(colorName) ? prev.filter((c) => c !== colorName) : [...prev, colorName]
     );
   };
+
+  const expandedColorData = expandedColor ? northstarColors.find((c) => c.name === expandedColor) : null;
 
   const filteredColors = useMemo(() => {
     if (!searchQuery.trim()) return northstarColors;
@@ -642,6 +645,7 @@ ${combinedSchedule.rationale}`;
             <div
               key={color.name}
               onClick={() => toggleColor(color.name)}
+              onDoubleClick={() => setExpandedColor(color.name)}
               className={`p-4 border-2 cursor-pointer transition-all rounded-sm ${
                 selectedColors.includes(color.name)
                   ? "border-amber-400 bg-amber-400 bg-opacity-10"
@@ -658,6 +662,7 @@ ${combinedSchedule.rationale}`;
                 <span>Anneal: {color.annealPoint}°F</span>
                 <span>Strain: {color.strainPoint}°F</span>
               </div>
+              <p className="text-xs text-stone-500 mt-3 italic">Double-click to expand</p>
             </div>
           ))}
         </div>
@@ -722,6 +727,118 @@ ${combinedSchedule.rationale}`;
           </div>
         )}
       </div>
+
+      {/* Expanded Color Modal */}
+      {expandedColorData && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+          <div className="bg-stone-900 border-2 border-amber-500 rounded-sm max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-stone-900 border-b border-amber-500 p-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-2">{expandedColorData.name}</h2>
+                <p className="text-amber-400 text-lg">{expandedColorData.family}</p>
+              </div>
+              <button
+                onClick={() => setExpandedColor(null)}
+                className="text-stone-400 hover:text-amber-400 transition-colors text-3xl font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-8 space-y-6">
+              {/* Metal Composition */}
+              <div>
+                <h3 className="text-xl font-bold text-amber-400 mb-2">Metal Composition</h3>
+                <p className="text-stone-300 text-lg">{expandedColorData.metalComposition}</p>
+              </div>
+
+              {/* Temperature Parameters */}
+              <div className="grid grid-cols-2 gap-6">
+                <div className="border border-amber-500 p-4 rounded-sm">
+                  <p className="text-stone-400 text-sm mb-1">Anneal Temperature</p>
+                  <p className="text-3xl font-bold text-amber-400">{expandedColorData.annealPoint}°F</p>
+                </div>
+                <div className="border border-amber-500 p-4 rounded-sm">
+                  <p className="text-stone-400 text-sm mb-1">Strain Temperature</p>
+                  <p className="text-3xl font-bold text-amber-400">{expandedColorData.strainPoint}°F</p>
+                </div>
+              </div>
+
+              {/* Sensitivity Flags */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className={`p-4 rounded-sm border ${
+                  expandedColorData.heatSensitive
+                    ? "border-red-500 bg-red-500 bg-opacity-10"
+                    : "border-green-500 bg-green-500 bg-opacity-10"
+                }`}>
+                  <p className={expandedColorData.heatSensitive ? "text-red-400" : "text-green-400"}>
+                    {expandedColorData.heatSensitive ? "⚠ Heat Sensitive" : "✓ Heat Stable"}
+                  </p>
+                </div>
+                <div className={`p-4 rounded-sm border ${
+                  expandedColorData.reductionSensitive
+                    ? "border-red-500 bg-red-500 bg-opacity-10"
+                    : "border-green-500 bg-green-500 bg-opacity-10"
+                }`}>
+                  <p className={expandedColorData.reductionSensitive ? "text-red-400" : "text-green-400"}>
+                    {expandedColorData.reductionSensitive ? "⚠ Reduction Sensitive" : "✓ Reduction Stable"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Strike Method */}
+              <div>
+                <h3 className="text-xl font-bold text-amber-400 mb-2">Strike Method</h3>
+                <p className="text-stone-300 text-lg capitalize">
+                  {expandedColorData.strikeMethod === "none"
+                    ? "No striking required"
+                    : `${expandedColorData.strikeMethod.charAt(0).toUpperCase() + expandedColorData.strikeMethod.slice(1)} strike`}
+                </p>
+              </div>
+
+              {/* Warnings */}
+              {expandedColorData.warnings.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertTriangle className="w-6 h-6 text-amber-400" />
+                    <h3 className="text-xl font-bold text-amber-400">Warnings & Considerations</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {expandedColorData.warnings.map((warning, idx) => (
+                      <li key={idx} className="text-stone-300 flex gap-3">
+                        <span className="text-amber-400 flex-shrink-0 mt-1">•</span>
+                        <span>{warning}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 pt-4">
+                <button
+                  onClick={() => {
+                    toggleColor(expandedColorData.name);
+                  }}
+                  className={`flex-1 px-6 py-3 font-bold rounded-sm transition-colors ${
+                    selectedColors.includes(expandedColorData.name)
+                      ? "bg-amber-500 hover:bg-amber-600 text-black"
+                      : "bg-stone-700 hover:bg-stone-600 text-white"
+                  }`}
+                >
+                  {selectedColors.includes(expandedColorData.name) ? "✓ Selected" : "Select Color"}
+                </button>
+                <button
+                  onClick={() => setExpandedColor(null)}
+                  className="flex-1 px-6 py-3 bg-stone-700 hover:bg-stone-600 text-white font-bold rounded-sm transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
