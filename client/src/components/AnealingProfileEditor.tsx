@@ -34,6 +34,15 @@ interface ReferenceLines {
   strainPoint: number;
 }
 
+interface SavedSchedule {
+  id: string;
+  name: string;
+  timestamp: string;
+  data: StageInputs;
+  notes: string;
+  results: string;
+}
+
 export default function AnealingProfileEditor() {
   const [title, setTitle] = useState('Borosilicate Glass Heat Treatment Profile');
   
@@ -49,9 +58,13 @@ export default function AnealingProfileEditor() {
     strainPoint: 510,
   });
 
-  const [savedSchedules, setSavedSchedules] = useState<Array<{ name: string; timestamp: string; data: StageInputs }>>([]);
+  const [notes, setNotes] = useState('');
+  const [savedSchedules, setSavedSchedules] = useState<SavedSchedule[]>([]);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [scheduleName, setScheduleName] = useState('');
+  const [editingScheduleId, setEditingScheduleId] = useState<string | null>(null);
+  const [editingNotes, setEditingNotes] = useState('');
+  const [editingResults, setEditingResults] = useState('');
 
   // Auto-populate stage 3 start temp from stage 2 hold temp
   const handleStage2Change = (field: string, value: number) => {
@@ -303,13 +316,36 @@ export default function AnealingProfileEditor() {
   const handleSaveSchedule = () => {
     if (scheduleName.trim()) {
       setSavedSchedules(prev => [...prev, {
+        id: Date.now().toString(),
         name: scheduleName,
         timestamp: new Date().toLocaleString(),
         data: inputs,
+        notes: notes,
+        results: '',
       }]);
       setScheduleName('');
+      setNotes('');
       setShowSaveDialog(false);
     }
+  };
+
+  const handleEditSchedule = (schedule: SavedSchedule) => {
+    setEditingScheduleId(schedule.id);
+    setEditingNotes(schedule.notes);
+    setEditingResults(schedule.results);
+  };
+
+  const handleSaveEdit = (id: string) => {
+    setSavedSchedules(prev => prev.map(s => 
+      s.id === id ? { ...s, notes: editingNotes, results: editingResults } : s
+    ));
+    setEditingScheduleId(null);
+    setEditingNotes('');
+    setEditingResults('');
+  };
+
+  const handleDeleteSchedule = (id: string) => {
+    setSavedSchedules(prev => prev.filter(s => s.id !== id));
   };
 
   return (
@@ -464,7 +500,7 @@ export default function AnealingProfileEditor() {
 
       {/* Reference Lines */}
       <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-blue-300 mb-4">Reference Lines</h3>
+        <h3 className="text-lg font-bold text-blue-400 mb-4">Reference Lines</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm text-stone-300 mb-2">Annealing Point (°C)</label>
@@ -485,6 +521,17 @@ export default function AnealingProfileEditor() {
             />
           </div>
         </div>
+      </div>
+
+      {/* Notes Section */}
+      <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
+        <h3 className="text-lg font-bold text-amber-300 mb-4">📝 Materials & Cycle Notes</h3>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Record materials used, glass type, thickness, color, kiln model, observations, or any other relevant details for this annealing cycle..."
+          className="w-full bg-stone-700 border border-stone-600 rounded px-4 py-3 text-white focus:outline-none focus:border-amber-500 resize-none h-24"
+        />
       </div>
 
       {/* Plot */}
@@ -518,6 +565,93 @@ export default function AnealingProfileEditor() {
         </button>
       </div>
 
+      {/* Saved Schedules */}
+      <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
+        <h3 className="text-lg font-bold text-amber-300 mb-4">📋 Saved Schedules</h3>
+        {savedSchedules.length === 0 ? (
+          <p className="text-stone-400">No saved schedules yet. Save your first profile above!</p>
+        ) : (
+          <div className="space-y-4">
+            {savedSchedules.map((schedule) => (
+              <div key={schedule.id} className="bg-stone-700/50 border border-stone-600 p-4 rounded-lg">
+                {editingScheduleId === schedule.id ? (
+                  // Edit Mode
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-300 mb-2">Materials & Notes</label>
+                      <textarea
+                        value={editingNotes}
+                        onChange={(e) => setEditingNotes(e.target.value)}
+                        className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 resize-none h-20"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-300 mb-2">Results & Observations</label>
+                      <textarea
+                        value={editingResults}
+                        onChange={(e) => setEditingResults(e.target.value)}
+                        placeholder="Record actual results, color outcomes, any issues encountered, temperature readings, etc."
+                        className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 resize-none h-20"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleSaveEdit(schedule.id)}
+                        className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded font-semibold text-sm"
+                      >
+                        Save Changes
+                      </button>
+                      <button
+                        onClick={() => setEditingScheduleId(null)}
+                        className="px-4 py-2 bg-stone-600 hover:bg-stone-500 text-white rounded font-semibold text-sm"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  // View Mode
+                  <div>
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h4 className="font-bold text-amber-300">{schedule.name}</h4>
+                        <p className="text-xs text-stone-400">{schedule.timestamp}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleEditSchedule(schedule)}
+                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteSchedule(schedule.id)}
+                          className="px-3 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-sm font-semibold"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                    {schedule.notes && (
+                      <div className="mb-2">
+                        <p className="text-xs font-semibold text-stone-300">Materials & Notes:</p>
+                        <p className="text-sm text-stone-300 bg-stone-800/50 p-2 rounded">{schedule.notes}</p>
+                      </div>
+                    )}
+                    {schedule.results && (
+                      <div>
+                        <p className="text-xs font-semibold text-stone-300">Results:</p>
+                        <p className="text-sm text-stone-300 bg-stone-800/50 p-2 rounded">{schedule.results}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* Save Dialog */}
       {showSaveDialog && (
         <div className="bg-stone-800 border border-stone-600 p-6 rounded-lg">
@@ -530,18 +664,18 @@ export default function AnealingProfileEditor() {
             className="w-full bg-stone-700 border border-stone-600 rounded px-3 py-2 text-white mb-4 focus:outline-none focus:border-amber-500"
           />
           <div className="flex gap-2">
-            <button
-              onClick={handleSaveSchedule}
-              className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded transition-colors"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setShowSaveDialog(false)}
-              className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-            >
-              Cancel
-            </button>
+          <button
+            onClick={handleSaveSchedule}
+            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded font-semibold mr-2"
+          >
+            Save
+          </button>
+          <button
+            onClick={() => setShowSaveDialog(false)}
+            className="px-4 py-2 bg-stone-600 hover:bg-stone-500 text-white rounded font-semibold"
+          >
+            Cancel
+          </button>
           </div>
         </div>
       )}
