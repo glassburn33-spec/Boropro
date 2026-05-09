@@ -403,7 +403,7 @@ export default function PDFLibrary() {
                   <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
                     PDF Schedule
                   </span>
-                  <div className="bg-black rounded-lg border border-white/10 flex items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
+                  <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
                     {selectedPDF.storageKey ? (
                       <iframe
                         src={`/manus-storage/${selectedPDF.storageKey}`}
