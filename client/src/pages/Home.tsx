@@ -1026,6 +1026,21 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
+              src="/manus-storage/neutralizingflame_88598926.webp" 
+              alt="Neutral flame showing torch nozzle with bright white-bluish inner core transitioning to darker blue flame envelope. Two distinct zones visible: the short bright white-bluish inner core and the darker, less intensely blue flame envelope surrounding it."
+              className="w-full max-w-3xl rounded-lg border border-stone-600"
+            />
+          </div>
+          
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+            <h4 className="text-blue-300 font-bold mb-2">Neutral Flame Image Description</h4>
+            <p className="text-stone-300 text-sm leading-relaxed">
+              Two distinct zones may be seen in the neutral flame. The inner core of the flame has a bright white-bluish light and extends only a short distance from the tip. Around this inner cone is the flame envelope which is darker and less intensely blue. This flame is metallurgically neutral, and is used for welding, heating and cutting of steel. There is also a transparent reducing zone in front of the white inner cone. It is difficult to distinguish but it is the main factor for welding steel without a fluxing agent.
+            </p>
+          </div>
+          
+          <div className="flex justify-center my-6">
+            <img 
               src="/manus-storage/oxydizingflame_e3c191a0.webp" 
               alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
