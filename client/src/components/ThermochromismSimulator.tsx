@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlertCircle, Thermometer } from 'lucide-react';
-import { ColorSpectrumBars } from '@/components/ColorSpectrumBars';
 
 export function ThermochromismSimulator() {
   const [temperature, setTemperature] = useState(600);
@@ -106,9 +105,6 @@ export function ThermochromismSimulator() {
           </div>
         </div>
       </Card>
-
-      {/* Color Spectrum Bars */}
-      <ColorSpectrumBars temperatureC={temperature} minTemp={20} maxTemp={1220} />
 
       {/* Scientific Explanation */}
       <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
