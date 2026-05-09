@@ -1,250 +1,127 @@
-import { useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-
-interface ChromophoreSpectrum {
-  name: string;
-  formula: string;
-  minTemp: number;
-  maxTemp: number;
-  colors: { temp: number; color: string; hex: string; description: string }[];
-}
-
-const chromophores: Record<string, ChromophoreSpectrum> = {
-  fe2_fe3: {
-    name: 'Iron (Fe2+/Fe3+)',
-    formula: 'Fe2+ <-> Fe3+',
-    minTemp: 20,
-    maxTemp: 1200,
-    colors: [
-      { temp: 20, color: 'Blue-Green', hex: '#0ea5e9', description: 'Fe2+ dominant (octahedral)' },
-      { temp: 300, color: 'Blue', hex: '#3b82f6', description: 'Fe2+ with slight oxidation' },
-      { temp: 600, color: 'Green', hex: '#10b981', description: 'Mixed Fe2+/Fe3+' },
-      { temp: 900, color: 'Yellow-Green', hex: '#84cc16', description: 'Fe3+ increasing' },
-      { temp: 1200, color: 'Amber', hex: '#f59e0b', description: 'Fe3+ dominant' },
-    ],
-  },
-  cobalt: {
-    name: 'Cobalt (Co2+)',
-    formula: 'Co2+',
-    minTemp: 20,
-    maxTemp: 1200,
-    colors: [
-      { temp: 20, color: 'Deep Blue', hex: '#1e40af', description: 'Octahedral coordination' },
-      { temp: 400, color: 'Bright Blue', hex: '#2563eb', description: 'Stable octahedral' },
-      { temp: 800, color: 'Purple-Blue', hex: '#7c3aed', description: 'Coordination shift' },
-      { temp: 1200, color: 'Purple', hex: '#a855f7', description: 'Tetrahedral coordination' },
-    ],
-  },
-  nickel: {
-    name: 'Nickel (Ni2+)',
-    formula: 'Ni2+',
-    minTemp: 20,
-    maxTemp: 1200,
-    colors: [
-      { temp: 20, color: 'Brown', hex: '#92400e', description: '[5]Ni (penta-coordinated)' },
-      { temp: 400, color: 'Brown-Yellow', hex: '#b45309', description: 'Stable brown' },
-      { temp: 700, color: 'Yellow-Green', hex: '#84cc16', description: 'Coordination transition' },
-      { temp: 1000, color: 'Green', hex: '#10b981', description: '[6]Ni (octahedral)' },
-      { temp: 1200, color: 'Light Green', hex: '#6ee7b7', description: 'Octahedral dominant' },
-    ],
-  },
-  chromium: {
-    name: 'Chromium (Cr3+)',
-    formula: 'Cr3+',
-    minTemp: 20,
-    maxTemp: 1200,
-    colors: [
-      { temp: 20, color: 'Green', hex: '#059669', description: 'Octahedral coordination' },
-      { temp: 400, color: 'Bright Green', hex: '#10b981', description: 'Stable octahedral' },
-      { temp: 800, color: 'Yellow-Green', hex: '#84cc16', description: 'Slight coordination shift' },
-      { temp: 1200, color: 'Yellow', hex: '#eab308', description: 'Distorted octahedral' },
-    ],
-  },
-  manganese: {
-    name: 'Manganese (Mn2+/Mn3+)',
-    formula: 'Mn2+ <-> Mn3+',
-    minTemp: 20,
-    maxTemp: 1200,
-    colors: [
-      { temp: 20, color: 'Pink', hex: '#ec4899', description: 'Mn2+ dominant' },
-      { temp: 400, color: 'Purple', hex: '#d946ef', description: 'Mixed Mn2+/Mn3+' },
-      { temp: 800, color: 'Brown', hex: '#92400e', description: 'Mn3+ increasing' },
-      { temp: 1200, color: 'Dark Brown', hex: '#78350f', description: 'Mn3+ dominant' },
-    ],
-  },
-};
+import { AlertCircle, Thermometer } from 'lucide-react';
 
 export function ThermochromismSimulator() {
-  const [selectedChromophore, setSelectedChromophore] = useState('fe2_fe3');
   const [temperature, setTemperature] = useState(600);
-  const [animating, setAnimating] = useState(false);
+  const [temperatureUnit, setTemperatureUnit] = useState<'C' | 'F'>('C');
 
-  const chromophore = chromophores[selectedChromophore];
-  const colorData = chromophore.colors;
-  
-  const getColorAtTemp = (temp: number) => {
-    for (let i = 0; i < colorData.length - 1; i++) {
-      const current = colorData[i];
-      const next = colorData[i + 1];
-      if (temp >= current.temp && temp <= next.temp) {
-        return {
-          color: current.color,
-          hex: current.hex,
-          description: current.description,
-        };
-      }
-    }
-    return {
-      color: colorData[colorData.length - 1].color,
-      hex: colorData[colorData.length - 1].hex,
-      description: colorData[colorData.length - 1].description,
-    };
-  };
-
-  const currentColor = getColorAtTemp(temperature);
-
-  const handleAnimate = () => {
-    setAnimating(true);
-    let currentTemp = chromophore.minTemp;
-    const interval = setInterval(() => {
-      currentTemp += 20;
-      if (currentTemp > chromophore.maxTemp) {
-        clearInterval(interval);
-        setAnimating(false);
-        setTemperature(chromophore.minTemp);
-      } else {
-        setTemperature(currentTemp);
-      }
-    }, 100);
-  };
+  const displayTemp = temperatureUnit === 'F' ? Math.round((temperature * 9/5) + 32) : temperature;
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="border-l-4 border-amber-500 pl-6">
         <h2 className="text-3xl font-bold text-amber-400 mb-2">Interactive Thermochromism Simulator</h2>
-        <p className="text-stone-300 text-sm">Explore how temperature changes affect metal ion coordination and glass color</p>
+        <p className="text-stone-300 text-sm">Explore how temperature affects glass color through chromophore behavior</p>
       </div>
 
-      <Card className="bg-stone-800/50 backdrop-blur rounded-lg p-8 border border-stone-700/50">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-stone-300">Color Display</h3>
-              <div
-                className="w-full h-48 rounded-lg border-2 border-stone-600 shadow-lg transition-colors duration-500"
-                style={{
-                  backgroundColor: currentColor.hex,
-                  boxShadow: `0 0 30px ${currentColor.hex}40`,
-                }}
-              />
-              <div className="bg-stone-900/60 rounded p-4 space-y-2">
-                <p className="text-stone-400 text-sm">Current Color</p>
-                <p className="text-2xl font-bold text-stone-100">{currentColor.color}</p>
-                <p className="text-xs text-stone-400">{currentColor.description}</p>
-                <p className="text-xs text-stone-500 font-mono">{currentColor.hex}</p>
+      {/* Main Simulator Card */}
+      <Card className="bg-stone-800/50 border border-stone-700/50 p-8">
+        <div className="space-y-6">
+          {/* Temperature Control */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold text-stone-200 flex items-center gap-2">
+                <Thermometer className="w-4 h-4 text-amber-400" />
+                Temperature Control
+              </label>
+              <div className="flex gap-2">
+                <Button
+                  variant={temperatureUnit === 'C' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setTemperatureUnit('C')}
+                  className="w-12"
+                >
+                  °C
+                </Button>
+                <Button
+                  variant={temperatureUnit === 'F' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setTemperatureUnit('F')}
+                  className="w-12"
+                >
+                  °F
+                </Button>
               </div>
+            </div>
+
+            {/* Temperature Display */}
+            <div className="bg-stone-900/50 rounded-lg p-4 text-center">
+              <p className="text-5xl font-bold text-amber-400">{displayTemp}°</p>
+              <p className="text-sm text-stone-400 mt-2">
+                {temperatureUnit === 'C' ? 'Celsius' : 'Fahrenheit'}
+              </p>
+            </div>
+
+            {/* Slider */}
+            <input
+              type="range"
+              min="20"
+              max="1220"
+              value={temperature}
+              onChange={(e) => setTemperature(Number(e.target.value))}
+              className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer"
+            />
+
+            {/* Temperature Range Labels */}
+            <div className="flex justify-between text-xs text-stone-500">
+              <span>20°C (Room Temp)</span>
+              <span>1220°C (Max Working)</span>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-stone-300">Select Chromophore</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {Object.entries(chromophores).map(([key, chrom]) => (
-                  <Button
-                    key={key}
-                    onClick={() => setSelectedChromophore(key)}
-                    className={`text-xs py-2 ${
-                      selectedChromophore === key
-                        ? 'bg-amber-600 hover:bg-amber-500 text-white'
-                        : 'bg-stone-700 hover:bg-stone-600 text-stone-300'
-                    }`}
-                  >
-                    {chrom.name}
-                  </Button>
-                ))}
-              </div>
+          {/* Temperature Zone Indicators */}
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="bg-blue-900/30 rounded p-4 border border-blue-700/50">
+              <p className="text-xs text-blue-300 font-semibold">COOL</p>
+              <p className="text-xs text-blue-200 mt-1">20-300°C</p>
             </div>
-
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-stone-300">Temperature Control</h3>
-              <div className="bg-stone-900/60 rounded p-4 space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-stone-400 text-sm">Temperature</span>
-                  <span className="text-2xl font-bold text-amber-400">{temperature}°C</span>
-                </div>
-                <Slider
-                  value={[temperature]}
-                  onValueChange={(value) => setTemperature(value[0])}
-                  min={chromophore.minTemp}
-                  max={chromophore.maxTemp}
-                  step={10}
-                  disabled={animating}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-xs text-stone-500">
-                  <span>{chromophore.minTemp}°C</span>
-                  <span>{chromophore.maxTemp}°C</span>
-                </div>
-              </div>
+            <div className="bg-amber-900/30 rounded p-4 border border-amber-700/50">
+              <p className="text-xs text-amber-300 font-semibold">WORKING</p>
+              <p className="text-xs text-amber-200 mt-1">1149-1220°C</p>
             </div>
-
-            <Button
-              onClick={handleAnimate}
-              disabled={animating}
-              className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-3"
-            >
-              {animating ? '⏳ Heating...' : '🔥 Animate Heating'}
-            </Button>
+            <div className="bg-red-900/30 rounded p-4 border border-red-700/50">
+              <p className="text-xs text-red-300 font-semibold">ANNEALING</p>
+              <p className="text-xs text-red-200 mt-1">566-700°C</p>
+            </div>
           </div>
         </div>
       </Card>
 
-      <Card className="bg-stone-800/30 border border-stone-700/50 p-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-amber-400">About {chromophore.name}</h3>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="bg-stone-900/40 rounded p-3">
-              <p className="text-stone-400 text-xs">Chemical Formula</p>
-              <p className="text-stone-200 font-mono font-bold">{chromophore.formula}</p>
-            </div>
-            <div className="bg-stone-900/40 rounded p-3">
-              <p className="text-stone-400 text-xs">Temperature Range</p>
-              <p className="text-stone-200 font-bold">{chromophore.minTemp}–{chromophore.maxTemp}°C</p>
-            </div>
-          </div>
-          <div className="bg-stone-900/40 rounded p-4 text-sm text-stone-300 space-y-2">
-            <p className="font-semibold text-amber-400">How It Works:</p>
-            <p>
-              As temperature increases, thermal energy causes the metal ion's coordination geometry to shift. This changes the crystal field splitting energy, which alters the wavelengths of light absorbed by the ion. The result is a visible color change that reflects underlying changes in atomic structure.
-            </p>
-            <p className="text-xs text-stone-400 mt-2">
-              This phenomenon is called thermochromism and is essential for understanding glass color stability during kiln firing and annealing.
-            </p>
-          </div>
-        </div>
-      </Card>
-
+      {/* Information Card */}
       <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
-        <h3 className="text-lg font-semibold text-amber-400 mb-4">Color Progression with Temperature</h3>
-        <div className="space-y-3">
-          {colorData.map((data, idx) => (
-            <div key={idx} className="flex items-center gap-4">
-              <div className="w-20 text-right">
-                <p className="text-sm font-bold text-stone-300">{data.temp}°C</p>
-              </div>
-              <div
-                className="h-12 rounded flex-1 border border-stone-600 shadow-md"
-                style={{ backgroundColor: data.hex }}
-              />
-              <div className="w-32">
-                <p className="text-sm font-semibold text-stone-200">{data.color}</p>
-                <p className="text-xs text-stone-400">{data.description}</p>
-              </div>
-            </div>
-          ))}
+        <div className="flex gap-4">
+          <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
+          <div className="space-y-2 text-sm text-stone-300">
+            <p>
+              <span className="font-semibold text-amber-400">Thermochromism</span> is the reversible change in color with temperature. In borosilicate glass, metal ion chromophores shift their electronic structure as thermal energy increases, altering the wavelengths of light they absorb.
+            </p>
+            <p>
+              Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      {/* Scientific Explanation */}
+      <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
+        <h3 className="text-lg font-semibold text-amber-400 mb-4">How Thermochromism Works</h3>
+        <div className="bg-stone-900/40 rounded p-4 text-sm text-stone-300 space-y-3">
+          <p>
+            <span className="font-semibold text-amber-400">Thermal Energy & Coordination:</span> As temperature increases, thermal energy causes metal ions' coordination geometry to shift. This changes the crystal field splitting energy, which alters the wavelengths of light absorbed by the ion.
+          </p>
+          <p>
+            <span className="font-semibold text-amber-400">Visible Color Change:</span> The result is a visible color change that reflects underlying changes in atomic structure. For example, Fe²⁺ in octahedral coordination appears blue-green, while Fe³⁺ appears amber.
+          </p>
+          <p>
+            <span className="font-semibold text-amber-400">Practical Significance:</span> Understanding thermochromism is essential for predicting glass color stability during kiln firing and annealing. Different chromophores respond differently to temperature changes, affecting final glass appearance.
+          </p>
+          <p className="text-xs text-stone-400 border-t border-stone-700 pt-3 mt-3">
+            All temperature data and annealing schedules based on 33 COE borosilicate specifications from Northstar Glassworks, Gaffer Glass, Trautman Art Glass, and Glass Alchemy.
+          </p>
         </div>
       </Card>
     </div>
