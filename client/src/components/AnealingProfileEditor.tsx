@@ -10,8 +10,8 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
-import { generateKilnLogPDF, pdfToBase64 } from '@/lib/pdfUtils';
-import type { KilnLogPDFData } from '@/lib/pdfUtils';
+import { generateKilnLogPDF, pdfToBase64, generateAnealingSchedulePDF } from '@/lib/pdfUtils';
+import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
 
 interface StageInputs {
   stage1: {
@@ -699,35 +699,81 @@ export default function AnealingProfileEditor() {
       const temperatures: number[] = [];
       const times: number[] = [];
       
-      // Extract temperatures and times from the schedule stages
       temperatures.push(schedule.data.stage1.startTemp);
       times.push(0);
-      
       temperatures.push(schedule.data.stage1.targetTemp);
       times.push(schedule.data.stage1.duration);
-      
       temperatures.push(schedule.data.stage2.holdTemp);
       times.push(schedule.data.stage1.duration + schedule.data.stage2.duration);
-      
       temperatures.push(schedule.data.stage3.endTemp);
       times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration);
-      
       temperatures.push(schedule.data.stage4.endTemp);
       times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration);
       
-      // Create PDF data from schedule
-      const pdfData: KilnLogPDFData = {
+      // Generate and capture plot SVG (same as Export PDF button)
+      let plotImage: string | undefined;
+      try {
+        const tempSvgContainer = document.createElement('div');
+        tempSvgContainer.style.position = 'absolute';
+        tempSvgContainer.style.left = '-9999px';
+        tempSvgContainer.style.top = '-9999px';
+        tempSvgContainer.style.width = '800px';
+        tempSvgContainer.style.height = '500px';
+        document.body.appendChild(tempSvgContainer);
+        
+        const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines);
+        tempSvgContainer.appendChild(svgElement);
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          canvas.width = 1600;
+          canvas.height = 960;
+          ctx.fillStyle = '#1c1917';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          const svgString = new XMLSerializer().serializeToString(svgElement);
+          const svg = new Blob([svgString], { type: 'image/svg+xml' });
+          const url = URL.createObjectURL(svg);
+          const img = new Image();
+          
+          await new Promise<void>((resolve) => {
+            img.onload = () => {
+              ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+              URL.revokeObjectURL(url);
+              plotImage = canvas.toDataURL('image/png', 0.95);
+              resolve();
+            };
+            img.onerror = () => {
+              console.error('Failed to load SVG image');
+              URL.revokeObjectURL(url);
+              resolve();
+            };
+            img.src = url;
+          });
+        }
+        document.body.removeChild(tempSvgContainer);
+      } catch (error) {
+        console.error('Error capturing plot:', error);
+      }
+      
+      // Create PDF data using same format as Export PDF button
+      const pdfData: AnealingSchedulePDFData = {
         name: schedule.name,
-        description: '',
-        startTime: new Date(),
-        endTime: new Date(),
-        temperatures: temperatures,
-        times: times,
+        timestamp: schedule.timestamp,
+        stage1: schedule.data.stage1,
+        stage2: schedule.data.stage2,
+        stage3: schedule.data.stage3,
+        stage4: schedule.data.stage4,
+        annealingPoint: referenceLines.annealingPoint,
+        strainPoint: referenceLines.strainPoint,
         notes: schedule.notes || '',
+        results: schedule.results || '',
+        plotImage: plotImage,
       };
       
-      // Generate PDF
-      const pdf = generateKilnLogPDF(pdfData);
+      // Generate PDF using same format as Export PDF button
+      const pdf = generateAnealingSchedulePDF(pdfData);
       const base64 = await pdfToBase64(pdf);
       
       // Save to library

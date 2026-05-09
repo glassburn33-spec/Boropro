@@ -74,3 +74,10 @@
 - [x] Remove temperature profile chart from Schedule Details
 - [x] Integrate PDF viewer into Schedule Details section
 - [x] Test PDF viewer with saved PDFs from PDF Library
+
+
+## Ensure Save to PDF Library Matches Export PDF Format (New)
+- [x] Compare PDF generation in handleSaveScheduleToPDFLibrary vs Export PDF button
+- [x] Ensure both use identical formatting and layout
+- [x] Verify temperature data is extracted correctly from both PDFs
+- [x] Test that PDFs display identically in PDF Library viewer

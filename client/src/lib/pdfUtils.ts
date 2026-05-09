@@ -396,6 +396,169 @@ export function generateKilnLogPDF(data: KilnLogPDFData): jsPDF {
 }
 
 /**
+ * Generate a custom PDF from annealing schedule data (matching Export PDF format)
+ * This is used by both Export PDF button and Save to PDF Library button
+ */
+export interface AnealingSchedulePDFData {
+  name: string;
+  timestamp: string;
+  stage1: { startTemp: number; targetTemp: number; duration: number };
+  stage2: { holdTemp: number; duration: number };
+  stage3: { startTemp: number; endTemp: number; duration: number };
+  stage4: { startTemp: number; endTemp: number; duration: number };
+  annealingPoint: number;
+  strainPoint: number;
+  notes?: string;
+  results?: string;
+  plotImage?: string; // Base64 encoded PNG image
+}
+
+export function generateAnealingSchedulePDF(data: AnealingSchedulePDFData): jsPDF {
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  let yPosition = 10;
+
+  // Add black background to entire page
+  pdf.setFillColor(0, 0, 0);
+  pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+
+  // Set text color to yellow for all text
+  pdf.setTextColor(255, 187, 36);
+
+  // Add title
+  pdf.setFontSize(16);
+  (pdf as any).setFont(undefined, 'bold');
+  pdf.text(data.name, pageWidth / 2, yPosition, { align: 'center' });
+  yPosition += 10;
+
+  // Add timestamp
+  pdf.setFontSize(10);
+  (pdf as any).setFont(undefined, 'normal');
+  pdf.text(`Saved: ${data.timestamp}`, pageWidth / 2, yPosition, { align: 'center' });
+  yPosition += 8;
+
+  // Add separator line in yellow
+  pdf.setDrawColor(255, 187, 36);
+  pdf.line(10, yPosition, pageWidth - 10, yPosition);
+  yPosition += 5;
+
+  // Add plot image if provided
+  if (data.plotImage) {
+    try {
+      const imgWidth = pageWidth - 20;
+      const imgHeight = 100; // Fixed height for plot
+
+      // Add plot image to PDF
+      if (yPosition + imgHeight > pageHeight - 20) {
+        pdf.addPage();
+        // Add black background to new page
+        pdf.setFillColor(0, 0, 0);
+        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+        yPosition = 10;
+      }
+      pdf.addImage(data.plotImage, 'PNG', 10, yPosition, imgWidth, imgHeight);
+      yPosition += imgHeight + 8;
+    } catch (error) {
+      console.error('Error adding plot image:', error);
+      // Continue without plot if image fails
+    }
+  }
+
+  // Add separator before profile data
+  if (yPosition + 30 > pageHeight - 10) {
+    pdf.addPage();
+    // Add black background to new page
+    pdf.setFillColor(0, 0, 0);
+    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+    yPosition = 10;
+  }
+  pdf.setDrawColor(255, 187, 36);
+  pdf.line(10, yPosition, pageWidth - 10, yPosition);
+  yPosition += 5;
+
+  // Add profile data
+  pdf.setTextColor(255, 187, 36);
+  pdf.setFontSize(12);
+  (pdf as any).setFont(undefined, 'bold');
+  pdf.text('Profile Configuration:', 10, yPosition);
+  yPosition += 6;
+
+  pdf.setFontSize(10);
+  (pdf as any).setFont(undefined, 'normal');
+  const profileData = [
+    `Stage 1: ${data.stage1.startTemp}°C → ${data.stage1.targetTemp}°C (${data.stage1.duration} min)`,
+    `Stage 2: Hold ${data.stage2.holdTemp}°C (${data.stage2.duration} min)`,
+    `Stage 3: ${data.stage3.startTemp}°C → ${data.stage3.endTemp}°C (${data.stage3.duration} min)`,
+    `Stage 4: ${data.stage4.startTemp}°C → ${data.stage4.endTemp}°C (${data.stage4.duration} min)`,
+    `Annealing Point: ${data.annealingPoint}°C`,
+    `Strain Point: ${data.strainPoint}°C`,
+  ];
+  profileData.forEach(line => {
+    pdf.text(line, 10, yPosition);
+    yPosition += 5;
+  });
+  yPosition += 3;
+
+  // Add materials & notes
+  if (data.notes) {
+    if (yPosition + 30 > pageHeight - 10) {
+      pdf.addPage();
+      // Add black background to new page
+      pdf.setFillColor(0, 0, 0);
+      pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+      yPosition = 10;
+    }
+
+    pdf.setTextColor(255, 187, 36);
+    pdf.setFontSize(12);
+    (pdf as any).setFont(undefined, 'bold');
+    pdf.text('Materials & Notes:', 10, yPosition);
+    yPosition += 6;
+
+    pdf.setFontSize(10);
+    (pdf as any).setFont(undefined, 'normal');
+    const notesLines = (pdf as any).splitTextToSize(data.notes, pageWidth - 20);
+    (pdf as any).text(notesLines, 10, yPosition);
+    yPosition += notesLines.length * 5 + 5;
+  }
+
+  // Add results
+  if (data.results) {
+    if (yPosition + 30 > pageHeight - 10) {
+      pdf.addPage();
+      // Add black background to new page
+      pdf.setFillColor(0, 0, 0);
+      pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+      yPosition = 10;
+    }
+
+    pdf.setTextColor(255, 187, 36);
+    pdf.setFontSize(12);
+    (pdf as any).setFont(undefined, 'bold');
+    pdf.text('Results & Observations:', 10, yPosition);
+    yPosition += 6;
+
+    pdf.setFontSize(10);
+    (pdf as any).setFont(undefined, 'normal');
+    const resultsLines = (pdf as any).splitTextToSize(data.results, pageWidth - 20);
+    (pdf as any).text(resultsLines, 10, yPosition);
+  }
+
+  // Footer
+  pdf.setFontSize(8);
+  pdf.setTextColor(150, 150, 150);
+  pdf.text(
+    "Generated by BoroPro - Borosilicate Kiln Research Platform",
+    pageWidth / 2,
+    pageHeight - 10,
+    { align: "center" }
+  );
+
+  return pdf;
+}
+
+/**
  * Convert jsPDF to base64 string for transmission
  */
 export function pdfToBase64(doc: jsPDF): string {
