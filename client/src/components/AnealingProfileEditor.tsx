@@ -291,6 +291,16 @@ export default function AnealingProfileEditor() {
           </g>
         ))}
 
+        {/* X-axis time markers */}
+        {cumulativeTimes.map((time, idx) => (
+          <g key={`time-marker-${idx}`}>
+            <line x1={margin.left + scaleX(time)} y1={margin.top + plotHeight} x2={margin.left + scaleX(time)} y2={margin.top + plotHeight + 5} stroke="#999" strokeWidth="1" />
+            <text x={margin.left + scaleX(time)} y={margin.top + plotHeight + 20} textAnchor="middle" fill="#999" fontSize={tickFontSize}>
+              {time}
+            </text>
+          </g>
+        ))}
+
         {/* Legend */}
         <g>
           {stageNames.map((name, idx) => {
