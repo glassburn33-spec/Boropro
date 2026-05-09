@@ -136,7 +136,7 @@ export default function FiringTracker() {
           </a>
           <nav className="hidden md:flex items-center gap-8">
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Flame Simulator
+              Flame Char
             </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Picker
