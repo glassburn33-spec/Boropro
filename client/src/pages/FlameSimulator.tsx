@@ -156,7 +156,7 @@ export default function FlameChemistryCharacterization() {
           </a>
           <nav className="hidden md:flex items-center gap-8">
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
-              Flame Simulator
+              Flame Chemistry Characterization
             </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Picker
@@ -164,8 +164,8 @@ export default function FlameChemistryCharacterization() {
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Firing Tracker
             </a>
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
-              Flame Chemistry Characterization
+            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              PDF Library
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
