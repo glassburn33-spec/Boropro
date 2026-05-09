@@ -1,5 +1,5 @@
 /*
-Flame Simulator Page - Interactive visualization of neutral, oxidizing, and reducing flames
+Flame Chemistry Characterization Page - Interactive visualization of neutral, oxidizing, and reducing flames
 and their effects on borosilicate colors. Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
@@ -139,7 +139,7 @@ const flameDescriptions = {
   },
 };
 
-export default function FlameSimulator() {
+export default function FlameChemistryCharacterization() {
   const [selectedColor, setSelectedColor] = useState("Cobalt blues");
 
   const selectedEffects = useMemo(() => {
@@ -164,8 +164,8 @@ export default function FlameSimulator() {
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Firing Tracker
             </a>
-            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              PDF Library
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
+              Flame Chemistry Characterization
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
@@ -182,8 +182,8 @@ export default function FlameSimulator() {
               <Flame size={16} className="text-amber-500" />
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Interactive tool</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
-              Flame Chemistry Simulator
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
+              Flame Chemistry Characterization
             </h1>
             <p className="text-lg leading-8 text-stone-300 max-w-3xl">
               Explore how neutral, oxidizing, and reducing flames affect borosilicate colors. Select a color family to see real-time effects on metal behavior, appearance, and risk factors.

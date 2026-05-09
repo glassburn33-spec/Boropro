@@ -6,7 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import LogoHome from "./pages/LogoHome";
 import Home from "./pages/Home";
-import FlameSimulator from "./pages/FlameSimulator";
+import FlameChemistryCharacterization from "./pages/FlameSimulator";
 import ColorPicker from "./pages/ColorPicker";
 import FiringTracker from "./pages/FiringTracker";
 import PDFLibrary from "./pages/PDFLibrary";
@@ -18,7 +18,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={LogoHome} />
       <Route path={"/explore"} component={Home} />
-      <Route path={"/flame-simulator"} component={FlameSimulator} />
+      <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
       <Route path={"/color-picker"} component={ColorPicker} />
       <Route path={"/firing-tracker"} component={FiringTracker} />
       <Route path={"/pdf-library"} component={PDFLibrary} />
