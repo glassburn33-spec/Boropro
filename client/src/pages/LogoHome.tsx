@@ -9,7 +9,19 @@ import { useLocation } from "wouter";
 
 export default function LogoHome() {
   const [showDrawer, setShowDrawer] = useState(false);
+  const [headerImage, setHeaderImage] = useState<string>("");
   const [, setLocation] = useLocation();
+
+  const handleHeaderImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setHeaderImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleTabChange = (tab: string) => {
     // Navigate to explore page when a tab is clicked
@@ -73,9 +85,29 @@ export default function LogoHome() {
           {/* Logo on left */}
           <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
           
-          {/* Empty space on right to match Home layout */}
+          {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
-            <span className="text-stone-400 text-sm">Header Area</span>
+            {headerImage ? (
+              <img src={headerImage} alt="Header" className="w-full h-full object-cover" />
+            ) : (
+              <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
+                <span className="text-stone-400 text-sm">Click to add header image</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleHeaderImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
+            {headerImage && (
+              <button
+                onClick={() => setHeaderImage("")}
+                className="absolute top-2 right-2 bg-stone-900/80 hover:bg-stone-900 text-stone-300 px-2 py-1 text-xs rounded"
+              >
+                Remove
+              </button>
+            )}
           </div>
         </div>
       </header>
