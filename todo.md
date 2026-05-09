@@ -47,9 +47,3 @@
 
 ## Remove Empty Saved Schedules Section (New)
 - [x] Remove the empty saved schedules list section from AnealingProfileEditor
-
-## Restore Saved Schedules with Independent Save Buttons (New)
-- [x] Restore the Saved Schedules section in AnealingProfileEditor
-- [x] Add independent Save to PDF Library button for each schedule in the list
-- [x] Ensure each button saves only its associated schedule
-- [x] Verify all tests pass
