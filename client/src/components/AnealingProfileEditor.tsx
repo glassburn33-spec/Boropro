@@ -268,10 +268,10 @@ export default function AnealingProfileEditor() {
           const strainY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(referenceLines.strainPoint) + 4, height - 10));
           return (
             <>
-              <text x={labelX} y={annealingY} fill="#60a5fa" fontSize={Math.max(8, labelFontSize - 1)}>
+              <text x={labelX} y={annealingY} fill="#fbbf24" fontSize={Math.max(8, labelFontSize - 1)}>
                 Annealing point
               </text>
-              <text x={labelX} y={strainY} fill="#60a5fa" fontSize={Math.max(8, labelFontSize - 1)}>
+              <text x={labelX} y={strainY} fill="#fbbf24" fontSize={Math.max(8, labelFontSize - 1)}>
                 Strain point
               </text>
             </>
