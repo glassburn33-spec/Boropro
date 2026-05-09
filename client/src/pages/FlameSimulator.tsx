@@ -155,8 +155,8 @@ export default function FlameChemistryCharacterization() {
             <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
-              Flame Chemistry Characterization
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Flame Simulator
             </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Picker
@@ -167,7 +167,7 @@ export default function FlameChemistryCharacterization() {
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               PDF Library
             </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/references" className="text-xs uppercase tracking-wider text-amber-500">
               References
             </a>
           </nav>
