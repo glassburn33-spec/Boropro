@@ -6,6 +6,8 @@ with 4-stage temperature curve visualization and schedule logging
 
 import { useState, useMemo } from 'react';
 import { AlertCircle, Download, Save } from 'lucide-react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface StageInputs {
   stage1: {
@@ -549,14 +551,94 @@ export default function AnealingProfileEditor() {
           Save Schedule
         </button>
         <button
-          onClick={() => {
+          onClick={async () => {
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            let yPosition = 10;
+
+            // Add title
+            pdf.setFontSize(16);
+            (pdf as any).setFont(undefined, 'bold');
+            pdf.text(title, pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 10;
+
+            // Add timestamp
+            pdf.setFontSize(10);
+            (pdf as any).setFont(undefined, 'normal');
+            const timestamp = new Date().toLocaleString();
+            pdf.text(`Generated: ${timestamp}`, pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 8;
+
+            // Add separator line
+            pdf.setDrawColor(180, 140, 80);
+            pdf.line(10, yPosition, pageWidth - 10, yPosition);
+            yPosition += 5;
+
+            // Add plot
             const svg = document.querySelector('svg');
             if (svg) {
-              const link = document.createElement('a');
-              link.href = 'data:image/svg+xml;base64,' + btoa(svg.outerHTML);
-              link.download = `${title.replace(/\s+/g, '_')}.svg`;
-              link.click();
+              try {
+                const canvas = await html2canvas(svg as unknown as HTMLElement, {
+                  backgroundColor: '#1c1410',
+                  scale: 2,
+                });
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = pageWidth - 20;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                if (yPosition + imgHeight > pageHeight - 20) {
+                  pdf.addPage();
+                  yPosition = 10;
+                }
+                
+                pdf.addImage(imgData, 'PNG', 10, yPosition, imgWidth, imgHeight);
+                yPosition += imgHeight + 8;
+              } catch (error) {
+                console.error('Error converting plot to image:', error);
+              }
             }
+
+            // Add materials & notes
+            if (notes) {
+              if (yPosition + 30 > pageHeight - 10) {
+                pdf.addPage();
+                yPosition = 10;
+              }
+              
+              pdf.setFontSize(12);
+              (pdf as any).setFont(undefined, 'bold');
+              pdf.text('Materials & Notes:', 10, yPosition);
+              yPosition += 6;
+              
+              pdf.setFontSize(10);
+              (pdf as any).setFont(undefined, 'normal');
+              const notesLines = (pdf as any).splitTextToSize(notes, pageWidth - 20);
+              (pdf as any).text(notesLines, 10, yPosition);
+              yPosition += notesLines.length * 5 + 5;
+            }
+
+            // Add results
+            const schedule = savedSchedules.find(s => s.data === inputs);
+            if (schedule && schedule.results) {
+              if (yPosition + 30 > pageHeight - 10) {
+                pdf.addPage();
+                yPosition = 10;
+              }
+              
+              pdf.setFontSize(12);
+              (pdf as any).setFont(undefined, 'bold');
+              pdf.text('Results & Observations:', 10, yPosition);
+              yPosition += 6;
+              
+              pdf.setFontSize(10);
+              (pdf as any).setFont(undefined, 'normal');
+              const resultsLines = (pdf as any).splitTextToSize(schedule.results, pageWidth - 20);
+              (pdf as any).text(resultsLines, 10, yPosition);
+            }
+
+            // Save PDF
+            pdf.save(`${title.replace(/\s+/g, '_')}.pdf`);
           }}
           className="flex items-center gap-2 px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
         >
