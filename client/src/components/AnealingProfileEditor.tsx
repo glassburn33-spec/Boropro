@@ -783,7 +783,7 @@ export default function AnealingProfileEditor() {
       
       // Save to library
       await saveGeneratedMutation.mutateAsync({
-        filename: `${schedule.name}_kiln_log.pdf`,
+        filename: `${schedule.name}_klog.pdf`,
         fileBase64: base64,
         temperatures: temperatures,
         times: times,

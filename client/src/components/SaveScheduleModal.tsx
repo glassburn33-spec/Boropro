@@ -55,7 +55,7 @@ export function SaveScheduleModal({
       const url = URL.createObjectURL(pdfBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `${kilnLog.name}_kiln_log.pdf`;
+      link.download = `${kilnLog.name}_klog.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -84,7 +84,7 @@ export function SaveScheduleModal({
 
       const doc = generateKilnLogPDF(pdfData);
       const base64 = pdfToBase64(doc);
-      const filename = `${kilnLog.name}_kiln_log.pdf`;
+      const filename = `${kilnLog.name}_klog.pdf`;
 
       // Call the parent handler to save to library
       await onAddToLibrary(base64, filename);

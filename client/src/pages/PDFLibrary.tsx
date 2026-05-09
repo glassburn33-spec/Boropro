@@ -391,7 +391,7 @@ export default function PDFLibrary() {
                     <h3 className="text-2xl font-bold text-white">KILN LOG RECORD</h3>
                   </div>
                   <div className="text-center mb-2">
-                    <p className="text-lg font-bold text-white">{selectedPDF.filename.replace('_kiln_log.pdf', '')}</p>
+                    <p className="text-lg font-bold text-white">{selectedPDF.filename.replace('_klog.pdf', '')}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-stone-400">Generated: {new Date().toLocaleString()}</p>

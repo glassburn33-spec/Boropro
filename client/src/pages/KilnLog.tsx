@@ -211,7 +211,7 @@ export default function KilnLog() {
 
       // Save to PDF library via backend
       await saveGeneratedMutation.mutateAsync({
-        filename: `${selectedLog.name}_kiln_log.pdf`,
+        filename: `${selectedLog.name}_klog.pdf`,
         fileBase64: base64,
         temperatures: selectedLog.temperatures,
         times: selectedLog.times,
