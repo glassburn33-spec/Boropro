@@ -21,7 +21,7 @@ export default function FiringTracker() {
               Flame Char
             </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Color Data
+              Color Database
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
               Kiln Log
@@ -30,7 +30,7 @@ export default function FiringTracker() {
               Reheat Calc
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Log
+              Log Library
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References

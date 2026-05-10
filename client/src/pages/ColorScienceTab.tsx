@@ -525,6 +525,14 @@ export default function ColorScienceTab() {
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
+        <p className="text-lg text-stone-300 mb-6">
+          Understanding how metal ions create color in borosilicate glass through coordination chemistry and optical absorption
+        </p>
+        <div className="bg-stone-800/30 rounded-lg p-4 border border-stone-700/30">
+          <p className="text-sm text-stone-400 italic">
+            Click on any section below to expand and explore detailed information about glass coloration, thermochromism, phase separation, and historical color analysis.
+          </p>
+        </div>
       </div>
 
       {/* Accordion Sections */}
