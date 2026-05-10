@@ -315,10 +315,17 @@ export default function PDFLibrary() {
                 {selectMode && (
                   <>
                     <button
-                      onClick={() => setSelectedForDeletion(displayLibrary.map(pdf => pdf.id))}
+                      onClick={() => {
+                        const allSelected = selectedForDeletion.length === displayLibrary.length;
+                        if (allSelected) {
+                          setSelectedForDeletion([]);
+                        } else {
+                          setSelectedForDeletion(displayLibrary.map(pdf => pdf.id));
+                        }
+                      }}
                       className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
                     >
-                      Select All
+                      {selectedForDeletion.length === displayLibrary.length ? 'Deselect All' : 'Select All'}
                     </button>
                     <button
                       onClick={() => {
