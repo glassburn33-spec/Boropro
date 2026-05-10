@@ -325,6 +325,15 @@ function StudioTab() {
                     </div>
                   </div>
 
+                  {/* Crystal vs Glass Structure Image */}
+                  <div className="flex justify-center my-6">
+                    <img
+                      src="/manus-storage/Gemini_Generated_Image_flf1zvflf1zvflf1_43e3e225.png"
+                      alt="Crystal vs Glass Structure: Ordered crystal lattice vs disordered glass structure"
+                      className="w-full max-w-2xl h-auto rounded-lg border border-stone-600"
+                    />
+                  </div>
+
                   {/* SUBSECTION 2 */}
                   <div className="pt-4 border-t border-stone-700">
                     <h3 className="text-amber-400 font-bold text-base mb-2">
