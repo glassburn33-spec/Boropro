@@ -5,6 +5,7 @@ Dark theme for studio environment, large touch targets for gloved hands
 */
 
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "wouter";
 import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
@@ -34,13 +35,22 @@ export default function Home() {
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
   let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as TabType | null;
 
-  const [activeTab, setActiveTab] = useState<TabType>("studio");
+  const [activeTab, setActiveTab] = useState<TabType>(tabParam || "studio");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
 
   const [showDrawer, setShowDrawer] = useState(false);
+
+  // Update active tab when URL parameter changes
+  useEffect(() => {
+    if (tabParam && (tabParam === "studio" || tabParam === "scieequip" || tabParam === "calculator" || tabParam === "colorscience")) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
 
   const handleTabChange = (tab: TabType) => {
     try {
