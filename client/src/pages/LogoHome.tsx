@@ -4,11 +4,9 @@
  */
 
 import { useState } from "react";
-import { Menu } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function LogoHome() {
-  const [showDrawer, setShowDrawer] = useState(false);
   const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
   const [, setLocation] = useLocation();
 
@@ -31,32 +29,8 @@ export default function LogoHome() {
     <div className="space-y-6 overflow-hidden bg-stone-950 text-stone-100" style={{ height: '100vh' }}>
       {/* FIXED HEADER */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
-        {/* ROW 1: Hamburger Menu and Logo */}
+        {/* ROW 1: Logo */}
         <div className="flex items-center h-28 px-4 gap-2 relative">
-          {/* Hamburger Menu Button with Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setShowDrawer(!showDrawer)}
-              className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
-              aria-label="Toggle navigation menu"
-            >
-              <Menu className="w-6 h-6 text-stone-300" />
-            </button>
-            
-            {/* Dropdown Menu */}
-            {showDrawer && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
-                <a
-                  href="/tools"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Tools
-                </a>
-              </div>
-            )}
-          </div>
-          
           {/* Logo */}
           <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
           
@@ -115,13 +89,7 @@ export default function LogoHome() {
         </div>
       </header>
       
-      {/* Close dropdown when clicking outside */}
-      {showDrawer && (
-        <div
-          className="fixed inset-0 z-20"
-          onClick={() => setShowDrawer(false)}
-        />
-      )}
+
 
       {/* MAIN CONTENT - Centered Logo */}
       <main className="fixed inset-0 top-[120px] flex items-center justify-center px-4 overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
