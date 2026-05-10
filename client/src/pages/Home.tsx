@@ -143,12 +143,6 @@ export default function Home() {
                   Scie-Equip
                 </button>
                 <button
-                  onClick={() => { handleTabChange("calculator"); setShowDrawer(false); }}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
-                >
-                  Calculator
-                </button>
-                <button
                   onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
                   className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
