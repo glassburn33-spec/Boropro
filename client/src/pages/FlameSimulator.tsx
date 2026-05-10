@@ -156,23 +156,23 @@ export default function FlameChemistryCharacterization() {
             <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
-              Flame Char
-            </a>
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Database
+            </a>
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-amber-500">
+              Flame Char
             </a>
             <a href="/calculator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Reheat Calc
             </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-amber-500">
-              References
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Kiln Log
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log Library
             </a>
-            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Kiln Log
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
             </a>
           </nav>
         </div>
