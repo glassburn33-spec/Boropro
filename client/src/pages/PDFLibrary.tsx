@@ -8,8 +8,6 @@ import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { CSVViewer } from "@/components/CSVViewer";
-import { SchedulePlotViewer } from "@/components/SchedulePlotViewer";
 
 
 interface PDFItem {
@@ -22,8 +20,6 @@ interface PDFItem {
   notes?: string;
   results?: string;
   color?: string;
-  isJSON?: boolean;
-  jsonMetadata?: string;
 }
 
 export default function LogLibrary() {
@@ -53,9 +49,6 @@ export default function LogLibrary() {
   const [selectedColor, setSelectedColor] = useState('#dc2626');
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
-  const [csvFileBase64, setCSVFileBase64] = useState<string | null>(null);
-  const [csvLoading, setCSVLoading] = useState(false);
-  const [jsonMetadataLoading, setJsonMetadataLoading] = useState(false);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -406,42 +399,7 @@ export default function LogLibrary() {
                             .map(pdf => (
                               <div
                                 key={pdf.id}
-                                onClick={() => {
-                                  if (!selectMode) {
-                                    setSelectedPDF(pdf);
-                                    if (pdf.filename.endsWith('.csv')) {
-                                      setCSVLoading(true);
-                                      // Fetch CSV data from storage
-                                      fetch(`/manus-storage/${pdf.storageKey}`)
-                                        .then(res => res.text())
-                                        .then(text => {
-                                          // Convert text to base64
-                                          const base64 = btoa(text);
-                                          setCSVFileBase64(base64);
-                                          setCSVLoading(false);
-                                        })
-                                        .catch(err => {
-                                          console.error('Error loading CSV:', err);
-                                          setCSVLoading(false);
-                                        });
-                                    } else if (pdf.filename.endsWith('.json') || pdf.filename.includes('_metadata')) {
-                                      // Fetch JSON metadata from storage
-                                      setJsonMetadataLoading(true);
-                                      fetch(`/manus-storage/${pdf.storageKey}`)
-                                        .then(res => res.text())
-                                        .then(text => {
-                                          // Convert to base64 for SchedulePlotViewer
-                                          const base64 = btoa(text);
-                                          setSelectedPDF(prev => prev ? { ...prev, jsonMetadata: base64, isJSON: true } : null);
-                                          setJsonMetadataLoading(false);
-                                        })
-                                        .catch(err => {
-                                          console.error('Error loading JSON metadata:', err);
-                                          setJsonMetadataLoading(false);
-                                        });
-                                    }
-                                  }
-                                }}
+                                onClick={() => !selectMode && setSelectedPDF(pdf)}
                                 className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
                                   selectedPDF?.id === pdf.id
                                     ? "border-green-500 bg-green-500/10"
@@ -490,42 +448,7 @@ export default function LogLibrary() {
                 {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
-                    onClick={() => {
-                      if (!selectMode) {
-                        setSelectedPDF(pdf);
-                        if (pdf.filename.endsWith('.csv')) {
-                          setCSVLoading(true);
-                          // Fetch CSV data from storage
-                          fetch(`/manus-storage/${pdf.storageKey}`)
-                            .then(res => res.text())
-                            .then(text => {
-                              // Convert text to base64
-                              const base64 = btoa(text);
-                              setCSVFileBase64(base64);
-                              setCSVLoading(false);
-                            })
-                            .catch(err => {
-                              console.error('Error loading CSV:', err);
-                              setCSVLoading(false);
-                            });
-                        } else if (pdf.filename.endsWith('.json') || pdf.filename.includes('_metadata')) {
-                          // Fetch JSON metadata from storage
-                          setJsonMetadataLoading(true);
-                          fetch(`/manus-storage/${pdf.storageKey}`)
-                            .then(res => res.text())
-                            .then(text => {
-                              // Convert to base64 for SchedulePlotViewer
-                              const base64 = btoa(text);
-                              setSelectedPDF(prev => prev ? { ...prev, jsonMetadata: base64, isJSON: true } : null);
-                              setJsonMetadataLoading(false);
-                            })
-                            .catch(err => {
-                              console.error('Error loading JSON metadata:', err);
-                              setJsonMetadataLoading(false);
-                            });
-                        }
-                      }
-                    }}
+                    onClick={() => !selectMode && setSelectedPDF(pdf)}
                     className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
                       selectedPDF?.id === pdf.id
                         ? "border-amber-500 bg-amber-500/10"
@@ -566,22 +489,7 @@ export default function LogLibrary() {
                         >
                           View Notes
                         </button>
-                      ) : (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setEditingPDF(pdf);
-                            setEditingFilename('');
-                            setEditingNotes('');
-                            setEditingResults('');
-                            setSelectedColor('#dc2626');
-                            setShowEditModal(true);
-                          }}
-                          className="px-3 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-sm font-semibold"
-                        >
-                          Add Notes
-                        </button>
-                      )}
+                      ) : null}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -635,69 +543,33 @@ export default function LogLibrary() {
                     </div>
                   </div>
 
-                  {/* CSV Viewer or PDF Viewer */}
+                  {/* PDF Viewer and Image Window */}
                   <div className="mb-8 flex gap-4 flex-col lg:flex-row">
                     <div className="flex-1 w-full">
-                      {selectedPDF.filename.endsWith('.csv') ? (
-                        // CSV Viewer
-                        <div className="bg-stone-900 rounded-lg border border-white/10 p-6 max-h-96 overflow-auto">
-                          {csvLoading ? (
-                            <div className="flex items-center justify-center h-96">
-                              <p className="text-stone-400">Loading CSV data...</p>
-                            </div>
-                          ) : csvFileBase64 ? (
-                            <CSVViewer fileBase64={csvFileBase64} filename={selectedPDF.filename} />
-                          ) : (
-                            <div className="flex items-center justify-center h-96">
-                              <p className="text-stone-400">No CSV data available</p>
-                            </div>
-                          )}
+                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: 'clamp(400px, 60vh, 800px)', overflow: 'hidden', padding: '0', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#000000' }}>
+                      {selectedPDF.storageKey ? (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: '#000000' }}>
+                          <iframe
+                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=page-fit`}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              border: 'none',
+                              borderRadius: '0.25rem',
+                              backgroundColor: '#000000',
+                              display: 'block',
+                              marginLeft: 'auto',
+                              objectFit: 'contain',
+                              margin: '0'
+                            }}
+                            title="PDF Viewer"
+                          />
                         </div>
                       ) : (
-                        // PDF Viewer
-                        <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: 'clamp(400px, 60vh, 800px)', overflow: 'hidden', padding: '0', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#000000' }}>
-                          {selectedPDF.storageKey ? (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: '#000000' }}>
-                              <iframe
-                                src={`/manus-storage/${selectedPDF.storageKey}#zoom=page-fit`}
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  border: 'none',
-                                  borderRadius: '0.25rem',
-                                  backgroundColor: '#000000',
-                                  display: 'block',
-                                  marginLeft: 'auto',
-                                  objectFit: 'contain',
-                                  margin: '0'
-                                }}
-                                title="PDF Viewer"
-                              />
-                            </div>
-                          ) : (
-                            <p className="text-stone-400 text-sm">No PDF file available</p>
-                          )}
-                        </div>
+                        <p className="text-stone-400 text-sm">No PDF file available</p>
                       )}
                     </div>
-                  
-                  {/* Schedule Plot Viewer */}
-                  {!selectedPDF.filename.endsWith('.csv') && (
-                    <div className="flex-1 w-full">
-                      {selectedPDF.isJSON && selectedPDF.jsonMetadata ? (
-                        <SchedulePlotViewer
-                          filename={selectedPDF.filename.replace(/_metadata\.json$/, '')}
-                          jsonMetadata={selectedPDF.jsonMetadata}
-                        />
-                      ) : selectedPDF.temperatures && selectedPDF.temperatures.length > 0 ? (
-                        <SchedulePlotViewer
-                          temperatures={selectedPDF.temperatures}
-                          times={selectedPDF.times}
-                          filename={selectedPDF.filename.replace(/_kiln_log\.pdf$/, '')}
-                        />
-                      ) : null}
-                    </div>
-                  )}
+                  </div>
                   
                   {/* Image Window */}
                   <div className="w-40">

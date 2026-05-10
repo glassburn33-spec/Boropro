@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function ToolHome() {
   return (
-    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
+    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100 overflow-hidden">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
@@ -38,95 +38,27 @@ export default function ToolHome() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 container py-12">
-        <div className="space-y-8">
-          <div>
-            <h1 className="text-4xl font-bold text-amber-400 mb-4">Tools & Utilities</h1>
-            <p className="text-stone-300 text-lg">
-              Practical tools and calculators for glass blowing and kiln management.
-            </p>
+      <main className="flex-1 overflow-hidden">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-16">
+          <div className="container">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Tools</h1>
+          </div>
+        </section>
+
+        <div className="container py-12 overflow-hidden h-full flex items-center justify-center">
+          {/* Hero Image */}
+          <div className="w-full h-full flex justify-center items-center">
+            <img 
+              src="/manus-storage/toolshomepageicon_8d350bc8.png" 
+              alt="Tools and utilities overview" 
+              className="w-full max-w-2xl h-full object-contain rounded-lg shadow-lg"
+            />
           </div>
 
-          {/* Tools Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Flame Simulator */}
-            <a
-              href="/flame-simulator"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                Flame Characterization
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Understand reducing, neutral, and oxidizing flames and how they affect color families in borosilicate glass.
-              </p>
-            </a>
 
-            {/* Color Picker */}
-            <a
-              href="/color-picker"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                Color Database
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Browse and reference all available borosilicate glass colors with chemical composition and properties.
-              </p>
-            </a>
 
-            {/* Calculator */}
-            <a
-              href="/calculator"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                Reheat Calculator
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Calculate optimal reheat times based on glass geometry, kiln temperature, and room conditions.
-              </p>
-            </a>
 
-            {/* Kiln Log */}
-            <a
-              href="/firing-tracker"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                Kiln Log
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Track and log kiln firing sessions with detailed records and annealing schedules.
-              </p>
-            </a>
-
-            {/* PDF Library */}
-            <a
-              href="/pdf-library"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                PDF Library
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Store and reference technical documents, guides, and reference materials.
-              </p>
-            </a>
-
-            {/* Color Science */}
-            <a
-              href="/color-science"
-              className="group p-6 bg-stone-900/50 border border-amber-700/30 rounded-lg hover:border-amber-500/50 hover:bg-stone-900/70 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-amber-400 mb-2 group-hover:text-orange-400">
-                Color Science
-              </h3>
-              <p className="text-stone-400 text-sm">
-                Explore the scientific principles behind glass coloration and metal ion behavior.
-              </p>
-            </a>
-          </div>
         </div>
       </main>
     </div>
