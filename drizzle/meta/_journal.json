@@ -22,6 +22,20 @@
       "when": 1778357079377,
       "tag": "0002_broad_power_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1778377538761,
+      "tag": "0003_fresh_mephistopheles",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1778378245501,
+      "tag": "0004_spotty_pandemic",
+      "breakpoints": true
     }
   ]
 }

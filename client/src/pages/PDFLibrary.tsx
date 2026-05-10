@@ -267,45 +267,7 @@ export default function PDFLibrary() {
           </div>
         </section>
 
-        {/* Upload Section */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">Upload PDF</h2>
-            <div
-              onDragEnter={handleDrag}
-              onDragLeave={handleDrag}
-              onDragOver={handleDrag}
-              onDrop={handleDrop}
-              className={`rounded-2xl border-2 border-dashed p-12 text-center transition-all ${
-                isDragActive
-                  ? "border-amber-500 bg-amber-500/20"
-                  : "border-white/20 bg-white/5 hover:border-amber-500/50"
-              }`}
-            >
-              <label className="cursor-pointer flex flex-col items-center gap-4">
-                <Upload
-                  size={32}
-                  className={isDragActive ? "text-amber-400" : "text-amber-500"}
-                />
-                <div>
-                  <p className="text-lg font-bold text-white mb-2">Upload a PDF Schedule</p>
-                  <p className="text-sm text-stone-400">
-                    {isDragActive
-                      ? "Drop your PDF here"
-                      : "Drag and drop or click to select. We'll extract temperature and time data automatically."}
-                  </p>
-                </div>
-                <input
-                  type="file"
-                  accept=".pdf"
-                  onChange={handleFileUpload}
-                  disabled={isUploading}
-                  className="hidden"
-                />
-              </label>
-            </div>
-          </div>
-        </section>
+
 
         {/* Library Grid */}
         <section className="border-b border-white/10 py-16">
