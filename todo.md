@@ -130,3 +130,16 @@
 - [x] Add unit tests for PDF generation with updated information
 - [x] Fix TypeScript errors (downlevelIteration, Set types)
 - [x] Verify Edit modal functionality in browser
+
+
+## Move Save File Button to Schedule Card (New)
+- [x] Move "Save to PDF Library" button from below schedule card to inline with other action buttons
+- [x] Position button between Edit and Delete buttons on the schedule card itself
+- [x] Ensure consistent styling and layout with other action buttons
+
+## Add Export as CSV Button to Schedule Card (New)
+- [x] Add "Export as CSV" button to schedule card
+- [x] Implement CSV export functionality for schedule data
+- [x] Position button next to Save to PDF Library button
+- [ ] Save exported CSV to Schedule Library (not just download)
+- [ ] Add CSV file to library with schedule metadata

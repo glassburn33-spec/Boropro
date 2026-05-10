@@ -4,7 +4,7 @@ Persistent database storage for complete history
 */
 
 import { useState } from "react";
-import { Plus, Trash2, Download, Clock, Thermometer, Save } from "lucide-react";
+import { Plus, Trash2, Download, Clock, Thermometer, Save, FileText } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -517,6 +517,27 @@ export default function KilnLog() {
                           title="Save this kiln log as a file"
                         >
                           <Save size={16} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const csv = [
+                              ['Temperature (°C)', 'Time (min)'],
+                              ...log.temperatures.map((temp, idx) => [temp, log.times[idx] || ''])
+                            ].map(row => row.join(',')).join('\n');
+                            const blob = new Blob([csv], { type: 'text/csv' });
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `${log.name}.csv`;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            toast.success('CSV exported successfully!');
+                          }}
+                          className="p-2 rounded-lg border border-white/20 hover:border-blue-500 text-stone-400 hover:text-blue-500 transition-colors"
+                          title="Export schedule as CSV"
+                        >
+                          <FileText size={16} />
                         </button>
                         <button
                           onClick={(e) => {
