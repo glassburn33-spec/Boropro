@@ -47,7 +47,6 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
           >
             <div className="text-left flex-1">
               <h3 className="font-bold text-white text-lg">{effect.colorFamily}</h3>
-              <p className="text-xs text-stone-400 mt-1">{effect.metalComposition}</p>
             </div>
             <ChevronDown
               className={`w-5 h-5 text-amber-500 transition-transform flex-shrink-0 ml-4 ${
@@ -59,6 +58,12 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
           {/* Expanded Content */}
           {expandedFamily === effect.colorFamily && (
             <div className="px-6 py-6 border-t border-white/10 space-y-6 bg-white/2">
+              {/* Chemical Composition */}
+              <div>
+                <span className="font-bold text-white block mb-2">Chemical Composition:</span>
+                <p className="text-sm text-stone-300">{effect.metalComposition}</p>
+              </div>
+
               {/* Description */}
               <div>
                 <span className="font-bold text-white block mb-2">Overview:</span>
