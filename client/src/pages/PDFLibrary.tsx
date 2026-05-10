@@ -17,6 +17,9 @@ interface PDFItem {
   times: number[];
   uploadedAt: Date;
   storageKey: string;
+  notes?: string;
+  results?: string;
+  color?: string;
 }
 
 export default function LogLibrary() {
@@ -44,6 +47,8 @@ export default function LogLibrary() {
   const [editingNotes, setEditingNotes] = useState('');
   const [editingResults, setEditingResults] = useState('');
   const [selectedColor, setSelectedColor] = useState('#dc2626');
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -473,19 +478,33 @@ export default function LogLibrary() {
                       </div>
                     </div>
                     <div className="flex gap-2 flex-shrink-0 ml-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setEditingPDF(pdf);
-                          setEditingFilename('');
-                          setEditingNotes('');
-                          setEditingResults('');
-                          setShowEditModal(true);
-                        }}
-                        className="px-3 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-sm font-semibold"
-                      >
-                        Add Notes
-                      </button>
+                      {pdf.notes ? (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setViewingNotesPDF(pdf);
+                            setShowNotesModal(true);
+                          }}
+                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                        >
+                          View Notes
+                        </button>
+                      ) : (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingPDF(pdf);
+                            setEditingFilename('');
+                            setEditingNotes('');
+                            setEditingResults('');
+                            setSelectedColor('#dc2626');
+                            setShowEditModal(true);
+                          }}
+                          className="px-3 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-sm font-semibold"
+                        >
+                          Add Notes
+                        </button>
+                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -1050,8 +1069,6 @@ export default function LogLibrary() {
                 </button>
                 <button
                   onClick={async () => {
-                    console.log('Save Changes clicked', { editingPDF, editingFilename, editingNotes, editingResults });
-                    toast.message('Saving updated schedule...');
                     if (!editingPDF) {
                       toast.error('No PDF selected');
                       return;

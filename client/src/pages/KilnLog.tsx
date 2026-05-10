@@ -506,15 +506,28 @@ export default function KilnLog() {
                           <p className="font-bold text-white truncate">{log.name}</p>
                         </div>
                       </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(log.id);
-                        }}
-                        className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSavedKilnLog(log);
+                            setShowSaveModal(true);
+                          }}
+                          className="p-2 rounded-lg border border-white/20 hover:border-green-500 text-stone-400 hover:text-green-500 transition-colors"
+                          title="Save this kiln log as a file"
+                        >
+                          <Save size={16} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(log.id);
+                          }}
+                          className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </div>
                     <div className="space-y-2 text-sm">
                       <div>
