@@ -337,6 +337,22 @@ export default function FlameChemistryCharacterization() {
         </div>
       </section>
 
+      {/* Thermochromism Information */}
+      <section className="py-8 px-4 border-t border-white/10">
+        <div className="container max-w-6xl">
+          <div className="rounded-2xl border border-stone-700/50 bg-stone-800/50 p-6">
+            <div className="space-y-2 text-sm text-stone-300">
+              <p>
+                <span className="font-semibold text-amber-400">Thermochromism</span> is the reversible change in color with temperature. In borosilicate glass, metal ion chromophores shift their electronic structure as thermal energy increases, altering the wavelengths of light they absorb.
+              </p>
+              <p>
+                Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-white/10 bg-stone-950/50 py-8">
         <div className="container max-w-6xl">

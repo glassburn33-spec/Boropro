@@ -105,21 +105,6 @@ export function ThermochromismSimulator() {
         </div>
       </Card>
 
-      {/* Information Card */}
-      <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
-        <div className="flex gap-4">
-          <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
-          <div className="space-y-2 text-sm text-stone-300">
-            <p>
-              <span className="font-semibold text-amber-400">Thermochromism</span> is the reversible change in color with temperature. In borosilicate glass, metal ion chromophores shift their electronic structure as thermal energy increases, altering the wavelengths of light they absorb.
-            </p>
-            <p>
-              Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
-            </p>
-          </div>
-        </div>
-      </Card>
-
       {/* Featured Colors Section */}
       <div className="space-y-4">
         <div className="border-l-4 border-amber-500 pl-6">
