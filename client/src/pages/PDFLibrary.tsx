@@ -38,6 +38,11 @@ export default function LogLibrary() {
   const [selectedFolderForInsert, setSelectedFolderForInsert] = useState<string | null>(null);
   const [schedulesToInsert, setSchedulesToInsert] = useState<Set<number>>(new Set());
   const [expandedFoldersInModal, setExpandedFoldersInModal] = useState<Set<string>>(new Set());
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingPDF, setEditingPDF] = useState<PDFItem | null>(null);
+  const [editingFilename, setEditingFilename] = useState('');
+  const [editingNotes, setEditingNotes] = useState('');
+  const [editingResults, setEditingResults] = useState('');
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -462,8 +467,11 @@ export default function LogLibrary() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setSelectedPDF(pdf);
-                          setShowPreviewModal(true);
+                          setEditingPDF(pdf);
+                          setEditingFilename(pdf.filename);
+                          setEditingNotes('');
+                          setEditingResults('');
+                          setShowEditModal(true);
                         }}
                         className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
                       >
@@ -954,6 +962,76 @@ export default function LogLibrary() {
                   className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
                 >
                   Create
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Edit Schedule Modal */}
+        {showEditModal && editingPDF && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-stone-900 border border-white/20 rounded-lg p-8 max-w-2xl w-full">
+              <h2 className="text-2xl font-bold text-white mb-6">Edit Schedule</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-stone-300 mb-2">Filename</label>
+                  <input
+                    type="text"
+                    value={editingFilename}
+                    onChange={(e) => setEditingFilename(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-800 border border-white/20 rounded text-white placeholder-stone-500 focus:outline-none focus:border-blue-500"
+                    placeholder="Schedule name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-stone-300 mb-2">Notes</label>
+                  <textarea
+                    value={editingNotes}
+                    onChange={(e) => setEditingNotes(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-800 border border-white/20 rounded text-white placeholder-stone-500 focus:outline-none focus:border-blue-500 h-24 resize-none"
+                    placeholder="Add notes about this schedule"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-stone-300 mb-2">Results</label>
+                  <textarea
+                    value={editingResults}
+                    onChange={(e) => setEditingResults(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-800 border border-white/20 rounded text-white placeholder-stone-500 focus:outline-none focus:border-blue-500 h-24 resize-none"
+                    placeholder="Add results or observations"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex gap-3 mt-8 justify-end">
+                <button
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setEditingPDF(null);
+                    setEditingFilename('');
+                    setEditingNotes('');
+                    setEditingResults('');
+                  }}
+                  className="px-4 py-2 rounded border border-white/20 text-stone-300 hover:bg-stone-800 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    toast.success('Schedule updated successfully');
+                    setShowEditModal(false);
+                    setEditingPDF(null);
+                    setEditingFilename('');
+                    setEditingNotes('');
+                    setEditingResults('');
+                  }}
+                  className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded font-semibold transition-colors"
+                >
+                  Save Changes
                 </button>
               </div>
             </div>
