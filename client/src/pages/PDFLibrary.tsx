@@ -458,15 +458,27 @@ export default function LogLibrary() {
                         <p className="text-xs text-stone-400">{pdf.uploadedAt.toLocaleDateString()}</p>
                       </div>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(pdf.id);
-                      }}
-                      className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 ml-2"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+                    <div className="flex gap-2 flex-shrink-0 ml-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedPDF(pdf);
+                          setShowPreviewModal(true);
+                        }}
+                        className="px-3 py-1 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(pdf.id);
+                        }}
+                        className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
                   </div>
                 ))}
                 {/* Empty state - only show if no folders and no uncategorized files */}
