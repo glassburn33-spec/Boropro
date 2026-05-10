@@ -31,7 +31,7 @@ export default function Calculator() {
               Log Library
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Tools
+              References
             </a>
           </nav>
         </div>
