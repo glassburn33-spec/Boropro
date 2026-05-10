@@ -252,9 +252,14 @@ export default function PDFLibrary() {
         {/* Hero */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
-              Log Library
-            </h1>
+            <div className="flex items-center gap-8">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
+                  Log Library
+                </h1>
+              </div>
+              <img src="/manus-storage/glasslogicon_37f25371.png" alt="Glassmaker's Log" className="h-48 w-48 object-contain flex-shrink-0" />
+            </div>
           </div>
         </section>
 
