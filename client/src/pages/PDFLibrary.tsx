@@ -517,14 +517,16 @@ export default function LogLibrary() {
                       {selectedPDF.storageKey ? (
                         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <iframe
-                            src={`/manus-storage/${selectedPDF.storageKey}`}
+                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=150`}
                             style={{
                               width: '100%',
                               height: '100%',
                               border: 'none',
                               borderRadius: '0.25rem',
                               backgroundColor: '#000000',
-                              display: 'block'
+                              display: 'block',
+                              transform: 'scale(1)',
+                              transformOrigin: '0 0'
                             }}
                             title="PDF Viewer"
                           />
