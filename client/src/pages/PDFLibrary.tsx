@@ -513,19 +513,22 @@ export default function LogLibrary() {
                   {/* PDF Viewer and Image Window */}
                   <div className="mb-8 flex gap-4">
                     <div className="flex-1">
-                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
+                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-center" style={{ height: '600px', overflow: 'auto', padding: '8px', margin: '0', width: '100%' }}>
                       {selectedPDF.storageKey ? (
-                        <iframe
-                          src={`/manus-storage/${selectedPDF.storageKey}`}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            border: 'none',
-                            borderRadius: '0.5rem',
-                            backgroundColor: '#000000'
-                          }}
-                          title="PDF Viewer"
-                        />
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <iframe
+                            src={`/manus-storage/${selectedPDF.storageKey}`}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              border: 'none',
+                              borderRadius: '0.25rem',
+                              backgroundColor: '#000000',
+                              display: 'block'
+                            }}
+                            title="PDF Viewer"
+                          />
+                        </div>
                       ) : (
                         <p className="text-stone-400 text-sm">No PDF file available</p>
                       )}
