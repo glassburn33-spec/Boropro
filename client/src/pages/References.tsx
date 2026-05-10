@@ -358,9 +358,6 @@ export default function References() {
               <BookOpen className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">References</h1>
-                <p className="text-stone-400 text-lg">
-                  Comprehensive bibliography of scientific sources, archaeological studies, and technical references supporting the BoroPro research platform.
-                </p>
               </div>
             </div>
           </div>
