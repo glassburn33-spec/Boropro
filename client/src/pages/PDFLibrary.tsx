@@ -311,12 +311,22 @@ export default function PDFLibrary() {
           <div className="container max-w-6xl">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
-              <button
-                onClick={() => setSelectMode(!selectMode)}
-                className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
-              >
-                {selectMode ? 'Cancel' : 'Select'}
-              </button>
+              <div className="flex gap-2">
+                {selectMode && (
+                  <button
+                    onClick={() => setSelectedForDeletion(displayLibrary.map(pdf => pdf.id))}
+                    className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                  >
+                    Select All
+                  </button>
+                )}
+                <button
+                  onClick={() => setSelectMode(!selectMode)}
+                  className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                >
+                  {selectMode ? 'Cancel' : 'Select'}
+                </button>
+              </div>
             </div>
             {isLoading ? (
               <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
