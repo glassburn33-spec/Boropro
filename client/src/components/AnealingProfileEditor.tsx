@@ -4,7 +4,7 @@ Interactive tool for creating custom borosilicate glass heat treatment profiles
 with 4-stage temperature curve visualization and schedule logging
 */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { AlertCircle, Download, Save } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -15,6 +15,7 @@ import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
 import { ColorWheelPicker } from './ColorWheelPicker';
 import { ColoredGlassJar } from './ColoredGlassJar';
 import { renderColoredJarToCanvas } from '@/lib/jarRenderer';
+import { useAnnealingProfileState } from '@/hooks/useAnnealingProfileState';
 
 // Helper function to get color name from hex
 function getColorNameFromHex(hex: string): string {
@@ -397,24 +398,19 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
 }
 
 export default function AnealingProfileEditor() {
-
-  
   // tRPC mutation for saving to PDF library
   const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
   
-  const [inputs, setInputs] = useState<StageInputs>({
-    stage1: { startTemp: 20, targetTemp: 620, duration: 30 },
-    stage2: { holdTemp: 620, duration: 20 },
-    stage3: { startTemp: 620, endTemp: 480, duration: 60 },
-    stage4: { startTemp: 480, endTemp: 20, duration: 45 },
-  });
-
-  const [referenceLines, setReferenceLines] = useState<ReferenceLines>({
-    annealingPoint: 565,
-    strainPoint: 510,
-  });
-
-  const [notes, setNotes] = useState('');
+  // Use persistent state hook that saves to localStorage and resets on user change
+  const {
+    inputs,
+    setInputs,
+    referenceLines,
+    setReferenceLines,
+    notes,
+    setNotes,
+    isHydrated,
+  } = useAnnealingProfileState();
   const [savedSchedules, setSavedSchedules] = useState<SavedSchedule[]>([]);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [scheduleName, setScheduleName] = useState('');
@@ -424,6 +420,11 @@ export default function AnealingProfileEditor() {
   const [editingColors, setEditingColors] = useState<string[]>([]);
   const [colorWheelHue, setColorWheelHue] = useState(0);
   const title = 'Heat Treatment Profile';
+
+  // Don't render until state is hydrated from localStorage
+  if (!isHydrated) {
+    return <div className="text-stone-400">Loading profile settings...</div>;
+  }
 
   // Auto-populate stage 3 start temp from stage 2 hold temp
   const handleStage2Change = (field: string, value: number) => {
