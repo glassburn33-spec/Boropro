@@ -16,7 +16,7 @@ export default function Calculator() {
           </a>
           <nav className="hidden md:flex items-center gap-8">
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Color Database
+              Color
             </a>
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Char
@@ -28,7 +28,7 @@ export default function Calculator() {
               Kiln Log
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Log Library
+              Log
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
