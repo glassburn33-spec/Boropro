@@ -27,6 +27,7 @@ import { searchContent, SearchResult } from "@/lib/searchIndex";
 import { SearchResults } from "@/components/SearchResults";
 import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
 import ColorScienceTab from "./ColorScienceTab";
+import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
 
 type TabType = "studio" | "scieequip" | "calculator" | "colorscience";
 
@@ -1017,6 +1018,14 @@ function ScieEquipTab() {
                 className="w-full max-w-3xl rounded-lg border border-stone-600"
               />
             </div>
+          </div>
+
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-purple-400 mt-6">
+            <h4 className="text-purple-300 font-bold mb-3">Interactive Thermochromism Simulator</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-4">
+              This interactive visualization demonstrates the relationship between thermal conditions and chromatic response in transition-metal-doped silicate matrices. Manipulate the thermal-range slider and combustion-environment parameters to observe instantaneous chromatic transformations across the spectrum of glass colorant systems, illustrating temperature-dependent coordination geometry shifts and electronic-state transitions.
+            </p>
+            <ThermochromismSimulator />
           </div>
         </div>
       ),
