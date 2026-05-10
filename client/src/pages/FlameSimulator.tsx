@@ -103,22 +103,13 @@ const flameEffects: FlameEffect[] = [
 
 const flameDescriptions = {
   neutral: {
-    visual: "Two distinct thermal zones: bright white-cyan central cone with subdued outer mantle",
-    appearance: "Equilibrium flame configuration",
-    chemistry: "Balanced fuel and oxidant",
-    use: "Steel joining, thermal processing, sectioning without chemical modification",
+    glassProperties: "Neutral flame preserves glass color stability and prevents unwanted chemical modifications. Ideal for maintaining true color representation and working with sensitive color families.",
   },
   oxidizing: {
-    visual: "Abbreviated extent, intensified sharpness, diminished and acutely tapered central cone",
-    appearance: "Shorter, sharper flame than neutral",
-    chemistry: "Excess oxygen beyond secondary zone elimination",
-    use: "Ferrous casting joining, copper-based alloy fabrication, zinc-containing alloy operations",
+    glassProperties: "Oxidizing flame prevents metallic surface effects and maintains bright, vibrant colors. Prevents reduction graying and keeps colors clear without muddy tones.",
   },
   reducing: {
-    visual: "Intermediate thermal zone between central cone and outer envelope with pale coloration",
-    appearance: "Gentle flame configuration with visible intermediate zone",
-    chemistry: "Acetylene surplus conditions",
-    use: "Aluminum and aluminum-based alloy joining, low-temperature soldering operations",
+    glassProperties: "Reducing flame creates metallic effects and can shift color families. Causes color darkening, graying, and opacity changes. Use with caution for intentional color modification.",
   },
 };
 
@@ -206,20 +197,8 @@ export default function FlameChemistryCharacterization() {
                         </h3>
                         <div className="space-y-3 text-sm">
                           <div>
-                            <span className="font-bold text-white block mb-1">Visual:</span>
-                            <span className="text-stone-300">{desc.visual}</span>
-                          </div>
-                          <div>
-                            <span className="font-bold text-white block mb-1">Appearance:</span>
-                            <span className="text-stone-300">{desc.appearance}</span>
-                          </div>
-                          <div>
-                            <span className="font-bold text-white block mb-1">Chemistry:</span>
-                            <span className="text-stone-300">{desc.chemistry}</span>
-                          </div>
-                          <div>
-                            <span className="font-bold text-white block mb-1">Best for:</span>
-                            <span className="text-stone-300">{desc.use}</span>
+                            <span className="font-bold text-white block mb-1">Glass Properties:</span>
+                            <span className="text-stone-300">{desc.glassProperties}</span>
                           </div>
                         </div>
                       </div>
