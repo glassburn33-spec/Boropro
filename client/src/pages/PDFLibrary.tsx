@@ -339,7 +339,7 @@ export default function PDFLibrary() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
+              <h2 className="text-2xl font-bold text-white">Schedule Library</h2>
               <div className="flex gap-2">
                 {!selectMode && (
                   <button
