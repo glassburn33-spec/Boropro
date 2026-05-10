@@ -499,13 +499,6 @@ function StudioTab() {
         </div>
       </div>
 
-      {/* KEY INSIGHT CALLOUT */}
-      <div className="bg-stone-800/50 border-l-4 border-amber-600 p-5 rounded-lg" style={{background: "linear-gradient(135deg, rgba(30, 25, 15, 0.8) 0%, rgba(40, 35, 20, 0.6) 100%)", backdropFilter: "blur(10px)"}}>
-        <p className="text-stone-300 text-sm leading-relaxed">
-          <span className="text-amber-300 font-bold">The goal of industrial annealing is to minimize stresses in the glass article in the shortest time possible</span> — because annealing means heating, heating means energy consumption, and energy consumption means cost. Every minute saved in the kiln matters.
-        </p>
-      </div>
-
 
     </div>
   );
