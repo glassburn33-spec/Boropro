@@ -314,24 +314,21 @@ export default function PDFLibrary() {
               <div className="flex gap-2">
                 {selectMode && (
                   <>
-                    <button
-                      onClick={() => {
-                        const allSelected = selectedForDeletion.length === displayLibrary.length;
-                        if (allSelected) {
-                          setSelectedForDeletion([]);
-                        } else {
-                          setSelectedForDeletion(displayLibrary.map(pdf => pdf.id));
-                        }
-                      }}
-                      disabled={selectedForDeletion.length === 0}
-                      className={`px-4 py-2 rounded-lg border font-mono text-xs font-bold uppercase transition-colors ${
-                        selectedForDeletion.length === 0
-                          ? 'border-gray-600 text-gray-600 cursor-not-allowed opacity-50'
-                          : 'border-amber-500 text-amber-500 hover:bg-amber-500/10 cursor-pointer'
-                      }`}
-                    >
-                      {selectedForDeletion.length > 0 ? 'Deselect All' : 'Select All'}
-                    </button>
+                    {selectedForDeletion.length === 0 ? (
+                      <button
+                        onClick={() => setSelectedForDeletion(displayLibrary.map(pdf => pdf.id))}
+                        className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                      >
+                        Select All
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setSelectedForDeletion([])}
+                        className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                      >
+                        Deselect All
+                      </button>
+                    )}
                     <button
                       onClick={() => {
                         if (selectedForDeletion.length === 0) {
