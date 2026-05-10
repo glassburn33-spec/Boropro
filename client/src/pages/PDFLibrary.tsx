@@ -489,7 +489,22 @@ export default function LogLibrary() {
                         >
                           View Notes
                         </button>
-                      ) : null}
+                      ) : (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingPDF(pdf);
+                            setEditingFilename('');
+                            setEditingNotes('');
+                            setEditingResults('');
+                            setSelectedColor('#dc2626');
+                            setShowEditModal(true);
+                          }}
+                          className="px-3 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-sm font-semibold"
+                        >
+                          Add Notes
+                        </button>
+                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
