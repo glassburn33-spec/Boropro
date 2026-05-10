@@ -1143,35 +1143,35 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            Accurate temperature measurement is critical for flame annealing and glass working. Two primary methods are used: thermocouples for direct contact measurement and optical pyrometers for non-contact measurement.
+            Precision thermal quantification forms the cornerstone of successful flame annealing and glass fabrication operations. Two fundamental measurement methodologies predominate: thermocouple-based contact measurement and radiometric pyrometer-based remote sensing techniques.
           </p>
           
           <div className="space-y-4">
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-yellow-500">
               <h4 className="text-yellow-300 font-bold mb-2">Thermocouples</h4>
               <ul className="text-stone-300 text-sm space-y-2">
-                <li>• Principle: Two different metals joined together produce a voltage proportional to temperature difference</li>
-                <li>• Accuracy: ±1-2°C with proper calibration</li>
-                <li>• Range: Typically 0–1200°C for common types (K-type, J-type)</li>
-                <li>• Advantage: Direct contact allows precise measurement in controlled environments</li>
-                <li>• Limitation: Cannot measure temperatures above the melting point of the thermocouple materials</li>
+                <li>• Operating Principle: Dissimilar metal junction generates thermoelectric potential proportional to thermal gradient</li>
+                <li>• Measurement Precision: ±1-2°C achievable with rigorous calibration protocols</li>
+                <li>• Operational Envelope: Approximately 0–1200°C for prevalent configurations (K-type, J-type)</li>
+                <li>• Benefit: Physical contact enables high-resolution measurement within stable thermal environments</li>
+                <li>• Constraint: Temperature measurement ceiling determined by constituent metal fusion temperatures</li>
               </ul>
               <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
-                Studio Tip: Use K-type thermocouples for flame annealing work as they handle high temperatures and oxidizing atmospheres well.
+                Studio Tip: Deploy K-type thermocouple assemblies for flame annealing applications due to superior thermal stability and resistance to oxidative attack in high-temperature combustion environments.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-500">
               <h4 className="text-orange-300 font-bold mb-2">Optical Pyrometers</h4>
               <ul className="text-stone-300 text-sm space-y-2">
-                <li>• Principle: Measures the thermal radiation emitted by hot objects</li>
-                <li>• Accuracy: ±1-3% of reading depending on emissivity calibration</li>
-                <li>• Range: Typically 500–3000°C (extends beyond thermocouple range)</li>
-                <li>• Advantage: Non-contact measurement, no disturbance to the work</li>
-                <li>• Distance: Most optical pyrometers have a fixed distance-to-spot ratio (e.g., 50:1), meaning you must be at a specific distance from the target for accurate readings.</li>
+                <li>• Operating Principle: Quantifies blackbody thermal radiation flux emitted from heated surfaces</li>
+                <li>• Measurement Precision: ±1-3% of absolute reading contingent upon emissivity characterization</li>
+                <li>• Operational Envelope: Approximately 500–3000°C (exceeds thermocouple measurement ceiling)</li>
+                <li>• Benefit: Remote sensing capability eliminates thermal contact and process interference</li>
+                <li>• Geometric Constraint: Most radiometric pyrometers employ fixed optical magnification ratios (e.g., 50:1), necessitating precise positioning relative to measurement target for reliable readings</li>
               </ul>
               <p className="text-stone-300 text-sm leading-relaxed mt-3 text-amber-200 font-semibold">
-                Studio Tip: Use optical pyrometers to monitor glass temperature during working or annealing without interrupting the process. Always calibrate against a known temperature source (e.g., a thermocouple reading) before relying on pyrometer data.
+                Studio Tip: Employ radiometric pyrometry for continuous glass temperature surveillance during fabrication and thermal treatment without process interruption. Establish calibration baseline using independent thermal reference (e.g., thermocouple measurement) prior to operational pyrometry deployment.
               </p>
             </div>
           </div>
