@@ -973,6 +973,9 @@ function ScieEquipTab() {
       title: '🌡️ Flame Types: Reducing, Neutral, Oxidizing, and Carburizing',
       content: (
         <div className="space-y-6">
+          <p className="text-stone-300 leading-relaxed">
+            Flame behavior is fundamentally determined by the proportional balance between fuel and oxidant components, which establishes whether the flame exhibits reducing, neutral, oxidizing, or carburizing properties. Each flame configuration presents unique thermal and chemical characteristics that significantly influence glass manipulation and analytical procedures.
+          </p>
         </div>
       ),
     },
