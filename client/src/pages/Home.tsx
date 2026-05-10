@@ -1346,10 +1346,10 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Experimental Setup and Methodology</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The pipeline and flame arrester were evacuated and then filled with the fuel gas/oxygen mixture produced in a mixing vessel up to the various experimental pressures. The mixture was ignited at the end of the pipeline attached ahead of the arrester by means of a melting metal wire. Experiments were carried out in which the sintered metal flame arrester element was stressed from the outside (Figure 1a) and from the inside (Figure 1b) by the incoming reaction front.
+              Experimental apparatus underwent initial evacuation followed by pressurization with fuel-oxidant mixture generated via dedicated mixing chamber to predetermined pressure levels. Ignition initiation occurred at the pipeline terminus preceding the arrester via thermal wire fusion methodology. Test configurations incorporated sintered metal arrester element exposure to incoming combustion front stress applied from external surfaces (Figure 1a) and internal surfaces (Figure 1b).
             </p>
             <p className="text-stone-300 text-sm leading-relaxed">
-              Sintered metal elements of quality SIKA-R30, R20, R10 and R3 were used. The numbers in the quality marks give the maximum width of the gaps in the pores of the sintered metal in micrometers. The strength of the material increases with decreasing pore size. The experimental flame arrester had dimensions of Ø27 × Ø20 × 40 mm and could be fixed in the housing. The screwed connection part had a 5 mm deep recess to fix the arrester element, 3 mm of which had a conical taper of 1:10 and 2 mm had a bevel-edge of 30°.
+              Sintered metal test elements included grades SIKA-R30, R20, R10, and R3 designations. Grade nomenclature reflects maximum pore aperture dimensions in micrometers. Material mechanical strength correlates inversely with pore diameter. Experimental arrester assembly dimensions: Ø27 × Ø20 × 40 mm, mechanically secured within housing apparatus. Threaded connection interface incorporated 5 mm retention recess, subdivided into 3 mm conical taper (1:10 ratio) and 2 mm beveled edge (30° angle).
             </p>
           </div>
           
@@ -1364,17 +1364,17 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Flame Arrester Design and Assembly</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The cone-shaped surface on the housing parts is shaped in such a way that, when the device is assembled, the sintered metal element is compressed from the outside at one end and widened out from within at the other end. Thus, over the 3 mm long cone-shaped surface, a connection is produced that is safe against flame transmission between the components. Any flame transmission is only possible via the pores of the sintered metal element or via cracks in the sintered metal element which might be formed as a result of severe stresses.
+              Conical housing geometry produces asymmetric compression of the sintered metal element upon assembly: external surface compression at one terminus coupled with internal radial expansion at the opposing terminus. This geometric configuration over the 3 mm conical interface establishes a flame-resistant seal between adjoining components. Combustion front propagation through the assembly requires passage through sintered metal pore networks or structural discontinuities potentially generated under extreme mechanical loading conditions.
             </p>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Experimental Results with Acetylene/Oxygen Mixtures</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The diagram in Figure 2 gives results obtained with the experimental flame arrester and with acetylene/oxygen mixtures. The limiting pressure for safety against flame transmission for sintered metal elements is shown in relation to the composition of the acetylene/oxygen mixture. The parameter is the quality of the sintered metal. Elements of quality SIKA-R30, R10 and R3 were used. The length of the pipeline attached ahead of the unit was L = 5000 mm for all experiments.
+              Figure 2 presents experimental data from acetylene-oxygen combustion testing. Critical flame-arrest pressure thresholds correlate with fuel-oxidant mixture composition and sintered metal element grade. Test matrix employed SIKA-R30, R10, and R3 element grades. All test configurations maintained constant pipeline length L = 5000 mm upstream of the arrester apparatus.
             </p>
             <p className="text-stone-300 text-sm leading-relaxed">
-              Experiments were carried out with the experimental flame arrester and arrester elements of quality SIKA-R3 in which the arrester element was stressed by the incoming reaction front not only from the outside but also from the inside. In these experiments, with an initial pressure of 4.5 bar, a mixture of 42% by volume of acetylene and a stressing of the arrester element from inside by the incoming reaction front, break up of the arrester element occurred.
+              Bidirectional stress testing employed SIKA-R3 grade elements subjected to incoming combustion front loading from both external and internal surfaces. At 4.5 bar initial pressure with 42% acetylene-by-volume composition and internal surface stress application, catastrophic element fracture occurred.
             </p>
           </div>
           
@@ -1389,20 +1389,20 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Fuel Gas Mixture Ratios and Safety Limits</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              With fuel gas/oxygen mixtures incorporating the fuel gases acetylene, hydrogen, propane and methane, the lowest limiting pressures for safety against flame transmission for sintered metal elements of quality SIKA-R30 are in a ratio of approximately 1:2:3:4. These occur at mixtures of 32% acetylene by volume, 14% propane by volume, 28% methane by volume and 42% hydrogen by volume.
+              Comparative analysis across diverse fuel-oxidant systems (acetylene, hydrogen, propane, methane with oxygen) reveals critical pressure thresholds for SIKA-R30 elements exhibiting approximate ratios of 1:2:3:4. Optimal mixture compositions demonstrating minimum critical pressures: 32% acetylene, 14% propane, 28% methane, and 42% hydrogen (all percentages by volume).
             </p>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Shock Waves and Pressure Dynamics</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              On the basis of the discussion of the experimental results, it is possible to conclude that, in the case of barrier layers made of sintered metal, the limiting pressure for safety against flame transmission increases quite considerably due to shock waves arriving at the arrester element ahead of the reaction front. The particular processes in operation here can only be a matter of conjecture at the present time.
+              Experimental data analysis indicates that sintered metal barrier performance demonstrates significant pressure threshold elevation attributable to shock wave propagation preceding the combustion front arrival at the arrester element. The underlying physical mechanisms remain speculative based on current experimental evidence.
             </p>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              With below-stoichiometric hydrogen/oxygen mixtures, this state of affairs, where the limiting pressure can no longer be increased by incoming shock waves, occurs in those mixtures where the limiting pressure is still relatively low being increased by incoming shock waves. This is why lower limiting pressures are achieved in experiments with short pipeline lengths and mixtures with less than 27% hydrogen by volume than in the case of experiments with longer pipelines (L = 5 m) and the same mixture compositions.
+              Fuel-lean hydrogen-oxygen systems exhibit saturation conditions where shock wave amplification ceases to increase critical pressure thresholds. This phenomenon manifests in short-pipeline configurations (L &lt; 5 m) with hydrogen concentrations below 27% by volume, yielding lower critical pressures compared to equivalent-composition long-pipeline experiments.
             </p>
             <p className="text-stone-300 text-sm leading-relaxed">
-              However, in order to achieve lower limiting pressures for these mixtures than for experiments with long pipelines and mixtures at about 42% hydrogen by volume, the length of the pipeline selected must be less than 1 m. The length L = 1.5 m (5 feet) for the pipeline required for tests given in the American testing rules has probably been selected because, in tests with this pipe length and conditions at the detonation limit, the mechanical stress on the sintered metal element is considerably greater than in tests with a longer pipeline of 4.5 m (15 feet) and stable detonations at stationary conditions.
+              Achievement of reduced critical pressures in lean hydrogen mixtures requires pipeline lengths below 1 m. American testing standards specify L = 1.5 m (5 feet) pipeline length, likely selected because detonation-limit conditions at this length produce substantially greater mechanical loading on sintered elements compared to extended pipelines (L = 4.5 m / 15 feet) under stable detonation conditions.
             </p>
           </div>
         </div>
