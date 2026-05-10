@@ -1082,33 +1082,6 @@ export function CalculatorTab() {
             </Card>
           )}
 
-          {/* EXPORT BUTTONS */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <p className="text-sm font-semibold text-stone-300 mb-3">
-              EXPORT SCHEDULE
-            </p>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => exportToCSV(results, shape, thickness, radius, length, kilnTemp, roomTemp)}
-                className="flex-1 bg-blue-700 hover:bg-blue-600 text-white font-bold flex items-center justify-center gap-2"
-              >
-                <Download size={16} />
-                CSV
-              </Button>
-              <Button
-                onClick={() => exportToPDF(results, shape, thickness, radius, length, kilnTemp, roomTemp)}
-                className="flex-1 bg-green-700 hover:bg-green-600 text-white font-bold flex items-center justify-center gap-2"
-              >
-                <Download size={16} />
-                HTML/PDF
-              </Button>
-            </div>
-            <p className="text-xs text-stone-500 mt-3">
-              Download your calculated schedule for documentation and reference.
-            </p>
-          </Card>
-
-
 
           {/* HEAT TRANSFER DETAILS */}
           <Card className="bg-stone-800 border-stone-700 p-4">
