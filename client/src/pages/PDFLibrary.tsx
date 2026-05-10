@@ -26,7 +26,7 @@ export default function PDFLibrary() {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<number[]>([]);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>('/manus-storage/Gemini_Generated_Image_k3rnlrk3rnlrk3rn_b5426460.png');
+  const [selectedImage, setSelectedImage] = useState<string | null>('/manus-storage/glasscoloumn_69d60b8f.jfif');
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
