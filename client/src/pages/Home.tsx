@@ -1061,7 +1061,7 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            Flame annealing is a specialized reducing flame technique that distributes a soot coating on the glass surface at annealing temperature. This process leverages the reducing flame's carbon-rich composition to create a protective soot layer that affects thermal properties and surface characteristics. The soot volume fraction is precisely controlled by adjusting the oxidant-to-fuel ratio in the flame mixture.
+            Thermal annealing via flame exposure employs a carbon-rich reducing flame to deposit particulate carbon layers on glass surfaces during thermal treatment. This specialized methodology exploits the reducing flame's hydrocarbon-saturated environment to establish a thermal-protective carbon deposit that modulates heat transfer characteristics and surface behavior. Carbon deposit density is finely regulated through manipulation of the oxidant-to-fuel proportional balance.
           </p>
           
           <div className="flex justify-center my-6">
@@ -1075,7 +1075,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Soot Volume Fraction Measurement Method</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The soot volume fraction is calculated using Beer-Lambert law, which relates the laser-induced incandescence (LII) signal to soot concentration. A ratio between the LII signal (averaged from multiple measurements) and the soot volume fraction is calculated and used to translate both single-shot and averaged LII images to two-dimensional soot volume fraction images. This method is valid across all cases provided that LII signals are measured using identical optical equipment, laser energy, and camera settings. The strength of this semi-simultaneous extinction calibration method is that calibration is performed on soot at exactly the same location in the furnace, ensuring spatial accuracy and reproducibility.
+              Carbon deposit quantification employs the Beer-Lambert optical principle, which correlates laser-stimulated thermal radiation (LTR) emissions to particulate carbon concentration. A proportional relationship between LTR signal intensity (derived from repetitive sampling) and carbon deposit density is established and applied to convert both instantaneous and temporally-averaged LTR measurements into spatial carbon deposit density distributions. This quantification approach maintains validity across experimental configurations when LTR measurements employ standardized optical apparatus, consistent laser power delivery, and uniform detector sensitivity. This calibration methodology's effectiveness derives from performing quantification on carbon deposits at the precise furnace location under investigation, guaranteeing positional precision and experimental reproducibility.
             </p>
           </div>
           
@@ -1097,9 +1097,9 @@ function ScieEquipTab() {
             </ul>
           </div>
           
-          <p className="text-stone-300 text-sm leading-relaxed">
-            The logarithmic relationship between oxygen concentration and soot volume fraction demonstrates the precise control required for flame annealing. Studio practitioners can adjust fuel-oxidant ratios to achieve desired soot coating densities, directly influencing glass surface properties, thermal distribution, and final annealing quality.
-          </p>
+            <p className="text-stone-300 text-sm leading-relaxed">
+            The exponential inverse relationship between oxygen availability and carbon deposit density illustrates the exacting precision necessary for thermal flame treatment. Glass workers can modulate fuel-oxidant proportions to establish targeted carbon deposit intensities, substantially affecting surface thermal behavior, heat dissipation patterns, and ultimate thermal treatment outcomes.
+            </p>
         </div>
       ),
     },
