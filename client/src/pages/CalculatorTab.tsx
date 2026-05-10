@@ -830,7 +830,7 @@ export function CalculatorTab() {
 
   return (
     <div className="space-y-4 pb-8">
-      <h2 className="text-xl font-bold text-amber-400">BoroPro Calculator</h2>
+      <h2 className="text-xl font-bold text-amber-400">Time to Reheat Unexposed Work</h2>
       <p className="text-xs text-stone-400">
         Calculate available working time before borosilicate glass reaches its
         strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
