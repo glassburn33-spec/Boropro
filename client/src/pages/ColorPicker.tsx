@@ -1,5 +1,5 @@
 /*
-Color Picker Page - Multi-select tool to generate combined annealing schedules with warnings.
+Color Database Page - Multi-select tool to generate combined annealing schedules with warnings.
 Scientific neo-brutalist design with furnace-lab aesthetics.
 Expanded database with 50+ borosilicate glass colors and search functionality.
 */
@@ -501,7 +501,7 @@ interface CombinedSchedule {
   rationale: string;
 }
 
-export default function ColorPicker() {
+export default function ColorDatabase() {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [expandedColor, setExpandedColor] = useState<string | null>(null);

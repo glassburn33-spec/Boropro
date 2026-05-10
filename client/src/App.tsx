@@ -7,7 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import LogoHome from "./pages/LogoHome";
 import Home from "./pages/Home";
 import FlameChemistryCharacterization from "./pages/FlameSimulator";
-import ColorPicker from "./pages/ColorPicker";
+import ColorDatabase from "./pages/ColorPicker";
 import KilnLog from "./pages/FiringTracker";
 import Calculator from "./pages/Calculator";
 import PDFLibrary from "./pages/PDFLibrary";
@@ -20,7 +20,7 @@ function Router() {
       <Route path={"/"} component={LogoHome} />
       <Route path={"/explore"} component={Home} />
       <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
-      <Route path={"/color-picker"} component={ColorPicker} />
+      <Route path={"/color-picker"} component={ColorDatabase} />
       <Route path={"/firing-tracker"} component={KilnLog} />
       <Route path={"/calculator"} component={Calculator} />
       <Route path={"/pdf-library"} component={PDFLibrary} />
