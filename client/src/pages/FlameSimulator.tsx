@@ -168,7 +168,7 @@ export default function FlameChemistryCharacterization() {
               PDF Library
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-amber-500">
-              References
+              Tools
             </a>
           </nav>
         </div>
