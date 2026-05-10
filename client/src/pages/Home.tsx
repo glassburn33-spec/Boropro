@@ -26,7 +26,7 @@ import { Accordion as CustomAccordion } from "@/components/Accordion";
 import { searchContent, SearchResult } from "@/lib/searchIndex";
 import { SearchResults } from "@/components/SearchResults";
 import { CalculatorTab as ThermalCalculatorTab } from "./CalculatorTab";
-import ColorScienceTab from "./ColorScienceTab";
+import ColorScience from "./ColorScience";
 
 type TabType = "studio" | "scieequip" | "calculator" | "colorscience";
 
@@ -205,7 +205,7 @@ export default function Home() {
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "scieequip" && <ScieEquipTab />}
         {activeTab === "calculator" && <ThermalCalculatorTab />}
-        {activeTab === "colorscience" && <ColorScienceTab />}
+        {activeTab === "colorscience" && <ColorScience />}
       </main>
 
       {/* GLOBAL SEARCH RESULTS */}

@@ -12,6 +12,7 @@ import KilnLog from "./pages/FiringTracker";
 import Calculator from "./pages/Calculator";
 import LogLibrary from "./pages/PDFLibrary";
 import References from "./pages/References";
+import ColorScience from "./pages/ColorScience";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -26,6 +27,7 @@ function Router() {
       <Route path={"/pdf-library"} component={LogLibrary} />
       <Route path={"/kiln-log"} component={KilnLog} />
       <Route path={"/references"} component={References} />
+      <Route path={"/color-science"} component={ColorScience} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
