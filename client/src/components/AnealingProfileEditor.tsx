@@ -1200,6 +1200,9 @@ export default function AnealingProfileEditor() {
       {/* Saved Schedules */}
       <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
         <h3 className="text-lg font-bold text-amber-300 mb-4">📋 Saved Schedules</h3>
+        <div className="bg-amber-900/30 border border-amber-700/50 p-3 rounded mb-4">
+          <p className="text-sm text-amber-200">💡 Save your schedules before leaving the page</p>
+        </div>
         {savedSchedules.length === 0 ? (
           <p className="text-stone-400">No saved schedules yet. Save your first profile above!</p>
         ) : (
