@@ -5,7 +5,7 @@ Expanded database with 50+ borosilicate glass colors and search functionality.
 */
 
 import { useState, useMemo } from "react";
-import { Sparkles, AlertTriangle, CheckCircle2, Download, Search } from "lucide-react";
+import { Sparkles, AlertTriangle, CheckCircle2, Download, Search, ChevronDown } from "lucide-react";
 import { generateSchedulePDF, downloadPDF, SchedulePDFData } from "@/lib/pdfUtils";
 
 interface ColorMetadata {
@@ -337,160 +337,15 @@ const northstarColors: ColorMetadata[] = [
     warnings: ["Bright blue under UV", "UV reactive"],
   },
   {
-    name: "Pink Proton",
+    name: "Glow Green",
     family: "Light-reactive colors",
-    metalComposition: "UV-reactive pink phosphor",
+    metalComposition: "UV-reactive green phosphor",
     annealPoint: 1050,
     strainPoint: 960,
     heatSensitive: false,
     reductionSensitive: false,
     strikeMethod: "none",
-    warnings: ["Bright pink under UV", "UV reactive"],
-  },
-  {
-    name: "Luna",
-    family: "Light-reactive colors",
-    metalComposition: "UV-reactive blue phosphor",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Glows bright blue under UV", "UV reactive"],
-  },
-  // Sparkle/Special Effects
-  {
-    name: "Galaxy",
-    family: "Sparkle colors",
-    metalComposition: "Mica-based sparkle effect",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Sparkle effect throughout", "Metallic shimmer"],
-  },
-  {
-    name: "Blue Stardust",
-    family: "Sparkle colors",
-    metalComposition: "Blue with mica sparkle",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Blue with sparkle effect"],
-  },
-  {
-    name: "Heavy Blue Stardust",
-    family: "Sparkle colors",
-    metalComposition: "Dark blue with heavy mica sparkle",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Heavy sparkle effect", "Dark blue base"],
-  },
-  {
-    name: "Atomic Stardust",
-    family: "Sparkle colors",
-    metalComposition: "UV-reactive with sparkle",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Sparkle + UV reactive", "Glows under UV"],
-  },
-  {
-    name: "Absinthe",
-    family: "Sparkle colors",
-    metalComposition: "Green with sparkle effect",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Green sparkle"],
-  },
-  {
-    name: "Nemo",
-    family: "Sparkle colors",
-    metalComposition: "Orange with sparkle effect",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Orange sparkle"],
-  },
-  {
-    name: "Lucy",
-    family: "Sparkle colors",
-    metalComposition: "Multi-color with sparkle",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Multi-color sparkle effect"],
-  },
-  // Transparent Colors
-  {
-    name: "Clear",
-    family: "Transparent",
-    metalComposition: "Pure borosilicate glass",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Standard clear borosilicate"],
-  },
-  {
-    name: "Pink",
-    family: "Transparent",
-    metalComposition: "Manganese oxide colorant",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Transparent pink"],
-  },
-  {
-    name: "Lavender",
-    family: "Transparent",
-    metalComposition: "Manganese oxide + cobalt",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Transparent lavender"],
-  },
-  {
-    name: "Green",
-    family: "Transparent",
-    metalComposition: "Chromium oxide or iron oxide",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Transparent green"],
-  },
-  {
-    name: "Amber",
-    family: "Transparent",
-    metalComposition: "Iron oxide colorant",
-    annealPoint: 1050,
-    strainPoint: 960,
-    heatSensitive: false,
-    reductionSensitive: false,
-    strikeMethod: "none",
-    warnings: ["Transparent amber/brown"],
+    warnings: ["Bright green under UV", "UV reactive"],
   },
 ];
 
@@ -629,7 +484,7 @@ ${combinedSchedule.rationale}`;
       </header>
 
       {/* Main Content */}
-           <div className="container py-12">
+      <div className="container py-12">
         <h1 className="text-5xl font-bold text-white mb-2">Color Database</h1>
 
         {/* Search Bar */}
@@ -651,30 +506,70 @@ ${combinedSchedule.rationale}`;
           )}
         </div>
 
-        {/* Color Selection Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        {/* Color Selection List - Vertical Layout */}
+        <div className="space-y-2 mb-8">
           {filteredColors.map((color) => (
-            <div
-              key={color.name}
-              onClick={() => toggleColor(color.name)}
-              onDoubleClick={() => setExpandedColor(color.name)}
-              className={`p-4 border-2 cursor-pointer transition-all rounded-sm ${
-                selectedColors.includes(color.name)
-                  ? "border-amber-400 bg-amber-400 bg-opacity-10"
-                  : "border-stone-700 hover:border-amber-500 bg-stone-900 hover:bg-stone-800"
-              }`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="text-lg font-bold text-white">{color.name}</h3>
-                {selectedColors.includes(color.name) && <CheckCircle2 className="w-5 h-5 text-amber-400" />}
+            <div key={color.name}>
+              {/* Color Item - Slender Row */}
+              <div
+                onClick={() => toggleColor(color.name)}
+                className={`p-3 border cursor-pointer transition-all rounded-sm flex items-center justify-between ${
+                  selectedColors.includes(color.name)
+                    ? "border-amber-400 bg-amber-400 bg-opacity-10"
+                    : "border-stone-700 hover:border-amber-500 bg-stone-900 hover:bg-stone-800"
+                }`}
+              >
+                <div className="flex-1 flex items-center gap-3">
+                  <h3 className="text-sm font-bold text-white">{color.name}</h3>
+                  <span className="text-xs text-amber-400">{color.family}</span>
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setExpandedColor(expandedColor === color.name ? null : color.name);
+                  }}
+                  className="text-stone-400 hover:text-amber-400 transition-colors ml-2"
+                >
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${expandedColor === color.name ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {selectedColors.includes(color.name) && <CheckCircle2 className="w-4 h-4 text-amber-400 ml-2" />}
               </div>
-              <p className="text-sm text-amber-400 mb-2">{color.family}</p>
-              <p className="text-xs text-stone-400 mb-3">{color.metalComposition}</p>
-              <div className="flex gap-4 text-xs text-stone-500">
-                <span>Anneal: {color.annealPoint}°F</span>
-                <span>Strain: {color.strainPoint}°F</span>
-              </div>
-              <p className="text-xs text-stone-500 mt-3 italic">Double-click to expand</p>
+
+              {/* Expanded Description */}
+              {expandedColor === color.name && (
+                <div className="bg-stone-800 border border-t-0 border-stone-700 rounded-b-sm p-4 space-y-3">
+                  <div>
+                    <p className="text-xs text-stone-500 uppercase tracking-wider mb-1">Metal Composition</p>
+                    <p className="text-sm text-stone-300">{color.metalComposition}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-xs text-stone-500 uppercase tracking-wider mb-1">Anneal Point</p>
+                      <p className="text-sm text-amber-400 font-bold">{color.annealPoint}°F</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-stone-500 uppercase tracking-wider mb-1">Strain Point</p>
+                      <p className="text-sm text-amber-400 font-bold">{color.strainPoint}°F</p>
+                    </div>
+                  </div>
+                  {color.warnings.length > 0 && (
+                    <div>
+                      <p className="text-xs text-stone-500 uppercase tracking-wider mb-2">Warnings</p>
+                      <ul className="space-y-1">
+                        {color.warnings.map((warning, idx) => (
+                          <li key={idx} className="text-xs text-amber-300 flex gap-2">
+                            <span className="flex-shrink-0">•</span>
+                            <span>{warning}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -739,118 +634,6 @@ ${combinedSchedule.rationale}`;
           </div>
         )}
       </div>
-
-      {/* Expanded Color Modal */}
-      {expandedColorData && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-          <div className="bg-stone-900 border-2 border-amber-500 rounded-sm max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-stone-900 border-b border-amber-500 p-6 flex items-start justify-between">
-              <div>
-                <h2 className="text-4xl font-bold text-white mb-2">{expandedColorData.name}</h2>
-                <p className="text-amber-400 text-lg">{expandedColorData.family}</p>
-              </div>
-              <button
-                onClick={() => setExpandedColor(null)}
-                className="text-stone-400 hover:text-amber-400 transition-colors text-3xl font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="p-8 space-y-6">
-              {/* Metal Composition */}
-              <div>
-                <h3 className="text-xl font-bold text-amber-400 mb-2">Metal Composition</h3>
-                <p className="text-stone-300 text-lg">{expandedColorData.metalComposition}</p>
-              </div>
-
-              {/* Temperature Parameters */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className="border border-amber-500 p-4 rounded-sm">
-                  <p className="text-stone-400 text-sm mb-1">Anneal Temperature</p>
-                  <p className="text-3xl font-bold text-amber-400">{expandedColorData.annealPoint}°F</p>
-                </div>
-                <div className="border border-amber-500 p-4 rounded-sm">
-                  <p className="text-stone-400 text-sm mb-1">Strain Temperature</p>
-                  <p className="text-3xl font-bold text-amber-400">{expandedColorData.strainPoint}°F</p>
-                </div>
-              </div>
-
-              {/* Sensitivity Flags */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className={`p-4 rounded-sm border ${
-                  expandedColorData.heatSensitive
-                    ? "border-red-500 bg-red-500 bg-opacity-10"
-                    : "border-green-500 bg-green-500 bg-opacity-10"
-                }`}>
-                  <p className={expandedColorData.heatSensitive ? "text-red-400" : "text-green-400"}>
-                    {expandedColorData.heatSensitive ? "⚠ Heat Sensitive" : "✓ Heat Stable"}
-                  </p>
-                </div>
-                <div className={`p-4 rounded-sm border ${
-                  expandedColorData.reductionSensitive
-                    ? "border-red-500 bg-red-500 bg-opacity-10"
-                    : "border-green-500 bg-green-500 bg-opacity-10"
-                }`}>
-                  <p className={expandedColorData.reductionSensitive ? "text-red-400" : "text-green-400"}>
-                    {expandedColorData.reductionSensitive ? "⚠ Reduction Sensitive" : "✓ Reduction Stable"}
-                  </p>
-                </div>
-              </div>
-
-              {/* Strike Method */}
-              <div>
-                <h3 className="text-xl font-bold text-amber-400 mb-2">Strike Method</h3>
-                <p className="text-stone-300 text-lg capitalize">
-                  {expandedColorData.strikeMethod === "none"
-                    ? "No striking required"
-                    : `${expandedColorData.strikeMethod.charAt(0).toUpperCase() + expandedColorData.strikeMethod.slice(1)} strike`}
-                </p>
-              </div>
-
-              {/* Warnings */}
-              {expandedColorData.warnings.length > 0 && (
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <AlertTriangle className="w-6 h-6 text-amber-400" />
-                    <h3 className="text-xl font-bold text-amber-400">Warnings & Considerations</h3>
-                  </div>
-                  <ul className="space-y-2">
-                    {expandedColorData.warnings.map((warning, idx) => (
-                      <li key={idx} className="text-stone-300 flex gap-3">
-                        <span className="text-amber-400 flex-shrink-0 mt-1">•</span>
-                        <span>{warning}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex gap-4 pt-4">
-                <button
-                  onClick={() => {
-                    toggleColor(expandedColorData.name);
-                  }}
-                  className={`flex-1 px-6 py-3 font-bold rounded-sm transition-colors ${
-                    selectedColors.includes(expandedColorData.name)
-                      ? "bg-amber-500 hover:bg-amber-600 text-black"
-                      : "bg-stone-700 hover:bg-stone-600 text-white"
-                  }`}
-                >
-                  {selectedColors.includes(expandedColorData.name) ? "✓ Selected" : "Select Color"}
-                </button>
-                <button
-                  onClick={() => setExpandedColor(null)}
-                  className="flex-1 px-6 py-3 bg-stone-700 hover:bg-stone-600 text-white font-bold rounded-sm transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
