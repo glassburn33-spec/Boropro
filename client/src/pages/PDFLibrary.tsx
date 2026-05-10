@@ -317,12 +317,14 @@ export default function PDFLibrary() {
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
               <div className="flex gap-2">
-                <button
-                  onClick={() => setShowFolderModal(true)}
-                  className="px-4 py-2 rounded-lg border border-green-500 text-green-500 hover:bg-green-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                >
-                  + Add Folder
-                </button>
+                {!selectMode && (
+                  <button
+                    onClick={() => setShowFolderModal(true)}
+                    className="px-4 py-2 rounded-lg border border-green-500 text-green-500 hover:bg-green-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                  >
+                    + Add Folder
+                  </button>
+                )}
                 {selectMode && (
                   <>
                     {selectedForDeletion.length === 0 ? (
