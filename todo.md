@@ -130,3 +130,9 @@
 - [x] Add unit tests for PDF generation with updated information
 - [x] Fix TypeScript errors (downlevelIteration, Set types)
 - [x] Verify Edit modal functionality in browser
+
+
+## Notes Button for Schedule Library (New)
+- [x] Add Notes button next to Edit button for each schedule
+- [x] Notes button opens Edit modal for quick note-taking
+- [x] Test Notes button functionality in browser
