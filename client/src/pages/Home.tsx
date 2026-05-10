@@ -1256,15 +1256,15 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Fire Triangle</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              A fire can arise when the 3 components of the Fire Triangle - heat, fuel, and oxygen - are present simultaneously. Removing any of these elements can prevent or extinguish a fire. Various fire extinguisher types and fire suppression methods are designed to eliminate these elements to effectively combat fires:
+              Combustion initiation requires concurrent presence of three fundamental components: thermal energy, combustible material, and atmospheric oxygen. Elimination of any single component disrupts the combustion process and prevents or terminates fire propagation. Diverse fire suppression technologies and intervention strategies target specific component removal for effective fire mitigation:
             </p>
             <ul className="text-stone-300 space-y-2 text-sm mb-3">
-              <li><strong>Water extinguishers</strong> cool the fire, thus, removing the heat element from the Fire Triangle.</li>
-              <li><strong>Carbon dioxide extinguishers and fire blankets</strong> work by displacing or removing the oxygen element from the Fire Triangle.</li>
-              <li><strong>Flame-retardant materials</strong> act on the fuel element by slowing down or inhibiting the combustion process.</li>
+              <li><strong>Aqueous extinguishing agents</strong> reduce thermal energy through evaporative cooling, thereby disrupting the thermal component of the combustion triad.</li>
+              <li><strong>Inert gas systems and thermal barriers</strong> function through atmospheric displacement or oxygen concentration reduction below combustion thresholds.</li>
+              <li><strong>Chemical inhibitor coatings</strong> interrupt fuel participation by suppressing or decelerating exothermic decomposition pathways.</li>
             </ul>
             <p className="text-stone-300 text-sm leading-relaxed">
-              In addition to these fire suppression methods, proper design and adherence to process safety protocols are essential for eliminating ignition sources and preventing fires (Bosch, 2005).
+              Complementing these suppression methodologies, systematic equipment design and rigorous adherence to operational safety protocols form the foundation for ignition source elimination and fire prevention.
             </p>
           </div>
           
@@ -1279,7 +1279,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Fire Tetrahedron</h4>
             <p className="text-stone-300 text-sm leading-relaxed">
-              The Fire Tetrahedron is an expanded model that incorporates a fourth element, the chemical reaction, into the traditional Fire Triangle. Just like the Fire Triangle, the removal of any one of these elements results in the extinguishment of the fire. This understanding provides a foundation for us to delve into the explanation of various aspects of fire safety (Perry, 1997).
+              The Fire Tetrahedron represents an advanced conceptual framework incorporating a fourth critical parameter—the exothermic chemical reaction—into the foundational triadic combustion model. Analogous to the triadic framework, disruption of any singular component terminates combustion propagation. This expanded mechanistic understanding establishes the theoretical foundation for comprehensive fire safety analysis and intervention strategy development.
             </p>
           </div>
           
@@ -1294,28 +1294,28 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Fuels</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-4">
-              Any material that can undergo combustion is considered a fuel. Fuels can be classified into solids, liquids, or gases, each with unique properties and behaviours during combustion. This classification system provides a valuable framework for understanding the distinct characteristics and behaviours of different fuel types, crucial information in the realm of fire safety and combustion. Before ignition, fuels may undergo diverse chemical or state changes before becoming active participants in a fire.
+              Combustible materials encompass any substance capable of undergoing exothermic oxidative reaction. Systematic categorization into solid, liquid, and gaseous phases reflects distinct physicochemical properties and combustion behavior patterns. This taxonomic framework enables systematic understanding of fuel-specific characteristics essential for fire safety engineering and combustion process management. Preceding ignition, fuels undergo diverse thermochemical transformations and phase transitions before participating in combustion reactions.
             </p>
             
             <div className="ml-4 space-y-4">
               <div>
                 <h5 className="text-cyan-300 font-semibold mb-2">Gases</h5>
                 <p className="text-stone-300 text-sm leading-relaxed">
-                  Gaseous fuels, such as natural gas and propane, are highly flammable in their vapour form. Their combustion is characterised by rapid ignition and high flame temperatures. The flammability of gases is characterised by flammability limits - concentrations in air within which they can ignite and sustain combustion.
+                  Gaseous fuel species including methane and propane exhibit elevated flammability in vapor phase. Combustion kinetics demonstrate rapid initiation and elevated thermal output. Gaseous flammability parameters define concentration envelopes within atmospheric mixtures permitting ignition and sustained combustion propagation.
                 </p>
               </div>
               
               <div>
                 <h5 className="text-cyan-300 font-semibold mb-2">Liquids</h5>
                 <p className="text-stone-300 text-sm leading-relaxed">
-                  Liquid fuels include substances like gasoline, diesel, and various industrial chemicals. Liquids ignite more readily than solids and often produce flammable vapours that can form explosive mixtures with air. Flashpoint and autoignition temperature are critical characteristics influencing the flammability of liquid fuels. Prior to the ignition, liquids can evaporate while retaining their chemical composition or undergo decomposition and subsequent evaporation.
+                  Liquid-phase combustible materials encompass petroleum distillates, synthetic hydrocarbons, and specialized industrial solvents. Liquid-phase ignition occurs at lower thermal thresholds than solid-phase materials and frequently generates flammable vapor envelopes forming explosive air-fuel mixtures. Flash-point temperature and spontaneous ignition threshold represent critical thermodynamic parameters governing liquid fuel flammability. Preceding ignition, liquid-phase fuels undergo either reversible vaporization preserving molecular structure or irreversible thermal decomposition followed by vapor evolution.
                 </p>
               </div>
               
               <div>
                 <h5 className="text-cyan-300 font-semibold mb-2">Solids</h5>
                 <p className="text-stone-300 text-sm leading-relaxed">
-                  Solids encompass a wide range of materials, including wood, paper, fabrics, and plastics. Different types of solids respond differently to heat. Some solids melt before forming fuel vapour, while others produce vapour directly upon heating. Some solids may undergo direct sublimation into gases or follow a path of decomposition (pyrolysis) before evolving into vapours, followed by their ignition. Other solids melt before forming fuel vapour, either maintaining their original chemical composition or decomposing, which adds another layer of complexity. The rate of combustion in solids depends on factors such as density, moisture content, and the presence of accelerants.
+                  Solid-phase combustible materials span diverse categories including lignocellulosic polymers, cellulose derivatives, synthetic polymers, and composite structures. Thermal response mechanisms vary substantially across material classes. Certain solid materials undergo fusion prior to vapor generation, while others produce combustible vapors directly upon heating. Alternative pathways include direct solid-to-gas phase transition (sublimation) or thermal decomposition (pyrolysis) preceding vapor evolution and subsequent ignition. Solid combustion kinetics depend upon bulk density, residual moisture content, thermal conductivity, and presence of catalytic accelerants.
                 </p>
               </div>
             </div>
@@ -1332,7 +1332,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Heat</h4>
             <p className="text-stone-300 text-sm leading-relaxed">
-              The ignition of a flammable mixture can occur through various means. It may result from the flammable mixture encountering an external ignition source with sufficient energy or when the gas reaches an autoignition temperature, igniting without the need for an external source. The energy required for ignition depends on factors such as substance, concentration, pressure, and temperature.
+              Combustible mixture ignition occurs via multiple thermal pathways. Initiation may result from direct contact with external thermal sources possessing sufficient energy density, or alternatively through spontaneous exothermic reaction upon reaching the substance-specific self-ignition temperature threshold. Ignition energy requirements depend upon molecular composition, vapor concentration, system pressure, and ambient thermal conditions.
             </p>
           </div>
         </div>
