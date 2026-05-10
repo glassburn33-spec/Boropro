@@ -252,18 +252,9 @@ export default function PDFLibrary() {
         {/* Hero */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <div className="mb-5 flex items-center gap-2">
-              <FileText size={16} className="text-amber-500" />
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">
-                Interactive tool
-              </span>
-            </div>
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
               PDF Schedule Library
             </h1>
-            <p className="text-lg leading-8 text-stone-300 max-w-3xl">
-              Upload kiln schedules as PDFs to extract temperature and time data. Generate and download custom schedules from the color picker. Build a personal library of schedules for reference and comparison.
-            </p>
           </div>
         </section>
 
