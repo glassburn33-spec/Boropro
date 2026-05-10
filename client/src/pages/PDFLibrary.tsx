@@ -9,6 +9,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { CSVViewer } from "@/components/CSVViewer";
+import { SchedulePlotViewer } from "@/components/SchedulePlotViewer";
 
 
 interface PDFItem {
@@ -646,6 +647,17 @@ export default function LogLibrary() {
                         </div>
                       )}
                     </div>
+                  
+                  {/* Schedule Plot Viewer */}
+                  {selectedPDF.temperatures && selectedPDF.temperatures.length > 0 && !selectedPDF.filename.endsWith('.csv') && (
+                    <div className="flex-1 w-full">
+                      <SchedulePlotViewer
+                        temperatures={selectedPDF.temperatures}
+                        times={selectedPDF.times}
+                        filename={selectedPDF.filename.replace(/_kiln_log\.pdf$/, '')}
+                      />
+                    </div>
+                  )}
                   
                   {/* Image Window */}
                   <div className="w-40">

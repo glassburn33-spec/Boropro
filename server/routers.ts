@@ -122,6 +122,9 @@ export const appRouter = router({
           fileBase64: z.string(),
           temperatures: z.array(z.number()),
           times: z.array(z.number()),
+          notes: z.string().optional(),
+          results: z.string().optional(),
+          color: z.string().optional(),
         })
       )
       .mutation(async ({ input, ctx }) => {

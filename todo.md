@@ -146,9 +146,41 @@
 
 
 ## CSV Viewer for Schedule Library (New)
-- [ ] Create CSVViewer component to parse and display CSV data
-- [ ] Extract metadata, plot data, and notes from CSV files
-- [ ] Display temperature profile chart from CSV data
-- [ ] Show notes and metadata in viewer modal
-- [ ] Integrate CSV viewer into Schedule Details section
-- [ ] Test CSV viewer with saved CSV files from library
+- [x] Create CSVViewer component to parse and display CSV data
+- [x] Extract metadata, plot data, and notes from CSV files
+- [x] Display temperature profile chart from CSV data
+- [x] Show notes and metadata in viewer modal
+- [x] Integrate CSV viewer into Schedule Details section
+- [ ] Test CSV viewer with saved CSV files from library (blocked by storage access issue)
+
+
+## Reproduce Kiln Log Plot in Schedule Library (New)
+- [ ] Analyze Kiln Log page plot format (temperature profile chart)
+- [ ] Create matching plot visualization for Schedule Library viewer
+- [ ] Display plot with same styling and interactivity as Kiln Log
+- [ ] Save metadata (temperatures, times, notes) with CSV exports
+- [ ] Create metadata display window in Schedule Library
+- [ ] Show temperature profile chart in viewer window
+- [ ] Display metadata table with stage, temperature, and time data
+- [ ] Add notes display section in viewer window
+- [ ] Test end-to-end metadata display and plot visualization
+
+
+## Reproduce Kiln Log Plot in Schedule Library (New)
+- [x] Analyze Kiln Log page plot format (temperature profile chart)
+- [x] Create matching plot visualization for Schedule Library viewer (SchedulePlotViewer component)
+- [x] Display plot with same styling and interactivity as Kiln Log
+- [x] Save metadata (temperatures, times, notes) with CSV exports
+- [x] Create metadata display window in Schedule Library
+- [x] Show temperature profile chart in viewer window
+- [x] Display metadata table with stage, temperature, and time data
+- [x] Add notes display section in viewer window
+- [x] Test end-to-end metadata display and plot visualization
+
+## SVG Plot Export to Library (New)
+- [x] Create SVG generation function in SaveScheduleModal
+- [x] Add "Add SVG Plot to Library" button to SaveScheduleModal
+- [x] Implement SVG export with temperature curve and reference lines
+- [x] Save SVG files to library with schedule metadata
+- [x] Integrate SchedulePlotViewer into PDFLibrary for plot display
+- [x] All 50 tests passing

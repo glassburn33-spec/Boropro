@@ -707,12 +707,15 @@ export default function KilnLog() {
             isOpen={showSaveModal}
             kilnLog={savedKilnLog}
             onClose={() => setShowSaveModal(false)}
-            onAddToLibrary={async (base64, filename) => {
+            onAddToLibrary={async (base64, filename, metadata) => {
               await saveGeneratedMutation.mutateAsync({
                 filename,
                 fileBase64: base64,
                 temperatures: savedKilnLog.temperatures,
                 times: savedKilnLog.times,
+                notes: metadata?.notes,
+                results: metadata?.results,
+                color: metadata?.color,
               });
             }}
             isAddingToLibrary={saveGeneratedMutation.isPending}
