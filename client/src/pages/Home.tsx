@@ -976,6 +976,20 @@ function ScieEquipTab() {
           <p className="text-stone-300 leading-relaxed">
             Flame behavior is fundamentally determined by the proportional balance between fuel and oxidant components, which establishes whether the flame exhibits reducing, neutral, oxidizing, or carburizing properties. Each flame configuration presents unique thermal and chemical characteristics that significantly influence glass manipulation and analytical procedures.
           </p>
+
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-yellow-500">
+            <h4 className="text-yellow-300 font-bold mb-3">Carburizing Flame</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-4">
+              Carburizing flame characteristics arise from acetylene surplus conditions, identifiable by an intermediate thermal zone positioned between the central cone and outer envelope. This intermediate zone exhibits diminished luminosity and pale coloration relative to the central cone, yet maintains considerably greater brightness than the peripheral envelope. This gentle flame configuration (alternatively termed a reducing flame) proves advantageous for aluminum and aluminum-based alloy joining and for low-temperature soldering operations.
+            </p>
+            <div className="flex justify-center my-4">
+              <img 
+                src="/manus-storage/reductinonflame_e88e8e04.webp" 
+                alt="Carburizing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
+                className="w-full max-w-3xl rounded-lg border border-stone-600"
+              />
+            </div>
+          </div>
         </div>
       ),
     },
