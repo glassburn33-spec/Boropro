@@ -17,7 +17,7 @@ function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={LogoHome} />
+      <Route path={"/"} component={References} />
       <Route path={"/explore"} component={Home} />
       <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
       <Route path={"/color-picker"} component={ColorDatabase} />
@@ -26,6 +26,7 @@ function Router() {
       <Route path={"/pdf-library"} component={LogLibrary} />
       <Route path={"/kiln-log"} component={KilnLog} />
       <Route path={"/references"} component={References} />
+      <Route path={"/logo-home"} component={LogoHome} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -202,7 +202,7 @@ export default function FlameChemistryCharacterization() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
-          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <a href="/references" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
