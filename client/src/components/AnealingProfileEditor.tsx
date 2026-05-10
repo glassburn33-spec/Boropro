@@ -426,14 +426,16 @@ export default function AnealingProfileEditor() {
     return points;
   }, [inputs, cumulativeTimes]);
 
-  const maxTemp = Math.max(inputs.stage1.targetTemp, inputs.stage2.holdTemp) + 50;
+  // Calculate maxTemp with minimal padding to fit plot better
+  const maxTemp = Math.max(inputs.stage1.targetTemp, inputs.stage2.holdTemp) + 20;
   const maxTime = cumulativeTimes[4];
 
   // SVG Plot Generation
   const plotSvg = useMemo(() => {
     const width = 1000;
     const height = 600;
-    const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+    // Optimized margins to give more space to the plot
+    const margin = { top: 70, right: 60, bottom: 110, left: 70 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     
@@ -487,19 +489,26 @@ export default function AnealingProfileEditor() {
         {/* Background */}
         <rect width={width} height={height} fill="#1c1917" />
 
-        {/* Gridlines */}
-        {[0, 100, 200, 300, 400, 500].map((temp) => (
-          <line
-            key={`grid-y-${temp}`}
-            x1={margin.left}
-            y1={margin.top + scaleY(temp)}
-            x2={margin.left + plotWidth}
-            y2={margin.top + scaleY(temp)}
-            stroke="#404040"
-            strokeDasharray="4"
-            strokeWidth="1"
-          />
-        ))}
+        {/* Gridlines - dynamically scaled */}
+        {(() => {
+          const tempStep = maxTemp > 600 ? 100 : 50;
+          const gridTemps = [];
+          for (let i = 0; i <= maxTemp; i += tempStep) {
+            gridTemps.push(i);
+          }
+          return gridTemps.map((temp) => (
+            <line
+              key={`grid-y-${temp}`}
+              x1={margin.left}
+              y1={margin.top + scaleY(temp)}
+              x2={margin.left + plotWidth}
+              y2={margin.top + scaleY(temp)}
+              stroke="#404040"
+              strokeDasharray="4"
+              strokeWidth="1"
+            />
+          ));
+        })()}
 
         {/* Stage regions */}
         {regions.map((region) => (
