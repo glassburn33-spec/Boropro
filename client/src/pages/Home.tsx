@@ -225,18 +225,8 @@ export default function Home() {
 function StudioTab() {
   return (
     <div className="space-y-6">
-      {/* GLASS SCIENCE HEADER AND STRUCTURE IMAGE */}
+      {/* GLASS SCIENCE HEADER */}
       <div className="border-t border-stone-700 pt-8 mt-8">
-        <div className="w-full flex flex-col items-center mb-6">
-          <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663623640040/ko6JvUbynpgrMrJ75UzZgS/glass-structure-comparison-ZqjkF7jkXYuAaH7xeFCr6V.webp"
-            alt="Atomic structure comparison: crystalline quartz vs silica glass"
-            className="w-full max-w-2xl rounded-xl border border-stone-700 shadow-lg"
-          />
-          <p className="text-stone-500 text-xs italic text-center mt-3 max-w-xl">
-            Atomic structure comparison: crystalline quartz (ordered, periodic lattice) vs. silica glass (disordered, amorphous network). The absence of long-range order in glass is the origin of its unique thermal behavior.
-          </p>
-        </div>
 
         <div className="max-w-2xl mx-auto space-y-4 pb-10 px-2">
           <Accordion type="single" collapsible>
