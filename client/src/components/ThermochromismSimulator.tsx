@@ -184,24 +184,7 @@ export function ThermochromismSimulator() {
         </div>
       </div>
 
-      {/* Scientific Explanation */}
-      <Card className="bg-stone-800/50 border border-stone-700/50 p-6">
-        <h3 className="text-lg font-semibold text-amber-400 mb-4">How Thermochromism Works</h3>
-        <div className="bg-stone-900/40 rounded p-4 text-sm text-stone-300 space-y-3">
-          <p>
-            <span className="font-semibold text-amber-400">Thermal Energy & Coordination:</span> As temperature increases, thermal energy causes metal ions' coordination geometry to shift. This changes the crystal field splitting energy, which alters the wavelengths of light absorbed by the ion.
-          </p>
-          <p>
-            <span className="font-semibold text-amber-400">Visible Color Change:</span> The result is a visible color change that reflects underlying changes in atomic structure. For example, Fe²⁺ in octahedral coordination appears blue-green, while Fe³⁺ appears amber.
-          </p>
-          <p>
-            <span className="font-semibold text-amber-400">Practical Significance:</span> Understanding thermochromism is essential for predicting glass color stability during kiln firing and annealing. Different chromophores respond differently to temperature changes, affecting final glass appearance.
-          </p>
-          <p className="text-xs text-stone-400 border-t border-stone-700 pt-3 mt-3">
-            All temperature data and annealing schedules based on 33 COE borosilicate specifications from Northstar Glassworks, Gaffer Glass, Trautman Art Glass, and Glass Alchemy.
-          </p>
-        </div>
-      </Card>
+
     </div>
   );
 }
