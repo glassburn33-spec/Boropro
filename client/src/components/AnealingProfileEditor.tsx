@@ -13,6 +13,8 @@ import { toast } from 'sonner';
 import { generateKilnLogPDF, pdfToBase64, generateAnealingSchedulePDF } from '@/lib/pdfUtils';
 import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
 import { ColorWheelPicker } from './ColorWheelPicker';
+import { ColoredGlassJar } from './ColoredGlassJar';
+import { renderColoredJarToCanvas } from '@/lib/jarRenderer';
 
 // Helper function to get color name from hex
 function getColorNameFromHex(hex: string): string {
@@ -1470,17 +1472,14 @@ export default function AnealingProfileEditor() {
                                   pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                                   yPosition = 10;
                                 }
-                                // Parse hex color and set fill color for the swatch
-                                const r = parseInt(color.slice(1, 3), 16);
-                                const g = parseInt(color.slice(3, 5), 16);
-                                const b = parseInt(color.slice(5, 7), 16);
-                                pdf.setFillColor(r, g, b);
-                                pdf.rect(12, yPosition - 2, 4, 4, 'F');
+                                // Render colored jar icon
+                                const jarImageData = renderColoredJarToCanvas(color, 60);
+                                pdf.addImage(jarImageData, 'PNG', 12, yPosition - 6, 6, 6);
                                 // Add color name text
-                                pdf.setTextColor(255, 255, 255);
+                                pdf.setTextColor(255, 187, 36);
                                 const colorName = getColorNameFromHex(color);
-                                pdf.text(colorName, 18, yPosition);
-                                yPosition += 5;
+                                pdf.text(colorName, 20, yPosition);
+                                yPosition += 8;
                               });
                             }
 

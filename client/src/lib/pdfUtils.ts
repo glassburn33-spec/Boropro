@@ -1,5 +1,6 @@
 import * as pdfjsLib from "pdfjs-dist";
 import jsPDF from "jspdf";
+import { renderColoredJarToCanvas } from './jarRenderer';
 
 // Set up PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -570,14 +571,19 @@ export function generateAnealingSchedulePDF(data: AnealingSchedulePDFData): jsPD
         pdf.rect(0, 0, pageWidth, pageHeight, 'F');
         yPosition = 10;
       }
-      const r = parseInt(color.slice(1, 3), 16);
-      const g = parseInt(color.slice(3, 5), 16);
-      const b = parseInt(color.slice(5, 7), 16);
-      pdf.setFillColor(r, g, b);
-      pdf.rect(12, yPosition - 2, 4, 4, 'F');
+      if (yPosition + 16 > pageHeight - 10) {
+        pdf.addPage();
+        pdf.setFillColor(0, 0, 0);
+        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+        yPosition = 10;
+      }
+      // Render colored jar icon
+      const jarImageData = renderColoredJarToCanvas(color, 60);
+      pdf.addImage(jarImageData, 'PNG', 12, yPosition - 6, 6, 6);
       pdf.setTextColor(255, 187, 36);
-      pdf.text(color.toUpperCase(), 18, yPosition);
-      yPosition += 5;
+      const colorName = getColorNameFromHex(color);
+      pdf.text(colorName, 28, yPosition);
+      yPosition += 14;
     });
   }
 

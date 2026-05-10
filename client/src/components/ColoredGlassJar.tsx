@@ -19,39 +19,64 @@ export const ColoredGlassJar: React.FC<ColoredGlassJarProps> = ({ color, size = 
     canvas.width = size;
     canvas.height = size;
 
-    // Load the glass jar image
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = '/manus-storage/glassjar_e8338f0f.png';
+    // Clear canvas
+    ctx.clearRect(0, 0, size, size);
 
-    img.onload = () => {
-      // Draw the original image
-      ctx.drawImage(img, 0, 0, size, size);
+    // Draw spherical jar with color
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size / 2.5;
 
-      // Create a circular mask for the jar (approximate center and radius)
-      // The jar is roughly in the center of the image
-      const centerX = size / 2;
-      const centerY = size / 2.2; // Slightly higher than center
-      const radius = size / 3.5; // Radius of the jar
+    // Create radial gradient for 3D sphere effect
+    const gradient = ctx.createRadialGradient(
+      centerX - radius / 3,
+      centerY - radius / 3,
+      0,
+      centerX,
+      centerY,
+      radius
+    );
 
-      // Apply color overlay to the jar area
-      ctx.globalCompositeOperation = 'multiply';
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.fill();
+    // Parse hex color to RGB
+    const r = parseInt(color.slice(1, 3), 16);
+    const g = parseInt(color.slice(3, 5), 16);
+    const b = parseInt(color.slice(5, 7), 16);
 
-      // Reset composite operation
-      ctx.globalCompositeOperation = 'source-over';
-    };
+    // Create gradient stops with color variations for 3D effect
+    gradient.addColorStop(0, `rgba(${Math.min(r + 60, 255)}, ${Math.min(g + 60, 255)}, ${Math.min(b + 60, 255)}, 0.9)`);
+    gradient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, 0.85)`);
+    gradient.addColorStop(1, `rgba(${Math.max(r - 40, 0)}, ${Math.max(g - 40, 0)}, ${Math.max(b - 40, 0)}, 0.8)`);
 
-    img.onerror = () => {
-      // Fallback: draw a simple colored circle if image fails to load
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size / 3, 0, Math.PI * 2);
-      ctx.fill();
-    };
+    // Draw main sphere
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Add highlight for glass shine
+    const highlightGradient = ctx.createRadialGradient(
+      centerX - radius / 2.5,
+      centerY - radius / 2.5,
+      0,
+      centerX,
+      centerY,
+      radius / 1.5
+    );
+    highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
+    highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    ctx.fillStyle = highlightGradient;
+    ctx.beginPath();
+    ctx.arc(centerX - radius / 3, centerY - radius / 3, radius / 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Add subtle shadow for depth
+    ctx.strokeStyle = `rgba(0, 0, 0, 0.3)`;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.stroke();
+
   }, [color, size]);
 
   return (
@@ -60,8 +85,8 @@ export const ColoredGlassJar: React.FC<ColoredGlassJarProps> = ({ color, size = 
       style={{
         width: size,
         height: size,
-        borderRadius: '4px',
         display: 'block',
+        imageRendering: 'crisp-edges',
       }}
     />
   );
