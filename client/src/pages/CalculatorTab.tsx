@@ -831,15 +831,6 @@ export function CalculatorTab() {
   return (
     <div className="space-y-4 pb-8">
       <h2 className="text-xl font-bold text-amber-400">Time to Reheat Unexposed Work</h2>
-      <p className="text-xs text-stone-400">
-        Calculate available working time before borosilicate glass reaches its
-        strain point ({GLASS.T_strain} °C) after removal from kiln at{' '}
-        {kilnTemp} °C, in {roomTemp} °C ambient air.
-      </p>
-      <p className="text-xs text-stone-500 italic">
-        Uses Churchill-Chu natural-convection correlations with air properties
-        evaluated at T<sub>film</sub> ≈ {hasCalc && results ? results.T_film_C.toFixed(0) : '295'} °C.
-      </p>
 
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
