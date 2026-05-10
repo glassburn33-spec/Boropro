@@ -1184,13 +1184,13 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            Understanding flame stability and blow-off phenomena is critical for controlling combustion processes. With increasing velocity of the reactive mixture at a nozzle exit (uR) by controlling a mass flow controller (MFC), the conical flame length becomes longer and sometimes flame tip opening is observed near the blow-off region. The lift-off phenomenon did not occur during the experiments, but at higher flow rates, the flame was directly extinguished (blow-off). Compared with other types of combustion using air, the flame base is lifted off and then finally blown out by increasing the fuel jet or supplying air velocity. This blow out of lifted flames is known to be caused by local extinction and flame-let quenching, which means that the velocity of mass convection exceeds thermal energy propagation. In other words, the chemical reaction is sustainable if thermal energy is sufficiently supplied.
+            Combustion stability and extinction dynamics represent fundamental constraints in flame management. As reactive mixture velocity at the burner aperture (uR) increases via mass flow regulation, the flame cone geometry elongates and aperture-region expansion becomes evident approaching critical stability boundaries. Flame base detachment did not manifest during baseline experiments; however, elevated flow conditions produced immediate combustion cessation (extinction event). In contrast to air-based combustion systems, flame anchoring deteriorates progressively with increased fuel or oxidant delivery, culminating in complete extinction. This extinction mechanism involves localized reaction quenching and micro-flame extinction, wherein convective mass transport velocity surpasses thermal energy diffusion rate. Sustained chemical reaction requires adequate thermal energy supply to maintain reaction propagation.
           </p>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Flame Tip Flickering and Instabilities</h4>
             <p className="text-stone-300 text-sm leading-relaxed">
-              Flame tip flickering was observed in both lean (0.4 &lt; φG &lt; 0.7) and rich (1.4 &lt; φG &lt; 2.0) conditions. This flickering is known to depend on the Lewis number of the reactive mixture (LeR), because LeR is far from unity. From a local point of view, local extinction is related to the chemical reaction rate and preferential instability which is one of the intrinsic instabilities. From a global point of view, flame extinction is related to the flame stretch (strain rate or curvature) and the reactant concentration (gradient).
+              Flame tip oscillation manifested across both fuel-lean (0.4 &lt; φG &lt; 0.7) and fuel-rich (1.4 &lt; φG &lt; 2.0) regimes. This oscillatory behavior correlates with the Damköhler number and mixture Lewis number (LeR) deviation from unity. At microscopic scales, reaction extinction couples with chemical kinetics and intrinsic flame instabilities. At macroscopic scales, flame anchoring stability depends upon strain-rate effects (local curvature) and reactant concentration gradients across the flame front.
             </p>
           </div>
           
@@ -1205,10 +1205,10 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">CH* Measurement and Flame Structure</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              To observe the flame structure of oxy-methane combustion, CH* measurement was used. Light emission from CH radicals is known to be a marker of the heat release rate in a reaction zone. In previous works, CH* and OH* are used as indicators of reaction zone because they play an important role in the process of chemical reaction. Donbar et al. observed that in CH and OH PLIF (planar laser induced fluorescence) measurements, the excited CH* layer was thinner than that of OH* and distributed in the preheat zone just before the peak temperature. On the other hand, the excited OH* layer was much broader than that of CH* and widely distributed from the preheat zone to the downstream burned gas region.
+              Flame structure characterization of oxy-methane combustion employed CH* radical emission spectroscopy. Photon emission from CH radical species serves as a quantitative proxy for thermal energy release within the reaction zone. Contemporary research employs CH* and OH* radical tracers as reaction zone markers due to their central role in combustion chemistry. Spectroscopic analysis demonstrates that excited CH* emission occupies a narrower spatial domain than OH* species, localizing within the thermal preheating zone immediately preceding maximum temperature attainment. Conversely, OH* radical emission distributes across a broader spatial region, spanning from the thermal preheating zone through the post-combustion gas region.
             </p>
             <p className="text-stone-300 text-sm leading-relaxed">
-              The structure of a laminar premixed oxy-methane flame consists of the preheat zone, the reaction zone, and the downstream burned gas region. The intensity of the CH* was maximized in the reaction zone, confirming the role of CH radicals as heat release rate markers.
+              Laminar oxy-methane flame architecture comprises three distinct thermal regions: the thermal preheating zone, the exothermic reaction zone, and the post-combustion thermal region. CH* radical emission intensity reaches maximum values within the reaction zone, confirming CH species' utility as thermal energy release quantification markers.
             </p>
           </div>
           
@@ -1223,7 +1223,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
             <h4 className="text-amber-300 font-bold mb-3">Flame Stabilization Curve</h4>
             <p className="text-stone-300 text-sm leading-relaxed mb-3">
-              The flame stabilization curve divides the attached flame region from the blow-off region. The attached flame region (shown in green) represents conditions where the flame remains stable and attached to the burner. The blow-off region (shown in red) indicates conditions where the flame cannot sustain combustion and is extinguished. Flame tip flickering occurs at the boundaries of these regions, particularly in lean (0.4 &lt; φG &lt; 0.7) and rich (1.4 &lt; φG &lt; 2.0) conditions.
+              The flame stabilization boundary demarcates the anchored flame operational domain from the extinction threshold region. The anchored flame zone (depicted in green) encompasses operating conditions maintaining stable flame attachment to the burner apparatus. The extinction threshold zone (depicted in red) encompasses conditions where combustion cannot be sustained and flame extinction occurs. Flame tip oscillation manifests at the transitional boundaries separating these operational zones, particularly across fuel-lean (0.4 &lt; φG &lt; 0.7) and fuel-rich (1.4 &lt; φG &lt; 2.0) regimes.
             </p>
           </div>
           
