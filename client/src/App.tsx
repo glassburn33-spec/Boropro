@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import FlameChemistryCharacterization from "./pages/FlameSimulator";
 import ColorPicker from "./pages/ColorPicker";
 import FiringTracker from "./pages/FiringTracker";
+import CalculatorTab from "./pages/CalculatorTab";
 import PDFLibrary from "./pages/PDFLibrary";
 import KilnLog from "./pages/KilnLog";
 import References from "./pages/References";
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
       <Route path={"/color-picker"} component={ColorPicker} />
       <Route path={"/firing-tracker"} component={FiringTracker} />
+      <Route path={"/calculator"} component={CalculatorTab} />
       <Route path={"/pdf-library"} component={PDFLibrary} />
       <Route path={"/kiln-log"} component={KilnLog} />
       <Route path={"/references"} component={References} />
