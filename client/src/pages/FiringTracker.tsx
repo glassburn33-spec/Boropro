@@ -23,17 +23,17 @@ export default function KilnLog() {
             <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Database
             </a>
-            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
-              Kiln Log
-            </a>
             <a href="/calculator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Reheat Calc
+            </a>
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log Library
             </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              References
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
+              Kiln Log
             </a>
           </nav>
         </div>
