@@ -847,9 +847,13 @@ export default function PDFLibrary() {
                   <div className="space-y-2">
                     {allLibrary
                       .filter(pdf => {
-                        // Hide files that are already in the selected folder
-                        const filesInSelectedFolder = schedulesInFolders[selectedFolderForInsert] || [];
-                        return !filesInSelectedFolder.includes(pdf.id);
+                        // Hide files that are in ANY folder
+                        for (const folderIds of Object.values(schedulesInFolders)) {
+                          if (folderIds.includes(pdf.id)) {
+                            return false; // Hide if in any folder
+                          }
+                        }
+                        return true; // Show only truly uncategorized files
                       })
                       .map(pdf => (
                       <div key={pdf.id} className="flex items-center gap-3 p-3 rounded border border-stone-700 hover:border-amber-500/50 transition-colors">
