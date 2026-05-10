@@ -97,25 +97,25 @@ export default function LogoHome() {
         <div className="flex justify-center gap-4 px-4 py-4 border-t border-amber-700/30">
           <a
             href="/explore?tab=studio"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
+            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
           >
             Glass-Science
           </a>
           <a
             href="/explore?tab=scieequip"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
+            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
           >
             Scie-Equip
           </a>
           <a
             href="/explore?tab=colorscience"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
+            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
           >
             Color-Sci
           </a>
           <a
             href="/references"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
+            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
           >
             References
           </a>
