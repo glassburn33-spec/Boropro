@@ -1430,8 +1430,14 @@ export default function AnealingProfileEditor() {
                                   pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                                   yPosition = 10;
                                 }
-                                pdf.setDrawColor(parseInt(color.slice(1, 3), 16), parseInt(color.slice(3, 5), 16), parseInt(color.slice(5, 7), 16));
+                                // Parse hex color and set fill color for the swatch
+                                const r = parseInt(color.slice(1, 3), 16);
+                                const g = parseInt(color.slice(3, 5), 16);
+                                const b = parseInt(color.slice(5, 7), 16);
+                                pdf.setFillColor(r, g, b);
                                 pdf.rect(12, yPosition - 2, 4, 4, 'F');
+                                // Reset text color to white for visibility
+                                pdf.setTextColor(255, 255, 255);
                                 pdf.text(color.toUpperCase(), 18, yPosition);
                                 yPosition += 5;
                               });
