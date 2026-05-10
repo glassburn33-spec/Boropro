@@ -469,14 +469,14 @@ export default function LogLibrary() {
                         onClick={(e) => {
                           e.stopPropagation();
                           setEditingPDF(pdf);
-                          setEditingFilename(pdf.filename);
+                          setEditingFilename('');
                           setEditingNotes('');
                           setEditingResults('');
                           setShowEditModal(true);
                         }}
-                        className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                        className="px-3 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-sm font-semibold"
                       >
-                        Edit
+                        Add Notes
                       </button>
                       <button
                         onClick={(e) => {
