@@ -43,6 +43,14 @@ export default function LogLibrary() {
   const [editingFilename, setEditingFilename] = useState('');
   const [editingNotes, setEditingNotes] = useState('');
   const [editingResults, setEditingResults] = useState('');
+  const [selectedColor, setSelectedColor] = useState('#dc2626');
+  
+  const colorOptions = [
+    { value: '#dc2626', label: 'Red' },
+    { value: '#ea580c', label: 'Orange' },
+    { value: '#22c55e', label: 'Green' },
+    { value: '#3b82f6', label: 'Blue' },
+  ];
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -1005,6 +1013,25 @@ export default function LogLibrary() {
                     className="w-full px-3 py-2 bg-stone-800 border border-white/20 rounded text-white placeholder-stone-500 focus:outline-none focus:border-blue-500 h-24 resize-none"
                     placeholder="Add results or observations"
                   />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-stone-300 mb-3">Color</label>
+                  <div className="flex gap-3">
+                    {colorOptions.map((color) => (
+                      <button
+                        key={color.value}
+                        onClick={() => setSelectedColor(color.value)}
+                        className={`w-8 h-8 rounded-full border-2 transition-all ${
+                          selectedColor === color.value
+                            ? 'border-white scale-110'
+                            : 'border-white/30 hover:border-white/60'
+                        }`}
+                        style={{ backgroundColor: color.value }}
+                        title={color.label}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
               
