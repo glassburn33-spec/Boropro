@@ -29,6 +29,11 @@ export default function PDFLibrary() {
   const [selectedImage, setSelectedImage] = useState<string | null>('/manus-storage/glasscoloumn_69d60b8f.jfif');
   const [selectMode, setSelectMode] = useState(false);
   const [selectedForDeletion, setSelectedForDeletion] = useState<number[]>([]);
+  const [showFolderModal, setShowFolderModal] = useState(false);
+  const [folderName, setFolderName] = useState('');
+  const [folders, setFolders] = useState<string[]>([]);
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+  const [schedulesInFolders, setSchedulesInFolders] = useState<Record<string, number[]>>({});
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -313,7 +318,7 @@ export default function PDFLibrary() {
               <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
               <div className="flex gap-2">
                 <button
-                  onClick={() => alert('Add Folder feature coming soon')}
+                  onClick={() => setShowFolderModal(true)}
                   className="px-4 py-2 rounded-lg border border-green-500 text-green-500 hover:bg-green-500/10 font-mono text-xs font-bold uppercase transition-colors"
                 >
                   + Add Folder
@@ -380,6 +385,35 @@ export default function PDFLibrary() {
               </div>
             ) : (
               <div className="flex flex-col gap-2">
+                {/* Display Folders */}
+                {folders.map((folder) => (
+                  <div key={folder} className="rounded-lg border border-green-500/30 bg-green-500/5 p-3 text-left">
+                    <button
+                      onClick={() => {
+                        const newExpanded = new Set(expandedFolders);
+                        if (newExpanded.has(folder)) {
+                          newExpanded.delete(folder);
+                        } else {
+                          newExpanded.add(folder);
+                        }
+                        setExpandedFolders(newExpanded);
+                      }}
+                      className="w-full text-left font-mono text-sm font-bold text-green-400 hover:text-green-300 transition-colors"
+                    >
+                      📁 {folder} ({(schedulesInFolders[folder] || []).length})
+                    </button>
+                    {expandedFolders.has(folder) && (
+                      <div className="mt-2 ml-4 text-xs text-stone-400">
+                        {(schedulesInFolders[folder] || []).length === 0 ? (
+                          <p>No schedules in this folder</p>
+                        ) : (
+                          <p>{(schedulesInFolders[folder] || []).length} schedule(s)</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {/* Display Schedules */}
                 {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
@@ -649,6 +683,58 @@ export default function PDFLibrary() {
                   className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white font-mono text-xs font-bold uppercase transition-colors"
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Folder Creation Modal */}
+        {showFolderModal && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+            <div className="bg-stone-900 border border-amber-700/30 rounded-lg p-6 max-w-md w-full mx-4">
+              <h3 className="text-xl font-bold text-amber-400 mb-4">Create New Folder</h3>
+              <input
+                type="text"
+                placeholder="Enter folder name"
+                value={folderName}
+                onChange={(e) => setFolderName(e.target.value)}
+                className="w-full px-4 py-2 bg-stone-800 border border-stone-700 rounded text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 mb-4"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (folderName.trim()) {
+                      setFolders([...folders, folderName]);
+                      setFolderName('');
+                      setShowFolderModal(false);
+                      toast.success(`Folder "${folderName}" created`);
+                    }
+                  }
+                }}
+              />
+              <div className="flex gap-2 justify-end">
+                <button
+                  onClick={() => {
+                    setFolderName('');
+                    setShowFolderModal(false);
+                  }}
+                  className="px-4 py-2 rounded border border-stone-600 text-stone-400 hover:bg-stone-800 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (folderName.trim()) {
+                      setFolders([...folders, folderName]);
+                      setFolderName('');
+                      setShowFolderModal(false);
+                      toast.success(`Folder "${folderName}" created`);
+                    } else {
+                      toast.error('Please enter a folder name');
+                    }
+                  }}
+                  className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
+                >
+                  Create
                 </button>
               </div>
             </div>
