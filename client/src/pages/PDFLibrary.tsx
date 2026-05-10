@@ -413,7 +413,7 @@ export default function PDFLibrary() {
                   </div>
                   
                   {/* Image Window */}
-                  <div className="w-44">
+                  <div className="w-40">
                     <div className="bg-black rounded-lg border border-white/10 flex flex-col items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
                       {selectedImage ? (
                         <div className="w-full h-full relative">
