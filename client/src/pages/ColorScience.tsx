@@ -1,8 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Accordion } from '@/components/Accordion';
 import { ThermochromismSimulator } from '@/components/ThermochromismSimulator';
 
 export default function ColorScienceTab() {
+  const [showDrawer, setShowDrawer] = useState(false);
   const accordionItems = [
     {
       id: 'metal-ion-reference',
@@ -521,15 +524,60 @@ export default function ColorScienceTab() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100 p-6 md:p-12">
-      {/* Header */}
-      <div className="max-w-6xl mx-auto mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100">
+      {/* Fixed Header with Hamburger Menu */}
+      <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
+        <div className="flex items-center justify-between h-16 px-4">
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setShowDrawer(!showDrawer)}
+            className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-6 h-6 text-stone-300" />
+          </button>
 
-      {/* Accordion Sections */}
-      <div className="max-w-6xl mx-auto">
-        <Accordion items={accordionItems} allowMultiple={true} />
+          {/* Dropdown Menu */}
+          {showDrawer && (
+            <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
+              <a
+                href="/tools"
+                onClick={() => setShowDrawer(false)}
+                className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+              >
+                Tools
+              </a>
+              <a
+                href="/references"
+                onClick={() => setShowDrawer(false)}
+                className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+              >
+                References
+              </a>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Close dropdown when clicking outside */}
+      {showDrawer && (
+        <div
+          className="fixed inset-0 z-20"
+          onClick={() => setShowDrawer(false)}
+        />
+      )}
+
+      {/* Main Content */}
+      <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100 p-6 md:p-12" style={{ marginTop: '64px' }}>
+        {/* Header */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
+        </div>
+
+        {/* Accordion Sections */}
+        <div className="max-w-6xl mx-auto">
+          <Accordion items={accordionItems} allowMultiple={true} />
+        </div>
       </div>
     </div>
   );
