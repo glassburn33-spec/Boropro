@@ -40,10 +40,6 @@ export default function FiringTracker() {
         {/* Hero */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <div className="mb-5 flex items-center gap-2">
-              <BookOpenCheck size={16} className="text-amber-500" />
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-500">Interactive tool</span>
-            </div>
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
               Kiln Log
             </h1>
