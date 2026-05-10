@@ -323,7 +323,12 @@ export default function PDFLibrary() {
                           setSelectedForDeletion(displayLibrary.map(pdf => pdf.id));
                         }
                       }}
-                      className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                      disabled={selectedForDeletion.length === 0}
+                      className={`px-4 py-2 rounded-lg border font-mono text-xs font-bold uppercase transition-colors ${
+                        selectedForDeletion.length === 0
+                          ? 'border-gray-600 text-gray-600 cursor-not-allowed opacity-50'
+                          : 'border-amber-500 text-amber-500 hover:bg-amber-500/10 cursor-pointer'
+                      }`}
                     >
                       {selectedForDeletion.length > 0 ? 'Deselect All' : 'Select All'}
                     </button>
