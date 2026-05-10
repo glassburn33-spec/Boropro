@@ -1,5 +1,5 @@
 /*
-Thermal Stress Calculator Page - Borosilicate glass cooling schedule calculator
+Reheat Calculator Page - Borosilicate glass cooling schedule calculator
 with physics-based calculations for working time and thermal stress analysis.
 */
 
@@ -42,7 +42,7 @@ export default function Calculator() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
-              Thermal Stress Calculator
+              Reheat Calculator
             </h1>
             <p className="text-lg leading-8 text-stone-300 max-w-3xl">
               Calculate safe cooling schedules for borosilicate glass based on geometry, kiln temperature, and material properties. Get precise working times and thermal stress analysis.
