@@ -108,7 +108,7 @@ export default function LogoHome() {
             Scie-Equip
           </a>
           <a
-            href="/color-picker"
+            href="/explore?tab=colorscience"
             className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
           >
             Color-Sci
