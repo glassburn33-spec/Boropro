@@ -102,14 +102,14 @@ const flameEffects: FlameEffect[] = [
 ];
 
 const flameDescriptions = {
+  reducing: {
+    glassProperties: "Reducing flame creates metallic effects and can shift color families. Causes color darkening, graying, and opacity changes. Use with caution for intentional color modification.",
+  },
   neutral: {
     glassProperties: "Neutral flame preserves glass color stability and prevents unwanted chemical modifications. Ideal for maintaining true color representation and working with sensitive color families.",
   },
   oxidizing: {
     glassProperties: "Oxidizing flame prevents metallic surface effects and maintains bright, vibrant colors. Prevents reduction graying and keeps colors clear without muddy tones.",
-  },
-  reducing: {
-    glassProperties: "Reducing flame creates metallic effects and can shift color families. Causes color darkening, graying, and opacity changes. Use with caution for intentional color modification.",
   },
 };
 
