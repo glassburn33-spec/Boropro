@@ -465,7 +465,7 @@ export default function LogLibrary() {
                           setSelectedPDF(pdf);
                           setShowPreviewModal(true);
                         }}
-                        className="px-3 py-1 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                        className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
                       >
                         Edit
                       </button>
