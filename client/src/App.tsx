@@ -13,6 +13,7 @@ import Calculator from "./pages/Calculator";
 import LogLibrary from "./pages/PDFLibrary";
 import References from "./pages/References";
 import ColorScience from "./pages/ColorScience";
+import ScieEquip from "./pages/ScieEquip";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -28,6 +29,7 @@ function Router() {
       <Route path={"/kiln-log"} component={KilnLog} />
       <Route path={"/references"} component={References} />
       <Route path={"/color-science"} component={ColorScience} />
+      <Route path={"/scie-equip"} component={ScieEquip} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
