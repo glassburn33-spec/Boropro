@@ -15,6 +15,8 @@ interface ColorWheelPickerProps {
 
 export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: ColorWheelPickerProps) {
   const [hue, setHue] = useState(0);
+  const [saturation, setSaturation] = useState(1);
+  const [lightness, setLightness] = useState(0.5);
   const [isDragging, setIsDragging] = useState(false);
   const wheelRef = useRef<HTMLCanvasElement>(null);
 
@@ -52,7 +54,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
   };
 
-  const currentColor = hslToHex(hue, 1, 0.5);
+  const currentColor = hslToHex(hue, saturation, lightness);
   const colorName = getColorName(hue);
 
   const handleAddColor = () => {
@@ -61,29 +63,44 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
     }
   };
 
-  const updateHueFromPosition = (clientX: number, clientY: number) => {
+  const updateColorFromPosition = (clientX: number, clientY: number) => {
     const canvas = wheelRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const x = clientX - rect.left - canvas.width / 2;
-    const y = clientY - rect.top - canvas.height / 2;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const x = clientX - rect.left - centerX;
+    const y = clientY - rect.top - centerY;
 
+    // Calculate distance from center (for saturation)
+    const maxRadius = canvas.width / 2 - 5;
+    const distance = Math.sqrt(x * x + y * y);
+    const newSaturation = Math.min(distance / maxRadius, 1);
+
+    // Calculate angle (for hue)
     let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
     if (angle < 0) angle += 360;
+    const newHue = Math.round(angle);
 
-    setHue(Math.round(angle));
+    // Lightness varies based on saturation: more saturated = lighter, less saturated = darker
+    // This creates a more natural color wheel feel
+    const newLightness = 0.3 + (newSaturation * 0.4);
+
+    setHue(newHue);
+    setSaturation(newSaturation);
+    setLightness(newLightness);
   };
 
   const handleWheelMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     setIsDragging(true);
     document.body.style.overflow = 'hidden';
-    updateHueFromPosition(e.clientX, e.clientY);
+    updateColorFromPosition(e.clientX, e.clientY);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
-    updateHueFromPosition(e.clientX, e.clientY);
+    updateColorFromPosition(e.clientX, e.clientY);
   };
 
   const handleMouseUp = () => {
@@ -95,7 +112,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
     setIsDragging(true);
     document.body.style.overflow = 'hidden';
     if (e.touches.length > 0) {
-      updateHueFromPosition(e.touches[0].clientX, e.touches[0].clientY);
+      updateColorFromPosition(e.touches[0].clientX, e.touches[0].clientY);
     }
   };
 
@@ -103,7 +120,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
     if (!isDragging) return;
     e.preventDefault();
     if (e.touches.length > 0) {
-      updateHueFromPosition(e.touches[0].clientX, e.touches[0].clientY);
+      updateColorFromPosition(e.touches[0].clientX, e.touches[0].clientY);
     }
   };
 
@@ -144,11 +161,13 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
               isDragging ? 'cursor-grabbing' : 'cursor-grab'
             }`}
           />
-          {/* Hue indicator */}
+          {/* Position indicator */}
           <div
-            className="absolute top-1/2 left-1/2 w-3 h-3 bg-white border-2 border-stone-900 rounded-full pointer-events-none shadow-md transition-transform"
+            className="absolute w-4 h-4 bg-white border-2 border-stone-900 rounded-full pointer-events-none shadow-md transition-all"
             style={{
-              transform: `translate(-50%, -50%) rotate(${hue}deg) translateY(-135px)`,
+              left: `calc(50% + ${(saturation * 135 * Math.cos((hue - 90) * (Math.PI / 180)))}px)`,
+              top: `calc(50% + ${(saturation * 135 * Math.sin((hue - 90) * (Math.PI / 180)))}px)`,
+              transform: 'translate(-50%, -50%)',
             }}
           />
         </div>
@@ -163,7 +182,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
             <div>
               <p className="text-sm font-semibold text-stone-300">{colorName}</p>
               <p className="text-xs text-stone-400">{currentColor.toUpperCase()}</p>
-              <p className="text-xs text-stone-500">Hue: {hue}°</p>
+              <p className="text-xs text-stone-500">H: {hue}° S: {Math.round(saturation * 100)}%</p>
             </div>
           </div>
 
@@ -224,15 +243,16 @@ function drawColorWheel(canvas: HTMLCanvasElement | null) {
     const startAngle = (angle - 90) * (Math.PI / 180);
     const endAngle = (angle + 0.5 - 90) * (Math.PI / 180);
 
-    // Create gradient from center (white) to edge (full saturation)
+    // Create gradient from center (white/desaturated) to edge (full saturation)
     const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
     
     const hue = angle;
     
-    // White at center
+    // White at center (no saturation)
     gradient.addColorStop(0, 'hsl(' + hue + ', 0%, 100%)');
     
-    // Transition to full saturation color at edge
+    // Transition through colors with varying lightness
+    gradient.addColorStop(0.3, 'hsl(' + hue + ', 50%, 60%)');
     gradient.addColorStop(0.7, 'hsl(' + hue + ', 100%, 50%)');
     
     // Darker shade at the very edge for definition
