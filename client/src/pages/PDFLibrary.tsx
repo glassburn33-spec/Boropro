@@ -27,6 +27,8 @@ export default function PDFLibrary() {
   const [selectedForComparison, setSelectedForComparison] = useState<number[]>([]);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>('/manus-storage/glasscoloumn_69d60b8f.jfif');
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedForDeletion, setSelectedForDeletion] = useState<number[]>([]);
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -307,7 +309,15 @@ export default function PDFLibrary() {
         {/* Library Grid */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">Your Schedule Library</h2>
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
+              <button
+                onClick={() => setSelectMode(!selectMode)}
+                className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+              >
+                {selectMode ? 'Cancel' : 'Select'}
+              </button>
+            </div>
             {isLoading ? (
               <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
                 <p className="text-stone-400">Loading your library...</p>
@@ -330,15 +340,21 @@ export default function PDFLibrary() {
                     }`}
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <input
-                        type="checkbox"
-                        checked={selectedForComparison.includes(pdf.id)}
-                        onChange={(e) => {
-                          e.stopPropagation();
-                          handleToggleComparison(pdf.id);
-                        }}
-                        className="w-4 h-4 rounded border-white/30 accent-amber-500 cursor-pointer flex-shrink-0"
-                      />
+                      {selectMode && (
+                        <input
+                          type="checkbox"
+                          checked={selectedForDeletion.includes(pdf.id)}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            if (selectedForDeletion.includes(pdf.id)) {
+                              setSelectedForDeletion(selectedForDeletion.filter(id => id !== pdf.id));
+                            } else {
+                              setSelectedForDeletion([...selectedForDeletion, pdf.id]);
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-white/30 accent-amber-500 cursor-pointer flex-shrink-0"
+                        />
+                      )}
                       <FileText size={16} className="text-amber-500 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p className="font-bold text-white truncate text-sm">{pdf.filename}</p>
