@@ -319,24 +319,7 @@ export default function FlameChemistryCharacterization() {
           </section>
         )}
 
-        {/* Educational Note */}
-        <section className="py-16">
-          <div className="container max-w-6xl">
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-8">
-              <div className="flex gap-4">
-                <Info size={24} className="text-amber-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-3">
-                    How to use this tool
-                  </h3>
-                  <p className="text-sm leading-relaxed text-stone-300">
-                    Select a color family to see how it behaves under neutral, oxidizing, and reducing flames. Use this information to plan your flame control during lampworking and to understand why certain colors require specific flame atmospheres. Remember: the flame type you use during working affects not just the immediate appearance, but also how the color will strike or develop during annealing.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+
       </main>
 
       {/* Footer */}
