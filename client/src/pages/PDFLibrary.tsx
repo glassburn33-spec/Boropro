@@ -26,7 +26,7 @@ export default function PDFLibrary() {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<number[]>([]);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>('/manus-storage/Gemini_Generated_Image_k3rnlrk3rnlrk3rn_b5426460.png');
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -318,64 +318,42 @@ export default function PDFLibrary() {
                 <p className="text-stone-400">No schedules uploaded yet. Upload a PDF to get started.</p>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
                 {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
                     onClick={() => setSelectedPDF(pdf)}
-                    className={`rounded-2xl border p-6 backdrop-blur-sm text-left transition-all cursor-pointer ${
+                    className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all cursor-pointer flex items-center justify-between ${
                       selectedPDF?.id === pdf.id
                         ? "border-amber-500 bg-amber-500/10"
                         : "border-white/10 bg-white/5 hover:border-amber-500/50"
                     }`}
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="checkbox"
-                          checked={selectedForComparison.includes(pdf.id)}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                            handleToggleComparison(pdf.id);
-                          }}
-                          className="w-5 h-5 rounded border-white/30 accent-amber-500 cursor-pointer"
-                        />
-                        <FileText size={20} className="text-amber-500" />
-                        <div>
-                          <p className="font-mono text-xs font-bold uppercase text-amber-500">
-                            Schedule
-                          </p>
-                          <p className="font-bold text-white truncate">{pdf.filename}</p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={(e) => {
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <input
+                        type="checkbox"
+                        checked={selectedForComparison.includes(pdf.id)}
+                        onChange={(e) => {
                           e.stopPropagation();
-                          handleDelete(pdf.id);
+                          handleToggleComparison(pdf.id);
                         }}
-                        className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">
-                          Uploaded
-                        </span>
-                        <span className="text-stone-300">
-                          {pdf.uploadedAt.toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-1">
-                          Extracted Data
-                        </span>
-                        <span className="text-stone-300">
-                          {pdf.temperatures.length} temps, {pdf.times.length} times
-                        </span>
+                        className="w-4 h-4 rounded border-white/30 accent-amber-500 cursor-pointer flex-shrink-0"
+                      />
+                      <FileText size={16} className="text-amber-500 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold text-white truncate text-sm">{pdf.filename}</p>
+                        <p className="text-xs text-stone-400">{pdf.uploadedAt.toLocaleDateString()}</p>
                       </div>
                     </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(pdf.id);
+                      }}
+                      className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 ml-2"
+                    >
+                      <Trash2 size={14} />
+                    </button>
                   </div>
                 ))}
               </div>
