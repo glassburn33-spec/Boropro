@@ -356,7 +356,7 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
 }
 
 export default function AnealingProfileEditor() {
-  const [title, setTitle] = useState('Borosilicate Glass Heat Treatment Profile');
+
   
   // tRPC mutation for saving to PDF library
   const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
@@ -380,6 +380,7 @@ export default function AnealingProfileEditor() {
   const [editingScheduleId, setEditingScheduleId] = useState<string | null>(null);
   const [editingNotes, setEditingNotes] = useState('');
   const [editingResults, setEditingResults] = useState('');
+  const title = 'Heat Treatment Profile';
 
   // Auto-populate stage 3 start temp from stage 2 hold temp
   const handleStage2Change = (field: string, value: number) => {
@@ -801,16 +802,7 @@ export default function AnealingProfileEditor() {
 
   return (
     <div className="space-y-8 bg-stone-900/50 p-8 rounded-lg border border-stone-700">
-      {/* Title Editor */}
-      <div>
-        <label className="block text-sm font-semibold text-amber-300 mb-2">Profile Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full bg-stone-800 border border-stone-600 rounded px-4 py-2 text-white focus:outline-none focus:border-amber-500"
-        />
-      </div>
+
 
       {/* Stage 1: Rapid Reheating */}
       <div className="bg-red-900/20 border border-red-700/50 p-6 rounded-lg">
