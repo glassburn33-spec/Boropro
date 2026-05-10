@@ -14,6 +14,43 @@ import { generateKilnLogPDF, pdfToBase64, generateAnealingSchedulePDF } from '@/
 import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
 import { ColorWheelPicker } from './ColorWheelPicker';
 
+// Helper function to get color name from hex
+function getColorNameFromHex(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  
+  // Convert RGB to HSL to get hue
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  let hue = 0;
+  
+  if (max === min) {
+    hue = 0;
+  } else if (max === rNorm) {
+    hue = ((gNorm - bNorm) / (max - min)) * 60;
+    if (hue < 0) hue += 360;
+  } else if (max === gNorm) {
+    hue = ((bNorm - rNorm) / (max - min)) * 60 + 120;
+  } else {
+    hue = ((rNorm - gNorm) / (max - min)) * 60 + 240;
+  }
+  
+  // Get color name from hue
+  if (hue >= 0 && hue < 15) return 'Red';
+  if (hue >= 15 && hue < 45) return 'Orange';
+  if (hue >= 45 && hue < 65) return 'Yellow';
+  if (hue >= 65 && hue < 150) return 'Green';
+  if (hue >= 150 && hue < 200) return 'Cyan';
+  if (hue >= 200 && hue < 260) return 'Blue';
+  if (hue >= 260 && hue < 290) return 'Purple';
+  if (hue >= 290 && hue < 330) return 'Magenta';
+  return 'Red';
+}
+
 interface StageInputs {
   stage1: {
     startTemp: number;
@@ -1436,6 +1473,10 @@ export default function AnealingProfileEditor() {
                                 const b = parseInt(color.slice(5, 7), 16);
                                 pdf.setFillColor(r, g, b);
                                 pdf.rect(12, yPosition - 2, 4, 4, 'F');
+                                // Add color name text
+                                pdf.setTextColor(255, 255, 255);
+                                const colorName = getColorNameFromHex(color);
+                                pdf.text(colorName, 18, yPosition);
                                 yPosition += 5;
                               });
                             }
