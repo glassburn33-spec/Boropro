@@ -33,32 +33,32 @@ export default function ColorScienceTab() {
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
-            <p className="font-semibold text-amber-300 mb-2">The Example of How Local Structure Determines Optical Properties</p>
+            <p className="font-semibold text-amber-300 mb-2">Coordination Geometry as the Primary Determinant of Chromatic Response</p>
           </div>
 
           <div className="space-y-6 text-stone-200 leading-relaxed">
             <p>
-              Nickel divalent cation (Ni²⁺) exhibits a diverse chromatic spectrum ranging from <span className="text-amber-300 font-semibold">ochre and amber</span> in sodium-, lithium-, or calcium-containing glass compositions to <span className="text-purple-300 font-semibold">violet or indigo</span> in potassium-, rubidium-, or cesium-containing systems, or alternatively <span className="text-green-300 font-semibold">emerald or reddish-orange</span> in alkali-depleted borate and borosilicate formulations. This extensive chromatic diversity in silicate matrices results from <span className="font-semibold">variable coordination geometry around Ni²⁺</span>.
+              Nickel(II) species demonstrates remarkable polychromatic behavior spanning <span className="text-amber-300 font-semibold">tan and golden hues</span> in sodium-, lithium-, and calcium-rich glass matrices, transitioning to <span className="text-purple-300 font-semibold">mauve and deep blue</span> in potassium-, rubidium-, and cesium-dominant systems, or alternatively <span className="text-green-300 font-semibold">jade and rust-orange</span> in alkali-deficient borate and borosilicate compositions. This extensive polychromatic manifestation within silicate networks originates from <span className="font-semibold">polymorphic coordination environments surrounding Ni(II)</span>.
             </p>
 
             <p>
-              The frequently encountered <span className="text-amber-600 font-semibold">brown</span> coloration emerges from monotonic absorption decrease spanning the violet-to-red spectral region coupled with absence of discrete absorption maxima within the visible spectrum. This chromatic manifestation demonstrates pronounced sensitivity to local coordination environment, exemplified through comparative analysis of optical absorption characteristics between crystalline and amorphous CaO·NiO·2SiO₂ phases.
+              The ubiquitous <span className="text-amber-600 font-semibold">brown</span> hue emerges from continuous absorption attenuation extending across the ultraviolet-to-infrared boundary without discrete spectral absorption features within the visible domain. This chromatic manifestation exhibits pronounced environmental sensitivity, demonstrated through spectroscopic comparison of optical absorption profiles between ordered crystalline and disordered amorphous CaO·NiO·2SiO₂ structures.
             </p>
 
             <p>
-              Crystalline phase nickel manifests <span className="text-green-300 font-semibold">pale green</span> coloration characteristic of [6]Ni²⁺ (octahedral coordination environment). In amorphous phase systems, Ni²⁺ occupies minority tetrahedral coordination sites but predominantly adopts <span className="text-amber-500 font-semibold">trigonal bipyramidal</span> geometry, producing brown coloration through broad, asymmetric absorption centered approximately 22,500 cm⁻¹ (444 nm wavelength).
+              Ordered crystalline nickel displays <span className="text-green-300 font-semibold">light green</span> hue characteristic of [6]Ni(II) (six-coordinate octahedral arrangement). In amorphous systems, Ni(II) occupies subordinate tetrahedral sites yet predominantly resides in <span className="text-amber-500 font-semibold">five-coordinate trigonal bipyramidal</span> configuration, generating brown coloration via broad, irregular absorption positioned near 22,500 cm⁻¹ (444 nm).
             </p>
 
             <p>
-              Attenuated broad absorption features spanning visible and near-infrared regions correspond to supplementary electronic transitions characteristic of [5]Ni geometry. Penta-coordinated nickel site existence has been verified through complementary Ni K-edge extended X-ray absorption fine structure (EXAFS), X-ray absorption near edge structure (XANES) spectroscopy, and neutron diffraction with isotopic substitution methodologies.
+              Weak and diffuse absorption features distributed throughout visible and near-infrared wavelengths correspond to ancillary electronic transitions associated with [5]Ni geometry. Five-coordinate nickel site presence has been substantiated via complementary Ni K-edge extended X-ray absorption fine structure (EXAFS), X-ray absorption near edge structure (XANES) spectroscopy, and neutron diffraction combined with isotopic substitution techniques.
             </p>
 
             <p>
-              Electronic transitions originating from <span className="text-purple-300 font-semibold">tetrahedral Ni²⁺</span> constitute minor spectral contributions across most optical absorption measurements of nickel-containing silicate, aluminosilicate, and borosilicate systems, except in alkali-depleted borate and borosilicate formulations where tetrahedral coordination becomes dominant.
+              Electronic transitions from <span className="text-purple-300 font-semibold">four-coordinate Ni(II)</span> manifest as subordinate spectral components in optical absorption measurements of nickel-doped silicate, aluminosilicate, and borosilicate glasses, with notable exception in low-alkali borate and borosilicate systems where tetrahedral coordination predominates.
             </p>
 
             <p>
-              Glass systems incorporating large alkali cations (K, Rb, Cs) exhibit [4]Ni²⁺-induced <span className="text-blue-300 font-semibold">blue/violet coloration</span> resulting from intense absorption centered near 16,000 cm⁻¹ (red spectral region) coupled with transmission windows at shorter wavelengths. This composition-dependent chromatic behavior exemplifies the fundamental correlation between local atomic coordination geometry and resulting optical characteristics.
+              Glass compositions containing bulky alkali species (K, Rb, Cs) demonstrate [4]Ni(II)-mediated <span className="text-blue-300 font-semibold">indigo/mauve coloration</span> arising from intense absorption positioned approximately 16,000 cm⁻¹ (red-region wavelengths) combined with high transmission at shorter wavelengths. This composition-sensitive chromatic manifestation illustrates the intrinsic relationship between local atomic coordination architecture and macroscopic optical behavior.
             </p>
           </div>
 
@@ -66,7 +66,7 @@ export default function ColorScienceTab() {
           <div className="space-y-4 mt-6 pt-6 border-t border-stone-700/30">
             <h4 className="text-xl font-bold text-amber-400">Nickel Coordination Spectra in Borosilicate Glass</h4>
             <p className="text-stone-300">
-              This chart shows the optical absorption spectra for three different coordination states of Ni²⁺. Each coordination geometry produces a distinct absorption band at different wavenumbers, directly determining the color observed:
+              This spectroscopic dataset presents optical absorption profiles corresponding to three distinct Ni(II) coordination configurations. Each geometric arrangement generates characteristic absorption features at specific wavenumber positions, directly controlling the resulting chromatic manifestation:
             </p>
             <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
               <img 
@@ -77,13 +77,13 @@ export default function ColorScienceTab() {
             </div>
             <div className="bg-stone-800/30 rounded-lg p-6 space-y-3 text-sm text-stone-300">
               <div>
-                <span className="text-purple-300 font-semibold">[4]Ni (Tetrahedral):</span> Highest energy absorption (~15,000–21,000 cm⁻¹). Produces purple coloration in large-alkali glasses.
+                <span className="text-purple-300 font-semibold">[4]Ni (Four-coordinate):</span> Maximum energy transitions (~15,000–21,000 cm⁻¹). Generates indigo coloration in large-alkali-containing glasses.
               </div>
               <div>
-                <span className="text-amber-500 font-semibold">[5]Ni (Penta-coordinated):</span> Intermediate energy (~19,000–25,000 cm⁻¹). Produces brown coloration through broad, shifted peak.
+                <span className="text-amber-500 font-semibold">[5]Ni (Five-coordinate):</span> Intermediate energy transitions (~19,000–25,000 cm⁻¹). Generates brown coloration via broad, displaced absorption feature.
               </div>
               <div>
-                <span className="text-green-400 font-semibold">[6]Ni (Octahedral):</span> Lowest energy absorption ({'>'}23,000 cm⁻¹). Produces green coloration with weak absorption in visible range.
+                <span className="text-green-400 font-semibold">[6]Ni (Six-coordinate):</span> Minimum energy transitions ({'>'}23,000 cm⁻¹). Generates green coloration with attenuated visible-region absorption.
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function ColorScienceTab() {
           <div className="space-y-4 mt-6 pt-6 border-t border-stone-700/30">
             <h4 className="text-xl font-bold text-amber-400">Coordination Geometry and Wavenumber Correlation</h4>
             <p className="text-stone-300">
-              This diagram illustrates the three-stage progression of nickel coordination in borosilicate glass, showing how the geometric arrangement of atoms around the central Ni²⁺ ion directly correlates with the wavenumber of light absorption:
+              This schematic depicts the three-step sequence of Ni(II) coordination evolution within borosilicate matrices, demonstrating the correlation between atomic arrangement geometry surrounding the central Ni(II) species and corresponding light absorption wavenumber positions:
             </p>
             <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
               <img 
@@ -103,16 +103,16 @@ export default function ColorScienceTab() {
             </div>
             <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
               <div>
-                <p className="font-semibold text-amber-300 mb-2">Stage 1: Tetrahedral [4]Ni</p>
-                <p>Four oxygen atoms arranged in a tetrahedral geometry around Ni²⁺. This compact arrangement results in the highest energy (shortest wavelength) absorption, producing purple/blue colors.</p>
+                <p className="font-semibold text-amber-300 mb-2">Configuration 1: Four-Coordinate [4]Ni</p>
+                <p>Tetrahedral oxygen coordination surrounding Ni(II). This condensed arrangement generates maximum-energy (minimum-wavelength) absorption transitions, producing indigo/blue chromatic manifestations.</p>
               </div>
               <div>
-                <p className="font-semibold text-amber-300 mb-2">Stage 2: Penta-coordinated [5]Ni</p>
-                <p>Five oxygen atoms in a triangular bipyramidal arrangement. This intermediate geometry produces the characteristic brown color through absorption around 22,500 cm⁻¹ (444 nm).</p>
+                <p className="font-semibold text-amber-300 mb-2">Configuration 2: Five-Coordinate [5]Ni</p>
+                <p>Trigonal bipyramidal oxygen coordination geometry. This intermediate arrangement generates the characteristic brown hue via absorption centered near 22,500 cm⁻¹ (444 nm).</p>
               </div>
               <div>
-                <p className="font-semibold text-amber-300 mb-2">Stage 3: Octahedral [6]Ni</p>
-                <p>Six oxygen atoms in an octahedral geometry. This expanded arrangement results in the lowest energy absorption, producing light green colors characteristic of crystalline nickel compounds.</p>
+                <p className="font-semibold text-amber-300 mb-2">Configuration 3: Six-Coordinate [6]Ni</p>
+                <p>Octahedral oxygen coordination arrangement. This expanded geometry generates minimum-energy absorption transitions, producing pale green chromatic properties characteristic of ordered nickel compounds.</p>
               </div>
             </div>
           </div>
@@ -123,19 +123,19 @@ export default function ColorScienceTab() {
             <ul className="space-y-3 text-stone-300">
               <li className="flex items-start gap-3">
                 <span className="text-amber-400 font-bold mt-1">•</span>
-                <span><span className="font-semibold">Local structure determines color:</span> The same element (Ni²⁺) produces completely different colors depending on its coordination environment and the glass composition.</span>
+                <span><span className="font-semibold">Coordination geometry governs chromatic output:</span> Identical metal species (Ni(II)) generates disparate chromatic manifestations contingent upon local coordination environment and parent glass composition.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-amber-400 font-bold mt-1">•</span>
-                <span><span className="font-semibold">Alkali content matters:</span> Large alkali ions (K, Rb, Cs) favor tetrahedral coordination and blue/purple colors, while small alkalis (Na, Li) and alkaline earths (Ca) favor other geometries and brown/yellow colors.</span>
+                <span><span className="font-semibold">Alkali cation influence:</span> Bulky alkali cations (K, Rb, Cs) promote four-coordinate geometry and indigo/blue chromatic response, whereas compact alkalis (Na, Li) and alkaline-earth cations (Ca) facilitate alternative geometries and tan/amber chromatic manifestations.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-amber-400 font-bold mt-1">•</span>
-                <span><span className="font-semibold">Crystalline vs. glassy:</span> The same chemical composition produces different colors in crystalline and amorphous forms due to different coordination geometries.</span>
+                <span><span className="font-semibold">Phase-dependent chromatic behavior:</span> Identical chemical composition exhibits disparate chromatic properties in ordered crystalline versus disordered amorphous phases due to distinct coordination geometries.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-amber-400 font-bold mt-1">•</span>
-                <span><span className="font-semibold">Predictability:</span> Understanding coordination chemistry allows prediction of color shifts based on glass composition changes.</span>
+                <span><span className="font-semibold">Rational color prediction:</span> Systematic understanding of coordination chemistry principles enables anticipation of chromatic shifts resulting from compositional modifications.</span>
               </li>
             </ul>
           </div>
