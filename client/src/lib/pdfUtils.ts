@@ -594,6 +594,46 @@ export function generateAnealingSchedulePDF(data: AnealingSchedulePDFData): jsPD
   return pdf;
 }
 
+// Get color name from hue
+function getColorName(hue: number): string {
+  if (hue >= 0 && hue < 15) return 'Red';
+  if (hue >= 15 && hue < 45) return 'Orange';
+  if (hue >= 45 && hue < 65) return 'Yellow';
+  if (hue >= 65 && hue < 150) return 'Green';
+  if (hue >= 150 && hue < 200) return 'Cyan';
+  if (hue >= 200 && hue < 260) return 'Blue';
+  if (hue >= 260 && hue < 290) return 'Purple';
+  if (hue >= 290 && hue < 330) return 'Magenta';
+  return 'Red';
+}
+
+// Get color name from hex color
+function getColorNameFromHex(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  let hueVal = 0;
+  
+  if (max === min) {
+    hueVal = 0;
+  } else if (max === rNorm) {
+    hueVal = ((gNorm - bNorm) / (max - min)) * 60;
+    if (hueVal < 0) hueVal += 360;
+  } else if (max === gNorm) {
+    hueVal = ((bNorm - rNorm) / (max - min)) * 60 + 120;
+  } else {
+    hueVal = ((rNorm - gNorm) / (max - min)) * 60 + 240;
+  }
+  
+  return getColorName(hueVal);
+}
+
 /**
  * Convert jsPDF to base64 string for transmission
  */

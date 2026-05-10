@@ -1441,22 +1441,25 @@ export default function AnealingProfileEditor() {
                               (pdf as any).setFont(undefined, 'normal');
                               const resultsLines = (pdf as any).splitTextToSize(schedule.results, pageWidth - 20);
                               (pdf as any).text(resultsLines, 10, yPosition);
+                              yPosition += resultsLines.length * 5 + 10;
                             }
 
-                            // Add colors section
+                            // Add colors section on a new page if needed
                             if (schedule.selectedColors && schedule.selectedColors.length > 0) {
-                              if (yPosition + 30 > pageHeight - 10) {
+                              if (yPosition + 20 > pageHeight - 10) {
                                 pdf.addPage();
                                 pdf.setFillColor(0, 0, 0);
                                 pdf.rect(0, 0, pageWidth, pageHeight, 'F');
                                 yPosition = 10;
                               }
                               
+                              yPosition += 5; // Add spacing before colors section
+                              
                               pdf.setTextColor(255, 187, 36);
                               pdf.setFontSize(12);
                               (pdf as any).setFont(undefined, 'bold');
                               pdf.text('Glass Colors Used:', 10, yPosition);
-                              yPosition += 6;
+                              yPosition += 8;
                               
                               pdf.setFontSize(10);
                               (pdf as any).setFont(undefined, 'normal');
