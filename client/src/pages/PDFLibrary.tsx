@@ -844,7 +844,6 @@ export default function PDFLibrary() {
                 
                 {/* Uncategorized Files Section */}
                 <div className="rounded-lg border border-amber-700/30 bg-amber-700/5 p-3">
-                  <div className="font-mono text-sm font-bold text-amber-400 mb-2">📄 Uncategorized Files</div>
                   <div className="space-y-2">
                     {allLibrary
                       .filter(pdf => {
