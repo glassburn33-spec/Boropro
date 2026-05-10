@@ -1004,6 +1004,20 @@ function ScieEquipTab() {
               />
             </div>
           </div>
+
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
+            <h4 className="text-cyan-300 font-bold mb-3">Oxidizing Flame Image Description</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-4">
+              Oxidizing flame manifestation occurs through incremental oxygen augmentation beyond the secondary zone elimination threshold. This flame exhibits abbreviated overall extent and intensified sharpness relative to neutral configurations, featuring a diminished and acutely tapered central cone. Thermal intensity marginally surpasses neutral flame output, establishing applicability for ferrous casting joining, copper-based alloy fabrication, zinc-containing alloy operations, and specialized brazing procedures.
+            </p>
+            <div className="flex justify-center my-4">
+              <img 
+                src="/manus-storage/oxydizingflame_8b8072d2.webp" 
+                alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
+                className="w-full max-w-3xl rounded-lg border border-stone-600"
+              />
+            </div>
+          </div>
         </div>
       ),
     },
