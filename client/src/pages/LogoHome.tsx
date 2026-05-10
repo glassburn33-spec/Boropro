@@ -59,6 +59,13 @@ export default function LogoHome() {
                 >
                   Scie-Equip
                 </a>
+                <a
+                  href="/explore"
+                  onClick={() => setShowDrawer(false)}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                >
+                  Color-Sci
+                </a>
 
                 <a
                   href="/references"
