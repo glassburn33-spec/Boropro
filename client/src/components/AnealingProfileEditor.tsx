@@ -5,7 +5,7 @@ with 4-stage temperature curve visualization and schedule logging
 */
 
 import { useState, useMemo } from 'react';
-import { AlertCircle, Download, Save } from 'lucide-react';
+import { AlertCircle, Download, Save, FileText } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { trpc } from '@/lib/trpc';
@@ -1500,6 +1500,45 @@ export default function AnealingProfileEditor() {
                           className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
                         >
                           Edit
+                        </button>
+                        <button
+                          onClick={async () => {
+                            try {
+                              const data = schedule.data;
+                              const csv = [
+                                ['Stage', 'Temperature (°C)', 'Time (min)'],
+                                ['Stage 1 - Start', data.stage1.startTemp, data.stage1.duration],
+                                ['Stage 1 - Target', data.stage1.targetTemp, ''],
+                                ['Stage 2 - Hold', data.stage2.holdTemp, data.stage2.duration],
+                                ['Stage 3 - Start', data.stage3.startTemp, data.stage3.duration],
+                                ['Stage 3 - End', data.stage3.endTemp, ''],
+                                ['Stage 4 - Start', data.stage4.startTemp, data.stage4.duration],
+                                ['Stage 4 - End', data.stage4.endTemp, '']
+                              ].map(row => row.join(',')).join('\n');
+                              const blob = new Blob([csv], { type: 'text/csv' });
+                              const arrayBuffer = await blob.arrayBuffer();
+                              const uint8Array = new Uint8Array(arrayBuffer);
+                              const fileBase64 = btoa(String.fromCharCode(...Array.from(uint8Array)));
+                              
+                              // Save to PDF Library
+                              await saveGeneratedMutation.mutateAsync({
+                                filename: `${schedule.name}.csv`,
+                                fileBase64: fileBase64,
+                                temperatures: [],
+                                times: []
+                              });
+                              toast.success('CSV saved to Schedule Library!');
+                            } catch (error) {
+                              console.error('Error saving CSV:', error);
+                              toast.error('Failed to save CSV to library');
+                            }
+                          }}
+                          disabled={saveGeneratedMutation.isPending}
+                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 disabled:bg-blue-500 text-white rounded text-sm font-semibold flex items-center gap-1"
+                          title="Export schedule as CSV and save to library"
+                        >
+                          <FileText className="w-3 h-3" />
+                          {saveGeneratedMutation.isPending ? 'Saving...' : 'Export CSV'}
                         </button>
                         <button
                           onClick={() => handleDeleteSchedule(schedule.id)}
