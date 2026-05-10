@@ -10,7 +10,7 @@ export default function ColorScienceTab() {
       content: (
         <div className="space-y-4">
           <p className="text-stone-300">
-            A comprehensive reference guide mapping metal ions and their oxidation states to the colors they produce in borosilicate glass:
+            A systematic catalog correlating transition metal cations, their electronic configurations, and the chromatic manifestations they generate within borosilicate glass matrices:
           </p>
           <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
             <img 
@@ -21,7 +21,7 @@ export default function ColorScienceTab() {
           </div>
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300">
             <p>
-              This reference table shows the relationship between metal ions (left column), their coordination states and oxidation numbers, and the resulting colors they produce in borosilicate glass (right column). Use this guide to predict color outcomes based on metal ion composition and coordination environment.
+              This reference catalog presents the correlation between transition metal cations (left), their coordination environments and valence states, and the corresponding chromatic properties within borosilicate glass systems (right). Utilize this reference to anticipate color manifestations based on metal ion speciation and local coordination geometry.
             </p>
           </div>
         </div>
@@ -38,27 +38,27 @@ export default function ColorScienceTab() {
 
           <div className="space-y-6 text-stone-200 leading-relaxed">
             <p>
-              Nickel yields colors ranging from <span className="text-amber-300 font-semibold">brown and yellow</span> in Na-, Li-, or Ca-bearing glasses to <span className="text-purple-300 font-semibold">purple or blue</span> in K-, Rb-, or Cs-bearing glasses or, less commonly, <span className="text-green-300 font-semibold">green or even orange</span> in some alkali-deficient borate and borosilicate glasses. This broad palette of hues in oxide glasses is directly related to the <span className="font-semibold">varying coordination of Ni²⁺</span>.
+              Nickel divalent cation (Ni²⁺) exhibits a diverse chromatic spectrum ranging from <span className="text-amber-300 font-semibold">ochre and amber</span> in sodium-, lithium-, or calcium-containing glass compositions to <span className="text-purple-300 font-semibold">violet or indigo</span> in potassium-, rubidium-, or cesium-containing systems, or alternatively <span className="text-green-300 font-semibold">emerald or reddish-orange</span> in alkali-depleted borate and borosilicate formulations. This extensive chromatic diversity in silicate matrices results from <span className="font-semibold">variable coordination geometry around Ni²⁺</span>.
             </p>
 
             <p>
-              Probably one of the most commonly observed colors, the <span className="text-amber-600 font-semibold">brown</span> arises from continuously decreasing absorption from the purple to the red parts of the visible domain along with the absence of an absorption maximum in the visible domain. That color is indeed very sensitive to local structure as shown by a comparison between the optical absorption spectra of crystalline and glassy CaO·NiO·2SiO₂.
+              The frequently encountered <span className="text-amber-600 font-semibold">brown</span> coloration emerges from monotonic absorption decrease spanning the violet-to-red spectral region coupled with absence of discrete absorption maxima within the visible spectrum. This chromatic manifestation demonstrates pronounced sensitivity to local coordination environment, exemplified through comparative analysis of optical absorption characteristics between crystalline and amorphous CaO·NiO·2SiO₂ phases.
             </p>
 
             <p>
-              In the crystalline form, nickel exhibits the <span className="text-green-300 font-semibold">light green color</span> characteristic of [6]Ni²⁺ (octahedral coordination). In the glassy form, Ni²⁺ occupies a small proportion of tetrahedral sites but is mostly present in <span className="text-amber-500 font-semibold">triangular bipyramids</span> that give rise to the brown color through a broad, asymmetric absorption band around 22,500 cm&minus;¹ (444 nm).
+              Crystalline phase nickel manifests <span className="text-green-300 font-semibold">pale green</span> coloration characteristic of [6]Ni²⁺ (octahedral coordination environment). In amorphous phase systems, Ni²⁺ occupies minority tetrahedral coordination sites but predominantly adopts <span className="text-amber-500 font-semibold">trigonal bipyramidal</span> geometry, producing brown coloration through broad, asymmetric absorption centered approximately 22,500 cm⁻¹ (444 nm wavelength).
             </p>
 
             <p>
-              Weak and broad absorption bands in the visible and near-infrared correspond to the other electric transitions expected for [5]Ni. The existence of these [5]Ni sites has been confirmed by complementary Ni K-edge extended X-ray absorption fine structure (EXAFS) and X-ray absorption near edge structure (XANES) spectroscopy and neutron diffraction coupled with isotopic substitution.
+              Attenuated broad absorption features spanning visible and near-infrared regions correspond to supplementary electronic transitions characteristic of [5]Ni geometry. Penta-coordinated nickel site existence has been verified through complementary Ni K-edge extended X-ray absorption fine structure (EXAFS), X-ray absorption near edge structure (XANES) spectroscopy, and neutron diffraction with isotopic substitution methodologies.
             </p>
 
             <p>
-              Optical transitions from <span className="text-purple-300 font-semibold">tetrahedral Ni²⁺</span> are present as a minority contribution in most optical absorption spectra of Ni-bearing silicate, aluminosilicate, and borosilicate glasses, with the noticeable exception of low-alkali borate or borosilicate compositions.
+              Electronic transitions originating from <span className="text-purple-300 font-semibold">tetrahedral Ni²⁺</span> constitute minor spectral contributions across most optical absorption measurements of nickel-containing silicate, aluminosilicate, and borosilicate systems, except in alkali-depleted borate and borosilicate formulations where tetrahedral coordination becomes dominant.
             </p>
 
             <p>
-              In glasses containing large alkalis (K, Rb, Cs), [4]Ni²⁺ causes a <span className="text-blue-300 font-semibold">blue/purple coloration</span> through the presence of an intense absorption band located near 16,000 cm⁻¹, in the red region of the visible spectrum, and a transmission window at short wavelengths. This chemical dependence of glass coloration reflects the fundamental relationship between local atomic structure and optical properties.
+              Glass systems incorporating large alkali cations (K, Rb, Cs) exhibit [4]Ni²⁺-induced <span className="text-blue-300 font-semibold">blue/violet coloration</span> resulting from intense absorption centered near 16,000 cm⁻¹ (red spectral region) coupled with transmission windows at shorter wavelengths. This composition-dependent chromatic behavior exemplifies the fundamental correlation between local atomic coordination geometry and resulting optical characteristics.
             </p>
           </div>
 
