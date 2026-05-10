@@ -52,18 +52,20 @@ export default function LogoHome() {
                 >
                   Glass-Science
                 </button>
-                <button
-                  onClick={() => { handleTabChange("scieequip"); setShowDrawer(false); }}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                <a
+                  href="/explore"
+                  onClick={() => setShowDrawer(false)}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Scie-Equip
-                </button>
-                <button
-                  onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                </a>
+                <a
+                  href="/explore"
+                  onClick={() => setShowDrawer(false)}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Color-Scie
-                </button>
+                </a>
                 <a
                   href="/references"
                   onClick={() => setShowDrawer(false)}
