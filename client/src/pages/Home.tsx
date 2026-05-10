@@ -240,10 +240,10 @@ function StudioTab() {
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
                   <p className="text-stone-300 text-sm leading-relaxed">
-                    Borosilicate glass is made of high proportions of silicon dioxide (SiO<sub>2</sub>) and boron trioxide (B<sub>2</sub>O<sub>3</sub>). It is above all the boric oxide content of roughly 13% and the silica proportion of over 80% in the glass matrix that leads to its high resistance to water, chemicals, and drug substances.
+                    Borosilicate glass is formulated with significant amounts of silicon dioxide (SiO<sub>2</sub>) as the primary network former and boron trioxide (B<sub>2</sub>O<sub>3</sub>) as a secondary network former. The combination of approximately 80%+ silica with ~13% boric oxide creates a glass matrix with exceptional thermal shock resistance, chemical durability, and low thermal expansion—making it ideal for laboratory glassware and high-temperature applications.
                   </p>
                   <p className="text-stone-300 text-sm leading-relaxed">
-                    DURAN® borosilicate glass 3.3 has the following chemical composition (per cent weight by weight): Silicon dioxide (SiO<sub>2</sub>): 81%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 13%, Sodium oxide (Na<sub>2</sub>O) and potassium oxide (K<sub>2</sub>O): 4%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 2%
+                    A typical borosilicate composition contains: Silicon dioxide (SiO<sub>2</sub>): 70-80%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 10-15%, Alkali oxides (Na<sub>2</sub>O, K<sub>2</sub>O): 3-5%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 1-3%. These proportions can vary slightly between manufacturers, but the high silica and boric oxide content remains the defining characteristic that provides borosilicate glass with its superior performance in thermal and chemical environments.
                   </p>
                   <div className="w-full flex justify-center my-6">
                     <img
