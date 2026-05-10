@@ -982,7 +982,7 @@ export default function PDFLibrary() {
         )}
         
         {/* Footer */}
-        <footer className="border-t border-white/10 py-12 bg-stone-950">
+        <footer className="border-t border-white/10 py-4 bg-stone-950">
           <div className="container max-w-6xl">
             <img 
               src="/manus-storage/libraryfooter_61baaaea.png" 
