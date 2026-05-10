@@ -34,6 +34,10 @@ export default function PDFLibrary() {
   const [folders, setFolders] = useState<string[]>([]);
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
   const [schedulesInFolders, setSchedulesInFolders] = useState<Record<string, number[]>>({});
+  const [showInsertModal, setShowInsertModal] = useState(false);
+  const [selectedFolderForInsert, setSelectedFolderForInsert] = useState<string | null>(null);
+  const [schedulesToInsert, setSchedulesToInsert] = useState<Set<number>>(new Set());
+  const [expandedFoldersInModal, setExpandedFoldersInModal] = useState<Set<string>>(new Set());
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -407,7 +411,11 @@ export default function PDFLibrary() {
                     {expandedFolders.has(folder) && (
                       <div className="mt-2 flex items-center justify-end">
                         <button
-                          onClick={() => toast.info('Insert schedules into folder feature coming soon')}
+                          onClick={() => {
+                            setSelectedFolderForInsert(folder);
+                            setSchedulesToInsert(new Set());
+                            setShowInsertModal(true);
+                          }}
                           className="px-3 py-1 rounded border border-green-500 text-green-500 hover:bg-green-500/10 font-mono text-xs font-bold uppercase transition-colors"
                         >
                           Insert
@@ -415,11 +423,55 @@ export default function PDFLibrary() {
                       </div>
                     )}
                     {expandedFolders.has(folder) && (
-                      <div className="mt-2 ml-4 text-xs text-stone-400">
+                      <div className="mt-3 ml-4 space-y-2">
                         {(schedulesInFolders[folder] || []).length === 0 ? (
-                          <p>No schedules in this folder</p>
+                          <p className="text-xs text-stone-400">No schedules in this folder</p>
                         ) : (
-                          <p>{(schedulesInFolders[folder] || []).length} schedule(s)</p>
+                          displayLibrary
+                            .filter(pdf => (schedulesInFolders[folder] || []).includes(pdf.id))
+                            .map(pdf => (
+                              <div
+                                key={pdf.id}
+                                onClick={() => !selectMode && setSelectedPDF(pdf)}
+                                className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
+                                  selectedPDF?.id === pdf.id
+                                    ? "border-green-500 bg-green-500/10"
+                                    : "border-green-500/30 bg-green-500/5 hover:border-green-500/50"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3 flex-1 min-w-0">
+                                  {selectMode && (
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedForDeletion.includes(pdf.id)}
+                                      onChange={(e) => {
+                                        e.stopPropagation();
+                                        if (selectedForDeletion.includes(pdf.id)) {
+                                          setSelectedForDeletion(selectedForDeletion.filter(id => id !== pdf.id));
+                                        } else {
+                                          setSelectedForDeletion([...selectedForDeletion, pdf.id]);
+                                        }
+                                      }}
+                                      className="w-4 h-4 rounded border-white/30 accent-green-500 cursor-pointer flex-shrink-0"
+                                    />
+                                  )}
+                                  <FileText size={16} className="text-green-500 flex-shrink-0" />
+                                  <div className="min-w-0 flex-1">
+                                    <p className="font-bold text-green-400 truncate text-sm">{pdf.filename}</p>
+                                    <p className="text-xs text-stone-500">{pdf.uploadedAt.toLocaleDateString()}</p>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(pdf.id);
+                                  }}
+                                  className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 ml-2"
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            ))
                         )}
                       </div>
                     )}
@@ -695,6 +747,148 @@ export default function PDFLibrary() {
                   className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white font-mono text-xs font-bold uppercase transition-colors"
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Insert Schedules Modal */}
+        {showInsertModal && selectedFolderForInsert && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+            <div className="bg-stone-900 border border-amber-700/30 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <h3 className="text-xl font-bold text-amber-400 mb-4">Add Schedules to {selectedFolderForInsert}</h3>
+              <p className="text-sm text-stone-400 mb-4">Select schedules to add to this folder:</p>
+              
+              <div className="space-y-3 mb-6 max-h-[60vh] overflow-y-auto">
+                {/* Folders Section */}
+                {folders.map((folder) => (
+                  <div key={folder} className="rounded-lg border border-green-500/30 bg-green-500/5 p-3">
+                    <button
+                      onClick={() => {
+                        const newExpanded = new Set(expandedFoldersInModal);
+                        if (newExpanded.has(folder)) {
+                          newExpanded.delete(folder);
+                        } else {
+                          newExpanded.add(folder);
+                        }
+                        setExpandedFoldersInModal(newExpanded);
+                      }}
+                      className="w-full text-left font-mono text-sm font-bold text-green-400 hover:text-green-300 transition-colors"
+                    >
+                      📁 {folder} ({(schedulesInFolders[folder] || []).length})
+                    </button>
+                    {expandedFoldersInModal.has(folder) && (
+                      <div className="mt-2 ml-4 space-y-2">
+                        {(schedulesInFolders[folder] || []).length === 0 ? (
+                          <p className="text-xs text-stone-400">No schedules in this folder</p>
+                        ) : (
+                          displayLibrary
+                            .filter(pdf => (schedulesInFolders[folder] || []).includes(pdf.id))
+                            .map(pdf => (
+                              <div key={pdf.id} className="flex items-center gap-2 p-2 rounded border border-green-500/30 bg-green-500/5">
+                                <FileText size={14} className="text-green-500 flex-shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-mono text-xs text-green-400 truncate">{pdf.filename}</p>
+                                  <p className="text-xs text-stone-500">{pdf.uploadedAt.toLocaleDateString()}</p>
+                                </div>
+                              </div>
+                            ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                {/* Uncategorized Files Section */}
+                <div className="rounded-lg border border-amber-700/30 bg-amber-700/5 p-3">
+                  <div className="font-mono text-sm font-bold text-amber-400 mb-2">📄 Uncategorized Files</div>
+                  <div className="space-y-2">
+                    {displayLibrary.map(pdf => (
+                      <div key={pdf.id} className="flex items-center gap-3 p-3 rounded border border-stone-700 hover:border-amber-500/50 transition-colors">
+                        <input
+                          type="checkbox"
+                          checked={schedulesToInsert.has(pdf.id)}
+                          onChange={(e) => {
+                            const newSet = new Set(schedulesToInsert);
+                            if (e.target.checked) {
+                              newSet.add(pdf.id);
+                            } else {
+                              newSet.delete(pdf.id);
+                            }
+                            setSchedulesToInsert(newSet);
+                          }}
+                          className="w-4 h-4 rounded border-white/30 accent-amber-500 cursor-pointer"
+                        />
+                        <FileText size={16} className="text-amber-500 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-white truncate text-sm">{pdf.filename}</p>
+                          <p className="text-xs text-stone-400">{pdf.uploadedAt.toLocaleDateString()}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {displayLibrary.length === 0 && (
+                <p className="text-sm text-stone-400 text-center py-4">No schedules available</p>
+              )}
+              
+              {displayLibrary.length > 0 && (
+                <div className="mb-4 flex gap-2 justify-start">
+                  {schedulesToInsert.size === 0 ? (
+                    <button
+                      onClick={() => {
+                        const availableIds = displayLibrary.map(pdf => pdf.id);
+                        setSchedulesToInsert(new Set(availableIds));
+                      }}
+                      className="px-4 py-2 rounded border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      Select All
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setSchedulesToInsert(new Set())}
+                      className="px-4 py-2 rounded border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      Deselect All
+                    </button>
+                  )}
+                </div>
+              )}
+              
+              <div className="flex gap-2 justify-end">
+                <button
+                  onClick={() => {
+                    setShowInsertModal(false);
+                    setSelectedFolderForInsert(null);
+                    setSchedulesToInsert(new Set());
+                  }}
+                  className="px-4 py-2 rounded border border-stone-600 text-stone-400 hover:bg-stone-800 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (schedulesToInsert.size > 0) {
+                      const currentSchedules = schedulesInFolders[selectedFolderForInsert] || [];
+                      const updatedSchedules = [...new Set([...currentSchedules, ...schedulesToInsert])];
+                      setSchedulesInFolders({
+                        ...schedulesInFolders,
+                        [selectedFolderForInsert]: updatedSchedules
+                      });
+                      toast.success(`Added ${schedulesToInsert.size} schedule(s) to ${selectedFolderForInsert}`);
+                      setShowInsertModal(false);
+                      setSelectedFolderForInsert(null);
+                      setSchedulesToInsert(new Set());
+                    } else {
+                      toast.error('Please select at least one schedule');
+                    }
+                  }}
+                  className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 transition-colors"
+                >
+                  Add to Folder
                 </button>
               </div>
             </div>
