@@ -511,13 +511,13 @@ export default function LogLibrary() {
                   </div>
 
                   {/* PDF Viewer and Image Window */}
-                  <div className="mb-8 flex gap-4">
-                    <div className="flex-1">
-                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: '800px', overflow: 'auto', padding: '8px', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                  <div className="mb-8 flex gap-4 flex-col lg:flex-row">
+                    <div className="flex-1 w-full">
+                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: 'clamp(400px, 60vh, 800px)', overflow: 'auto', padding: '8px', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
                       {selectedPDF.storageKey ? (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%' }}>
                           <iframe
-                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=150`}
+                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=auto`}
                             style={{
                               width: '100%',
                               height: '100%',
@@ -525,7 +525,8 @@ export default function LogLibrary() {
                               borderRadius: '0.25rem',
                               backgroundColor: '#000000',
                               display: 'block',
-                              marginLeft: 'auto'
+                              marginLeft: 'auto',
+                              objectFit: 'contain'
                             }}
                             title="PDF Viewer"
                           />
