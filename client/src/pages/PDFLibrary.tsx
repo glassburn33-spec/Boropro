@@ -325,7 +325,7 @@ export default function PDFLibrary() {
                       }}
                       className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
                     >
-                      {selectedForDeletion.length === displayLibrary.length ? 'Deselect All' : 'Select All'}
+                      {selectedForDeletion.length > 0 ? 'Deselect All' : 'Select All'}
                     </button>
                     <button
                       onClick={() => {
