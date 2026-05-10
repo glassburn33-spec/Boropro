@@ -3,7 +3,7 @@ References Page - Comprehensive bibliography and scientific sources
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
-import { BookOpen, ExternalLink, ChevronDown } from "lucide-react";
+import { ExternalLink, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import {
   Accordion,
@@ -363,12 +363,7 @@ export default function References() {
         {/* Hero */}
         <section className="border-b border-white/10 py-16">
           <div className="container">
-            <div className="flex items-start gap-4 mb-6">
-              <BookOpen className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">References</h1>
-              </div>
-            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">References</h1>
           </div>
         </section>
 
