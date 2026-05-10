@@ -517,7 +517,7 @@ export default function LogLibrary() {
                       {selectedPDF.storageKey ? (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: '#000000' }}>
                           <iframe
-                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=auto`}
+                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=page-fit`}
                             style={{
                               width: '100%',
                               height: '100%',
