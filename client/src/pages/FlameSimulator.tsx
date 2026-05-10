@@ -1,5 +1,5 @@
 /*
-Flame Chemistry Characterization Page - Interactive visualization of neutral, oxidizing, and reducing flames
+Flame Characterization Page - Interactive visualization of neutral, oxidizing, and reducing flames
 and their effects on borosilicate colors. Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
@@ -182,7 +182,7 @@ export default function FlameChemistryCharacterization() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
-              Flame Chemistry Characterization
+              Flame Characterization
             </h1>
           </div>
         </section>
