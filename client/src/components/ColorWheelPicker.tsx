@@ -15,9 +15,10 @@ interface ColorWheelPickerProps {
 
 export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: ColorWheelPickerProps) {
   const [hue, setHue] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const wheelRef = useRef<HTMLCanvasElement>(null);
 
-  // Draw the color wheel on canvas
+  // Draw the color wheel on canvas with full spectrum
   useEffect(() => {
     drawColorWheel(wheelRef.current);
   }, []);
@@ -60,19 +61,73 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
     }
   };
 
-  const handleWheelClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const updateHueFromPosition = (clientX: number, clientY: number) => {
     const canvas = wheelRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left - canvas.width / 2;
-    const y = e.clientY - rect.top - canvas.height / 2;
+    const x = clientX - rect.left - canvas.width / 2;
+    const y = clientY - rect.top - canvas.height / 2;
 
     let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
     if (angle < 0) angle += 360;
 
     setHue(Math.round(angle));
   };
+
+  const handleWheelMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    setIsDragging(true);
+    document.body.style.overflow = 'hidden';
+    updateHueFromPosition(e.clientX, e.clientY);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging) return;
+    updateHueFromPosition(e.clientX, e.clientY);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    document.body.style.overflow = '';
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    setIsDragging(true);
+    document.body.style.overflow = 'hidden';
+    if (e.touches.length > 0) {
+      updateHueFromPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    if (e.touches.length > 0) {
+      updateHueFromPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    document.body.style.overflow = '';
+  };
+
+  // Add event listeners for mouse and touch
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
+
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [isDragging]);
 
   return (
     <div className="space-y-4">
@@ -83,12 +138,15 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
             ref={wheelRef}
             width={300}
             height={300}
-            onClick={handleWheelClick}
-            className="cursor-crosshair rounded-full border-2 border-stone-500 shadow-lg"
+            onMouseDown={handleWheelMouseDown}
+            onTouchStart={handleTouchStart}
+            className={`rounded-full border-2 border-stone-500 shadow-lg transition-all ${
+              isDragging ? 'cursor-grabbing' : 'cursor-grab'
+            }`}
           />
           {/* Hue indicator */}
           <div
-            className="absolute top-1/2 left-1/2 w-3 h-3 bg-white border-2 border-stone-900 rounded-full pointer-events-none shadow-md"
+            className="absolute top-1/2 left-1/2 w-3 h-3 bg-white border-2 border-stone-900 rounded-full pointer-events-none shadow-md transition-transform"
             style={{
               transform: `translate(-50%, -50%) rotate(${hue}deg) translateY(-135px)`,
             }}
@@ -99,7 +157,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">
             <div
-              className="w-16 h-16 rounded border-2 border-stone-600 shadow-md"
+              className="w-16 h-16 rounded border-2 border-stone-600 shadow-md transition-colors duration-100"
               style={{ backgroundColor: currentColor }}
             />
             <div>
