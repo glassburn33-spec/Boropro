@@ -124,6 +124,52 @@ const flameEffects: FlameEffect[] = [
       hexColor: "#6B8E23",
     },
   },
+  {
+    colorFamily: "Cadmium yellows",
+    metalComposition: "Cadmium Sulfide (CdS) or Cadmium Selenide-based colorants",
+    description: "Striking transparent yellows with moderate flame sensitivity. Cadmium colors are NOT atmospheric reactive but are heat-sensitive. Must be worked in cool, gentle flames to prevent boiling.",
+    neutral: {
+      appearance: "Begins to darken; semi-opaque amber",
+      metalBehavior: "Cadmium oxide begins to darken with neutral heat",
+      risk: "Medium; requires gentle heating to prevent boiling",
+      hexColor: "#FFA500",
+    },
+    oxidizing: {
+      appearance: "Transparent golden yellow; bright and clear",
+      metalBehavior: "Oxidizing flame preserves bright yellow; prevents darkening",
+      risk: "Low; oxidizing is ideal for cadmium yellows",
+      hexColor: "#FFD700",
+    },
+    reducing: {
+      appearance: "Darkens to amber/brown; becomes more opaque",
+      metalBehavior: "Reduction continues darkening; cadmium becomes opaque",
+      risk: "Medium; darkening occurs but no graying like cobalt",
+      hexColor: "#CC8800",
+    },
+  },
+  {
+    colorFamily: "Heat-sensitive opaques",
+    metalComposition: "Cadmium-based opaque with Tin Oxide opacifier",
+    description: "Vibrant opaque colors like Poppy orange. Hardly sensitive to flame chemistry but HIGHLY sensitive to excessive heat. Must work in soft, cool flames and heat slowly to prevent boiling and surface scarring.",
+    neutral: {
+      appearance: "Deep Halloween orange; stable and opaque",
+      metalBehavior: "Stable opaque; minimal flame chemistry effect",
+      risk: "Medium; heat-sensitive, must work slowly",
+      hexColor: "#FF6600",
+    },
+    oxidizing: {
+      appearance: "Bright, vibrant orange; stable and clear",
+      metalBehavior: "Oxidizing flame prevents boiling; color remains stable",
+      risk: "Low; oxidizing is ideal for heat-sensitive opaques",
+      hexColor: "#FF6600",
+    },
+    reducing: {
+      appearance: "Remains stable orange; no significant change",
+      metalBehavior: "Flame chemistry has minimal effect; heat is the limiting factor",
+      risk: "Medium; heat-sensitive, must work slowly regardless of flame type",
+      hexColor: "#FF6600",
+    },
+  },
 ];
 
 const flameDescriptions = {
