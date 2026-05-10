@@ -119,3 +119,14 @@
 - [x] Ensure entire 600px height is filled with black background
 - [x] Verify no white space appears around PDF content
 - [x] Test on browser to confirm visual appearance
+
+
+## Edit Modal for Schedule Library (New)
+- [x] Add Edit button to each schedule in Schedule Library
+- [x] Create Edit modal with filename, notes, and results fields
+- [x] Implement PDF generation in Save Changes button
+- [x] Generate new PDF with updated metadata appended below original data
+- [x] Upload updated PDF to library with _updated.pdf suffix
+- [x] Add unit tests for PDF generation with updated information
+- [x] Fix TypeScript errors (downlevelIteration, Set types)
+- [x] Verify Edit modal functionality in browser

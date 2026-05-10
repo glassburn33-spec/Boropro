@@ -666,7 +666,7 @@ export default function AnealingProfileEditor() {
             return 10;
           })();
           
-          const tempMarkers = [];
+          const tempMarkers: number[] = [];
           for (let i = 0; i <= maxTemp; i += tempStep) {
             tempMarkers.push(i);
           }

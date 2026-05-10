@@ -25,6 +25,7 @@ export interface FeaturedColor {
   kiln_darkening_start: number;
   over_work_start: number;
   tips: string[];
+  isDragonTears?: boolean;
 }
 
 // Silver Serum - Striking silver color with strong atmosphere sensitivity

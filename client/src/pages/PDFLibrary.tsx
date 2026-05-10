@@ -850,7 +850,7 @@ export default function LogLibrary() {
                   {schedulesToInsert.size === 0 ? (
                     <button
                       onClick={() => {
-                        const availableIds = new Set();
+                        const availableIds = new Set<number>();
                         displayLibrary.forEach(pdf => availableIds.add(pdf.id));
                         folders.forEach(folder => {
                           if (folder !== selectedFolderForInsert) {
@@ -894,7 +894,7 @@ export default function LogLibrary() {
                   onClick={() => {
                     if (schedulesToInsert.size > 0) {
                       const currentSchedules = schedulesInFolders[selectedFolderForInsert] || [];
-                      const updatedSchedules = [...new Set([...currentSchedules, ...schedulesToInsert])];
+                      const updatedSchedules = [...new Set([...currentSchedules, ...Array.from(schedulesToInsert)])];
                       setSchedulesInFolders({
                         ...schedulesInFolders,
                         [selectedFolderForInsert]: updatedSchedules
@@ -1021,13 +1021,114 @@ export default function LogLibrary() {
                   Cancel
                 </button>
                 <button
-                  onClick={() => {
-                    toast.success('Schedule updated successfully');
-                    setShowEditModal(false);
-                    setEditingPDF(null);
-                    setEditingFilename('');
-                    setEditingNotes('');
-                    setEditingResults('');
+                  onClick={async () => {
+                    if (!editingPDF) return;
+                    
+                    try {
+                      const jsPDF = (await import('jspdf')).default;
+                      const doc = new jsPDF();
+                      const pageWidth = doc.internal.pageSize.getWidth();
+                      let yPosition = 20;
+                      
+                      // Add original schedule information
+                      doc.setFontSize(14);
+                      doc.setTextColor(60, 60, 60);
+                      doc.text(`Schedule: ${editingPDF.filename}`, 20, yPosition);
+                      yPosition += 10;
+                      
+                      doc.setFontSize(10);
+                      doc.setTextColor(100, 100, 100);
+                      doc.text(`Uploaded: ${editingPDF.uploadedAt.toLocaleDateString()}`, 20, yPosition);
+                      yPosition += 8;
+                      
+                      // Add temperatures and times
+                      if (editingPDF.temperatures.length > 0) {
+                        doc.setFontSize(11);
+                        doc.setTextColor(60, 60, 60);
+                        doc.text('Temperatures (F):', 20, yPosition);
+                        yPosition += 6;
+                        doc.setFontSize(9);
+                        doc.text(editingPDF.temperatures.join(', '), 25, yPosition);
+                        yPosition += 8;
+                      }
+                      
+                      if (editingPDF.times.length > 0) {
+                        doc.setFontSize(11);
+                        doc.setTextColor(60, 60, 60);
+                        doc.text('Times (hours):', 20, yPosition);
+                        yPosition += 6;
+                        doc.setFontSize(9);
+                        doc.text(editingPDF.times.join(', '), 25, yPosition);
+                        yPosition += 10;
+                      }
+                      
+                      // Add separator
+                      yPosition += 5;
+                      doc.setDrawColor(200, 200, 200);
+                      doc.line(20, yPosition, pageWidth - 20, yPosition);
+                      yPosition += 10;
+                      
+                      // Add updated information
+                      doc.setFontSize(12);
+                      doc.setTextColor(40, 40, 40);
+                      doc.text('Updated Information', 20, yPosition);
+                      yPosition += 8;
+                      
+                      if (editingFilename) {
+                        doc.setFontSize(10);
+                        doc.setTextColor(60, 60, 60);
+                        doc.text('Updated Name:', 20, yPosition);
+                        yPosition += 6;
+                        doc.setFontSize(9);
+                        doc.text(editingFilename, 25, yPosition);
+                        yPosition += 8;
+                      }
+                      
+                      if (editingNotes) {
+                        doc.setFontSize(10);
+                        doc.setTextColor(60, 60, 60);
+                        doc.text('Notes:', 20, yPosition);
+                        yPosition += 6;
+                        doc.setFontSize(9);
+                        const notesLines = doc.splitTextToSize(editingNotes, pageWidth - 40);
+                        doc.text(notesLines, 25, yPosition);
+                        yPosition += notesLines.length * 4 + 4;
+                      }
+                      
+                      if (editingResults) {
+                        doc.setFontSize(10);
+                        doc.setTextColor(60, 60, 60);
+                        doc.text('Results:', 20, yPosition);
+                        yPosition += 6;
+                        doc.setFontSize(9);
+                        const resultsLines = doc.splitTextToSize(editingResults, pageWidth - 40);
+                        doc.text(resultsLines, 25, yPosition);
+                      }
+                      
+                      // Generate PDF and upload
+                      const pdfData = doc.output('arraybuffer');
+                      const uint8Array = new Uint8Array(pdfData);
+                      const binaryArray = Array.from(uint8Array);
+                      const binaryString = String.fromCharCode.apply(null, binaryArray as any);
+                      const fileBase64 = btoa(binaryString);
+                      
+                      const newFilename = `${editingFilename || editingPDF.filename}_updated.pdf`;
+                      
+                      await uploadMutation.mutateAsync({
+                        filename: newFilename,
+                        fileBase64,
+                      });
+                      
+                      toast.success('Updated schedule PDF created and saved');
+                      setShowEditModal(false);
+                      setEditingPDF(null);
+                      setEditingFilename('');
+                      setEditingNotes('');
+                      setEditingResults('');
+                    } catch (error) {
+                      console.error('Error creating PDF:', error);
+                      toast.error('Failed to create PDF');
+                    }
                   }}
                   className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded font-semibold transition-colors"
                 >
