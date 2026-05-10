@@ -270,7 +270,7 @@ export default function PDFLibrary() {
         {/* Upload Section */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">Upload Schedule PDF</h2>
+            <h2 className="text-2xl font-bold text-white mb-8">Upload PDF</h2>
             <div
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
