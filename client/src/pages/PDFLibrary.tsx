@@ -357,11 +357,7 @@ export default function PDFLibrary() {
                 )}
                 <button
                   onClick={() => {
-                    if (!selectMode) {
-                      setSelectedForDeletion(displayLibrary.map(pdf => pdf.id));
-                    } else {
-                      setSelectedForDeletion([]);
-                    }
+                    setSelectedForDeletion([]);
                     setSelectMode(!selectMode);
                   }}
                   className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
