@@ -184,9 +184,6 @@ export default function FlameChemistryCharacterization() {
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
               Flame Chemistry Characterization
             </h1>
-            <p className="text-lg leading-8 text-stone-300 max-w-3xl">
-              Explore how neutral, oxidizing, and reducing flames affect borosilicate colors. Select a color family to see real-time effects on metal behavior, appearance, and risk factors.
-            </p>
           </div>
         </section>
 
