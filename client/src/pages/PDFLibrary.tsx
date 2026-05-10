@@ -39,19 +39,6 @@ export default function PDFLibrary() {
   const [schedulesToInsert, setSchedulesToInsert] = useState<Set<number>>(new Set());
   const [expandedFoldersInModal, setExpandedFoldersInModal] = useState<Set<string>>(new Set());
 
-  // Extras section state (separate from Schedule Library)
-  const [extrasFolders, setExtrasFolders] = useState<string[]>([]);
-  const [expandedExtrasFolders, setExpandedExtrasFolders] = useState<Set<string>>(new Set());
-  const [extrasSchedulesInFolders, setExtrasSchedulesInFolders] = useState<Record<string, number[]>>({});
-  const [showExtrasFolderModal, setShowExtrasFolderModal] = useState(false);
-  const [extrasFolderName, setExtrasFolderName] = useState('');
-  const [showExtrasInsertModal, setShowExtrasInsertModal] = useState(false);
-  const [selectedExtrasFolderForInsert, setSelectedExtrasFolderForInsert] = useState<string | null>(null);
-  const [extrasSchedulesToInsert, setExtrasSchedulesToInsert] = useState<Set<number>>(new Set());
-  const [expandedExtrasInModal, setExpandedExtrasInModal] = useState<Set<string>>(new Set());
-  const [extrasSelectMode, setExtrasSelectMode] = useState(false);
-  const [extrasSelectedForDeletion, setExtrasSelectedForDeletion] = useState<number[]>([]);
-
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
   const uploadMutation = trpc.pdfLibrary.upload.useMutation();
@@ -79,29 +66,6 @@ export default function PDFLibrary() {
   
   // Keep all PDFs for use in modals and folders
   const allLibrary: PDFItem[] = library.map((pdf: any) => ({
-    id: pdf.id,
-    filename: pdf.filename,
-    temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
-    times: pdf.times ? JSON.parse(pdf.times) : [],
-    uploadedAt: new Date(pdf.uploadedAt),
-    storageKey: pdf.storageKey,
-  }));
-
-  const extrasDisplayLibrary: PDFItem[] = library.map((pdf: any) => ({
-    id: pdf.id,
-    filename: pdf.filename,
-    temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
-    times: pdf.times ? JSON.parse(pdf.times) : [],
-    uploadedAt: new Date(pdf.uploadedAt),
-    storageKey: pdf.storageKey,
-  })).filter(pdf => {
-    for (const folderIds of Object.values(extrasSchedulesInFolders)) {
-      if (folderIds.includes(pdf.id)) return false;
-    }
-    return true;
-  });
-
-  const extrasAllLibrary: PDFItem[] = library.map((pdf: any) => ({
     id: pdf.id,
     filename: pdf.filename,
     temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
@@ -500,10 +464,8 @@ export default function PDFLibrary() {
                     )}
                   </div>
                 ))}
-                {/* Display Schedules - Only show if there are uncategorized files */}
-                {displayLibrary.length > 0 && (
-                  <>
-                    {displayLibrary.map((pdf) => (
+                {/* Display Schedules */}
+                {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
                     onClick={() => !selectMode && setSelectedPDF(pdf)}
@@ -546,231 +508,11 @@ export default function PDFLibrary() {
                     </button>
                   </div>
                 ))}
-                  </>
-                )}
                 {/* Empty state - only show if no folders and no uncategorized files */}
                 {folders.length === 0 && displayLibrary.length === 0 && (
                   <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
                     <FileText size={32} className="text-stone-500 mx-auto mb-4" />
                     <p className="text-stone-400">No schedules uploaded yet. Upload a PDF to get started.</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Extras Section */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-white">Extras</h2>
-              <div className="flex gap-2">
-                {!extrasSelectMode && (
-                  <button
-                    onClick={() => setShowExtrasFolderModal(true)}
-                    className="px-4 py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                  >
-                    + Add Folder
-                  </button>
-                )}
-                {extrasSelectMode && (
-                  <>
-                    {extrasSelectedForDeletion.length === 0 ? (
-                      <button
-                        onClick={() => setExtrasSelectedForDeletion(extrasDisplayLibrary.map(pdf => pdf.id))}
-                        className="px-4 py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                      >
-                        Select All
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => setExtrasSelectedForDeletion([])}
-                        className="px-4 py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                      >
-                        Deselect All
-                      </button>
-                    )}
-                    <button
-                      onClick={() => {
-                        if (extrasSelectedForDeletion.length === 0) {
-                          alert('No files selected');
-                          return;
-                        }
-                        if (confirm(`Are you sure you want to delete ${extrasSelectedForDeletion.length} file(s)? This action cannot be undone.`)) {
-                          extrasSelectedForDeletion.forEach(id => {
-                            deleteMutation.mutate({ id }, {
-                              onSuccess: () => {
-                                refetch();
-                                setExtrasSelectedForDeletion(extrasSelectedForDeletion.filter(selectedId => selectedId !== id));
-                              }
-                            });
-                          });
-                        }
-                      }}
-                      className="px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-                <button
-                  onClick={() => {
-                    setExtrasSelectedForDeletion([]);
-                    setExtrasSelectMode(!extrasSelectMode);
-                  }}
-                  className="px-4 py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                >
-                  {extrasSelectMode ? 'Cancel' : 'Select'}
-                </button>
-              </div>
-            </div>
-            {isLoading ? (
-              <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
-                <p className="text-stone-400">Loading extras...</p>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {/* Display Extras Folders */}
-                {extrasFolders.map((folder) => (
-                  <div key={folder} className="rounded-lg border border-blue-500/30 bg-blue-500/5 p-3 text-left">
-                    <button
-                      onClick={() => {
-                        const newExpanded = new Set(expandedExtrasFolders);
-                        if (newExpanded.has(folder)) {
-                          newExpanded.delete(folder);
-                        } else {
-                          newExpanded.add(folder);
-                        }
-                        setExpandedExtrasFolders(newExpanded);
-                      }}
-                      className="w-full text-left font-mono text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors"
-                    >
-                      📁 {folder} ({(extrasSchedulesInFolders[folder] || []).length})
-                    </button>
-                    {expandedExtrasFolders.has(folder) && (
-                      <div className="mt-2 flex items-center justify-end">
-                        <button
-                          onClick={() => {
-                            setSelectedExtrasFolderForInsert(folder);
-                            setExtrasSchedulesToInsert(new Set());
-                            setShowExtrasInsertModal(true);
-                          }}
-                          className="px-3 py-1 rounded border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                        >
-                          Insert
-                        </button>
-                      </div>
-                    )}
-                    {expandedExtrasFolders.has(folder) && (
-                      <div className="mt-3 ml-4 space-y-2">
-                        {(extrasSchedulesInFolders[folder] || []).length === 0 ? (
-                          <p className="text-xs text-stone-400">No files in this folder</p>
-                        ) : (
-                          extrasAllLibrary
-                            .filter(pdf => (extrasSchedulesInFolders[folder] || []).includes(pdf.id))
-                            .map(pdf => (
-                              <div
-                                key={pdf.id}
-                                onClick={() => !extrasSelectMode && setSelectedPDF(pdf)}
-                                className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${extrasSelectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
-                                  selectedPDF?.id === pdf.id
-                                    ? "border-blue-500 bg-blue-500/10"
-                                    : "border-blue-500/30 bg-blue-500/5 hover:border-blue-500/50"
-                                }`}
-                              >
-                                <div className="flex items-center gap-3 flex-1 min-w-0">
-                                  {extrasSelectMode && (
-                                    <input
-                                      type="checkbox"
-                                      checked={extrasSelectedForDeletion.includes(pdf.id)}
-                                      onChange={(e) => {
-                                        e.stopPropagation();
-                                        if (extrasSelectedForDeletion.includes(pdf.id)) {
-                                          setExtrasSelectedForDeletion(extrasSelectedForDeletion.filter(id => id !== pdf.id));
-                                        } else {
-                                          setExtrasSelectedForDeletion([...extrasSelectedForDeletion, pdf.id]);
-                                        }
-                                      }}
-                                      className="w-4 h-4 rounded border-white/30 accent-blue-500 cursor-pointer flex-shrink-0"
-                                    />
-                                  )}
-                                  <FileText size={16} className="text-blue-500 flex-shrink-0" />
-                                  <div className="min-w-0 flex-1">
-                                    <p className="font-bold text-blue-400 truncate text-sm">{pdf.filename}</p>
-                                    <p className="text-xs text-stone-500">{pdf.uploadedAt.toLocaleDateString()}</p>
-                                  </div>
-                                </div>
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDelete(pdf.id);
-                                  }}
-                                  className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 ml-2"
-                                >
-                                  <Trash2 size={14} />
-                                </button>
-                              </div>
-                            ))
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                {/* Display Extras Files */}
-                {extrasDisplayLibrary.length > 0 && (
-                  <>
-                    <h3 className="text-lg font-bold text-white mt-6 mb-3">Uncategorized</h3>
-                    {extrasDisplayLibrary.map((pdf) => (
-                      <div
-                        key={pdf.id}
-                        onClick={() => !extrasSelectMode && setSelectedPDF(pdf)}
-                        className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${extrasSelectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
-                          selectedPDF?.id === pdf.id
-                            ? "border-blue-500 bg-blue-500/10"
-                            : "border-white/10 bg-white/5 hover:border-blue-500/50"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          {extrasSelectMode && (
-                            <input
-                              type="checkbox"
-                              checked={extrasSelectedForDeletion.includes(pdf.id)}
-                              onChange={(e) => {
-                                e.stopPropagation();
-                                if (extrasSelectedForDeletion.includes(pdf.id)) {
-                                  setExtrasSelectedForDeletion(extrasSelectedForDeletion.filter(id => id !== pdf.id));
-                                } else {
-                                  setExtrasSelectedForDeletion([...extrasSelectedForDeletion, pdf.id]);
-                                }
-                              }}
-                              className="w-4 h-4 rounded border-white/30 accent-blue-500 cursor-pointer flex-shrink-0"
-                            />
-                          )}
-                          <FileText size={16} className="text-blue-500 flex-shrink-0" />
-                          <div className="min-w-0 flex-1">
-                            <p className="font-bold text-white truncate text-sm">{pdf.filename}</p>
-                            <p className="text-xs text-stone-400">{pdf.uploadedAt.toLocaleDateString()}</p>
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(pdf.id);
-                          }}
-                          className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 ml-2"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    ))}
-                  </>
-                )}
-                {/* Empty state */}
-                {extrasFolders.length === 0 && extrasDisplayLibrary.length === 0 && (
-                  <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
-                    <FileText size={32} className="text-stone-500 mx-auto mb-4" />
-                    <p className="text-stone-400">No files in extras yet.</p>
                   </div>
                 )}
               </div>

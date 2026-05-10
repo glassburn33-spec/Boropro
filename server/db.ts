@@ -1,6 +1,6 @@
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, pdfLibrary, InsertPDFLibrary, PDFLibrary, kilnLog, InsertKilnLog, KilnLog, extras } from "../drizzle/schema";
+import { InsertUser, users, pdfLibrary, InsertPDFLibrary, PDFLibrary, kilnLog, InsertKilnLog, KilnLog } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -259,76 +259,3 @@ export async function deleteKilnLog(id: number, userId: number): Promise<boolean
 }
 
 // TODO: add feature queries here as your schema grows.
-
-// Extras queries (separate from PDF Library)
-export async function saveExtrasFile(userId: number, data: Omit<typeof extras.$inferInsert, 'userId'>): Promise<typeof extras.$inferSelect | null> {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot save extras file: database not available");
-    return null;
-  }
-
-  try {
-    const result = await db.insert(extras).values({
-      ...data,
-      userId,
-    });
-    
-    const inserted = await db.select().from(extras).where(eq(extras.id, result[0].insertId as number)).limit(1);
-    return inserted.length > 0 ? inserted[0] : null;
-  } catch (error) {
-    console.error("[Database] Failed to save extras file:", error);
-    throw error;
-  }
-}
-
-export async function getExtrasByUserId(userId: number): Promise<typeof extras.$inferSelect[]> {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot get extras: database not available");
-    return [];
-  }
-
-  try {
-    return await db.select().from(extras).where(eq(extras.userId, userId));
-  } catch (error) {
-    console.error("[Database] Failed to get extras:", error);
-    return [];
-  }
-}
-
-export async function getExtrasById(id: number, userId: number): Promise<typeof extras.$inferSelect | null> {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot get extras file: database not available");
-    return null;
-  }
-
-  try {
-    const result = await db.select().from(extras).where(
-      and(eq(extras.id, id), eq(extras.userId, userId))
-    ).limit(1);
-    return result.length > 0 ? result[0] : null;
-  } catch (error) {
-    console.error("[Database] Failed to get extras file:", error);
-    return null;
-  }
-}
-
-export async function deleteExtrasFile(id: number, userId: number): Promise<boolean> {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot delete extras file: database not available");
-    return false;
-  }
-
-  try {
-    await db.delete(extras).where(
-      and(eq(extras.id, id), eq(extras.userId, userId))
-    );
-    return true;
-  } catch (error) {
-    console.error("[Database] Failed to delete extras file:", error);
-    return false;
-  }
-}
