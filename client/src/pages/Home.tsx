@@ -506,10 +506,7 @@ function StudioTab() {
         </p>
       </div>
 
-      {/* FOOTER NOTE */}
-      <p className="text-xs text-stone-500 text-center">
-        BoroPro v1.0 • Built for glass blowers, by glass enthusiasts
-      </p>
+
     </div>
   );
 }
