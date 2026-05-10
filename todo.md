@@ -141,5 +141,5 @@
 - [x] Add "Export as CSV" button to schedule card
 - [x] Implement CSV export functionality for schedule data
 - [x] Position button next to Save to PDF Library button
-- [ ] Save exported CSV to Schedule Library (not just download)
-- [ ] Add CSV file to library with schedule metadata
+- [x] Save exported CSV to Schedule Library (not just download)
+- [x] Add CSV file to library with schedule metadata
