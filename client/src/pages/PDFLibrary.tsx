@@ -464,8 +464,11 @@ export default function PDFLibrary() {
                     )}
                   </div>
                 ))}
-                {/* Display Schedules */}
-                {displayLibrary.map((pdf) => (
+                {/* Display Schedules - Only show if there are uncategorized files */}
+                {displayLibrary.length > 0 && (
+                  <>
+                    <h3 className="text-lg font-bold text-white mt-6 mb-3">Extras</h3>
+                    {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
                     onClick={() => !selectMode && setSelectedPDF(pdf)}
@@ -508,6 +511,8 @@ export default function PDFLibrary() {
                     </button>
                   </div>
                 ))}
+                  </>
+                )}
                 {/* Empty state - only show if no folders and no uncategorized files */}
                 {folders.length === 0 && displayLibrary.length === 0 && (
                   <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
