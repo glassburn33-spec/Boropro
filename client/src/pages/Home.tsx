@@ -269,13 +269,13 @@ function StudioTab() {
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
                   <p className="text-stone-300 text-sm leading-relaxed">
-                    As the co-efficient of thermal expansion of borosilicate glass is low, the thermal stresses under a given temperature gradient are consequently low and the glass can withstand higher temperature gradients and also sudden temperature changes/thermal shocks. Minute scratching of glass surface can however reduce its thermal resistance.
+                    Borosilicate glass exhibits a remarkably low thermal expansion coefficient, which minimizes internal stress development during temperature fluctuations. This property allows the material to endure steep temperature gradients and rapid thermal cycling without fracturing. However, surface defects such as scratches or chips can compromise this thermal resilience by creating stress concentration points.
                   </p>
                   <p className="text-stone-300 text-sm leading-relaxed">
-                    In general, the <span className="text-amber-300 font-semibold">"Strain point"</span> should be regarded as the maximum safe operating temperature of borosilicate glassware. When heated above 500° C the glass may acquire permanent stresses on cooling.
+                    The <span className="text-amber-300 font-semibold">"Strain point"</span> represents the upper threshold for safe continuous use of borosilicate vessels. Beyond approximately 500°C, residual stresses may become permanent upon cooling, potentially weakening the material's structural integrity over time.
                   </p>
                   <p className="text-stone-300 text-sm leading-relaxed">
-                    All borosilicate labware is annealed in modern Lehr ovens under strictly controlled conditions to ensure minimal residual stress in the products.
+                    Manufacturing processes employ precision annealing cycles in specialized kilns to systematically relieve internal stresses and achieve uniform material properties throughout each piece of glassware.
                   </p>
                   <div className="w-full flex justify-center my-6">
                     <img
