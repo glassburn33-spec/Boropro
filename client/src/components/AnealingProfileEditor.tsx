@@ -12,6 +12,7 @@ import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
 import { generateKilnLogPDF, pdfToBase64, generateAnealingSchedulePDF } from '@/lib/pdfUtils';
 import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
+import { ColorWheelPicker } from './ColorWheelPicker';
 
 interface StageInputs {
   stage1: {
@@ -47,6 +48,7 @@ interface SavedSchedule {
   data: StageInputs;
   notes: string;
   results: string;
+  selectedColors: string[];
 }
 
 // Helper function to generate plot SVG from schedule data
@@ -380,6 +382,8 @@ export default function AnealingProfileEditor() {
   const [editingScheduleId, setEditingScheduleId] = useState<string | null>(null);
   const [editingNotes, setEditingNotes] = useState('');
   const [editingResults, setEditingResults] = useState('');
+  const [editingColors, setEditingColors] = useState<string[]>([]);
+  const [colorWheelHue, setColorWheelHue] = useState(0);
   const title = 'Heat Treatment Profile';
 
   // Auto-populate stage 3 start temp from stage 2 hold temp
@@ -692,6 +696,7 @@ export default function AnealingProfileEditor() {
         data: inputs,
         notes: notes,
         results: '',
+        selectedColors: [],
       }]);
       setScheduleName('');
       setNotes('');
@@ -703,11 +708,12 @@ export default function AnealingProfileEditor() {
     setEditingScheduleId(schedule.id);
     setEditingNotes(schedule.notes);
     setEditingResults(schedule.results);
+    setEditingColors(schedule.selectedColors || []);
   };
 
   const handleSaveEdit = (id: string) => {
     setSavedSchedules(prev => prev.map(s => 
-      s.id === id ? { ...s, notes: editingNotes, results: editingResults } : s
+      s.id === id ? { ...s, notes: editingNotes, results: editingResults, selectedColors: editingColors } : s
     ));
     setEditingScheduleId(null);
     setEditingNotes('');
@@ -805,6 +811,7 @@ export default function AnealingProfileEditor() {
         notes: schedule.notes || '',
         results: schedule.results || '',
         plotImage: plotImage,
+        selectedColors: schedule.selectedColors || [],
       };
       
       // Generate PDF using same format as Export PDF button
@@ -1180,6 +1187,16 @@ export default function AnealingProfileEditor() {
                         className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 resize-none h-20"
                       />
                     </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-300 mb-3">Glass Colors Used</label>
+                      <div className="bg-stone-900/50 border border-stone-700 rounded p-4">
+                        <ColorWheelPicker
+                          selectedColors={editingColors}
+                          onAddColor={(color) => setEditingColors(prev => [...prev, color])}
+                          onRemoveColor={(color) => setEditingColors(prev => prev.filter(c => c !== color))}
+                        />
+                      </div>
+                    </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleSaveEdit(schedule.id)}
@@ -1387,6 +1404,37 @@ export default function AnealingProfileEditor() {
                               (pdf as any).setFont(undefined, 'normal');
                               const resultsLines = (pdf as any).splitTextToSize(schedule.results, pageWidth - 20);
                               (pdf as any).text(resultsLines, 10, yPosition);
+                            }
+
+                            // Add colors section
+                            if (schedule.selectedColors && schedule.selectedColors.length > 0) {
+                              if (yPosition + 30 > pageHeight - 10) {
+                                pdf.addPage();
+                                pdf.setFillColor(0, 0, 0);
+                                pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+                                yPosition = 10;
+                              }
+                              
+                              pdf.setTextColor(255, 187, 36);
+                              pdf.setFontSize(12);
+                              (pdf as any).setFont(undefined, 'bold');
+                              pdf.text('Glass Colors Used:', 10, yPosition);
+                              yPosition += 6;
+                              
+                              pdf.setFontSize(10);
+                              (pdf as any).setFont(undefined, 'normal');
+                              schedule.selectedColors.forEach((color) => {
+                                if (yPosition + 8 > pageHeight - 10) {
+                                  pdf.addPage();
+                                  pdf.setFillColor(0, 0, 0);
+                                  pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+                                  yPosition = 10;
+                                }
+                                pdf.setDrawColor(parseInt(color.slice(1, 3), 16), parseInt(color.slice(3, 5), 16), parseInt(color.slice(5, 7), 16));
+                                pdf.rect(12, yPosition - 2, 4, 4, 'F');
+                                pdf.text(color.toUpperCase(), 18, yPosition);
+                                yPosition += 5;
+                              });
                             }
 
                             // Download PDF
