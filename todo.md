@@ -143,3 +143,53 @@
 - [x] Position button next to Save to PDF Library button
 - [x] Save exported CSV to Schedule Library (not just download)
 - [x] Add CSV file to library with schedule metadata
+
+
+## CSV Viewer for Schedule Library (New)
+- [x] Create CSVViewer component to parse and display CSV data
+- [x] Extract metadata, plot data, and notes from CSV files
+- [x] Display temperature profile chart from CSV data
+- [x] Show notes and metadata in viewer modal
+- [x] Integrate CSV viewer into Schedule Details section
+- [ ] Test CSV viewer end-to-end with actual CSV from Schedule Library
+- [ ] Add Vitest test for CSVViewer with real kiln log CSV format
+
+
+## Reproduce Kiln Log Plot in Schedule Library (New)
+- [x] Analyze Kiln Log page plot format (temperature profile chart)
+- [x] Create matching plot visualization for Schedule Library viewer (SchedulePlotViewer component)
+- [x] Display plot with same styling and interactivity as Kiln Log
+- [x] Save metadata (temperatures, times, notes) with CSV exports
+- [x] Create metadata display window in Schedule Library
+- [x] Show temperature profile chart in viewer window
+- [x] Display metadata table with stage, temperature, and time data
+- [x] Add notes display section in viewer window
+- [x] Test end-to-end metadata display and plot visualization
+
+
+## SVG Plot Export to Library (New)
+- [x] Create SVG generation function in SaveScheduleModal
+- [x] Add "Add SVG Plot to Library" button to SaveScheduleModal
+- [x] Implement SVG export with temperature curve and reference lines
+- [x] Save SVG files to library with schedule metadata
+- [x] Integrate SchedulePlotViewer into PDFLibrary for plot display
+- [x] All 50 tests passing
+- [x] Verify SchedulePlotViewer matches Kiln Log plot styling (orange curve, blue reference lines, grid)
+- [x] Add metadata display panel to PDFLibrary viewer
+- [x] Add schedule data table with temperature and time columns
+- [ ] Add notes display section to library viewer (requires metadata schema)
+- [ ] Perform end-to-end browser test: save schedule to library and verify plot + metadata display
+
+
+## Replace PDF Storage with JSON Metadata (New)
+- [x] Create JSON metadata schema for schedule data (ScheduleMetadata type in shared/scheduleTypes.ts)
+- [x] Update SaveScheduleModal to save JSON instead of PDF (primary button now saves JSON)
+- [x] Update SchedulePlotViewer to parse JSON metadata and render plots client-side
+- [x] Add error handling for JSON parsing failures in SchedulePlotViewer
+- [x] Create shared ScheduleMetadata type and use it in SaveScheduleModal and SchedulePlotViewer
+- [x] Verify all 50 tests still passing
+- [x] Add JSON file support to getPDF server mutation (detects .json files and returns isJSON flag)
+- [x] Update PDFLibrary to detect and handle JSON files (fetches JSON from storage and passes to SchedulePlotViewer)
+- [ ] Perform end-to-end browser test: save schedule as JSON and view plot in library
+- [ ] Verify minimal storage footprint (JSON ~1-5KB vs PDF 50-200KB)
+- [ ] Test offline viewing after JSON is saved
