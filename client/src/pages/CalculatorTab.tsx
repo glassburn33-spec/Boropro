@@ -830,7 +830,7 @@ export function CalculatorTab() {
 
   return (
     <div className="space-y-4 pb-8">
-      <h2 className="text-xl font-bold text-amber-400">Time to Reheat Unexposed Work</h2>
+      <h2 className="text-xl font-bold text-amber-400">Reheat Calculator</h2>
 
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
