@@ -616,7 +616,7 @@ ${combinedSchedule.rationale}`;
               Kiln Log
             </a>
             <a href="/calculator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Calculator
+              Reheat Calc
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log Library
