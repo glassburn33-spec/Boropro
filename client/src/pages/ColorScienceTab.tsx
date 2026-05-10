@@ -512,7 +512,7 @@ export default function ColorScienceTab() {
       content: (
         <div className="space-y-4">
           <p className="text-stone-300">
-            Explore how temperature affects glass color through chromophore behavior. Adjust the temperature slider and flame atmosphere to see real-time color changes across different glass alchemy colors.
+            This interactive visualization demonstrates the relationship between thermal conditions and chromatic response in transition-metal-doped silicate matrices. Manipulate the thermal-range slider and combustion-environment parameters to observe instantaneous chromatic transformations across the spectrum of glass colorant systems, illustrating temperature-dependent coordination geometry shifts and electronic-state transitions.
           </p>
           <ThermochromismSimulator />
         </div>
