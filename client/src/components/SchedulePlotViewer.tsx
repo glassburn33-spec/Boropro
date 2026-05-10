@@ -3,40 +3,80 @@ Schedule Plot Viewer - Displays temperature profile plot for saved schedules
 Reuses the same plot visualization as the Annealing Profile Editor
 */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { ScheduleMetadata } from '@shared/scheduleTypes';
 
 interface SchedulePlotViewerProps {
-  temperatures: number[];
-  times: number[];
+  temperatures?: number[];
+  times?: number[];
   filename: string;
   annealingPoint?: number;
   strainPoint?: number;
+  jsonMetadata?: string; // Base64 encoded JSON metadata
 }
 
 export function SchedulePlotViewer({
-  temperatures,
-  times,
+  temperatures: initialTemperatures,
+  times: initialTimes,
   filename,
   annealingPoint = 565,
   strainPoint = 510,
+  jsonMetadata,
 }: SchedulePlotViewerProps) {
   const svgContainerRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!svgContainerRef.current || temperatures.length === 0) return;
+    if (!svgContainerRef.current) return;
+
+    let temperatures = initialTemperatures || [];
+    let times = initialTimes || [];
+    let actualAnnealingPoint = annealingPoint;
+    let actualStrainPoint = strainPoint;
+
+    // Parse JSON metadata if provided
+    if (jsonMetadata) {
+      try {
+        const jsonString = atob(jsonMetadata);
+        const metadata: ScheduleMetadata = JSON.parse(jsonString);
+        temperatures = metadata.temperatures || [];
+        times = metadata.times || [];
+        actualAnnealingPoint = metadata.annealingPoint || annealingPoint;
+        actualStrainPoint = metadata.strainPoint || strainPoint;
+        setError(null);
+      } catch (error) {
+        console.error('Failed to parse JSON metadata:', error);
+        setError('Failed to parse schedule metadata');
+        return;
+      }
+    }
+
+    if (temperatures.length === 0) {
+      setError('No temperature data available');
+      return;
+    }
 
     // Generate plot SVG
     const svg = generateTemperaturePlotSVG(
       temperatures,
       times,
       filename,
-      { annealingPoint, strainPoint }
+      { annealingPoint: actualAnnealingPoint, strainPoint: actualStrainPoint }
     );
 
     // Clear previous content
     svgContainerRef.current.innerHTML = '';
     svgContainerRef.current.appendChild(svg);
-  }, [temperatures, times, filename, annealingPoint, strainPoint]);
+  }, [initialTemperatures, initialTimes, filename, annealingPoint, strainPoint, jsonMetadata]);
+
+  if (error) {
+    return (
+      <div className="w-full bg-stone-900 rounded-lg border border-stone-700 p-4">
+        <h3 className="text-amber-400 font-semibold mb-4">Temperature Profile</h3>
+        <div className="text-red-400 text-sm">{error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full bg-stone-900 rounded-lg border border-stone-700 p-4">
@@ -78,20 +118,16 @@ function generateTemperaturePlotSVG(
 
   const titleFontSize = Math.max(14, Math.min(20, width / 50));
   const labelFontSize = Math.max(10, Math.min(14, width / 80));
-  const tickFontSize = Math.max(9, Math.min(12, width / 100));
 
   const scaleX = (time: number) => (time / maxTime) * plotWidth;
   const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
 
-  // Create SVG element
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('width', width.toString());
   svg.setAttribute('height', height.toString());
   svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   svg.setAttribute('style', 'background-color: #1c1917;');
 
-  // Background
   const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
   bg.setAttribute('width', width.toString());
   bg.setAttribute('height', height.toString());
@@ -109,16 +145,6 @@ function generateTemperaturePlotSVG(
     line.setAttribute('stroke-dasharray', '4');
     line.setAttribute('stroke-width', '1');
     svg.appendChild(line);
-
-    // Y-axis labels
-    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    label.setAttribute('x', (margin.left - 10).toString());
-    label.setAttribute('y', (margin.top + scaleY(temp) + 4).toString());
-    label.setAttribute('text-anchor', 'end');
-    label.setAttribute('fill', '#999');
-    label.setAttribute('font-size', tickFontSize.toString());
-    label.textContent = temp.toString();
-    svg.appendChild(label);
   }
 
   // Reference lines
@@ -141,27 +167,6 @@ function generateTemperaturePlotSVG(
   strainLine.setAttribute('stroke-dasharray', '4');
   strainLine.setAttribute('stroke-width', '2');
   svg.appendChild(strainLine);
-
-  // Reference line labels
-  const labelX = Math.min(margin.left + plotWidth + 8, width - 120);
-  const annealingY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(refLines.annealingPoint) + 4, height - 10));
-  const strainY = Math.max(margin.top + 15, Math.min(margin.top + scaleY(refLines.strainPoint) + 4, height - 10));
-
-  const annealingLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  annealingLabel.setAttribute('x', labelX.toString());
-  annealingLabel.setAttribute('y', annealingY.toString());
-  annealingLabel.setAttribute('fill', '#fbbf24');
-  annealingLabel.setAttribute('font-size', Math.max(8, labelFontSize - 1).toString());
-  annealingLabel.textContent = 'Annealing point';
-  svg.appendChild(annealingLabel);
-
-  const strainLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  strainLabel.setAttribute('x', labelX.toString());
-  strainLabel.setAttribute('y', strainY.toString());
-  strainLabel.setAttribute('fill', '#fbbf24');
-  strainLabel.setAttribute('font-size', Math.max(8, labelFontSize - 1).toString());
-  strainLabel.textContent = 'Strain point';
-  svg.appendChild(strainLabel);
 
   // Temperature curve
   let pathD = `M ${margin.left + scaleX(plotData[0].time)} ${margin.top + scaleY(plotData[0].temp)}`;
@@ -195,26 +200,6 @@ function generateTemperaturePlotSVG(
   yAxis.setAttribute('stroke-width', '2');
   svg.appendChild(yAxis);
 
-  // Axis labels
-  const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
-  xLabel.setAttribute('y', (height - 20).toString());
-  xLabel.setAttribute('text-anchor', 'middle');
-  xLabel.setAttribute('fill', '#999');
-  xLabel.setAttribute('font-size', labelFontSize.toString());
-  xLabel.textContent = 'Time (hours) →';
-  svg.appendChild(xLabel);
-
-  const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  yLabel.setAttribute('x', '20');
-  yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
-  yLabel.setAttribute('text-anchor', 'middle');
-  yLabel.setAttribute('fill', '#999');
-  yLabel.setAttribute('font-size', labelFontSize.toString());
-  yLabel.setAttribute('transform', `rotate(-90 20 ${margin.top + plotHeight / 2})`);
-  yLabel.textContent = 'Temp (°F)';
-  svg.appendChild(yLabel);
-
   // Title
   const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
   title.setAttribute('x', (width / 2).toString());
@@ -226,46 +211,34 @@ function generateTemperaturePlotSVG(
   title.textContent = scheduleName;
   svg.appendChild(title);
 
-  // X-axis labels
-  for (let i = 0; i <= maxTime; i += Math.max(1, Math.floor(maxTime / 5))) {
-    const xPos = margin.left + scaleX(i);
-    if (xPos < margin.left + plotWidth) {
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', xPos.toString());
-      label.setAttribute('y', (margin.top + plotHeight + 20).toString());
-      label.setAttribute('text-anchor', 'middle');
-      label.setAttribute('fill', '#999');
-      label.setAttribute('font-size', tickFontSize.toString());
-      label.textContent = i.toString();
-      svg.appendChild(label);
-    }
-  }
+  // X-axis label
+  const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
+  xLabel.setAttribute('y', (height - 20).toString());
+  xLabel.setAttribute('text-anchor', 'middle');
+  xLabel.setAttribute('fill', '#999');
+  xLabel.setAttribute('font-size', labelFontSize.toString());
+  xLabel.textContent = 'Time (hours)';
+  svg.appendChild(xLabel);
+
+  // Y-axis label
+  const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  yLabel.setAttribute('x', '20');
+  yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
+  yLabel.setAttribute('text-anchor', 'middle');
+  yLabel.setAttribute('fill', '#999');
+  yLabel.setAttribute('font-size', labelFontSize.toString());
+  yLabel.setAttribute('transform', `rotate(-90, 20, ${margin.top + plotHeight / 2})`);
+  yLabel.textContent = 'Temperature (°C)';
+  svg.appendChild(yLabel);
 
   return svg;
 }
 
-// Helper function to create empty SVG
 function createEmptySVG(width: number, height: number): SVGSVGElement {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('width', width.toString());
   svg.setAttribute('height', height.toString());
-  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
   svg.setAttribute('style', 'background-color: #1c1917;');
-
-  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  bg.setAttribute('width', width.toString());
-  bg.setAttribute('height', height.toString());
-  bg.setAttribute('fill', '#1c1917');
-  svg.appendChild(bg);
-
-  const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  text.setAttribute('x', (width / 2).toString());
-  text.setAttribute('y', (height / 2).toString());
-  text.setAttribute('text-anchor', 'middle');
-  text.setAttribute('fill', '#999');
-  text.setAttribute('font-size', '16');
-  text.textContent = 'No data available';
-  svg.appendChild(text);
-
   return svg;
 }

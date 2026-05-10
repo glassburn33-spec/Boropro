@@ -7,6 +7,7 @@ import { Download, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
 import type { KilnLogPDFData } from "@/lib/pdfUtils";
+import type { ScheduleMetadata } from "@shared/scheduleTypes";
 import { toast } from "sonner";
 
 // Helper function to generate temperature plot SVG
@@ -195,20 +196,28 @@ export function SaveScheduleModal({
     }
   };
 
-  const handleExportSVGToLibrary = async () => {
+  const handleExportJSONMetadata = async () => {
     try {
-      // Generate SVG plot
-      const svg = generateTemperaturePlotSVG(
-        kilnLog.temperatures,
-        kilnLog.times,
-        kilnLog.name,
-        { annealingPoint: 565, strainPoint: 510 }
-      );
+      // Create JSON metadata object with minimal data for plot recreation
+      const metadata: ScheduleMetadata = {
+        name: kilnLog.name,
+        description: kilnLog.description,
+        temperatures: kilnLog.temperatures,
+        times: kilnLog.times,
+        startTime: kilnLog.startTime.toISOString(),
+        endTime: kilnLog.endTime?.toISOString(),
+        notes: kilnLog.notes,
+        results: kilnLog.results,
+        color: kilnLog.color,
+        annealingPoint: 565,
+        strainPoint: 510,
+        createdAt: new Date().toISOString(),
+      };
 
-      // Convert SVG to string
-      const svgString = new XMLSerializer().serializeToString(svg);
-      const base64 = btoa(svgString);
-      const filename = `${kilnLog.name}_plot.svg`;
+      // Convert to JSON string and encode as base64
+      const jsonString = JSON.stringify(metadata, null, 2);
+      const base64 = btoa(jsonString);
+      const filename = `${kilnLog.name}_metadata.json`;
 
       // Call the parent handler to save to library
       await onAddToLibrary(base64, filename, {
@@ -217,43 +226,48 @@ export function SaveScheduleModal({
         color: kilnLog.color,
       });
 
-      toast.success("SVG plot added to PDF Library!");
+      toast.success("Schedule metadata saved to library (minimal storage)!");
       onClose();
     } catch (error) {
-      console.error("Failed to add SVG to library:", error);
-      toast.error("Failed to add SVG to PDF Library");
+      console.error("Failed to save metadata to library:", error);
+      toast.error("Failed to save metadata to library");
     }
   };
 
   const handleAddToLibrary = async () => {
     try {
-      // Generate PDF
-      const pdfData: KilnLogPDFData = {
+      // Save as JSON metadata instead of PDF for minimal storage
+      const metadata: ScheduleMetadata = {
         name: kilnLog.name,
         description: kilnLog.description,
         temperatures: kilnLog.temperatures,
         times: kilnLog.times,
-        startTime: kilnLog.startTime,
-        endTime: kilnLog.endTime,
+        startTime: kilnLog.startTime.toISOString(),
+        endTime: kilnLog.endTime?.toISOString(),
         notes: kilnLog.notes,
+        results: kilnLog.results,
+        color: kilnLog.color,
+        annealingPoint: 565,
+        strainPoint: 510,
+        createdAt: new Date().toISOString(),
       };
 
-      const doc = generateKilnLogPDF(pdfData);
-      const base64 = pdfToBase64(doc);
-      const filename = `${kilnLog.name}_klog.pdf`;
+      const jsonString = JSON.stringify(metadata, null, 2);
+      const base64 = btoa(jsonString);
+      const filename = `${kilnLog.name}_metadata.json`;
 
-      // Call the parent handler to save to library with metadata
+      // Call the parent handler to save to library
       await onAddToLibrary(base64, filename, {
         notes: kilnLog.notes,
         results: kilnLog.results,
         color: kilnLog.color,
       });
 
-      toast.success("Schedule added to PDF Library!");
+      toast.success("Schedule saved to library (minimal storage)!");
       onClose();
     } catch (error) {
       console.error("Failed to add to library:", error);
-      toast.error("Failed to add to PDF Library");
+      toast.error("Failed to save schedule to library");
     }
   };
 
@@ -298,16 +312,16 @@ export function SaveScheduleModal({
             className="w-full bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
           >
             <Save size={16} />
-            {isAddingToLibrary ? "Adding to Library..." : "Add to PDF Library"}
+            {isAddingToLibrary ? "Saving..." : "Save to Library (Minimal Storage)"}
           </Button>
 
           <Button
-            onClick={handleExportSVGToLibrary}
+            onClick={handleExportJSONMetadata}
             disabled={isAddingToLibrary}
             className="w-full bg-blue-700 hover:bg-blue-600 disabled:bg-stone-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
           >
             <Save size={16} />
-            {isAddingToLibrary ? "Adding SVG..." : "Add SVG Plot to Library"}
+            {isAddingToLibrary ? "Saving..." : "Save Metadata (Minimal Storage)"}
           </Button>
 
           <Button
