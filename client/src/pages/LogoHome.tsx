@@ -1,48 +1,125 @@
 /**
  * Logo-Only Home Page
- * Displays the app logo centered on the page with navigation header
+ * Displays the app logo centered on the page with header
  */
 
-
+import { useState } from "react";
+import { Menu } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function LogoHome() {
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
+  const [, setLocation] = useLocation();
+
+  const handleHeaderImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setHeaderImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleTabChange = (tab: string) => {
+    // Navigate to explore page when a tab is clicked
+    setLocation("/explore");
+  };
   return (
-    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
-        <div className="container flex items-center justify-between py-4">
-          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
-          </a>
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Color
-            </a>
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Flame Char
-            </a>
-            <a href="/calculator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Reheat Calc
-            </a>
-            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Kiln Log
-            </a>
-            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Log
-            </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              References
-            </a>
-          </nav>
+    <div className="space-y-6 overflow-hidden bg-stone-950 text-stone-100" style={{ height: '100vh' }}>
+      {/* FIXED HEADER */}
+      <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
+        {/* ROW 1: Hamburger Menu and Logo */}
+        <div className="flex items-center h-28 px-4 gap-2 relative">
+          {/* Hamburger Menu Button with Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowDrawer(!showDrawer)}
+              className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
+              aria-label="Toggle navigation menu"
+            >
+              <Menu className="w-6 h-6 text-stone-300" />
+            </button>
+            
+            {/* Dropdown Menu */}
+            {showDrawer && (
+              <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
+                <button
+                  onClick={() => { handleTabChange("studio"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Glass-Science
+                </button>
+                <button
+                  onClick={() => { handleTabChange("scieequip"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Scie-Equip
+                </button>
+                <button
+                  onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
+                >
+                  Color-Scie
+                </button>
+                <a
+                  href="/references"
+                  onClick={() => setShowDrawer(false)}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                >
+                  References
+                </a>
+              </div>
+            )}
+          </div>
+          
+          {/* Logo on left */}
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
+          
+          {/* Header image placeholder on right */}
+          <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
+            {headerImage ? (
+              <img src={headerImage} alt="Header" className="w-full h-full object-cover" />
+            ) : (
+              <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
+                <span className="text-stone-400 text-sm">Click to add header image</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleHeaderImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
+            {headerImage && (
+              <button
+                onClick={() => setHeaderImage("")}
+                className="absolute top-2 right-2 bg-stone-900/80 hover:bg-stone-900 text-stone-300 px-2 py-1 text-xs rounded"
+              >
+                Remove
+              </button>
+            )}
+          </div>
         </div>
       </header>
+      
+      {/* Close dropdown when clicking outside */}
+      {showDrawer && (
+        <div
+          className="fixed inset-0 z-20 bg-black/50"
+          onClick={() => setShowDrawer(false)}
+          style={{ top: '120px', height: 'calc(100vh - 120px)' }}
+        />
+      )}
 
       {/* MAIN CONTENT - Centered Logo */}
-      <main className="flex-1 flex items-center justify-center px-4 overflow-hidden">
+      <main className="fixed inset-0 top-[120px] flex items-center justify-center px-4 overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
         <img
           src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png"
           alt="BoroPro Logo"
-          className="w-96 h-96 object-contain"
+          className="w-[48rem] h-[48rem] sm:w-[56rem] sm:h-[56rem] md:w-[64rem] md:h-[64rem] lg:w-[80rem] lg:h-[80rem] xl:w-[96rem] xl:h-[96rem] object-contain max-w-[98vw] max-h-[calc(100vh-140px)]"
         />
       </main>
     </div>
