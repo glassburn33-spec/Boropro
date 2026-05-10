@@ -50,20 +50,6 @@
       "when": 1778439375923,
       "tag": "0006_boring_nightmare",
       "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1778442086641,
-      "tag": "0007_stale_maestro",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1778442845344,
-      "tag": "0008_early_black_widow",
-      "breakpoints": true
     }
   ]
 }

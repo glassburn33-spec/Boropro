@@ -122,9 +122,6 @@ export const appRouter = router({
           fileBase64: z.string(),
           temperatures: z.array(z.number()),
           times: z.array(z.number()),
-          notes: z.string().optional(),
-          results: z.string().optional(),
-          color: z.string().optional(),
         })
       )
       .mutation(async ({ input, ctx }) => {
@@ -172,15 +169,10 @@ export const appRouter = router({
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const fileBase64 = buffer.toString('base64');
-        
-        // Detect if file is JSON metadata
-        const isJSON = pdf.filename.endsWith('.json') || pdf.filename.includes('_metadata');
-        
         return {
           id: pdf.id,
           filename: pdf.filename,
           fileBase64,
-          isJSON,
         };
       }),
   }),
