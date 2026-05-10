@@ -3,7 +3,14 @@ References Page - Comprehensive bibliography and scientific sources
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
-import { BookOpen, ExternalLink } from "lucide-react";
+import { BookOpen, ExternalLink, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 interface Reference {
   id: string;
@@ -308,6 +315,8 @@ const categoryColors: Record<Reference["category"], string> = {
 };
 
 export default function References() {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+
   const groupedReferences = references.reduce(
     (acc, ref) => {
       if (!acc[ref.category]) {
@@ -363,67 +372,77 @@ export default function References() {
           </div>
         </section>
 
-        {/* References by Category */}
+        {/* References by Category - Accordion */}
         <section className="py-12">
-          <div className="container space-y-16">
-            {(Object.keys(groupedReferences) as Reference["category"][]).map((category) => (
-              <div key={category}>
-                <h2 className="text-2xl font-bold text-amber-400 mb-6 flex items-center gap-2">
-                  <span className="w-1 h-6 bg-amber-500 rounded-full" />
-                  {categoryLabels[category]}
-                </h2>
-
-                <div className="space-y-4">
-                  {groupedReferences[category]?.map((ref) => (
-                    <div
-                      key={ref.id}
-                      className="border border-stone-700/50 rounded-lg p-6 hover:border-amber-700/50 transition-colors bg-stone-900/30"
-                    >
-                      <div className="flex items-start justify-between gap-4 mb-3">
-                        <div className="flex-1">
-                          <p className="text-sm text-stone-400 mb-2">
-                            <span className="font-semibold text-stone-300">{ref.authors}</span>
-                            <span className="text-stone-500"> ({ref.year})</span>
-                          </p>
-                          <h3 className="text-lg font-semibold text-white mb-2">{ref.title}</h3>
-                          <p className="text-stone-400 text-sm italic">{ref.publication}</p>
-                        </div>
-                        <span
-                          className={`px-3 py-1 rounded text-xs font-semibold whitespace-nowrap border ${categoryColors[category]}`}
-                        >
-                          {categoryLabels[category]}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-4 mt-4 pt-4 border-t border-stone-700/30">
-                        {ref.doi && (
-                          <a
-                            href={`https://doi.org/${ref.doi}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            DOI: {ref.doi}
-                          </a>
-                        )}
-                        {ref.url && (
-                          <a
-                            href={ref.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            View Source
-                          </a>
-                        )}
-                      </div>
+          <div className="container max-w-4xl">
+            <Accordion type="single" collapsible className="space-y-3">
+              {(Object.keys(groupedReferences) as Reference["category"][]).map((category) => (
+                <AccordionItem key={category} value={category} className="border border-stone-700/50 rounded-lg overflow-hidden">
+                  <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                    <div className="flex items-center gap-3 w-full">
+                      <span className="w-1 h-6 bg-amber-500 rounded-full" />
+                      <h2 className="text-xl font-bold text-amber-400">
+                        {categoryLabels[category]}
+                      </h2>
+                      <span className="ml-auto text-sm text-stone-400">
+                        ({groupedReferences[category]?.length || 0} references)
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                  </AccordionTrigger>
+                  <AccordionContent className="bg-stone-800 border-t border-stone-700/50 px-6 py-4 rounded-b-lg">
+                    <div className="space-y-4">
+                      {groupedReferences[category]?.map((ref) => (
+                        <div
+                          key={ref.id}
+                          className="border border-stone-700/50 rounded-lg p-4 hover:border-amber-700/50 transition-colors bg-stone-900/30"
+                        >
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <div className="flex-1">
+                              <p className="text-sm text-stone-400 mb-2">
+                                <span className="font-semibold text-stone-300">{ref.authors}</span>
+                                <span className="text-stone-500"> ({ref.year})</span>
+                              </p>
+                              <h3 className="text-base font-semibold text-white mb-2">{ref.title}</h3>
+                              <p className="text-stone-400 text-sm italic">{ref.publication}</p>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded text-xs font-semibold whitespace-nowrap border ${categoryColors[category]}`}
+                            >
+                              {categoryLabels[category]}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-stone-700/30">
+                            {ref.doi && (
+                              <a
+                                href={`https://doi.org/${ref.doi}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                                DOI: {ref.doi}
+                              </a>
+                            )}
+                            {ref.url && (
+                              <a
+                                href={ref.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                                View Source
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
@@ -432,6 +451,9 @@ export default function References() {
           <div className="container text-center text-stone-500 text-sm">
             <p>
               BoroPro Research Platform • References compiled from peer-reviewed journals, archaeological studies, and technical publications
+            </p>
+            <p className="mt-2 text-xs text-stone-600">
+              Click any section to expand and view references
             </p>
           </div>
         </footer>
