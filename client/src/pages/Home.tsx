@@ -310,6 +310,15 @@ function StudioTab() {
               </AccordionTrigger>
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
+                  {/* CRYSTAL STRUCTURE IMAGE */}
+                  <div className="w-full flex flex-col items-center mb-6">
+                    <img
+                      src="/manus-storage/CRYSTALINSTRUCTUR_212ca439.png"
+                      alt="Crystal vs Glass structure comparison: ordered quartz lattice vs disordered silica glass network"
+                      className="w-full max-w-2xl rounded-xl border border-stone-700 shadow-lg"
+                    />
+                  </div>
+
                   {/* SUBSECTION 1 */}
                   <div>
                     <h3 className="text-amber-400 font-bold text-base mb-2">
