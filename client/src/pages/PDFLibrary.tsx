@@ -1,5 +1,5 @@
 /*
-PDF Library Page - Manage uploaded kiln schedules and generated PDFs
+Log Library Page - Manage uploaded kiln schedules and generated PDFs
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
@@ -19,7 +19,7 @@ interface PDFItem {
   storageKey: string;
 }
 
-export default function PDFLibrary() {
+export default function LogLibrary() {
   const [isDragActive, setIsDragActive] = useState(false);
   const [selectedPDF, setSelectedPDF] = useState<PDFItem | null>(null);
   const [isUploading, setIsUploading] = useState(false);
