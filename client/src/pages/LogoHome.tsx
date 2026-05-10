@@ -96,7 +96,7 @@ export default function LogoHome() {
         {/* ROW 2: Navigation Buttons */}
         <div className="flex justify-center gap-4 px-4 py-4 border-t border-amber-700/30">
           <a
-            href="/flame-simulator"
+            href="/explore?tab=studio"
             className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-stone-300 hover:text-amber-400 rounded transition"
           >
             Glass-Science
