@@ -59,9 +59,6 @@ export default function FiringTracker() {
               </div>
               <div>
                 <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle Profile Editor</h2>
-                <p className="text-stone-400 text-lg">
-                  Create custom borosilicate glass heat treatment profiles with interactive 4-stage temperature curves. Design your perfect annealing schedule before firing.
-                </p>
               </div>
             </div>
             <AnealingProfileEditor />
