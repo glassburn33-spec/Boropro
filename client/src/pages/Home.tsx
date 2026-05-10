@@ -990,6 +990,20 @@ function ScieEquipTab() {
               />
             </div>
           </div>
+
+          <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
+            <h4 className="text-blue-300 font-bold mb-3">Neutral Flame Image Description</h4>
+            <p className="text-stone-300 text-sm leading-relaxed mb-4">
+              Neutral flame morphology reveals two distinct thermal stratifications. The central luminous zone emits brilliant white-cyan radiation and occupies minimal distance from the torch aperture. The surrounding thermal mantle displays subdued coloration and reduced radiance intensity. This equilibrium flame configuration enables metallurgically neutral operations, facilitating steel joining, thermal processing, and sectioning without chemical modification. A subtle reducing microzone precedes the central luminous region. Though visually elusive and perceptually challenging, this zone establishes the reducing chemical environment essential for flux-free steel joining operations.
+            </p>
+            <div className="flex justify-center my-4">
+              <img 
+                src="/manus-storage/neutralizingflame_37453d37.webp" 
+                alt="Neutral flame showing torch nozzle with bright cyan-white inner core transitioning to multicolored flame with blue, purple, magenta, and rainbow-colored feather extending outward"
+                className="w-full max-w-3xl rounded-lg border border-stone-600"
+              />
+            </div>
+          </div>
         </div>
       ),
     },
