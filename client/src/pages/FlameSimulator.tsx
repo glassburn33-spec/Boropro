@@ -4,7 +4,7 @@ and their effects on borosilicate colors. Scientific neo-brutalist design with f
 */
 
 import { useState, useMemo } from "react";
-import { Flame, Info, ArrowRight } from "lucide-react";
+import { Flame, Info, ArrowRight, ChevronDown } from "lucide-react";
 import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
 
 interface FlameEffect {
@@ -99,53 +99,40 @@ const flameEffects: FlameEffect[] = [
       risk: "High; reduction fundamentally changes intended color",
     },
   },
-  {
-    colorFamily: "Heat-sensitive opaques",
-    neutral: {
-      appearance: "Opaque color stable; no boiling",
-      metalBehavior: "Tin/titanium oxide opacifiers stable",
-      risk: "None; neutral is safest",
-    },
-    oxidizing: {
-      appearance: "Opaque color stable; cool flame reduces boiling risk",
-      metalBehavior: "Oxidizing flame is cooler; reduces thermal shock",
-      risk: "Low; oxidizing is safer than reducing",
-    },
-    reducing: {
-      appearance: "Risk of boiling or surface scarring",
-      metalBehavior: "Reducing flame is hotter; increases boiling risk",
-      risk: "High; avoid reducing flame for heat-sensitive opaques",
-    },
-  },
 ];
 
 const flameDescriptions = {
   neutral: {
-    appearance: "Even balance of fuel and oxygen; smooth, pointed cone",
-    chemistry: "Balanced fuel-to-oxygen ratio; no excess of either",
-    use: "General working, color preservation, initial gathering",
-    visual: "🔥 Smooth pointed flame with balanced colors",
+    visual: "Two distinct thermal zones: bright white-cyan central cone with subdued outer mantle",
+    appearance: "Equilibrium flame configuration",
+    chemistry: "Balanced fuel and oxidant",
+    use: "Steel joining, thermal processing, sectioning without chemical modification",
   },
   oxidizing: {
-    appearance: "Hollow areas inside flame; shorter, bluer flame",
-    chemistry: "Excess oxygen; burns off surface metals",
-    use: "Cobalt blues, oranges, rubies, heat-sensitive colors",
-    visual: "🔵 Shorter, bluer flame with hollow interior",
+    visual: "Abbreviated extent, intensified sharpness, diminished and acutely tapered central cone",
+    appearance: "Shorter, sharper flame than neutral",
+    chemistry: "Excess oxygen beyond secondary zone elimination",
+    use: "Ferrous casting joining, copper-based alloy fabrication, zinc-containing alloy operations",
   },
   reducing: {
-    appearance: "Stretched, elongated flame with candle-like appearance",
-    chemistry: "Deficient in oxygen; more fuel than air",
-    use: "Striking colors, exotics, color development",
-    visual: "🟠 Long, stretched flame with candle-like tail",
+    visual: "Intermediate thermal zone between central cone and outer envelope with pale coloration",
+    appearance: "Gentle flame configuration with visible intermediate zone",
+    chemistry: "Acetylene surplus conditions",
+    use: "Aluminum and aluminum-based alloy joining, low-temperature soldering operations",
   },
 };
 
 export default function FlameChemistryCharacterization() {
   const [selectedColor, setSelectedColor] = useState("Cobalt blues");
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   const selectedEffects = useMemo(() => {
     return flameEffects.find((e) => e.colorFamily === selectedColor);
   }, [selectedColor]);
+
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
@@ -193,167 +180,197 @@ export default function FlameChemistryCharacterization() {
           </div>
         </section>
 
-        {/* Flame Types Reference */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">The Three Flame Types</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {(Object.entries(flameDescriptions) as [string, typeof flameDescriptions.neutral][]).map(([flameType, desc]) => (
-                <div key={flameType} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-4 capitalize">
-                    {flameType} Flame
-                  </h3>
-                  <div className="space-y-3 text-sm">
-                    <div>
-                      <span className="font-bold text-white block mb-1">Visual:</span>
-                      <span className="text-stone-300">{desc.visual}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Appearance:</span>
-                      <span className="text-stone-300">{desc.appearance}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Chemistry:</span>
-                      <span className="text-stone-300">{desc.chemistry}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Best for:</span>
-                      <span className="text-stone-300">{desc.use}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Color Selector */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <h2 className="text-2xl font-bold text-white mb-8">Select a Color Family</h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              {flameEffects.map((effect) => (
-                <button
-                  key={effect.colorFamily}
-                  onClick={() => setSelectedColor(effect.colorFamily)}
-                  className={`px-4 py-3 rounded-lg font-mono text-xs font-bold uppercase transition-all ${
-                    selectedColor === effect.colorFamily
-                      ? "bg-amber-600 text-white border border-amber-500"
-                      : "border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500"
+        {/* Collapsible Sections */}
+        <section className="border-b border-white/10 py-8">
+          <div className="container max-w-6xl space-y-4">
+            {/* Section 1: Flame Types */}
+            <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
+              <button
+                onClick={() => toggleSection("flameTypes")}
+                className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
+              >
+                <h2 className="text-2xl font-bold text-white">The Three Flame Types</h2>
+                <ChevronDown
+                  className={`w-6 h-6 text-amber-500 transition-transform ${
+                    expandedSection === "flameTypes" ? "rotate-180" : ""
                   }`}
-                >
-                  {effect.colorFamily}
-                </button>
-              ))}
+                />
+              </button>
+              {expandedSection === "flameTypes" && (
+                <div className="px-6 py-6 border-t border-white/10 space-y-6">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {(Object.entries(flameDescriptions) as [string, typeof flameDescriptions.neutral][]).map(([flameType, desc]) => (
+                      <div key={flameType} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                        <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-amber-500 mb-4 capitalize">
+                          {flameType} Flame
+                        </h3>
+                        <div className="space-y-3 text-sm">
+                          <div>
+                            <span className="font-bold text-white block mb-1">Visual:</span>
+                            <span className="text-stone-300">{desc.visual}</span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-white block mb-1">Appearance:</span>
+                            <span className="text-stone-300">{desc.appearance}</span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-white block mb-1">Chemistry:</span>
+                            <span className="text-stone-300">{desc.chemistry}</span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-white block mb-1">Best for:</span>
+                            <span className="text-stone-300">{desc.use}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Section 2: Select Color Family */}
+            <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
+              <button
+                onClick={() => toggleSection("colorFamily")}
+                className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
+              >
+                <h2 className="text-2xl font-bold text-white">Select a Color Family</h2>
+                <ChevronDown
+                  className={`w-6 h-6 text-amber-500 transition-transform ${
+                    expandedSection === "colorFamily" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {expandedSection === "colorFamily" && (
+                <div className="px-6 py-6 border-t border-white/10 space-y-6">
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {flameEffects.map((effect) => (
+                      <button
+                        key={effect.colorFamily}
+                        onClick={() => setSelectedColor(effect.colorFamily)}
+                        className={`px-4 py-3 rounded-lg font-mono text-xs font-bold uppercase transition-all ${
+                          selectedColor === effect.colorFamily
+                            ? "bg-amber-600 text-white border border-amber-500"
+                            : "border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500"
+                        }`}
+                      >
+                        {effect.colorFamily}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Flame Effects Comparison */}
+                  {selectedEffects && (
+                    <div className="mt-8">
+                      <h3 className="text-2xl font-bold text-white mb-8">{selectedEffects.colorFamily} Under Different Flames</h3>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        {/* Neutral */}
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
+                            <span className="font-mono text-xs font-bold uppercase text-orange-400">Neutral Flame</span>
+                            <p className="text-sm text-orange-200 mt-2">🔥 Balanced fuel & oxygen</p>
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <span className="font-bold text-white block mb-1">Appearance:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.neutral.appearance}</span>
+                            </div>
+                            <div>
+                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.neutral.metalBehavior}</span>
+                            </div>
+                            <div className="pt-4 border-t border-white/10">
+                              <span className="font-bold text-amber-500 block mb-1">Risk Assessment:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.neutral.risk}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Oxidizing */}
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
+                            <span className="font-mono text-xs font-bold uppercase text-blue-400">Oxidizing Flame</span>
+                            <p className="text-sm text-blue-200 mt-2">🔵 Excess oxygen</p>
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <span className="font-bold text-white block mb-1">Appearance:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.appearance}</span>
+                            </div>
+                            <div>
+                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.metalBehavior}</span>
+                            </div>
+                            <div className="pt-4 border-t border-white/10">
+                              <span className="font-bold text-blue-500 block mb-1">Risk Assessment:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.risk}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Reducing */}
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-red-400/20 to-red-600/20 border border-red-500/30">
+                            <span className="font-mono text-xs font-bold uppercase text-red-400">Reducing Flame</span>
+                            <p className="text-sm text-red-200 mt-2">🟠 Oxygen deficient</p>
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <span className="font-bold text-white block mb-1">Appearance:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.reducing.appearance}</span>
+                            </div>
+                            <div>
+                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.reducing.metalBehavior}</span>
+                            </div>
+                            <div className="pt-4 border-t border-white/10">
+                              <span className="font-bold text-red-500 block mb-1">Risk Assessment:</span>
+                              <span className="text-sm text-stone-300">{selectedEffects.reducing.risk}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Section 3: Interactive Thermochromism Simulator */}
+            <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
+              <button
+                onClick={() => toggleSection("thermochromism")}
+                className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
+              >
+                <h2 className="text-2xl font-bold text-white">Interactive Thermochromism Simulator</h2>
+                <ChevronDown
+                  className={`w-6 h-6 text-amber-500 transition-transform ${
+                    expandedSection === "thermochromism" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {expandedSection === "thermochromism" && (
+                <div className="px-6 py-6 border-t border-white/10 space-y-6">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+                    <ThermochromismSimulator />
+                  </div>
+                  <div className="rounded-2xl border border-stone-700/50 bg-stone-800/50 p-6">
+                    <div className="space-y-2 text-sm text-stone-300">
+                      <p>
+                        <span className="font-semibold text-amber-400">Thermochromism</span> is the reversible change in color with temperature. In borosilicate glass, metal ion chromophores shift their electronic structure as thermal energy increases, altering the wavelengths of light they absorb.
+                      </p>
+                      <p>
+                        Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
-
-        {/* Flame Effects Comparison */}
-        {selectedEffects && (
-          <section className="border-b border-white/10 py-16">
-            <div className="container max-w-6xl">
-              <h2 className="text-2xl font-bold text-white mb-8">{selectedEffects.colorFamily} Under Different Flames</h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Neutral */}
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                  <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
-                    <span className="font-mono text-xs font-bold uppercase text-orange-400">Neutral Flame</span>
-                    <p className="text-sm text-orange-200 mt-2">🔥 Balanced fuel & oxygen</p>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <span className="font-bold text-white block mb-1">Appearance:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.neutral.appearance}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.neutral.metalBehavior}</span>
-                    </div>
-                    <div className="pt-4 border-t border-white/10">
-                      <span className="font-bold text-amber-500 block mb-1">Risk Assessment:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.neutral.risk}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Oxidizing */}
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                  <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
-                    <span className="font-mono text-xs font-bold uppercase text-blue-400">Oxidizing Flame</span>
-                    <p className="text-sm text-blue-200 mt-2">🔵 Excess oxygen</p>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <span className="font-bold text-white block mb-1">Appearance:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.oxidizing.appearance}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.oxidizing.metalBehavior}</span>
-                    </div>
-                    <div className="pt-4 border-t border-white/10">
-                      <span className="font-bold text-blue-500 block mb-1">Risk Assessment:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.oxidizing.risk}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Reducing */}
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                  <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-red-400/20 to-red-600/20 border border-red-500/30">
-                    <span className="font-mono text-xs font-bold uppercase text-red-400">Reducing Flame</span>
-                    <p className="text-sm text-red-200 mt-2">🟠 Oxygen deficient</p>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <span className="font-bold text-white block mb-1">Appearance:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.reducing.appearance}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.reducing.metalBehavior}</span>
-                    </div>
-                    <div className="pt-4 border-t border-white/10">
-                      <span className="font-bold text-red-500 block mb-1">Risk Assessment:</span>
-                      <span className="text-sm text-stone-300">{selectedEffects.reducing.risk}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
       </main>
-
-      {/* Interactive Thermochromism Simulator */}
-      <section className="py-12 px-4 border-t border-white/10">
-        <div className="container max-w-6xl">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-amber-400 mb-4">Interactive Thermochromism Simulator</h2>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-            <ThermochromismSimulator />
-          </div>
-        </div>
-      </section>
-
-      {/* Thermochromism Information */}
-      <section className="py-8 px-4 border-t border-white/10">
-        <div className="container max-w-6xl">
-          <div className="rounded-2xl border border-stone-700/50 bg-stone-800/50 p-6">
-            <div className="space-y-2 text-sm text-stone-300">
-              <p>
-                <span className="font-semibold text-amber-400">Thermochromism</span> is the reversible change in color with temperature. In borosilicate glass, metal ion chromophores shift their electronic structure as thermal energy increases, altering the wavelengths of light they absorb.
-              </p>
-              <p>
-                Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-stone-950/50 py-8">
