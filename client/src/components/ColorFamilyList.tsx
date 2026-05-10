@@ -67,6 +67,35 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
 
               {/* Flame Effects Grid */}
               <div className="grid md:grid-cols-3 gap-4">
+                {/* Reducing Flame */}
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
+                    <span className="font-mono text-xs font-bold uppercase text-blue-400">Reducing Flame</span>
+                    <p className="text-xs text-blue-200 mt-1">🔥 Excess fuel</p>
+                  </div>
+                  {/* Color Swatch */}
+                  <div className="mb-3 rounded-lg border-2 border-white/20 overflow-hidden">
+                    <div
+                      className="w-full h-20"
+                      style={{ backgroundColor: effect.reducing.hexColor }}
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <span className="font-bold text-white text-xs block mb-1">Appearance:</span>
+                      <span className="text-xs text-stone-300">{effect.reducing.appearance}</span>
+                    </div>
+                    <div>
+                      <span className="font-bold text-white text-xs block mb-1">Metal Behavior:</span>
+                      <span className="text-xs text-stone-300">{effect.reducing.metalBehavior}</span>
+                    </div>
+                    <div className="pt-2 border-t border-white/10">
+                      <span className="font-bold text-amber-500 text-xs block mb-1">Risk:</span>
+                      <span className="text-xs text-stone-300">{effect.reducing.risk}</span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Neutral Flame */}
                 <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                   <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
@@ -121,35 +150,6 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
                     <div className="pt-2 border-t border-white/10">
                       <span className="font-bold text-amber-500 text-xs block mb-1">Risk:</span>
                       <span className="text-xs text-stone-300">{effect.oxidizing.risk}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Reducing Flame */}
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
-                  <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
-                    <span className="font-mono text-xs font-bold uppercase text-blue-400">Reducing Flame</span>
-                    <p className="text-xs text-blue-200 mt-1">🔥 Excess fuel</p>
-                  </div>
-                  {/* Color Swatch */}
-                  <div className="mb-3 rounded-lg border-2 border-white/20 overflow-hidden">
-                    <div
-                      className="w-full h-20"
-                      style={{ backgroundColor: effect.reducing.hexColor }}
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <div>
-                      <span className="font-bold text-white text-xs block mb-1">Appearance:</span>
-                      <span className="text-xs text-stone-300">{effect.reducing.appearance}</span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-white text-xs block mb-1">Metal Behavior:</span>
-                      <span className="text-xs text-stone-300">{effect.reducing.metalBehavior}</span>
-                    </div>
-                    <div className="pt-2 border-t border-white/10">
-                      <span className="font-bold text-amber-500 text-xs block mb-1">Risk:</span>
-                      <span className="text-xs text-stone-300">{effect.reducing.risk}</span>
                     </div>
                   </div>
                 </div>
