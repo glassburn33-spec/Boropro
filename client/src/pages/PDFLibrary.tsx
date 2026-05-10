@@ -383,9 +383,6 @@ export default function PDFLibrary() {
                 {/* PDF Viewer and Image Window */}
                 <div className="mb-8 flex gap-4">
                   <div className="flex-1">
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                      PDF Schedule
-                    </span>
                     <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
                       {selectedPDF.storageKey ? (
                         <iframe
@@ -407,9 +404,6 @@ export default function PDFLibrary() {
                   
                   {/* Image Window */}
                   <div className="w-36">
-                    <span className="font-mono text-xs font-bold uppercase text-amber-500 block mb-4">
-                      Reference Image
-                    </span>
                     <div className="bg-black rounded-lg border border-white/10 flex flex-col items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
                       {selectedImage ? (
                         <div className="w-full h-full relative">
