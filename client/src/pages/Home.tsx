@@ -1109,28 +1109,28 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            Spectroscopy is essential for analyzing glass composition and understanding how light interacts with colored glass. Three main spectroscopic techniques are used in glass analysis: Atomic Absorption Spectroscopy (AAS), UV-Visible Spectroscopy (UV-Vis), and Raman Spectroscopy.
+            Optical spectroscopic methods form the foundation for compositional characterization and photon-matter interaction analysis in vitreous materials. Three principal optical methodologies dominate contemporary glass characterization: Atomic Absorption Spectroscopy (AAS), UV-Visible Spectroscopy (UV-Vis), and Raman Spectroscopy.
           </p>
           
           <div className="space-y-4">
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-purple-500">
               <h4 className="text-purple-300 font-bold mb-2">Atomic Absorption Spectroscopy (AAS)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                AAS measures the absorption of light by free atoms in the ground state. When a sample is atomized in a flame, the atoms absorb light at characteristic wavelengths. This technique is used to determine the concentration of specific metal ions in glass samples, such as cobalt, chromium, or nickel.
+                AAS quantifies photon absorption by isolated atoms in their lowest energy configuration. Sample atomization via thermal flame dissociation generates free atoms that selectively absorb radiation at element-specific wavelengths. This methodology establishes quantitative metal ion concentrations within vitreous matrices, particularly for transition metals including cobalt, chromium, and nickel species.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-500">
               <h4 className="text-blue-300 font-bold mb-2">UV-Visible Spectroscopy (UV-Vis)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                UV-Vis spectroscopy measures the absorption and transmission of light across the ultraviolet and visible spectrum. This technique reveals the electronic transitions of colored ions and is crucial for understanding how different metal ions produce their characteristic colors in glass.
+                UV-Vis spectroscopy quantifies photon absorption and transmission across the ultraviolet and visible wavelength regions. This methodology elucidates electronic state transitions within colored metal ion species and proves indispensable for comprehending the chromatic mechanisms whereby transition metal ions generate their distinctive optical signatures within vitreous networks.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-red-500">
               <h4 className="text-red-300 font-bold mb-2">Raman Spectroscopy</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                Raman spectroscopy measures the vibrational modes of molecules and ions. In glass analysis, it provides information about the local structure around metal ions and the coordination environment, complementing UV-Vis data to give a complete picture of glass composition.
+                Raman spectroscopy interrogates molecular and ionic vibrational energy states. Within glass characterization applications, this technique furnishes structural information regarding local coordination geometry surrounding metal ion centers and their immediate chemical environment. When integrated with UV-Vis measurements, Raman data synthesizes a comprehensive compositional and structural profile of the vitreous material.
               </p>
             </div>
           </div>
