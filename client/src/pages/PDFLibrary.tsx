@@ -984,7 +984,7 @@ export default function PDFLibrary() {
         {/* Bottom Image */}
         <div className="w-full">
           <img 
-            src="/manus-storage/libraryfooter_eaa2f65d.png" 
+            src="/manus-storage/libraryfooter(2)_f250a3c8.png" 
             alt="Glass blowing tools and materials" 
             className="w-full h-auto object-cover"
           />
