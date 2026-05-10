@@ -8,6 +8,7 @@ import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { CSVViewer } from "@/components/CSVViewer";
 
 
 interface PDFItem {
@@ -49,6 +50,8 @@ export default function LogLibrary() {
   const [selectedColor, setSelectedColor] = useState('#dc2626');
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
+  const [csvFileBase64, setCSVFileBase64] = useState<string | null>(null);
+  const [csvLoading, setCSVLoading] = useState(false);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -399,7 +402,27 @@ export default function LogLibrary() {
                             .map(pdf => (
                               <div
                                 key={pdf.id}
-                                onClick={() => !selectMode && setSelectedPDF(pdf)}
+                                onClick={() => {
+                                  if (!selectMode) {
+                                    setSelectedPDF(pdf);
+                                    if (pdf.filename.endsWith('.csv')) {
+                                      setCSVLoading(true);
+                                      // Fetch CSV data from storage
+                                      fetch(`/manus-storage/${pdf.storageKey}`)
+                                        .then(res => res.text())
+                                        .then(text => {
+                                          // Convert text to base64
+                                          const base64 = btoa(text);
+                                          setCSVFileBase64(base64);
+                                          setCSVLoading(false);
+                                        })
+                                        .catch(err => {
+                                          console.error('Error loading CSV:', err);
+                                          setCSVLoading(false);
+                                        });
+                                    }
+                                  }
+                                }}
                                 className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
                                   selectedPDF?.id === pdf.id
                                     ? "border-green-500 bg-green-500/10"
@@ -448,7 +471,27 @@ export default function LogLibrary() {
                 {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
-                    onClick={() => !selectMode && setSelectedPDF(pdf)}
+                    onClick={() => {
+                      if (!selectMode) {
+                        setSelectedPDF(pdf);
+                        if (pdf.filename.endsWith('.csv')) {
+                          setCSVLoading(true);
+                          // Fetch CSV data from storage
+                          fetch(`/manus-storage/${pdf.storageKey}`)
+                            .then(res => res.text())
+                            .then(text => {
+                              // Convert text to base64
+                              const base64 = btoa(text);
+                              setCSVFileBase64(base64);
+                              setCSVLoading(false);
+                            })
+                            .catch(err => {
+                              console.error('Error loading CSV:', err);
+                              setCSVLoading(false);
+                            });
+                        }
+                      }
+                    }}
                     className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
                       selectedPDF?.id === pdf.id
                         ? "border-amber-500 bg-amber-500/10"
@@ -558,33 +601,51 @@ export default function LogLibrary() {
                     </div>
                   </div>
 
-                  {/* PDF Viewer and Image Window */}
+                  {/* CSV Viewer or PDF Viewer */}
                   <div className="mb-8 flex gap-4 flex-col lg:flex-row">
                     <div className="flex-1 w-full">
-                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: 'clamp(400px, 60vh, 800px)', overflow: 'hidden', padding: '0', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#000000' }}>
-                      {selectedPDF.storageKey ? (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: '#000000' }}>
-                          <iframe
-                            src={`/manus-storage/${selectedPDF.storageKey}#zoom=page-fit`}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              border: 'none',
-                              borderRadius: '0.25rem',
-                              backgroundColor: '#000000',
-                              display: 'block',
-                              marginLeft: 'auto',
-                              objectFit: 'contain',
-                              margin: '0'
-                            }}
-                            title="PDF Viewer"
-                          />
+                      {selectedPDF.filename.endsWith('.csv') ? (
+                        // CSV Viewer
+                        <div className="bg-stone-900 rounded-lg border border-white/10 p-6 max-h-96 overflow-auto">
+                          {csvLoading ? (
+                            <div className="flex items-center justify-center h-96">
+                              <p className="text-stone-400">Loading CSV data...</p>
+                            </div>
+                          ) : csvFileBase64 ? (
+                            <CSVViewer fileBase64={csvFileBase64} filename={selectedPDF.filename} />
+                          ) : (
+                            <div className="flex items-center justify-center h-96">
+                              <p className="text-stone-400">No CSV data available</p>
+                            </div>
+                          )}
                         </div>
                       ) : (
-                        <p className="text-stone-400 text-sm">No PDF file available</p>
+                        // PDF Viewer
+                        <div className="bg-black rounded-lg border border-white/10 flex items-center justify-end" style={{ height: 'clamp(400px, 60vh, 800px)', overflow: 'hidden', padding: '0', margin: '0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#000000' }}>
+                          {selectedPDF.storageKey ? (
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: '#000000' }}>
+                              <iframe
+                                src={`/manus-storage/${selectedPDF.storageKey}#zoom=page-fit`}
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  border: 'none',
+                                  borderRadius: '0.25rem',
+                                  backgroundColor: '#000000',
+                                  display: 'block',
+                                  marginLeft: 'auto',
+                                  objectFit: 'contain',
+                                  margin: '0'
+                                }}
+                                title="PDF Viewer"
+                              />
+                            </div>
+                          ) : (
+                            <p className="text-stone-400 text-sm">No PDF file available</p>
+                          )}
+                        </div>
                       )}
                     </div>
-                  </div>
                   
                   {/* Image Window */}
                   <div className="w-40">

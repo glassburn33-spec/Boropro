@@ -143,3 +143,12 @@
 - [x] Position button next to Save to PDF Library button
 - [x] Save exported CSV to Schedule Library (not just download)
 - [x] Add CSV file to library with schedule metadata
+
+
+## CSV Viewer for Schedule Library (New)
+- [ ] Create CSVViewer component to parse and display CSV data
+- [ ] Extract metadata, plot data, and notes from CSV files
+- [ ] Display temperature profile chart from CSV data
+- [ ] Show notes and metadata in viewer modal
+- [ ] Integrate CSV viewer into Schedule Details section
+- [ ] Test CSV viewer with saved CSV files from library
