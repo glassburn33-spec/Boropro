@@ -253,7 +253,7 @@ export default function PDFLibrary() {
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
-              PDF Schedule Library
+              Log Library
             </h1>
           </div>
         </section>
