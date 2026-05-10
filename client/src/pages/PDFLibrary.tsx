@@ -390,20 +390,28 @@ export default function PDFLibrary() {
                 {/* Display Folders */}
                 {folders.map((folder) => (
                   <div key={folder} className="rounded-lg border border-green-500/30 bg-green-500/5 p-3 text-left">
-                    <button
-                      onClick={() => {
-                        const newExpanded = new Set(expandedFolders);
-                        if (newExpanded.has(folder)) {
-                          newExpanded.delete(folder);
-                        } else {
-                          newExpanded.add(folder);
-                        }
-                        setExpandedFolders(newExpanded);
-                      }}
-                      className="w-full text-left font-mono text-sm font-bold text-green-400 hover:text-green-300 transition-colors"
-                    >
-                      📁 {folder} ({(schedulesInFolders[folder] || []).length})
-                    </button>
+                    <div className="flex items-center justify-between gap-2">
+                      <button
+                        onClick={() => {
+                          const newExpanded = new Set(expandedFolders);
+                          if (newExpanded.has(folder)) {
+                            newExpanded.delete(folder);
+                          } else {
+                            newExpanded.add(folder);
+                          }
+                          setExpandedFolders(newExpanded);
+                        }}
+                        className="flex-1 text-left font-mono text-sm font-bold text-green-400 hover:text-green-300 transition-colors"
+                      >
+                        📁 {folder} ({(schedulesInFolders[folder] || []).length})
+                      </button>
+                      <button
+                        onClick={() => toast.info('Insert schedules into folder feature coming soon')}
+                        className="px-3 py-1 rounded border border-green-500 text-green-500 hover:bg-green-500/10 font-mono text-xs font-bold uppercase transition-colors whitespace-nowrap"
+                      >
+                        Insert
+                      </button>
+                    </div>
                     {expandedFolders.has(folder) && (
                       <div className="mt-2 ml-4 text-xs text-stone-400">
                         {(schedulesInFolders[folder] || []).length === 0 ? (
