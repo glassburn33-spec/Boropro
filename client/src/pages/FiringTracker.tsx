@@ -1,5 +1,5 @@
 /*
-Firing Tracker Page - Test-firing log with historical comparison and pattern detection.
+Kiln Log Page - Test-firing log with historical comparison and pattern detection.
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
@@ -7,7 +7,7 @@ import { useState } from "react";
 import { BookOpenCheck } from "lucide-react";
 import AnealingProfileEditor from "@/components/AnealingProfileEditor";
 
-export default function FiringTracker() {
+export default function KilnLog() {
   return (
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
       {/* Header */}
@@ -52,13 +52,8 @@ export default function FiringTracker() {
         {/* Annealing Profile Editor */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
-            <div className="flex items-start gap-4 mb-8">
-              <div className="w-8 h-8 rounded-full border-2 border-amber-500 flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-xs font-bold text-amber-500">◆</span>
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle Profile Editor</h2>
-              </div>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle Profile Editor</h2>
             </div>
             <AnealingProfileEditor />
           </div>
