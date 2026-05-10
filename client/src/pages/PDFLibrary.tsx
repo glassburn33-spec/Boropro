@@ -221,55 +221,27 @@ export default function PDFLibrary() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100">
+    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
       {/* Header */}
-      <header className="border-b border-white/10 bg-stone-900/50 backdrop-blur-sm">
-        <div className="container max-w-6xl py-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-black text-white">BoroPro</h1>
-            <p className="text-xs text-stone-400 font-mono uppercase tracking-widest">PDF Library</p>
-          </div>
-          <nav className="flex items-center gap-6">
-            <a
-              href="/"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
-              Home
-            </a>
-            <a
-              href="/calculator"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
-              Calculator
-            </a>
-            <a
-              href="/flame-char"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-4">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
+          </a>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Char
             </a>
-            <a
-              href="/color-picker"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color Database
             </a>
-            <a
-              href="/firing-tracker"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Kiln Log
             </a>
-            <a
-              href="/pdf-library"
-              className="text-xs uppercase tracking-wider text-amber-500"
-            >
+            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-amber-500">
               PDF Library
             </a>
-            <a
-              href="/references"
-              className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
-            >
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
             </a>
           </nav>
