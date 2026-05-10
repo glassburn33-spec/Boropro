@@ -883,13 +883,24 @@ export default function PDFLibrary() {
                 <p className="text-sm text-stone-400 text-center py-4">No schedules available</p>
               )}
               
-              {displayLibrary.length > 0 && (
+              {(displayLibrary.length > 0 || Object.values(schedulesInFolders).some(ids => ids.length > 0)) && (
                 <div className="mb-4 flex gap-2 justify-start">
                   {schedulesToInsert.size === 0 ? (
                     <button
                       onClick={() => {
-                        const availableIds = displayLibrary.map(pdf => pdf.id);
-                        setSchedulesToInsert(new Set(availableIds));
+                        const availableIds = new Set();
+                        displayLibrary.forEach(pdf => availableIds.add(pdf.id));
+                        folders.forEach(folder => {
+                          if (folder !== selectedFolderForInsert) {
+                            (schedulesInFolders[folder] || []).forEach(id => {
+                              const filesInSelectedFolder = schedulesInFolders[selectedFolderForInsert] || [];
+                              if (!filesInSelectedFolder.includes(id)) {
+                                availableIds.add(id);
+                              }
+                            });
+                          }
+                        });
+                        setSchedulesToInsert(availableIds);
                       }}
                       className="px-4 py-2 rounded border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
                     >
