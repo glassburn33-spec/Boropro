@@ -159,6 +159,13 @@ export default function Home() {
                   Color-Scie
                 </button>
                 <a
+                  href="/tools"
+                  onClick={() => setShowDrawer(false)}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                >
+                  Tools
+                </a>
+                <a
                   href="/references"
                   onClick={() => setShowDrawer(false)}
                   className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
