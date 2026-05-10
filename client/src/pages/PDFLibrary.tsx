@@ -45,7 +45,27 @@ export default function PDFLibrary() {
   const deleteMutation = trpc.pdfLibrary.delete.useMutation();
 
   // Convert database records to display format
-  const displayLibrary: PDFItem[] = library.map((pdf: any) => ({
+  const displayLibrary: PDFItem[] = library
+    .map((pdf: any) => ({
+      id: pdf.id,
+      filename: pdf.filename,
+      temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
+      times: pdf.times ? JSON.parse(pdf.times) : [],
+      uploadedAt: new Date(pdf.uploadedAt),
+      storageKey: pdf.storageKey,
+    }))
+    .filter(pdf => {
+      // Check if this PDF is in any folder
+      for (const folderIds of Object.values(schedulesInFolders)) {
+        if (folderIds.includes(pdf.id)) {
+          return false; // Exclude if in any folder
+        }
+      }
+      return true; // Include if not in any folder
+    });
+  
+  // Keep all PDFs for use in modals and folders
+  const allLibrary: PDFItem[] = library.map((pdf: any) => ({
     id: pdf.id,
     filename: pdf.filename,
     temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
@@ -427,7 +447,7 @@ export default function PDFLibrary() {
                         {(schedulesInFolders[folder] || []).length === 0 ? (
                           <p className="text-xs text-stone-400">No schedules in this folder</p>
                         ) : (
-                          displayLibrary
+                          allLibrary
                             .filter(pdf => (schedulesInFolders[folder] || []).includes(pdf.id))
                             .map(pdf => (
                               <div
@@ -762,7 +782,7 @@ export default function PDFLibrary() {
               
               <div className="space-y-3 mb-6 max-h-[60vh] overflow-y-auto">
                 {/* Folders Section */}
-                {folders.map((folder) => (
+                {folders.filter(folder => folder !== selectedFolderForInsert).map((folder) => (
                   <div key={folder} className="rounded-lg border border-green-500/30 bg-green-500/5 p-3">
                     <button
                       onClick={() => {
@@ -783,10 +803,24 @@ export default function PDFLibrary() {
                         {(schedulesInFolders[folder] || []).length === 0 ? (
                           <p className="text-xs text-stone-400">No schedules in this folder</p>
                         ) : (
-                          displayLibrary
+                          allLibrary
                             .filter(pdf => (schedulesInFolders[folder] || []).includes(pdf.id))
                             .map(pdf => (
-                              <div key={pdf.id} className="flex items-center gap-2 p-2 rounded border border-green-500/30 bg-green-500/5">
+                              <div key={pdf.id} className="flex items-center gap-3 p-2 rounded border border-green-500/30 bg-green-500/5 hover:border-green-500/50 transition-colors">
+                                <input
+                                  type="checkbox"
+                                  checked={schedulesToInsert.has(pdf.id)}
+                                  onChange={(e) => {
+                                    const newSet = new Set(schedulesToInsert);
+                                    if (e.target.checked) {
+                                      newSet.add(pdf.id);
+                                    } else {
+                                      newSet.delete(pdf.id);
+                                    }
+                                    setSchedulesToInsert(newSet);
+                                  }}
+                                  className="w-4 h-4 rounded border-white/30 accent-green-500 cursor-pointer flex-shrink-0"
+                                />
                                 <FileText size={14} className="text-green-500 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
                                   <p className="font-mono text-xs text-green-400 truncate">{pdf.filename}</p>
@@ -804,7 +838,7 @@ export default function PDFLibrary() {
                 <div className="rounded-lg border border-amber-700/30 bg-amber-700/5 p-3">
                   <div className="font-mono text-sm font-bold text-amber-400 mb-2">📄 Uncategorized Files</div>
                   <div className="space-y-2">
-                    {displayLibrary.map(pdf => (
+                    {allLibrary.map(pdf => (
                       <div key={pdf.id} className="flex items-center gap-3 p-3 rounded border border-stone-700 hover:border-amber-500/50 transition-colors">
                         <input
                           type="checkbox"
