@@ -513,7 +513,7 @@ export default function LogLibrary() {
                   {/* PDF Viewer and Image Window */}
                   <div className="mb-8 flex gap-4">
                     <div className="flex-1">
-                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-center" style={{ height: '800px', overflow: 'auto', padding: '8px', margin: '0', width: '100%' }}>
+                    <div className="bg-black rounded-lg border border-white/10 flex items-center justify-center" style={{ height: '1200px', overflow: 'auto', padding: '8px', margin: '0', width: '100%' }}>
                       {selectedPDF.storageKey ? (
                         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <iframe
