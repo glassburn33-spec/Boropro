@@ -361,28 +361,38 @@ export default function PDFLibrary() {
           </div>
         </section>
 
-        {/* Selected PDF Details */}
+        {/* Selected PDF Details - Fullscreen Modal */}
         {selectedPDF && (
-          <section className="border-b border-white/10 py-16">
-            <div className="container max-w-6xl">
-              <h2 className="text-2xl font-bold text-white mb-8">Schedule Details</h2>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-                {/* PDF Preview Header */}
-                <div className="mb-8 pb-6 border-b border-white/20">
-                  <div className="text-center mb-4">
-                    <h3 className="text-2xl font-bold text-white">KILN LOG RECORD</h3>
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col">
+            <div className="flex-1 overflow-auto bg-stone-950">
+              <div className="min-h-screen p-8">
+                <div className="max-w-7xl mx-auto">
+                  {/* Close Button */}
+                  <div className="mb-8 flex justify-end">
+                    <button
+                      onClick={() => setSelectedPDF(null)}
+                      className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
+                      title="Close (Esc)"
+                    >
+                      <X size={24} />
+                    </button>
                   </div>
-                  <div className="text-center mb-2">
-                    <p className="text-lg font-bold text-white">{selectedPDF.filename.replace('_klog.pdf', '')}</p>
+                  {/* PDF Preview Header */}
+                  <div className="mb-8 pb-6 border-b border-white/20">
+                    <div className="text-center mb-4">
+                      <h3 className="text-2xl font-bold text-white">KILN LOG RECORD</h3>
+                    </div>
+                    <div className="text-center mb-2">
+                      <p className="text-lg font-bold text-white">{selectedPDF.filename.replace('_klog.pdf', '')}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs text-stone-400">Generated: {new Date().toLocaleString()}</p>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-xs text-stone-400">Generated: {new Date().toLocaleString()}</p>
-                  </div>
-                </div>
 
-                {/* PDF Viewer and Image Window */}
-                <div className="mb-8 flex gap-4">
-                  <div className="flex-1">
+                  {/* PDF Viewer and Image Window */}
+                  <div className="mb-8 flex gap-4">
+                    <div className="flex-1">
                     <div className="bg-black rounded-lg border border-white/10 flex items-center justify-start" style={{ height: '600px', overflow: 'hidden', overflowX: 'hidden', padding: '0', margin: '0', width: '100%' }}>
                       {selectedPDF.storageKey ? (
                         <iframe
@@ -403,7 +413,7 @@ export default function PDFLibrary() {
                   </div>
                   
                   {/* Image Window */}
-                  <div className="w-36">
+                  <div className="w-40">
                     <div className="bg-black rounded-lg border border-white/10 flex flex-col items-center justify-center" style={{ height: '600px', overflow: 'hidden', padding: '0', margin: '0' }}>
                       {selectedImage ? (
                         <div className="w-full h-full relative">
@@ -441,11 +451,11 @@ export default function PDFLibrary() {
                         </label>
                       )}
                     </div>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
-                  <button
+                  <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
+                    <button
                     onClick={() => {
                       if (selectedPDF?.storageKey) {
                         const link = document.createElement('a');
@@ -460,10 +470,11 @@ export default function PDFLibrary() {
                     <Download size={16} />
                     Export PDF
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         )}
 
         {/* Comparison Button */}
