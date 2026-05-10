@@ -310,6 +310,15 @@ function StudioTab() {
               </AccordionTrigger>
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
+                  {/* Glassmaker's Log Image */}
+                  <div className="flex justify-center mb-6">
+                    <img
+                      src="/manus-storage/glasslogicon_a1b2c3d4.png"
+                      alt="Glassmaker's Log - Neon style illustration"
+                      className="w-full max-w-md h-auto rounded-lg"
+                    />
+                  </div>
+
                   {/* SUBSECTION 1 */}
                   <div>
                     <h3 className="text-amber-400 font-bold text-base mb-2">
