@@ -481,16 +481,6 @@ export default function LogLibrary() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setEditingPDF(pdf);
-                          setShowEditModal(true);
-                        }}
-                        className="px-3 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-sm font-semibold"
-                      >
-                        Notes
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
                           handleDelete(pdf.id);
                         }}
                         className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
