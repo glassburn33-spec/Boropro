@@ -130,41 +130,24 @@ export default function Home() {
             {/* Dropdown Menu */}
             {showDrawer && (
               <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
-                <a
-                  href="/flame-simulator"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                <button
+                  onClick={() => { handleTabChange("studio"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
-                  Flame Char
-                </a>
-                <a
-                  href="/color-picker"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  Glass-Science
+                </button>
+                <button
+                  onClick={() => { handleTabChange("scieequip"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
-                  Color
-                </a>
-                <a
-                  href="/calculator"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  Scie-Equip
+                </button>
+                <button
+                  onClick={() => { handleTabChange("colorscience"); setShowDrawer(false); }}
+                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition"
                 >
-                  Reheat Calc
-                </a>
-                <a
-                  href="/firing-tracker"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Kiln Log
-                </a>
-                <a
-                  href="/pdf-library"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Log
-                </a>
+                  Color-Scie
+                </button>
                 <a
                   href="/references"
                   onClick={() => setShowDrawer(false)}
