@@ -258,7 +258,7 @@ export default function PDFLibrary() {
                   Log Library
                 </h1>
               </div>
-              <img src="/manus-storage/glasslogicon_37f25371.png" alt="Glassmaker's Log" className="h-48 w-48 object-contain flex-shrink-0" />
+              <img src="/manus-storage/glasslogicon_37f25371.png" alt="Glassmaker's Log" className="h-96 w-96 object-contain flex-shrink-0" />
             </div>
           </div>
         </section>
