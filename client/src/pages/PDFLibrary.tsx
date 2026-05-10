@@ -22,6 +22,8 @@ interface PDFItem {
   notes?: string;
   results?: string;
   color?: string;
+  isJSON?: boolean;
+  jsonMetadata?: string;
 }
 
 export default function LogLibrary() {
@@ -53,6 +55,7 @@ export default function LogLibrary() {
   const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
   const [csvFileBase64, setCSVFileBase64] = useState<string | null>(null);
   const [csvLoading, setCSVLoading] = useState(false);
+  const [jsonMetadataLoading, setJsonMetadataLoading] = useState(false);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -421,6 +424,21 @@ export default function LogLibrary() {
                                           console.error('Error loading CSV:', err);
                                           setCSVLoading(false);
                                         });
+                                    } else if (pdf.filename.endsWith('.json') || pdf.filename.includes('_metadata')) {
+                                      // Fetch JSON metadata from storage
+                                      setJsonMetadataLoading(true);
+                                      fetch(`/manus-storage/${pdf.storageKey}`)
+                                        .then(res => res.text())
+                                        .then(text => {
+                                          // Convert to base64 for SchedulePlotViewer
+                                          const base64 = btoa(text);
+                                          setSelectedPDF(prev => prev ? { ...prev, jsonMetadata: base64, isJSON: true } : null);
+                                          setJsonMetadataLoading(false);
+                                        })
+                                        .catch(err => {
+                                          console.error('Error loading JSON metadata:', err);
+                                          setJsonMetadataLoading(false);
+                                        });
                                     }
                                   }
                                 }}
@@ -489,6 +507,21 @@ export default function LogLibrary() {
                             .catch(err => {
                               console.error('Error loading CSV:', err);
                               setCSVLoading(false);
+                            });
+                        } else if (pdf.filename.endsWith('.json') || pdf.filename.includes('_metadata')) {
+                          // Fetch JSON metadata from storage
+                          setJsonMetadataLoading(true);
+                          fetch(`/manus-storage/${pdf.storageKey}`)
+                            .then(res => res.text())
+                            .then(text => {
+                              // Convert to base64 for SchedulePlotViewer
+                              const base64 = btoa(text);
+                              setSelectedPDF(prev => prev ? { ...prev, jsonMetadata: base64, isJSON: true } : null);
+                              setJsonMetadataLoading(false);
+                            })
+                            .catch(err => {
+                              console.error('Error loading JSON metadata:', err);
+                              setJsonMetadataLoading(false);
                             });
                         }
                       }
@@ -649,13 +682,20 @@ export default function LogLibrary() {
                     </div>
                   
                   {/* Schedule Plot Viewer */}
-                  {selectedPDF.temperatures && selectedPDF.temperatures.length > 0 && !selectedPDF.filename.endsWith('.csv') && (
+                  {!selectedPDF.filename.endsWith('.csv') && (
                     <div className="flex-1 w-full">
-                      <SchedulePlotViewer
-                        temperatures={selectedPDF.temperatures}
-                        times={selectedPDF.times}
-                        filename={selectedPDF.filename.replace(/_kiln_log\.pdf$/, '')}
-                      />
+                      {selectedPDF.isJSON && selectedPDF.jsonMetadata ? (
+                        <SchedulePlotViewer
+                          filename={selectedPDF.filename.replace(/_metadata\.json$/, '')}
+                          jsonMetadata={selectedPDF.jsonMetadata}
+                        />
+                      ) : selectedPDF.temperatures && selectedPDF.temperatures.length > 0 ? (
+                        <SchedulePlotViewer
+                          temperatures={selectedPDF.temperatures}
+                          times={selectedPDF.times}
+                          filename={selectedPDF.filename.replace(/_kiln_log\.pdf$/, '')}
+                        />
+                      ) : null}
                     </div>
                   )}
                   

@@ -188,8 +188,8 @@
 - [x] Add error handling for JSON parsing failures in SchedulePlotViewer
 - [x] Create shared ScheduleMetadata type and use it in SaveScheduleModal and SchedulePlotViewer
 - [x] Verify all 50 tests still passing
-- [ ] Update PDFLibrary to detect and handle JSON files
-- [ ] Add JSON file support to getPDF server mutation
+- [x] Add JSON file support to getPDF server mutation (detects .json files and returns isJSON flag)
+- [x] Update PDFLibrary to detect and handle JSON files (fetches JSON from storage and passes to SchedulePlotViewer)
 - [ ] Perform end-to-end browser test: save schedule as JSON and view plot in library
 - [ ] Verify minimal storage footprint (JSON ~1-5KB vs PDF 50-200KB)
 - [ ] Test offline viewing after JSON is saved
