@@ -404,11 +404,6 @@ export default function PDFLibrary() {
               <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
                 <p className="text-stone-400">Loading your library...</p>
               </div>
-            ) : displayLibrary.length === 0 ? (
-              <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
-                <FileText size={32} className="text-stone-500 mx-auto mb-4" />
-                <p className="text-stone-400">No schedules uploaded yet. Upload a PDF to get started.</p>
-              </div>
             ) : (
               <div className="flex flex-col gap-2">
                 {/* Display Folders */}
@@ -541,6 +536,13 @@ export default function PDFLibrary() {
                     </button>
                   </div>
                 ))}
+                {/* Empty state - only show if no folders and no uncategorized files */}
+                {folders.length === 0 && displayLibrary.length === 0 && (
+                  <div className="rounded-2xl border border-white/20 bg-white/5 p-12 text-center">
+                    <FileText size={32} className="text-stone-500 mx-auto mb-4" />
+                    <p className="text-stone-400">No schedules uploaded yet. Upload a PDF to get started.</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
