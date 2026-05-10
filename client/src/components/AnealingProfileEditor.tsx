@@ -1436,9 +1436,6 @@ export default function AnealingProfileEditor() {
                                 const b = parseInt(color.slice(5, 7), 16);
                                 pdf.setFillColor(r, g, b);
                                 pdf.rect(12, yPosition - 2, 4, 4, 'F');
-                                // Reset text color to white for visibility
-                                pdf.setTextColor(255, 255, 255);
-                                pdf.text(color.toUpperCase(), 18, yPosition);
                                 yPosition += 5;
                               });
                             }
