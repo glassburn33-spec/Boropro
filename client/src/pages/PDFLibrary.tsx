@@ -840,7 +840,17 @@ export default function PDFLibrary() {
                 <div className="rounded-lg border border-amber-700/30 bg-amber-700/5 p-3">
                   <div className="font-mono text-sm font-bold text-amber-400 mb-2">📄 Uncategorized Files</div>
                   <div className="space-y-2">
-                    {allLibrary.map(pdf => (
+                    {allLibrary
+                      .filter(pdf => {
+                        // Only show files that are NOT in any folder
+                        for (const folderIds of Object.values(schedulesInFolders)) {
+                          if (folderIds.includes(pdf.id)) {
+                            return false; // Hide if in any folder
+                          }
+                        }
+                        return true; // Show if not in any folder
+                      })
+                      .map(pdf => (
                       <div key={pdf.id} className="flex items-center gap-3 p-3 rounded border border-stone-700 hover:border-amber-500/50 transition-colors">
                         <input
                           type="checkbox"
