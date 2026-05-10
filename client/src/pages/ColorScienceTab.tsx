@@ -148,16 +148,16 @@ export default function ColorScienceTab() {
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
-            <p className="font-semibold text-amber-300">How oxidation states and redox reactions control color formation and permanence in borosilicate glass</p>
+            <p className="font-semibold text-amber-300">Oxidation-reduction equilibria as fundamental drivers of chromatic manifestation and color stability in borosilicate matrices</p>
           </div>
 
           <div className="space-y-6 text-stone-200 leading-relaxed">
             <p>
-              The influence of the <span className="font-semibold">redox state</span> on glass color has been extensively investigated. For instance, <span className="text-yellow-300 font-semibold">chromium-bearing glasses</span> show a dramatic change in color from <span className="text-green-300 font-semibold">green to yellow</span> when melting conditions vary from reducing to oxidizing. This color shift is due to the formation of a <span className="text-yellow-400 font-semibold">chromate complex (CrO₄)²⁻</span> that produces a charge-transfer transition from oxygen to chromium located near 28,000 cm⁻¹ in oxidized glasses.
+              Oxidation-reduction state profoundly influences glass coloration, exemplified through chromium-doped systems. <span className="text-yellow-300 font-semibold">Chromium-containing glasses</span> exhibit striking chromatic transitions spanning <span className="text-green-300 font-semibold">green through yellow</span> as furnace atmospheres shift from reductive to oxidative regimes. This chromatic manifestation originates from <span className="text-yellow-400 font-semibold">chromate anion formation (CrO₄)²⁻</span>, which mediates oxygen-to-chromium charge-transfer electronic transitions positioned approximately 28,000 cm⁻¹ within oxidatively-treated glass matrices.
             </p>
 
             <p>
-              The tail of this intense absorption band extends from the ultraviolet into the visible spectrum, superimposing on the Cr³⁺ absorption bands. There is a considerable difference between the molar extinction coefficients of Cr³⁺ and Cr⁶⁺, which are <span className="text-amber-300 font-semibold">18–20 and 4,200 l/(cm/mol)</span>, respectively. As a result, optical spectroscopy measurements of the chromium redox state cannot be made on glasses containing relatively high concentrations of Cr⁶⁺. Wet chemical analysis or other spectroscopic methods must be performed instead.
+              This intense absorption feature exhibits spectral tail extension spanning ultraviolet-to-visible wavelengths, overlapping with Cr³⁺ absorption signatures. Substantial disparities exist between molar extinction coefficients: Cr³⁺ exhibits <span className="text-amber-300 font-semibold">18–20 l/(cm/mol)</span> while Cr⁶⁺ demonstrates <span className="text-amber-300 font-semibold">4,200 l/(cm/mol)</span>. Consequently, optical spectroscopy cannot reliably quantify chromium redox speciation in glasses containing elevated Cr⁶⁺ concentrations. Alternative methodologies including wet-chemical titration and complementary spectroscopic techniques become necessary.
             </p>
 
             {/* Chromium Absorption Spectra Image */}
@@ -170,15 +170,15 @@ export default function ColorScienceTab() {
                 />
               </div>
               <div className="bg-stone-800/30 rounded-lg p-4 text-sm text-stone-300 space-y-3">
-                <p className="font-semibold text-amber-300">Linear Absorbance Spectra of Chromium Oxidation States</p>
+                <p className="font-semibold text-amber-300">Comparative Absorbance Profiles: Chromium Oxidation State Differentiation</p>
                 <p>
-                  This spectral comparison shows the linear absorbance of Cr³⁺ and (CrO₄)²⁻ in soda-lime-silica (SCN) and sodium borosilicate (SBN and SBNox) glasses. The <span className="text-purple-300 font-semibold">Cr³⁺ absorption peak</span> appears around 15,000 cm⁻¹ (purple region), while the <span className="text-yellow-300 font-semibold">Cr⁶⁺ charge-transfer band</span> dominates near 28,000 cm⁻¹ (ultraviolet-visible boundary). The dramatic difference in peak heights illustrates why Cr⁶⁺ completely masks Cr³⁺ in optical measurements despite their distinct absorption regions.
+                  This dataset presents linear absorbance characteristics of Cr(III) and Cr(VI) species across soda-lime-silica (SLS) and sodium borosilicate (NBS) glass matrices. The <span className="text-purple-300 font-semibold">Cr(III) absorption maximum</span> manifests near 15,000 cm⁻¹ (purple spectral region), whereas the <span className="text-yellow-300 font-semibold">Cr(VI) oxygen-transfer band</span> emerges approximately 28,000 cm⁻¹ (near-ultraviolet boundary). The substantial differential in peak magnitudes demonstrates Cr(VI) spectroscopic dominance, effectively suppressing Cr(III) detection in optical analysis despite spatially-separated absorption features.
                 </p>
               </div>
             </div>
 
             <p>
-              The interaction between <span className="font-semibold">redox pairs</span> is widely exploited during glass fining. Manganese has traditionally been known as the <span className="text-amber-400 font-semibold">"glassmaker's soap"</span> because, when added to soda-lime-silica glass in the form of an oxide such as MnO₂, it reduces the green color arising from iron impurities by oxidizing Fe²⁺ into Fe³⁺:
+              Redox pair interactions constitute fundamental strategies in glass fining operations. Manganese historically earned designation as <span className="text-amber-400 font-semibold">"the glassmaker's detergent"</span> due to its capacity, when incorporated as manganese dioxide (MnO₂) into soda-lime-silica matrices, to suppress iron-induced greenish coloration through selective oxidation of ferrous (Fe²⁺) to ferric (Fe³⁺) species:
             </p>
 
             <div className="bg-stone-900/50 rounded-lg p-4 border-l-2 border-amber-500 my-4 font-mono text-sm text-amber-200">
@@ -186,7 +186,7 @@ export default function ColorScienceTab() {
             </div>
 
             <p>
-              Because only <span className="font-semibold">spin-forbidden transitions</span> are associated with the d⁵ configuration of both Mn²⁺ and Fe³⁺, their low absorption intensities result in <span className="text-stone-400 font-semibold">weakly colored glasses</span>. However, this effect is not permanent. Interaction with sunlight (a process called <span className="text-amber-400 font-semibold">solarization</span>) favors the reverse reactions:
+              Exclusively <span className="font-semibold">spin-restricted electronic transitions</span> characterize the d⁵ electron configuration present in both Mn²⁺ and Fe³⁺, yielding attenuated absorption intensities and consequently <span className="text-stone-400 font-semibold">minimally-colored glass products</span>. Nevertheless, this chromatic suppression exhibits temporal instability. Prolonged solar radiation exposure (designated <span className="text-amber-400 font-semibold">photochemical reduction</span>) catalyzes reverse redox transformations:
             </p>
 
             <div className="bg-stone-900/50 rounded-lg p-4 border-l-2 border-amber-500 my-4 font-mono text-sm text-amber-200">
@@ -195,7 +195,7 @@ export default function ColorScienceTab() {
             </div>
 
             <p>
-              As illustrated by old windows and doorknobs that have turned purple over centuries of exposure, this phenomenon is at the origin of the well-known <span className="text-purple-300 font-semibold">purple glass</span>, of which <span className="text-purple-400 font-semibold">desert amethyst glass</span> is a natural variety. This color change demonstrates how redox chemistry and light exposure interact to create dynamic, time-dependent color shifts in glass—a critical consideration for artists working with historically significant or light-sensitive compositions.
+              Historical glass artifacts—ancient windows and architectural elements—demonstrate this phenomenon through progressive purple coloration development across centuries of solar exposure, exemplifying the <span className="text-purple-300 font-semibold">solarization-induced purple hue</span>, of which <span className="text-purple-400 font-semibold">naturally-occurring amethyst-colored desert glass</span> represents an environmental analog. This chromatic evolution illustrates the intricate interplay between redox chemistry and photochemical processes, generating time-dependent color evolution in glass—a paramount consideration for practitioners engaged with historically-significant or photosensitive glass compositions.
             </p>
           </div>
         </div>
