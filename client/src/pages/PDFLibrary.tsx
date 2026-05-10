@@ -313,12 +313,35 @@ export default function PDFLibrary() {
               <h2 className="text-2xl font-bold text-white">Your Schedule Library</h2>
               <div className="flex gap-2">
                 {selectMode && (
-                  <button
-                    onClick={() => setSelectedForDeletion(displayLibrary.map(pdf => pdf.id))}
-                    className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
-                  >
-                    Select All
-                  </button>
+                  <>
+                    <button
+                      onClick={() => setSelectedForDeletion(displayLibrary.map(pdf => pdf.id))}
+                      className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      Select All
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (selectedForDeletion.length === 0) {
+                          alert('No schedules selected');
+                          return;
+                        }
+                        if (confirm(`Are you sure you want to delete ${selectedForDeletion.length} schedule(s)? This action cannot be undone.`)) {
+                          selectedForDeletion.forEach(id => {
+                            deleteMutation.mutate({ id }, {
+                              onSuccess: () => {
+                                refetch();
+                                setSelectedForDeletion(selectedForDeletion.filter(selectedId => selectedId !== id));
+                              }
+                            });
+                          });
+                        }
+                      }}
+                      className="px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500/10 font-mono text-xs font-bold uppercase transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </>
                 )}
                 <button
                   onClick={() => setSelectMode(!selectMode)}
