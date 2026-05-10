@@ -1047,7 +1047,7 @@ function ScieEquipTab() {
           
           <div className="flex justify-center my-6">
             <img 
-              src="/manus-storage/neutralizingflame_88598926.webp" 
+              src="/manus-storage/reductinonflame_f02c5b7a.webp" 
               alt="Carburizing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
               className="w-full max-w-3xl rounded-lg border border-stone-600"
             />
