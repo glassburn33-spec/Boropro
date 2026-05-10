@@ -338,7 +338,7 @@ export default function References() {
               Kiln Log
             </a>
             <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              PDF Library
+              Log Library
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-amber-500">
               References

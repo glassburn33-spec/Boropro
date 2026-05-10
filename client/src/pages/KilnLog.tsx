@@ -220,11 +220,11 @@ export default function KilnLog() {
         times: selectedLog.times,
       });
 
-      toast.success("Kiln log saved to PDF Library!");
+      toast.success("Kiln log saved to Log Library!");
       refetch();
     } catch (error) {
-      console.error("Failed to save to PDF library:", error);
-      toast.error("Failed to save to PDF library");
+      console.error("Failed to save to Log library:", error);
+      toast.error("Failed to save to Log library");
     } finally {
     }
   };
@@ -255,7 +255,7 @@ export default function KilnLog() {
               href="/pdf-library"
               className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
             >
-              PDF Library
+              Log Library
             </a>
             <a
               href="/firing-tracker"
@@ -652,7 +652,7 @@ export default function KilnLog() {
                     className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
                   >
                     <Save size={16} />
-                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to PDF Library"}
+                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to Log Library"}
                   </button>
                   <button
                     onClick={handleExportCSV}
