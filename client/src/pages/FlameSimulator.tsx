@@ -327,9 +327,6 @@ export default function FlameChemistryCharacterization() {
         <div className="container max-w-6xl">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-amber-400 mb-4">Interactive Thermochromism Simulator</h2>
-            <p className="text-stone-300 text-lg leading-relaxed">
-              This interactive visualization demonstrates the relationship between thermal conditions and chromatic response in transition-metal-doped silicate matrices. Manipulate the thermal-range slider and combustion-environment parameters to observe instantaneous chromatic transformations across the spectrum of glass colorant systems, illustrating temperature-dependent coordination geometry shifts and electronic-state transitions.
-            </p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
             <ThermochromismSimulator />
