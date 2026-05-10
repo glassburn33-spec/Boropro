@@ -6,6 +6,7 @@ and save specific colors for schedule documentation
 
 import { useState, useRef, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { ColoredGlassJar } from './ColoredGlassJar';
 
 interface ColorWheelPickerProps {
   selectedColors: string[];
@@ -247,10 +248,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
                 key={color}
                 className="flex items-center gap-2 bg-stone-700 border border-stone-600 rounded px-3 py-2"
               >
-                <div
-                  className="w-6 h-6 rounded border border-stone-500"
-                  style={{ backgroundColor: color }}
-                />
+                <ColoredGlassJar color={color} size={28} />
                 <span className="text-xs text-stone-300">{getColorNameFromHex(color)}</span>
                 <button
                   onClick={() => onRemoveColor(color)}
