@@ -615,15 +615,32 @@ export default function AnealingProfileEditor() {
 
         {/* Y-axis ticks and labels - dynamically scaled */}
         {(() => {
-          const tempStep = maxTemp > 600 ? 100 : 50;
+          // Calculate optimal temperature step based on plot height
+          const tempStep = (() => {
+            if (maxTemp > 700) return 100;
+            if (maxTemp > 500) return 50;
+            if (maxTemp > 300) return 25;
+            return 10;
+          })();
+          
           const tempMarkers = [];
           for (let i = 0; i <= maxTemp; i += tempStep) {
             tempMarkers.push(i);
           }
-          return tempMarkers.map((temp) => (
+          
+          // Calculate label spacing to avoid overlaps
+          const minLabelSpacing = 35; // minimum pixels between labels
+          const filteredMarkers = tempMarkers.filter((temp, idx) => {
+            if (idx === 0 || idx === tempMarkers.length - 1) return true; // always show first and last
+            const y1 = margin.top + scaleY(temp);
+            const y2 = margin.top + scaleY(tempMarkers[idx - 1]);
+            return Math.abs(y1 - y2) >= minLabelSpacing;
+          });
+          
+          return filteredMarkers.map((temp) => (
             <g key={`tick-${temp}`}>
               <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
-              <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={tickFontSize}>
+              <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={Math.max(8, tickFontSize - 1)}>
                 {temp}°C
               </text>
             </g>
