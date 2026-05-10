@@ -987,7 +987,7 @@ export default function PDFLibrary() {
             <img 
               src="/manus-storage/libraryfooter_61baaaea.png" 
               alt="Glass blowing tools and materials" 
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto rounded-lg shadow-lg max-h-40"
             />
           </div>
         </footer>
