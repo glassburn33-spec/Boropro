@@ -6,6 +6,7 @@ and their effects on borosilicate colors. Scientific neo-brutalist design with f
 import { useState, useMemo } from "react";
 import { Flame, Info, ArrowRight, ChevronDown } from "lucide-react";
 import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
+import { ColorFamilyList } from "@/components/ColorFamilyList";
 
 interface FlameEffect {
   colorFamily: string;
@@ -279,13 +280,13 @@ export default function FlameChemistryCharacterization() {
               )}
             </div>
 
-            {/* Section 2: Select Color Family */}
+            {/* Section 2: Color Families */}
             <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
               <button
                 onClick={() => toggleSection("colorFamily")}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
               >
-                <h2 className="text-2xl font-bold text-white">Select a Color Family</h2>
+                <h2 className="text-2xl font-bold text-white">Color Families</h2>
                 <ChevronDown
                   className={`w-6 h-6 text-amber-500 transition-transform ${
                     expandedSection === "colorFamily" ? "rotate-180" : ""
@@ -293,120 +294,8 @@ export default function FlameChemistryCharacterization() {
                 />
               </button>
               {expandedSection === "colorFamily" && (
-                <div className="px-6 py-6 border-t border-white/10 space-y-6">
-                  {/* Color Family Buttons */}
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {flameEffects.map((effect) => (
-                      <button
-                        key={effect.colorFamily}
-                        onClick={() => setSelectedColor(effect.colorFamily)}
-                        className={`p-4 rounded-lg border transition-all text-left ${
-                          selectedColor === effect.colorFamily
-                            ? "bg-amber-600/20 border-amber-500 shadow-lg shadow-amber-500/20"
-                            : "border-white/20 hover:border-amber-500/50 hover:bg-white/5"
-                        }`}
-                      >
-                        <h3 className="font-bold text-white mb-1">{effect.colorFamily}</h3>
-                        <p className="text-xs text-stone-400 mb-2">{effect.metalComposition}</p>
-                        <p className="text-xs text-stone-300">{effect.description}</p>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Flame Effects Comparison with Color Swatches */}
-                  {selectedEffects && (
-                    <div className="mt-8">
-                      <h3 className="text-2xl font-bold text-white mb-8">{selectedEffects.colorFamily} Under Different Flames</h3>
-                      <div className="grid md:grid-cols-3 gap-6">
-                        {/* Neutral */}
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
-                            <span className="font-mono text-xs font-bold uppercase text-orange-400">Neutral Flame</span>
-                            <p className="text-sm text-orange-200 mt-2">🔥 Balanced fuel & oxygen</p>
-                          </div>
-                          {/* Color Swatch */}
-                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
-                            <div
-                              className="w-full h-24"
-                              style={{ backgroundColor: selectedEffects.neutral.hexColor }}
-                            />
-                          </div>
-                          <div className="space-y-4">
-                            <div>
-                              <span className="font-bold text-white block mb-1">Appearance:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.neutral.appearance}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.neutral.metalBehavior}</span>
-                            </div>
-                            <div className="pt-4 border-t border-white/10">
-                              <span className="font-bold text-amber-500 block mb-1">Risk Assessment:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.neutral.risk}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Oxidizing */}
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
-                            <span className="font-mono text-xs font-bold uppercase text-blue-400">Oxidizing Flame</span>
-                            <p className="text-sm text-blue-200 mt-2">🔵 Excess oxygen</p>
-                          </div>
-                          {/* Color Swatch */}
-                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
-                            <div
-                              className="w-full h-24"
-                              style={{ backgroundColor: selectedEffects.oxidizing.hexColor }}
-                            />
-                          </div>
-                          <div className="space-y-4">
-                            <div>
-                              <span className="font-bold text-white block mb-1">Appearance:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.appearance}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.metalBehavior}</span>
-                            </div>
-                            <div className="pt-4 border-t border-white/10">
-                              <span className="font-bold text-blue-500 block mb-1">Risk Assessment:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.oxidizing.risk}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Reducing */}
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                          <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-red-400/20 to-red-600/20 border border-red-500/30">
-                            <span className="font-mono text-xs font-bold uppercase text-red-400">Reducing Flame</span>
-                            <p className="text-sm text-red-200 mt-2">🟠 Oxygen deficient</p>
-                          </div>
-                          {/* Color Swatch */}
-                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
-                            <div
-                              className="w-full h-24"
-                              style={{ backgroundColor: selectedEffects.reducing.hexColor }}
-                            />
-                          </div>
-                          <div className="space-y-4">
-                            <div>
-                              <span className="font-bold text-white block mb-1">Appearance:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.reducing.appearance}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold text-white block mb-1">Metal Behavior:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.reducing.metalBehavior}</span>
-                            </div>
-                            <div className="pt-4 border-t border-white/10">
-                              <span className="font-bold text-red-500 block mb-1">Risk Assessment:</span>
-                              <span className="text-sm text-stone-300">{selectedEffects.reducing.risk}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <div className="px-6 py-6 border-t border-white/10">
+                  <ColorFamilyList colorFamilies={flameEffects} />
                 </div>
               )}
             </div>
