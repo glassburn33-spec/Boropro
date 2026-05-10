@@ -17,7 +17,7 @@ function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={LogoHome} />
+      <Route path={"/"} component={Home} />
       <Route path={"/explore"} component={Home} />
       <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
       <Route path={"/color-picker"} component={ColorPicker} />
