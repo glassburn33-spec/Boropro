@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
-import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary, getPDFById, createKilnLog, getKilnLogsByUserId, getKilnLogById, updateKilnLog, deleteKilnLog } from "./db";
+import { savePDFToLibrary, getPDFLibraryByUserId, deletePDFFromLibrary, getPDFById, createKilnLog, getKilnLogsByUserId, getKilnLogById, updateKilnLog, deleteKilnLog, saveExtrasFile, getExtrasByUserId, deleteExtrasFile, getExtrasById } from "./db";
 import { storagePut, storageGetSignedUrl } from "./storage";
 
 let pdfjsLib: any = null;
@@ -246,6 +246,71 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         const success = await deleteKilnLog(input.id, ctx.user.id);
         return { success };
+      }),
+  }),
+
+  extras: router({
+    list: protectedProcedure.query(async ({ ctx }) => {
+      return await getExtrasByUserId(ctx.user.id);
+    }),
+
+    upload: protectedProcedure
+      .input(
+        z.object({
+          filename: z.string(),
+          fileBase64: z.string(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        try {
+          const fileData = Buffer.from(input.fileBase64, 'base64');
+          
+          const { key, url } = await storagePut(
+            `extras/${ctx.user.id}/${input.filename}`,
+            fileData,
+            'application/pdf'
+          );
+
+          const extras_record = await saveExtrasFile(ctx.user.id, {
+            filename: input.filename,
+            storageKey: key,
+          });
+
+          return {
+            success: true,
+            file: extras_record,
+            storageUrl: url,
+          };
+        } catch (error) {
+          console.error('Extras upload error:', error);
+          throw error;
+        }
+      }),
+
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        const success = await deleteExtrasFile(input.id, ctx.user.id);
+        return { success };
+      }),
+
+    getFile: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input, ctx }) => {
+        const file = await getExtrasById(input.id, ctx.user.id);
+        if (!file) {
+          throw new Error('File not found');
+        }
+        const signedUrl = await storageGetSignedUrl(file.storageKey);
+        const response = await fetch(signedUrl);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const fileBase64 = buffer.toString('base64');
+        return {
+          id: file.id,
+          filename: file.filename,
+          fileBase64,
+        };
       }),
   }),
 });

@@ -63,3 +63,19 @@ export const kilnLog = mysqlTable("kiln_log", {
 
 export type KilnLog = typeof kilnLog.$inferSelect;
 export type InsertKilnLog = typeof kilnLog.$inferInsert;
+
+/**
+ * Extras table for storing uploaded extra files (separate from PDF Library)
+ * Independent storage for user-uploaded files with folder organization
+ */
+export const extras = mysqlTable("extras", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Extras = typeof extras.$inferSelect;
+export type InsertExtras = typeof extras.$inferInsert;
