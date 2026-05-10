@@ -44,9 +44,6 @@ export default function Calculator() {
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
               Reheat Calculator
             </h1>
-            <p className="text-lg leading-8 text-stone-300 max-w-3xl">
-              Calculate safe cooling schedules for borosilicate glass based on geometry, kiln temperature, and material properties. Get precise working times and thermal stress analysis.
-            </p>
           </div>
         </section>
 
