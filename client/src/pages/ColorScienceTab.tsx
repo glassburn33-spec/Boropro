@@ -207,33 +207,33 @@ export default function ColorScienceTab() {
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
-            <p className="font-semibold text-amber-300">How heating induces dramatic color changes in transition metal-bearing glasses</p>
+            <p className="font-semibold text-amber-300">Thermal excitation as a mechanism for reversible chromatic transformation in transition metal-doped glass systems</p>
           </div>
 
           <div className="space-y-6 text-stone-200 leading-relaxed">
             <p>
-              Color changes in glasses can be <span className="font-semibold text-amber-300">spectacular upon heating</span>. For example, <span className="text-blue-300 font-semibold">brown nickel-bearing glasses</span> turn <span className="text-green-300 font-semibold">blue or green</span>, while <span className="text-yellow-300 font-semibold">chromium-bearing glasses shift to yellow</span>. This phenomenon, called <span className="font-semibold">thermochromism</span>, arises from temperature-induced changes in the coordination environment and site populations of transition metal ions.
+              Thermal energy induces <span className="font-semibold text-amber-300">dramatic chromatic transformations</span> in glass matrices. Representative examples include <span className="text-blue-300 font-semibold">tan-colored nickel-doped glasses</span> transitioning to <span className="text-green-300 font-semibold">cyan or emerald</span>, and <span className="text-yellow-300 font-semibold">chromium-doped glasses exhibiting yellow coloration</span>. This reversible phenomenon, designated <span className="font-semibold">thermochromic behavior</span>, originates from thermally-activated modifications in metal ion coordination geometry and relative site occupancy distributions.
             </p>
 
             <p>
-              Like chemical dependence of glass coloration, there is a marked difference between transition elements depending on whether they occupy <span className="font-semibold">one or several sites</span>. When multiple sites exist, temperature modifies the equilibrium between site populations. When a single site is occupied, the site itself expands with increasing temperature, altering the ligand field and thus the optical absorption spectrum. Because high-temperature optical absorption spectra are difficult to record, most data comes from investigations below the glass transition temperature (Tg). However, important modifications of optical spectra may occur in the molten state, which are not yet fully characterized.
+              Analogous to composition-dependent coloration mechanisms, transition metal behavior exhibits substantial variation contingent upon <span className="font-semibold">single-site versus multi-site occupancy</span>. Multi-site systems experience temperature-modulated equilibrium redistribution among coordination sites. Single-site systems undergo thermal expansion of the coordination polyhedron, modifying ligand field strength and consequently optical absorption characteristics. High-temperature spectroscopic measurements present experimental challenges, necessitating reliance upon sub-Tg investigations. Nevertheless, significant spectroscopic modifications potentially occur within molten-state regimes, remaining incompletely characterized in contemporary literature.
             </p>
 
             <div className="bg-stone-900/50 rounded-lg p-6 border-l-2 border-blue-500 my-4">
-              <p className="font-semibold text-blue-300 mb-3">Coexistence of Well-Defined Sites: Ni²⁺ as a Case Study</p>
+              <p className="font-semibold text-blue-300 mb-3">Multi-Site Coordination Dynamics: Nickel(II) as Exemplar System</p>
               <p className="text-sm text-stone-300 space-y-3">
-                <span className="block">In potassium triborate glass, Ni²⁺ is distributed between 4- and 5-coordination states, similar to most oxide glasses. Major changes occur near Tg, above which the proportion of <span className="text-blue-300 font-semibold">[4]Ni²⁺ increases</span>. This is likely related to temperature-induced coordination changes of boron:</span>
+                <span className="block">Within potassium tetraborate matrices, Ni(II) species distribute across tetrahedral and pentacoordinate configurations, mirroring behavior observed in most oxide glass systems. Substantial compositional shifts manifest proximal to Tg, whereupon <span className="text-blue-300 font-semibold">[4]Ni(II) abundance escalates</span>. This phenomenon correlates with thermally-activated boron coordination reorganization:</span>
                 <span className="block font-mono text-amber-200 mt-2">Na<sup>CC</sup> + BO₄⁻ ⇌ BO₃ + O<sup>NBO</sup> + Na<sup>NM</sup></span>
                 <span className="block text-xs text-stone-400 mt-1">where Na<sup>CC</sup> = charge-compensating Na, Na<sup>NM</sup> = network-modifying Na, O<sup>NBO</sup> = non-bridging oxygen</span>
               </p>
             </div>
 
             <p>
-              The <span className="text-blue-300 font-semibold">[4]B to [3]B conversion</span> between glass and melt increases alkali activity and provides further charge compensation for <span className="text-blue-300 font-semibold">[4]Ni</span>, inducing the coordination change. In some borate compositions, the [4]Ni/[5]Ni ratio is <span className="font-semibold">not frozen at Tg</span> because these two states are separated by unusually small energy barriers, allowing continued ionic mobility even as the polymeric network becomes rigid.
+              This <span className="text-blue-300 font-semibold">four-coordinate to three-coordinate boron interconversion</span> between glassy and molten phases amplifies alkali cation activity and furnishes supplementary charge-compensating capacity for <span className="text-blue-300 font-semibold">[4]Ni(II)</span>, facilitating coordination reorganization. Certain borate compositions exhibit <span className="font-semibold">kinetically-unfrozen [4]Ni(II)/[5]Ni(II) ratios at Tg</span> due to minimal energetic separation between these coordination states, permitting sustained ionic rearrangement despite network rigidification.
             </p>
 
             <p>
-              The modification of Ni²⁺ and Co²⁺ speciation at high temperature can be <span className="font-semibold">retained after fast quenching</span>. In Co- and Ni-bearing alkali borosilicate glasses, the 4-coordinated species favored at high temperature are partly retained at room temperature by rapid cooling. This demonstrates the critical importance of <span className="text-amber-300 font-semibold">thermal history on glass structure</span>—a principle that directly impacts how flameworkers must cool their pieces to achieve desired color effects.
+              Elevated-temperature Ni(II) and Co(II) speciation modifications demonstrate <span className="font-semibold">kinetic trapping via rapid thermal quenching</span>. Within cobalt- and nickel-doped alkali borosilicate matrices, high-temperature-favored tetrahedral species undergo partial retention at ambient temperatures following accelerated cooling protocols. This phenomenon underscores the paramount significance of <span className="text-amber-300 font-semibold">thermal treatment protocols on resulting glass microstructure</span>—a fundamental principle governing how glassblowers must engineer cooling regimens to achieve targeted chromatic outcomes.
             </p>
           </div>
         </div>
