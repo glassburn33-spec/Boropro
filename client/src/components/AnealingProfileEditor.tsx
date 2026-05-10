@@ -688,6 +688,9 @@ export default function AnealingProfileEditor() {
   };
 
   const handleDeleteSchedule = (id: string) => {
+    const confirmed = window.confirm('Are you sure you want to delete this schedule? This action cannot be undone.');
+    if (!confirmed) return;
+    
     setSavedSchedules(prev => prev.filter(s => s.id !== id));
   };
 
