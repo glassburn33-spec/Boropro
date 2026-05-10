@@ -75,7 +75,7 @@ export default function LogoHome() {
             Scie-Equip
           </a>
           <a
-            href="/explore?tab=colorscience"
+            href="/glass-science?tab=colorscience"
             className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
           >
             Color-Sci
