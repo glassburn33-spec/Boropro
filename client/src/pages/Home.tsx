@@ -933,7 +933,7 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            The flame structure is critical for atomic absorption spectroscopy and glass analysis. Figure 1 shows a cross-section through the flame, down the source radiation's optical path. The primary combustion zone usually is rich in gas combustion products that emit radiation, limiting its usefulness for atomic absorption. The interzonal region generally is rich in free atoms and provides the best location for measuring atomic absorption. The hottest part of the flame typically is 2–3 cm above the primary combustion zone. As atoms approach the flame's secondary combustion zone, the decrease in temperature allows for formation of stable molecular species.
+            Understanding flame architecture is fundamental to spectroscopic analysis and glass material characterization. The diagram illustrates a longitudinal cross-section aligned with the analytical beam path. The initial combustion region contains abundant molecular emission products that interfere with absorption measurements, reducing analytical sensitivity. The middle thermal band exhibits high concentrations of atomized species, making it optimal for absorption-based detection. Peak thermal intensity occurs approximately 2–3 cm above the initial combustion zone. As atomic species rise toward the terminal combustion region, declining temperatures promote recombination into molecular compounds.
           </p>
           
           <div className="flex justify-center my-6">
@@ -945,7 +945,7 @@ function ScieEquipTab() {
           </div>
           
           <p className="text-stone-300 leading-relaxed">
-            The flame's temperature, which affects the efficiency of atomization, depends on the fuel–oxidant mixture. Of the common combinations, the air–acetylene and the nitrous oxide–acetylene flames are the most popular. Normally the fuel and oxidant are mixed in an approximately stoichiometric ratio; however, a fuel-rich mixture may be necessary for easily oxidized analytes.
+            Flame thermal output directly influences atomization efficiency and is determined by fuel-oxidant composition. Among prevalent fuel-oxidant pairings, air-acetylene and nitrous oxide-acetylene systems dominate analytical applications. Standard operation maintains near-stoichiometric fuel-oxidant proportions; however, fuel-excess configurations enhance analysis of readily oxidizable elements and compounds.
           </p>
           
           <div className="flex justify-center my-6">
