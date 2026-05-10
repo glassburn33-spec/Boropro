@@ -806,7 +806,13 @@ export default function PDFLibrary() {
                           <p className="text-xs text-stone-400">No schedules in this folder</p>
                         ) : (
                           allLibrary
-                            .filter(pdf => (schedulesInFolders[folder] || []).includes(pdf.id))
+                            .filter(pdf => {
+                              // Show files in this folder
+                              const isInThisFolder = (schedulesInFolders[folder] || []).includes(pdf.id);
+                              // But hide if already in the selected folder
+                              const filesInSelectedFolder = schedulesInFolders[selectedFolderForInsert] || [];
+                              return isInThisFolder && !filesInSelectedFolder.includes(pdf.id);
+                            })
                             .map(pdf => (
                               <div key={pdf.id} className="flex items-center gap-3 p-2 rounded border border-green-500/30 bg-green-500/5 hover:border-green-500/50 transition-colors">
                                 <input
