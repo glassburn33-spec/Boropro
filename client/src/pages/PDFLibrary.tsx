@@ -47,6 +47,7 @@ export default function LogLibrary() {
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
   const uploadMutation = trpc.pdfLibrary.upload.useMutation();
+  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
   const deleteMutation = trpc.pdfLibrary.delete.useMutation();
 
   // Convert database records to display format
@@ -1022,7 +1023,12 @@ export default function LogLibrary() {
                 </button>
                 <button
                   onClick={async () => {
-                    if (!editingPDF) return;
+                    console.log('Save Changes clicked', { editingPDF, editingFilename, editingNotes, editingResults });
+                    toast.message('Saving updated schedule...');
+                    if (!editingPDF) {
+                      toast.error('No PDF selected');
+                      return;
+                    }
                     
                     try {
                       const jsPDF = (await import('jspdf')).default;
@@ -1114,10 +1120,14 @@ export default function LogLibrary() {
                       
                       const newFilename = `${editingFilename || editingPDF.filename}_updated.pdf`;
                       
-                      await uploadMutation.mutateAsync({
+                      // Use saveGenerated instead of upload to avoid PDF parsing issues
+                      await saveGeneratedMutation.mutateAsync({
                         filename: newFilename,
                         fileBase64,
+                        temperatures: editingPDF.temperatures || [],
+                        times: editingPDF.times || [],
                       });
+                      refetch();
                       
                       toast.success('Updated schedule PDF created and saved');
                       setShowEditModal(false);
@@ -1127,7 +1137,8 @@ export default function LogLibrary() {
                       setEditingResults('');
                     } catch (error) {
                       console.error('Error creating PDF:', error);
-                      toast.error('Failed to create PDF');
+                      console.error('Error details:', error instanceof Error ? error.message : String(error));
+                      toast.error(`Failed to create PDF: ${error instanceof Error ? error.message : 'Unknown error'}`);
                     }
                   }}
                   className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded font-semibold transition-colors"
