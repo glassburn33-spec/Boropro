@@ -13,6 +13,46 @@ interface ColorWheelPickerProps {
   onRemoveColor: (color: string) => void;
 }
 
+// Get color name from hue
+function getColorName(hue: number): string {
+  if (hue >= 0 && hue < 15) return 'Red';
+  if (hue >= 15 && hue < 45) return 'Orange';
+  if (hue >= 45 && hue < 65) return 'Yellow';
+  if (hue >= 65 && hue < 150) return 'Green';
+  if (hue >= 150 && hue < 200) return 'Cyan';
+  if (hue >= 200 && hue < 260) return 'Blue';
+  if (hue >= 260 && hue < 290) return 'Purple';
+  if (hue >= 290 && hue < 330) return 'Magenta';
+  return 'Red';
+}
+
+// Get color name from hex color
+function getColorNameFromHex(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  let hueVal = 0;
+  
+  if (max === min) {
+    hueVal = 0;
+  } else if (max === rNorm) {
+    hueVal = ((gNorm - bNorm) / (max - min)) * 60;
+    if (hueVal < 0) hueVal += 360;
+  } else if (max === gNorm) {
+    hueVal = ((bNorm - rNorm) / (max - min)) * 60 + 120;
+  } else {
+    hueVal = ((rNorm - gNorm) / (max - min)) * 60 + 240;
+  }
+  
+  return getColorName(hueVal);
+}
+
 export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: ColorWheelPickerProps) {
   const [hue, setHue] = useState(0);
   const [saturation, setSaturation] = useState(1);
@@ -211,7 +251,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
                   className="w-6 h-6 rounded border border-stone-500"
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-xs text-stone-300">{color.toUpperCase()}</span>
+                <span className="text-xs text-stone-300">{getColorNameFromHex(color)}</span>
                 <button
                   onClick={() => onRemoveColor(color)}
                   className="ml-1 text-stone-400 hover:text-red-400 transition-colors"
@@ -279,17 +319,4 @@ function drawColorWheel(canvas: HTMLCanvasElement | null) {
   ctx.beginPath();
   ctx.arc(centerX, centerY, maxRadius * 0.7, 0, 2 * Math.PI);
   ctx.stroke();
-}
-
-// Get color name from hue
-function getColorName(hue: number): string {
-  if (hue >= 0 && hue < 15) return 'Red';
-  if (hue >= 15 && hue < 45) return 'Orange';
-  if (hue >= 45 && hue < 65) return 'Yellow';
-  if (hue >= 65 && hue < 150) return 'Green';
-  if (hue >= 150 && hue < 200) return 'Cyan';
-  if (hue >= 200 && hue < 260) return 'Blue';
-  if (hue >= 260 && hue < 290) return 'Purple';
-  if (hue >= 290 && hue < 330) return 'Magenta';
-  return 'Red';
 }
