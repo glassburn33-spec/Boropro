@@ -4,7 +4,7 @@ Interactive hue selector allowing users to pan through the color spectrum
 and save specific colors for schedule documentation
 */
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 interface ColorWheelPickerProps {
@@ -16,6 +16,11 @@ interface ColorWheelPickerProps {
 export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: ColorWheelPickerProps) {
   const [hue, setHue] = useState(0);
   const wheelRef = useRef<HTMLCanvasElement>(null);
+
+  // Draw the color wheel on canvas
+  useEffect(() => {
+    drawColorWheel(wheelRef.current);
+  }, []);
 
   // Convert HSL to RGB hex
   const hslToHex = (h: number, s: number, l: number): string => {
@@ -76,17 +81,16 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
         <div className="relative">
           <canvas
             ref={wheelRef}
-            width={250}
-            height={250}
+            width={300}
+            height={300}
             onClick={handleWheelClick}
-            className="cursor-crosshair rounded-full border-2 border-stone-600"
-            onLoad={() => drawColorWheel(wheelRef.current)}
+            className="cursor-crosshair rounded-full border-2 border-stone-500 shadow-lg"
           />
           {/* Hue indicator */}
           <div
-            className="absolute top-1/2 left-1/2 w-2 h-2 bg-white border border-stone-900 rounded-full pointer-events-none"
+            className="absolute top-1/2 left-1/2 w-3 h-3 bg-white border-2 border-stone-900 rounded-full pointer-events-none shadow-md"
             style={{
-              transform: `translate(-50%, -50%) rotate(${hue}deg) translateY(-110px)`,
+              transform: `translate(-50%, -50%) rotate(${hue}deg) translateY(-135px)`,
             }}
           />
         </div>
@@ -95,7 +99,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">
             <div
-              className="w-12 h-12 rounded border-2 border-stone-600"
+              className="w-16 h-16 rounded border-2 border-stone-600 shadow-md"
               style={{ backgroundColor: currentColor }}
             />
             <div>
@@ -146,7 +150,7 @@ export function ColorWheelPicker({ selectedColors, onAddColor, onRemoveColor }: 
   );
 }
 
-// Draw the color wheel on canvas
+// Draw the color wheel on canvas with full spectrum
 function drawColorWheel(canvas: HTMLCanvasElement | null) {
   if (!canvas) return;
 
@@ -155,53 +159,47 @@ function drawColorWheel(canvas: HTMLCanvasElement | null) {
 
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
-  const radius = canvas.width / 2 - 5;
+  const maxRadius = canvas.width / 2 - 5;
 
-  // Draw color wheel
-  for (let angle = 0; angle < 360; angle += 1) {
+  // Draw color wheel with radial gradient for full spectrum
+  for (let angle = 0; angle < 360; angle += 0.5) {
     const startAngle = (angle - 90) * (Math.PI / 180);
-    const endAngle = (angle + 1 - 90) * (Math.PI / 180);
+    const endAngle = (angle + 0.5 - 90) * (Math.PI / 180);
 
+    // Create gradient from center (white) to edge (full saturation)
+    const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
+    
     const hue = angle;
-    const saturation = 1;
-    const lightness = 0.5;
+    
+    // White at center
+    gradient.addColorStop(0, 'hsl(' + hue + ', 0%, 100%)');
+    
+    // Transition to full saturation color at edge
+    gradient.addColorStop(0.7, 'hsl(' + hue + ', 100%, 50%)');
+    
+    // Darker shade at the very edge for definition
+    gradient.addColorStop(1, 'hsl(' + hue + ', 100%, 40%)');
 
-    // Convert HSL to RGB
-    const c = (1 - Math.abs(2 * lightness - 1)) * saturation;
-    const x = c * (1 - Math.abs((hue / 60) % 2 - 1));
-    const m = lightness - c / 2;
-    let r = 0, g = 0, b = 0;
-
-    if (hue >= 0 && hue < 60) {
-      r = c; g = x; b = 0;
-    } else if (hue >= 60 && hue < 120) {
-      r = x; g = c; b = 0;
-    } else if (hue >= 120 && hue < 180) {
-      r = 0; g = c; b = x;
-    } else if (hue >= 180 && hue < 240) {
-      r = 0; g = x; b = c;
-    } else if (hue >= 240 && hue < 300) {
-      r = x; g = 0; b = c;
-    } else if (hue >= 300 && hue < 360) {
-      r = c; g = 0; b = x;
-    }
-
-    const toRGB = (val: number) => Math.round((val + m) * 255);
-    const color = `rgb(${toRGB(r)}, ${toRGB(g)}, ${toRGB(b)})`;
-
-    ctx.fillStyle = color;
+    ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.arc(centerX, centerY, maxRadius, startAngle, endAngle);
     ctx.closePath();
     ctx.fill();
   }
 
-  // Draw border
-  ctx.strokeStyle = '#78716c';
-  ctx.lineWidth = 2;
+  // Draw outer border
+  ctx.strokeStyle = '#a8a29e';
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+  ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  // Draw inner circle border for definition
+  ctx.strokeStyle = '#78716c';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, maxRadius * 0.7, 0, 2 * Math.PI);
   ctx.stroke();
 }
 
