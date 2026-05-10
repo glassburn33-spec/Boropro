@@ -9,94 +9,119 @@ import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
 
 interface FlameEffect {
   colorFamily: string;
+  metalComposition: string;
+  description: string;
   neutral: {
     appearance: string;
     metalBehavior: string;
     risk: string;
+    hexColor: string;
   };
   oxidizing: {
     appearance: string;
     metalBehavior: string;
     risk: string;
+    hexColor: string;
   };
   reducing: {
     appearance: string;
     metalBehavior: string;
     risk: string;
+    hexColor: string;
   };
 }
 
 const flameEffects: FlameEffect[] = [
   {
     colorFamily: "Cobalt blues",
+    metalComposition: "Cobalt Oxide (CoO, Co₂O₃)",
+    description: "Bright, stable cobalt blue. Highly sensitive to reducing flames, which cause graying and dulling. Oxidizing and neutral flames preserve vibrant color.",
     neutral: {
       appearance: "Bright, stable blue hue",
       metalBehavior: "Cobalt oxide preserved in oxide form",
       risk: "None; neutral is safe default",
+      hexColor: "#0052CC",
     },
     oxidizing: {
       appearance: "Bright, vibrant blue; no graying",
       metalBehavior: "Cobalt stays oxidized; prevents reduction graying",
       risk: "None; oxidizing is ideal for cobalt",
+      hexColor: "#0047B2",
     },
     reducing: {
       appearance: "Dull, grayish-blue; muddy tone",
       metalBehavior: "Reduction removes oxygen; cobalt darkens and grays",
       risk: "High; avoid reducing flame for cobalt blues",
+      hexColor: "#4A5F7F",
     },
   },
   {
     colorFamily: "Copper rubies",
+    metalComposition: "Copper Oxide (CuO, Cu₂O)",
+    description: "Deep red color with striking nucleation. Requires careful flame control to maintain clarity. Reducing flames create metallic effects and opacity.",
     neutral: {
       appearance: "Clear to light ruby red",
       metalBehavior: "Copper oxide in stable state; ready for striking",
       risk: "None; neutral preserves color",
+      hexColor: "#CC2D2D",
     },
     oxidizing: {
       appearance: "Bright ruby; prevents red streaking",
       metalBehavior: "Oxidizing flame prevents metallic copper surface",
       risk: "None; oxidizing maintains ruby clarity",
+      hexColor: "#E63946",
     },
     reducing: {
       appearance: "Milky red or opaque; metallic sheen",
       metalBehavior: "Reduction creates metallic copper layer; can muddy color",
       risk: "High; over-reduction produces muddy, opaque tones",
+      hexColor: "#8B3A3A",
     },
   },
   {
     colorFamily: "Silver/exotic colors",
+    metalComposition: "Silver, Gold, and/or Copper in glass matrix",
+    description: "Highly reactive colors that develop metallic effects and color shifts based on flame atmosphere. Slight reduction creates bright metallics; prolonged reduction yields earth tones.",
     neutral: {
       appearance: "Clear base; ready for striking",
       metalBehavior: "Silver oxide stable; awaiting thermal cycling",
       risk: "None; neutral is safe for setup",
+      hexColor: "#E8E8E8",
     },
     oxidizing: {
       appearance: "Bright, clear; prevents premature striking",
       metalBehavior: "Oxidizing prevents unintended metallic effects",
       risk: "None; oxidizing preserves clear state",
+      hexColor: "#F5F5F5",
     },
     reducing: {
-      appearance: "Metallic sheen develops; color shifts",
+      appearance: "Metallic sheen develops; color shifts to gold/green/earth tones",
       metalBehavior: "Slight reduction creates bright metallics; prolonged reduces to earth tones",
       risk: "Medium; requires careful timing to avoid over-striking",
+      hexColor: "#D4AF37",
     },
   },
   {
     colorFamily: "Amber purple family",
+    metalComposition: "Copper Oxide + Chromium Oxide striking system",
+    description: "Complex striking color that develops purple in oxidizing conditions. Reducing flames shift the color family toward amber and sea-green tones.",
     neutral: {
       appearance: "Purple hue stable",
       metalBehavior: "Copper + chromium oxides balanced",
       risk: "None; neutral is safe",
+      hexColor: "#8B4789",
     },
     oxidizing: {
       appearance: "Vibrant purple; no amber shift",
       metalBehavior: "Oxidizing maintains purple; prevents amber reduction",
       risk: "None; oxidizing is ideal for purple effect",
+      hexColor: "#A855F7",
     },
     reducing: {
       appearance: "Shift toward opaque amber/milky sea-green",
       metalBehavior: "Reduction shifts color family; copper reduces to metallic tones",
       risk: "High; reduction fundamentally changes intended color",
+      hexColor: "#6B8E23",
     },
   },
 ];
@@ -223,23 +248,26 @@ export default function FlameChemistryCharacterization() {
               </button>
               {expandedSection === "colorFamily" && (
                 <div className="px-6 py-6 border-t border-white/10 space-y-6">
-                  <div className="grid md:grid-cols-3 gap-4">
+                  {/* Color Family Buttons */}
+                  <div className="grid md:grid-cols-2 gap-4">
                     {flameEffects.map((effect) => (
                       <button
                         key={effect.colorFamily}
                         onClick={() => setSelectedColor(effect.colorFamily)}
-                        className={`px-4 py-3 rounded-lg font-mono text-xs font-bold uppercase transition-all ${
+                        className={`p-4 rounded-lg border transition-all text-left ${
                           selectedColor === effect.colorFamily
-                            ? "bg-amber-600 text-white border border-amber-500"
-                            : "border border-white/20 text-stone-400 hover:border-amber-500 hover:text-amber-500"
+                            ? "bg-amber-600/20 border-amber-500 shadow-lg shadow-amber-500/20"
+                            : "border-white/20 hover:border-amber-500/50 hover:bg-white/5"
                         }`}
                       >
-                        {effect.colorFamily}
+                        <h3 className="font-bold text-white mb-1">{effect.colorFamily}</h3>
+                        <p className="text-xs text-stone-400 mb-2">{effect.metalComposition}</p>
+                        <p className="text-xs text-stone-300">{effect.description}</p>
                       </button>
                     ))}
                   </div>
 
-                  {/* Flame Effects Comparison */}
+                  {/* Flame Effects Comparison with Color Swatches */}
                   {selectedEffects && (
                     <div className="mt-8">
                       <h3 className="text-2xl font-bold text-white mb-8">{selectedEffects.colorFamily} Under Different Flames</h3>
@@ -249,6 +277,13 @@ export default function FlameChemistryCharacterization() {
                           <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
                             <span className="font-mono text-xs font-bold uppercase text-orange-400">Neutral Flame</span>
                             <p className="text-sm text-orange-200 mt-2">🔥 Balanced fuel & oxygen</p>
+                          </div>
+                          {/* Color Swatch */}
+                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
+                            <div
+                              className="w-full h-24"
+                              style={{ backgroundColor: selectedEffects.neutral.hexColor }}
+                            />
                           </div>
                           <div className="space-y-4">
                             <div>
@@ -272,6 +307,13 @@ export default function FlameChemistryCharacterization() {
                             <span className="font-mono text-xs font-bold uppercase text-blue-400">Oxidizing Flame</span>
                             <p className="text-sm text-blue-200 mt-2">🔵 Excess oxygen</p>
                           </div>
+                          {/* Color Swatch */}
+                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
+                            <div
+                              className="w-full h-24"
+                              style={{ backgroundColor: selectedEffects.oxidizing.hexColor }}
+                            />
+                          </div>
                           <div className="space-y-4">
                             <div>
                               <span className="font-bold text-white block mb-1">Appearance:</span>
@@ -293,6 +335,13 @@ export default function FlameChemistryCharacterization() {
                           <div className="mb-4 p-4 rounded-lg bg-gradient-to-b from-red-400/20 to-red-600/20 border border-red-500/30">
                             <span className="font-mono text-xs font-bold uppercase text-red-400">Reducing Flame</span>
                             <p className="text-sm text-red-200 mt-2">🟠 Oxygen deficient</p>
+                          </div>
+                          {/* Color Swatch */}
+                          <div className="mb-4 rounded-lg border-2 border-white/20 overflow-hidden">
+                            <div
+                              className="w-full h-24"
+                              style={{ backgroundColor: selectedEffects.reducing.hexColor }}
+                            />
                           </div>
                           <div className="space-y-4">
                             <div>
@@ -350,15 +399,6 @@ export default function FlameChemistryCharacterization() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 bg-stone-950/50 py-8">
-        <div className="container max-w-6xl">
-          <p className="text-xs text-stone-500 text-center">
-            Flame Simulator Tool · Part of the Borosilicate Kiln Research Platform
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
