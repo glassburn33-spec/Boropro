@@ -981,16 +981,14 @@ export default function PDFLibrary() {
           </div>
         )}
         
-        {/* Footer */}
-        <footer className="border-t border-white/10 bg-stone-950">
-          <div className="container max-w-6xl px-0">
-            <img 
-              src="/manus-storage/libraryfooter_61baaaea.png" 
-              alt="Glass blowing tools and materials" 
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        </footer>
+        {/* Bottom Image */}
+        <div className="w-full">
+          <img 
+            src="/manus-storage/libraryfooter_61baaaea.png" 
+            alt="Glass blowing tools and materials" 
+            className="w-full h-auto object-cover"
+          />
+        </div>
       </main>
     </div>
   );
