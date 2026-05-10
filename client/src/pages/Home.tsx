@@ -974,7 +974,7 @@ function ScieEquipTab() {
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
-            The chemical composition of a flame depends on the ratio of fuel to oxidant, which determines whether the flame is reducing, neutral, oxidizing, or carburizing. Each flame type has distinct characteristics and effects on glass working and analysis.
+            Flame behavior is fundamentally determined by the proportional balance between fuel and oxidant components, which establishes whether the flame exhibits reducing, neutral, oxidizing, or carburizing properties. Each flame configuration presents unique thermal and chemical characteristics that significantly influence glass manipulation and analytical procedures.
           </p>
           
           <div className="flex justify-center my-6">
@@ -989,28 +989,28 @@ function ScieEquipTab() {
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-orange-500">
               <h4 className="text-orange-300 font-bold mb-2">Reducing Flame (Left)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                The reducing flame has low oxygen and an excess of acetylene. It displays a secondary feather extending from the inner cone, caused by excess acetylene in the flame mixture. This alters the chemical composition by reducing iron oxide (reducing effect) and adding carbon (carburizing effect). The flame has a yellow or yellowish color due to carbon or hydrocarbons.
+                Reducing flame conditions emerge when oxygen availability is constrained and acetylene concentration exceeds stoichiometric proportions. A distinctive secondary feather protrudes from the primary cone due to unburned acetylene molecules. This configuration modifies surface chemistry through oxide reduction (reducing behavior) and carbon incorporation (carburizing behavior). Characteristic yellow or amber coloration results from incandescent carbon particles and hydrocarbon fragments.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
               <h4 className="text-blue-300 font-bold mb-2">Neutral Flame (Center)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                Two distinct zones may be seen in the neutral flame. The inner core of the flame has a bright white-bluish light and extends only a short distance from the tip. Around this inner cone is the flame envelope which is darker and less intensely blue. This flame is metallurgically neutral, and is used for welding, heating and cutting of steel. There is also a transparent reducing zone in front of the white inner cone. It is difficult to distinguish but it is the main factor for welding steel without a fluxing agent.
+                Neutral flame architecture exhibits two distinct thermal zones. The central luminous core displays brilliant white-cyan radiance and extends minimally from the torch opening. Surrounding this central zone lies the outer thermal envelope, characterized by darker coloration and reduced luminosity. This flame configuration maintains chemical equilibrium, making it suitable for steel fabrication, thermal treatment, and sectioning operations. A subtle reducing microzone exists anterior to the central luminous core. Though visually subtle and challenging to identify, this zone provides the essential reducing environment enabling steel joining without chemical flux additives.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
               <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame (Right)</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                By increasing the oxygen flow slightly beyond the point where the secondary zone disappears one will obtain an oxidizing flame (with excess oxygen). The flame will be shorter and sharper than the neutral flame, with a shorter, more pointed inner cone. This flame is slightly hotter than the neutral flame, and is used for welding cast iron, brass, bronze and zinc alloys, and for some brazing alloys.
+                Oxidizing flame conditions develop when oxygen supply is incrementally elevated beyond the threshold where the secondary thermal zone vanishes. This flame configuration exhibits reduced overall length and enhanced sharpness compared to neutral conditions, with a more compact and acutely tapered central cone. Thermal output marginally exceeds neutral flame temperatures, establishing suitability for ferrous casting fabrication, copper-based alloy joining, zinc-containing alloys, and specialized brazing applications.
               </p>
             </div>
             
             <div className="bg-stone-800/50 p-4 rounded border-l-4 border-yellow-500">
               <h4 className="text-yellow-300 font-bold mb-2">Carburizing Flame</h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                The carburizing flame has an excess of acetylene, and is recognized by a secondary flame zone between the inner cone and the flame envelope. This zone is less bright and whiter in colour than the inner cone, but is considerably brighter than the flame envelope. This soft flame (also called a reducing flame) is used for welding of aluminium and aluminium alloys, and for soft soldering.
+                Carburizing flame characteristics arise from acetylene surplus conditions, identifiable by an intermediate thermal zone positioned between the central cone and outer envelope. This intermediate zone exhibits diminished luminosity and pale coloration relative to the central cone, yet maintains considerably greater brightness than the peripheral envelope. This gentle flame configuration (alternatively termed a reducing flame) proves advantageous for aluminum and aluminum-based alloy joining and for low-temperature soldering operations.
               </p>
             </div>
           </div>
@@ -1026,7 +1026,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border-l-4 border-blue-400">
             <h4 className="text-blue-300 font-bold mb-2">Neutral Flame Image Description</h4>
             <p className="text-stone-300 text-sm leading-relaxed">
-              Two distinct zones may be seen in the neutral flame. The inner core of the flame has a bright white-bluish light and extends only a short distance from the tip. Around this inner cone is the flame envelope which is darker and less intensely blue. This flame is metallurgically neutral, and is used for welding, heating and cutting of steel. There is also a transparent reducing zone in front of the white inner cone. It is difficult to distinguish but it is the main factor for welding steel without a fluxing agent.
+              Neutral flame morphology reveals two distinct thermal stratifications. The central luminous zone emits brilliant white-cyan radiation and occupies minimal distance from the torch aperture. The surrounding thermal mantle displays subdued coloration and reduced radiance intensity. This equilibrium flame configuration enables metallurgically neutral operations, facilitating steel joining, thermal processing, and sectioning without chemical modification. A subtle reducing microzone precedes the central luminous region. Though visually elusive and perceptually challenging, this zone establishes the reducing chemical environment essential for flux-free steel joining operations.
             </p>
           </div>
           
@@ -1041,7 +1041,7 @@ function ScieEquipTab() {
           <div className="bg-stone-800/50 p-4 rounded border-l-4 border-cyan-400">
             <h4 className="text-cyan-300 font-bold mb-2">Oxidizing Flame Image Description</h4>
             <p className="text-stone-300 text-sm leading-relaxed">
-              By increasing the oxygen flow slightly beyond the point where the secondary zone disappears one will obtain an oxidizing flame (with excess oxygen). The flame will be shorter and sharper than the neutral flame, with a shorter, more pointed inner cone. This flame is slightly hotter than the neutral flame, and is used for welding cast iron, brass, bronze and zinc alloys, and for some brazing alloys.
+              Oxidizing flame manifestation occurs through incremental oxygen augmentation beyond the secondary zone elimination threshold. This flame exhibits abbreviated overall extent and intensified sharpness relative to neutral configurations, featuring a diminished and acutely tapered central cone. Thermal intensity marginally surpasses neutral flame output, establishing applicability for ferrous casting joining, copper-based alloy fabrication, zinc-containing alloy operations, and specialized brazing procedures.
             </p>
           </div>
           
