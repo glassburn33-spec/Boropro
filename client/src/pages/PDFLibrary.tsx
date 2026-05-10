@@ -332,8 +332,8 @@ export default function PDFLibrary() {
                 {displayLibrary.map((pdf) => (
                   <div
                     key={pdf.id}
-                    onClick={() => setSelectedPDF(pdf)}
-                    className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all cursor-pointer flex items-center justify-between ${
+                    onClick={() => !selectMode && setSelectedPDF(pdf)}
+                    className={`rounded-lg border p-3 backdrop-blur-sm text-left transition-all ${selectMode ? 'cursor-default' : 'cursor-pointer'} flex items-center justify-between ${
                       selectedPDF?.id === pdf.id
                         ? "border-amber-500 bg-amber-500/10"
                         : "border-white/10 bg-white/5 hover:border-amber-500/50"
