@@ -5,7 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import LogoHome from "./pages/LogoHome";
-import Home from "./pages/Home";
+import GlassScience from "./pages/GlassScience";
 import FlameChemistryCharacterization from "./pages/FlameSimulator";
 import ColorDatabase from "./pages/ColorPicker";
 import KilnLog from "./pages/FiringTracker";
@@ -19,7 +19,7 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={LogoHome} />
-      <Route path={"/explore"} component={Home} />
+      <Route path={"/explore"} component={GlassScience} />
       <Route path={"/flame-simulator"} component={FlameChemistryCharacterization} />
       <Route path={"/color-picker"} component={ColorDatabase} />
       <Route path={"/firing-tracker"} component={KilnLog} />
