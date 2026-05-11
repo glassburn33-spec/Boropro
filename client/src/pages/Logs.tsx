@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle, Palette } from "lucide-react";
 import { toast } from "sonner";
 import { ColoredGlassJar } from "@/components/ColoredGlassJar";
+import jsPDF from 'jspdf';
 
 function getColorNameFromHex(hex: string): string {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -847,93 +848,51 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           try {
-                            // Generate PDF from log data
-                            const doc = new (window as any).jsPDF();
-                            const pageWidth = doc.internal.pageSize.getWidth();
-                            const pageHeight = doc.internal.pageSize.getHeight();
+                            // Generate simple PDF from log data
+                            const doc = new jsPDF();
                             let yPosition = 20;
 
                             // Title
-                            doc.setFontSize(20);
-                            doc.setTextColor(0, 0, 0);
-                            doc.text('Kiln Log Report', pageWidth / 2, yPosition, { align: 'center' });
-                            yPosition += 15;
-
-                            // Log name
-                            doc.setFontSize(14);
-                            doc.setTextColor(50, 50, 50);
-                            doc.text(`Log: ${log.name}`, 20, yPosition);
+                            doc.setFontSize(18);
+                            doc.text(`Kiln Log: ${log.name}`, 20, yPosition);
                             yPosition += 10;
 
-                            // Metadata
-                            doc.setFontSize(11);
-                            doc.setTextColor(80, 80, 80);
+                            // Date
+                            doc.setFontSize(10);
                             const createdDate = log.createdAt instanceof Date 
                               ? log.createdAt.toLocaleString() 
                               : new Date(log.createdAt).toLocaleString();
                             doc.text(`Created: ${createdDate}`, 20, yPosition);
-                            yPosition += 7;
+                            yPosition += 8;
 
+                            // Description
                             if (log.description) {
                               doc.text(`Description: ${log.description}`, 20, yPosition);
-                              yPosition += 7;
+                              yPosition += 8;
                             }
 
-                            // Temperature Schedule
+                            // Temperature and Time data
                             yPosition += 5;
                             doc.setFontSize(12);
-                            doc.setTextColor(0, 0, 0);
                             doc.text('Temperature Schedule:', 20, yPosition);
                             yPosition += 8;
 
                             doc.setFontSize(10);
-                            doc.setTextColor(60, 60, 60);
-                            
-                            const cellWidth = (pageWidth - 40) / 3;
-                            const cellHeight = 6;
-                            
-                            // Header
-                            const headers = ['Step', 'Temperature (°C)', 'Time (min)'];
-                            headers.forEach((header, colIndex) => {
-                              const xPos = 20 + colIndex * cellWidth;
-                              doc.setFillColor(200, 200, 200);
-                              doc.setTextColor(0, 0, 0);
-                              doc.setFont(undefined, 'bold');
-                              doc.rect(xPos, yPosition, cellWidth, cellHeight, 'F');
-                              doc.rect(xPos, yPosition, cellWidth, cellHeight);
-                              doc.text(header, xPos + 2, yPosition + 4, { maxWidth: cellWidth - 4 });
-                            });
-                            yPosition += cellHeight;
-
-                            // Data rows
                             for (let i = 0; i < Math.max(log.temperatures.length, log.times.length); i++) {
-                              const row = [`${i + 1}`, log.temperatures[i]?.toString() || '-', log.times[i]?.toString() || '-'];
-                              row.forEach((cell, colIndex) => {
-                                const xPos = 20 + colIndex * cellWidth;
-                                doc.setFillColor(245, 245, 245);
-                                doc.setTextColor(60, 60, 60);
-                                doc.setFont(undefined, 'normal');
-                                doc.rect(xPos, yPosition, cellWidth, cellHeight, 'F');
-                                doc.rect(xPos, yPosition, cellWidth, cellHeight);
-                                doc.text(cell, xPos + 2, yPosition + 4, { maxWidth: cellWidth - 4 });
-                              });
-                              yPosition += cellHeight;
+                              const temp = log.temperatures[i] || '-';
+                              const time = log.times[i] || '-';
+                              doc.text(`Step ${i + 1}: ${temp}°C for ${time} min`, 25, yPosition);
+                              yPosition += 6;
                             }
 
                             // Notes
                             if (log.notes) {
-                              yPosition += 10;
-                              if (yPosition > pageHeight - 30) {
-                                doc.addPage();
-                                yPosition = 20;
-                              }
+                              yPosition += 5;
                               doc.setFontSize(12);
-                              doc.setTextColor(0, 0, 0);
                               doc.text('Notes:', 20, yPosition);
                               yPosition += 8;
                               doc.setFontSize(10);
-                              doc.setTextColor(60, 60, 60);
-                              const notesLines = doc.splitTextToSize(log.notes, pageWidth - 40);
+                              const notesLines = doc.splitTextToSize(log.notes, 170);
                               doc.text(notesLines, 20, yPosition);
                             }
 
