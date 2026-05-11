@@ -381,3 +381,10 @@
 - [x] Delete the descriptive text under the Kiln Logs page title
 - [x] Keep only the title heading
 - [x] Verify all tests pass (80/80)
+
+
+## Add Glassmaker's Log Image and Rename Title
+- [x] Upload glasslogicon.png to webdev storage
+- [x] Add image to the right of the page title
+- [x] Rename "Kiln Logs" to "Logs"
+- [x] Verify all tests pass (80/80)
