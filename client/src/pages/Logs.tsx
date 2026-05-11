@@ -3,8 +3,40 @@ Logs Page - View and manage saved kiln logs with localStorage persistence
 */
 
 import { useState, useEffect } from "react";
-import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle } from "lucide-react";
+import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle, Palette } from "lucide-react";
 import { toast } from "sonner";
+import { ColoredGlassJar } from "@/components/ColoredGlassJar";
+
+function getColorNameFromHex(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  let hue = 0;
+  if (max === min) {
+    hue = 0;
+  } else if (max === rNorm) {
+    hue = ((gNorm - bNorm) / (max - min)) * 60;
+    if (hue < 0) hue += 360;
+  } else if (max === gNorm) {
+    hue = ((bNorm - rNorm) / (max - min)) * 60 + 120;
+  } else {
+    hue = ((rNorm - gNorm) / (max - min)) * 60 + 240;
+  }
+  if (hue >= 0 && hue < 15) return 'Red';
+  if (hue >= 15 && hue < 45) return 'Orange';
+  if (hue >= 45 && hue < 65) return 'Yellow';
+  if (hue >= 65 && hue < 150) return 'Green';
+  if (hue >= 150 && hue < 200) return 'Cyan';
+  if (hue >= 200 && hue < 260) return 'Blue';
+  if (hue >= 260 && hue < 290) return 'Purple';
+  if (hue >= 290 && hue < 330) return 'Magenta';
+  return 'Red';
+}
 
 interface SavedLog {
   id: string;
@@ -29,6 +61,8 @@ export default function Logs() {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [commentsLog, setCommentsLog] = useState<SavedLog | null>(null);
   const [editingComments, setEditingComments] = useState<string>("");
+  const [showColorWheelModal, setShowColorWheelModal] = useState(false);
+  const [colorWheelLog, setColorWheelLog] = useState<SavedLog | null>(null);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -582,6 +616,18 @@ export default function Logs() {
                       </button>
 
                       <button
+                        onClick={() => {
+                          setColorWheelLog(log);
+                          setShowColorWheelModal(true);
+                        }}
+                        className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
+                        title="View glass colors used"
+                      >
+                        <Palette className="w-4 h-4" />
+                        <span className="text-sm">Colors</span>
+                      </button>
+
+                      <button
                         onClick={() => handleOpenComments(log)}
                         className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                         title="View and edit comments"
@@ -795,6 +841,56 @@ export default function Logs() {
                 className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition-colors font-semibold"
               >
                 Save Comments
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Color Wheel Modal */}
+      {showColorWheelModal && colorWheelLog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-2xl w-full shadow-xl">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-purple-400">Glass Colors - {colorWheelLog.name}</h2>
+              <button
+                onClick={() => setShowColorWheelModal(false)}
+                className="text-stone-400 hover:text-stone-300 transition text-2xl"
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Colors Display */}
+            <div className="mb-6">
+              {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {colorWheelLog.selectedColors.map((color, index) => (
+                    <div key={index} className="flex flex-col items-center gap-2">
+                      <div className="w-16 h-16 rounded-lg border-2 border-stone-600 flex items-center justify-center bg-stone-800">
+                        <ColoredGlassJar color={color} size={60} />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm font-semibold text-stone-300">{getColorNameFromHex(color)}</p>
+                        <p className="text-xs text-stone-500">{color}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-stone-400 text-center py-8">No glass colors recorded for this log</p>
+              )}
+            </div>
+
+            {/* Close Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowColorWheelModal(false)}
+                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+              >
+                Close
               </button>
             </div>
           </div>

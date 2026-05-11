@@ -177,3 +177,9 @@
 - [x] Pass selectedColors from SavedSchedule to log data
 - [x] Apply custom color to log button styling (dynamic backgroundColor)
 - [x] Test color display in Firing Tracker tab (all 75 tests passing)
+
+## Results Color Wheel Button
+- [x] Add color wheel button to kiln log list items (purple-700 button with Palette icon)
+- [x] Create modal to display selected colors as ColoredGlassJar icons
+- [x] Show color names and hex values (grid layout with color name and hex)
+- [x] Test color wheel display in browser (all 75 tests passing)
