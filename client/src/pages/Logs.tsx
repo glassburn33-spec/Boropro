@@ -1354,7 +1354,7 @@ export default function Logs() {
                   <div className="text-amber-500 font-bold text-3xl">→</div>
                   <div className="flex flex-col items-center">
                     <div className="text-sm text-stone-400 mb-2">Annealed Result</div>
-                    {selectedAnnealedResultForComparison?.mode === 'blend' || blendMode === 'blend' ? (
+                    {selectedAnnealedResultForComparison?.mode === 'blend' ? (
                       <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
                         background: selectedAnnealedResultForComparison?.mode === 'blend'
                           ? `linear-gradient(135deg, ${selectedAnnealedResultForComparison.blendColors?.[0] || '#ffffff'} 0%, ${selectedAnnealedResultForComparison.blendColors?.[1] || '#ffffff'} 50%, ${selectedAnnealedResultForComparison.blendColors?.[2] || '#ffffff'} 100%)`
@@ -1367,7 +1367,7 @@ export default function Logs() {
                       </div>
                     )}
                     <p className="text-xs text-amber-500 font-semibold text-center">
-                      {selectedAnnealedResultForComparison?.mode === 'blend' || blendMode === 'blend'
+                      {selectedAnnealedResultForComparison?.mode === 'blend'
                         ? 'Blend Mix'
                         : getColorNameFromHex(selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}
                     </p>
