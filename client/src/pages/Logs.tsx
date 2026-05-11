@@ -536,27 +536,25 @@ export default function Logs() {
                     ${log.annealedColors.map((result) => `
                       <div style="border: 1px solid #d97706; border-radius: 4px; padding: 12px; background-color: #292524; margin-bottom: 8px;">
                         <div style="color: #fbbf24; font-size: 12px; font-weight: bold; margin-bottom: 8px;">Saved Result: ${result.mode === 'blend' ? 'Blend' : 'Solid'}</div>
-                        ${log.selectedColors?.map((color, index) => `
-                          <div style="display: flex; align-items: center; gap: 12px; padding: 8px; background-color: #1c1917; border-radius: 3px; margin-bottom: 6px;">
-                            <div style="text-align: center;">
-                              <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Glass ${index + 1}</div>
-                              <div style="width: 25px; height: 25px; background-color: ${color}; border: 1px solid #d97706; border-radius: 2px;"></div>
-                            </div>
-                            <div style="color: #fbbf24; font-weight: bold; font-size: 12px;">→</div>
-                            <div style="text-align: center;">
-                              <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Result</div>
-                              ${result.mode === 'blend' ? `
-                                <div style="width: 25px; height: 25px; background: linear-gradient(135deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
-                              ` : `
-                                <div style="width: 25px; height: 25px; background-color: ${result.color}; border: 1px solid #d97706; border-radius: 2px;"></div>
-                              `}
-                            </div>
-                            <div style="flex: 1; margin-left: 8px;">
-                              <p style="margin: 0; color: #fbbf24; font-size: 10px;"><strong>Input:</strong> ${getColorNameFromHex(color)}</p>
-                              <p style="margin: 0; color: #d97706; font-size: 10px;"><strong>Output:</strong> ${result.mode === 'blend' ? 'Blend' : getColorNameFromHex(result.color)}</p>
-                            </div>
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 8px; background-color: #1c1917; border-radius: 3px; margin-bottom: 6px;">
+                          <div style="text-align: center;">
+                            <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Glass</div>
+                            <div style="width: 25px; height: 25px; background-color: ${log.selectedColors?.[0] || '#ffffff'}; border: 1px solid #d97706; border-radius: 2px;"></div>
                           </div>
-                        `).join('')}
+                          <div style="color: #fbbf24; font-weight: bold; font-size: 12px;">→</div>
+                          <div style="text-align: center;">
+                            <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Result</div>
+                            ${result.mode === 'blend' ? `
+                              <div style="width: 25px; height: 25px; background: linear-gradient(135deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
+                            ` : `
+                              <div style="width: 25px; height: 25px; background-color: ${result.color}; border: 1px solid #d97706; border-radius: 2px;"></div>
+                            `}
+                          </div>
+                          <div style="flex: 1; margin-left: 8px;">
+                            <p style="margin: 0; color: #fbbf24; font-size: 10px;"><strong>Input:</strong> ${log.selectedColors?.[0] ? getColorNameFromHex(log.selectedColors[0]) : 'Unknown'}</p>
+                            <p style="margin: 0; color: #d97706; font-size: 10px;"><strong>Output:</strong> ${result.mode === 'blend' ? 'Blend' : getColorNameFromHex(result.color)}</p>
+                          </div>
+                        </div>
                       </div>
                     `).join('')}
                   </div>
