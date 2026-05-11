@@ -135,3 +135,90 @@
 [2026-05-11T15:25:23.096Z] at async open (node:internal/fs/promises:638:25)
 [2026-05-11T15:25:23.096Z] at async Object.readFile (node:internal/fs/promises:1242:14)
 [2026-05-11T15:25:23.096Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:34:03.094Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:34:03.095Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:34:03.095Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:34:03.095Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:24.484Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:24.484Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:24.485Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:24.485Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.034Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.034Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.035Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.035Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.148Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.149Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.149Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.149Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.175Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.175Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.176Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.176Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.288Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.289Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.290Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.290Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.353Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.354Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.354Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.355Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:25.404Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:25.405Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:25.405Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:25.406Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:28.304Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:28.305Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:28.306Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:28.306Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:28.518Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:28.519Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:28.519Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:28.520Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:28.520Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:28.521Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:28.521Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:28.521Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:28.727Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:28.728Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:28.728Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:28.728Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:28.742Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:28.743Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:28.743Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:28.744Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:37:42.415Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:37:42.416Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:37:42.416Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:37:42.417Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:39:41.993Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:39:41.994Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:39:41.994Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:39:41.995Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:40:24.136Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:40:24.137Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:40:24.137Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:40:24.138Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:41:10.117Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:41:10.118Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:41:10.118Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:41:10.118Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:41:28.184Z] Dev server process group stopped
+[2026-05-11T15:41:28.187Z] ELIFECYCLE  Command failed.
+[2026-05-11T15:41:28.245Z] Dev server exited with code -15
+[2026-05-11T15:41:31.207Z] Starting dev server with command: pnpm run dev
+[2026-05-11T15:41:32.589Z] [ERR_PNPM_NO_PKG_MANIFEST] No package.json found in /home/ubuntu/boro_kiln_research
+[2026-05-11T15:41:32.642Z] [ERROR] Command failed with exit code 1: pnpm install
+[2026-05-11T15:41:32.642Z] 
+[2026-05-11T15:41:32.643Z] pnpm: Command failed with exit code 1: pnpm install
+[2026-05-11T15:41:32.643Z] at getFinalError (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:28550:14)
+[2026-05-11T15:41:32.643Z] at makeError (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:30857:21)
+[2026-05-11T15:41:32.644Z] at getSyncResult (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:32701:10)
+[2026-05-11T15:41:32.644Z] at spawnSubprocessSync (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:32661:14)
+[2026-05-11T15:41:32.644Z] at execaCoreSync (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:32591:23)
+[2026-05-11T15:41:32.645Z] at callBoundExeca (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:35119:23)
+[2026-05-11T15:41:32.645Z] at boundExeca (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:35096:49)
+[2026-05-11T15:41:32.646Z] at sync (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:35251:14)
+[2026-05-11T15:41:32.646Z] at runPnpmCli (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:208879:5)
+[2026-05-11T15:41:32.646Z] at runDepsStatusCheck (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:210581:7)
+[2026-05-11T15:41:32.665Z] Dev server exited with code 1
