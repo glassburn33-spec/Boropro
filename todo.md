@@ -470,3 +470,6 @@
 - [x] Add comprehensive tests for button state logic (6 new tests)
 - [x] Confirm button is disabled only when temperature is invalid
 - [x] All 19 temperature validation tests passing
+- [x] Fixed: Auto-convert temperatures when switching between °C and °F units
+- [x] Added useEffect to handle temperature conversion on unit change
+- [x] Calculate button now enabled immediately after switching to Fahrenheit with valid converted values
