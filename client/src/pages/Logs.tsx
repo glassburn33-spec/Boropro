@@ -932,10 +932,10 @@ export default function Logs() {
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {colorWheelLog.selectedColors.map((color, index) => (
-                    <div key={index} className="flex justify-center">
+                    <div key={index} className="flex flex-col items-center">
                       <button
                         onClick={() => setSelectedGlassColor(color)}
-                        className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all ${
+                        className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all mb-2 ${
                           selectedGlassColor === color
                             ? 'border-amber-500 ring-2 ring-amber-400 scale-110'
                             : 'border-stone-600 hover:border-stone-500'
@@ -943,6 +943,7 @@ export default function Logs() {
                       >
                         <ColoredGlassJar color={color} size={60} />
                       </button>
+                      <p className="text-xs text-amber-500 text-center font-semibold">{getColorNameFromHex(color)}</p>
                     </div>
                   ))}
                 </div>
@@ -983,16 +984,18 @@ export default function Logs() {
                 <div className="flex items-center justify-center gap-8 p-6 bg-stone-800 rounded">
                   <div className="flex flex-col items-center">
                     <div className="text-sm text-stone-400 mb-2">Selected Glass Color</div>
-                    <div className="w-20 h-20 rounded-lg border-2 border-stone-600 flex items-center justify-center" style={{ backgroundColor: selectedGlassColor }}>
+                    <div className="w-20 h-20 rounded-lg border-2 border-stone-600 flex items-center justify-center mb-2" style={{ backgroundColor: selectedGlassColor }}>
                       <ColoredGlassJar color={selectedGlassColor} size={60} />
                     </div>
+                    <p className="text-xs text-amber-500 font-semibold text-center">{getColorNameFromHex(selectedGlassColor)}</p>
                   </div>
                   <div className="text-amber-500 font-bold text-3xl">→</div>
                   <div className="flex flex-col items-center">
                     <div className="text-sm text-stone-400 mb-2">Annealed Result</div>
-                    <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
+                    <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
                       <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
                     </div>
+                    <p className="text-xs text-amber-500 font-semibold text-center">{getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}</p>
                   </div>
                 </div>
               </div>

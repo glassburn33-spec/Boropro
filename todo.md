@@ -217,3 +217,8 @@
 - [x] Display each glass color with arrow to annealed result (30x30px color boxes with arrow)
 - [x] Format comparator to match PDF styling (amber/gold colors, dark backgrounds)
 - [x] Test PDF export with color comparator in browser (all 75 tests passing)
+
+## Color Name Display in Modal
+- [x] Add color name labels to each glass color icon in color wheel modal (amber text below icons)
+- [x] Display color names in comparison section (below both glass and annealed colors)
+- [x] Test color name display in browser (all 75 tests passing)
