@@ -29,7 +29,7 @@ export default function KilnLog() {
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
               Kiln Log
             </a>
-            <a href="/pdf-library" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="#" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">

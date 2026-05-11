@@ -1508,7 +1508,7 @@ export default function AnealingProfileEditor() {
                           Delete
                         </button>
                         <button
-                          onClick={() => handleSaveScheduleToPDFLibrary(schedule)}
+                          onClick={() => toast.error("Feature removed")}
                           disabled={saveGeneratedMutation.isPending}
                           className="px-3 py-1 bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white text-sm rounded transition-colors font-semibold"
                         >
