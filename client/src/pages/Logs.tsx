@@ -1107,7 +1107,7 @@ export default function Logs() {
                 )}
               </div>
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2 border border-stone-700 rounded-lg">
                   {colorWheelLog.selectedColors.map((color, index) => (
                     <div key={index} className="flex flex-col items-center">
                       <div className="relative">
@@ -1359,7 +1359,7 @@ export default function Logs() {
 
             {/* Comparison Section */}
             {(tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison) && selectedGlassColor && (
-              <div className="mb-6 border-t border-stone-700 pt-6">
+              <div className="mb-6 border-t border-stone-700 pt-6 max-h-96 overflow-y-auto">
                 <h3 className="text-lg font-bold text-purple-400 mb-4">Color Comparison</h3>
                 <div className="flex items-center justify-center gap-8 p-6 bg-stone-800 rounded">
                   <div className="flex flex-col items-center">
