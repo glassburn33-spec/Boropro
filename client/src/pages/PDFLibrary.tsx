@@ -8,6 +8,7 @@ import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import jsPDF from "jspdf";
 
 
 interface PDFItem {
@@ -1264,7 +1265,125 @@ export default function LogLibrary() {
                         <button className="px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold rounded transition-colors">
                           Results
                         </button>
-                        <button className="px-3 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded transition-colors">
+                        <button
+                          onClick={() => {
+                            try {
+                              const doc = new jsPDF();
+                              const pageWidth = doc.internal.pageSize.getWidth();
+                              const pageHeight = doc.internal.pageSize.getHeight();
+                              const margin = 15;
+                              let yPosition = margin;
+
+                              // Header with black background
+                              doc.setFillColor(0, 0, 0);
+                              doc.rect(0, 0, pageWidth, 40, 'F');
+                              
+                              // Title
+                              doc.setTextColor(255, 180, 0);
+                              doc.setFontSize(20);
+                              doc.text(log.filename, margin, 15);
+                              
+                              // Subtitle
+                              doc.setTextColor(255, 180, 0);
+                              doc.setFontSize(10);
+                              doc.text(`Saved: ${new Date(log.savedAt).toLocaleDateString()}`, margin, 28);
+                              
+                              yPosition = 50;
+
+                              // Title Section
+                              doc.setTextColor(0, 0, 0);
+                              doc.setFontSize(16);
+                              doc.setFont('helvetica', 'bold');
+                              doc.text('Annealing Schedule Log', margin, yPosition);
+                              yPosition += 8;
+                              doc.setFontSize(10);
+                              doc.setFont('helvetica', 'normal');
+                              doc.text('Temperature Profile Report', margin, yPosition);
+                              yPosition += 12;
+
+                              // Temperature Profile Chart
+                              if (log.temperatures && log.temperatures.length > 0) {
+                                doc.setFontSize(12);
+                                doc.setFont('helvetica', 'bold');
+                                doc.text('Temperature Profile', margin, yPosition);
+                                yPosition += 8;
+
+                                // Create a simple chart representation
+                                const chartData = log.temperatures.map((temp: number, idx: number) => ({
+                                  time: log.times[idx] || idx,
+                                  temperature: temp
+                                }));
+
+                                // Draw a simple line chart
+                                const chartWidth = pageWidth - 2 * margin;
+                                const chartHeight = 60;
+                                const chartX = margin;
+                                const chartY = yPosition;
+
+                                // Chart border
+                                doc.setDrawColor(200, 200, 200);
+                                doc.rect(chartX, chartY, chartWidth, chartHeight);
+
+                                // Plot points and lines
+                                if (chartData.length > 0) {
+                                  const maxTemp = Math.max(...chartData.map((d: any) => d.temperature));
+                                  const maxTime = Math.max(...chartData.map((d: any) => d.time));
+                                  
+                                  doc.setDrawColor(220, 38, 38);
+                                  doc.setLineWidth(1);
+                                  
+                                  for (let i = 0; i < chartData.length - 1; i++) {
+                                    const x1 = chartX + (chartData[i].time / maxTime) * chartWidth;
+                                    const y1 = chartY + chartHeight - (chartData[i].temperature / maxTemp) * chartHeight;
+                                    const x2 = chartX + (chartData[i + 1].time / maxTime) * chartWidth;
+                                    const y2 = chartY + chartHeight - (chartData[i + 1].temperature / maxTemp) * chartHeight;
+                                    doc.line(x1, y1, x2, y2);
+                                  }
+                                }
+
+                                yPosition += chartHeight + 8;
+                              }
+
+                              // Notes Section
+                              if (log.notes) {
+                                doc.setFontSize(12);
+                                doc.setFont('helvetica', 'bold');
+                                doc.text('Materials & Notes', margin, yPosition);
+                                yPosition += 6;
+                                
+                                doc.setFontSize(10);
+                                doc.setFont('helvetica', 'normal');
+                                doc.setTextColor(100, 100, 100);
+                                const notesLines = doc.splitTextToSize(log.notes, pageWidth - 2 * margin);
+                                doc.text(notesLines, margin, yPosition);
+                                yPosition += notesLines.length * 5 + 4;
+                              }
+
+                              // Results Section
+                              if (log.results) {
+                                doc.setTextColor(0, 0, 0);
+                                doc.setFontSize(12);
+                                doc.setFont('helvetica', 'bold');
+                                doc.text('Results & Observations', margin, yPosition);
+                                yPosition += 6;
+                                
+                                doc.setFontSize(10);
+                                doc.setFont('helvetica', 'normal');
+                                doc.setTextColor(100, 100, 100);
+                                const resultsLines = doc.splitTextToSize(log.results, pageWidth - 2 * margin);
+                                doc.text(resultsLines, margin, yPosition);
+                              }
+
+                              // Download PDF
+                              doc.save(`${log.filename}.pdf`);
+                              toast.success('PDF exported successfully!');
+                            } catch (error) {
+                              console.error('Failed to export PDF:', error);
+                              toast.error('Failed to export PDF');
+                            }
+                          }}
+                          className="px-3 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded transition-colors"
+                        >
                           Export PDF
                         </button>
                         <button
