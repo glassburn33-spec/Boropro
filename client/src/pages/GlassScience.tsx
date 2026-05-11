@@ -7,7 +7,6 @@ Dark theme for studio environment, large touch targets for gloved hands
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "wouter";
 import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X } from "lucide-react";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
 import { GlassRodsIcon } from "@/components/icons/GlassRodsIcon";
 import { CalculatorIcon } from "@/components/icons/CalculatorIcon";
@@ -34,7 +33,6 @@ type TabType = "studio" | "scieequip" | "calculator" | "colorscience";
 export default function Home() {
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
   const [searchParams] = useSearchParams();
   const tabParam = searchParams.get('tab') as TabType | null;
 

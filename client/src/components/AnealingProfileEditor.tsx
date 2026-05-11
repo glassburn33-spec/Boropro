@@ -8,7 +8,7 @@ import { useState, useMemo } from 'react';
 import { AlertCircle, Download, Save } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { trpc } from '@/lib/trpc';
+import { logsStorage } from '@/lib/localStorage';
 import { toast } from 'sonner';
 import { generateKilnLogPDF, pdfToBase64, generateAnealingSchedulePDF } from '@/lib/pdfUtils';
 import type { KilnLogPDFData, AnealingSchedulePDFData } from '@/lib/pdfUtils';
@@ -399,8 +399,8 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
 export default function AnealingProfileEditor() {
 
   
-  // tRPC mutation for saving to PDF library
-  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
+  // State for save button
+  const [isSaving, setIsSaving] = useState(false);
   
   const [inputs, setInputs] = useState<StageInputs>({
     stage1: { startTemp: 20, targetTemp: 620, duration: 30 },
@@ -857,13 +857,21 @@ export default function AnealingProfileEditor() {
       const pdf = generateAnealingSchedulePDF(pdfData);
       const base64 = await pdfToBase64(pdf);
       
-      // Save to library
-      await saveGeneratedMutation.mutateAsync({
+      // Save to localStorage
+      const newLog = {
+        id: Date.now().toString(),
         filename: `${schedule.name}_klog.pdf`,
-        fileBase64: base64,
         temperatures: temperatures,
         times: times,
-      });
+        savedAt: Date.now(),
+        notes: schedule.notes || '',
+        results: schedule.results || '',
+        color: '#dc2626',
+      };
+      logsStorage.save(newLog);
+      
+      // Notify listeners
+      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: logsStorage.getAll() }));
       
       toast.success('Schedule saved to PDF Library');
     } catch (error) {
@@ -1509,10 +1517,10 @@ export default function AnealingProfileEditor() {
                         </button>
                         <button
                           onClick={() => handleSaveScheduleToPDFLibrary(schedule)}
-                          disabled={saveGeneratedMutation.isPending}
+                          disabled={isSaving}
                           className="px-3 py-1 bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white text-sm rounded transition-colors font-semibold"
                         >
-                          {saveGeneratedMutation.isPending ? 'Saving...' : 'Save to PDF Library'}
+                          {isSaving ? 'Saving...' : 'Save to PDF Library'}
                         </button>
                         <button
                           onClick={() => {
