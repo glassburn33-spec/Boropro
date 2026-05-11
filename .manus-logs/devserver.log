@@ -1,0 +1,137 @@
+[2026-05-11T08:20:52.045Z] 4:20:52 AM [vite] changed tsconfig file detected: /home/ubuntu/boro_kiln_research/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2026-05-11T08:20:52.052Z] 4:20:52 AM [vite] (client) page reload public/.gitkeep
+[2026-05-11T08:20:52.053Z] 4:20:52 AM [vite] (client) page reload public/__manus__/debug-collector.js
+[2026-05-11T08:20:52.054Z] 4:20:52 AM [vite] (client) page reload index.html
+[2026-05-11T08:20:52.054Z] 4:20:52 AM [vite] (client) page reload src/App.tsx
+[2026-05-11T08:20:52.054Z] 4:20:52 AM [vite] (client) page reload src/const.ts
+[2026-05-11T08:20:52.054Z] 4:20:52 AM [vite] (client) hmr update /src/index.css
+[2026-05-11T08:20:52.055Z] 4:20:52 AM [vite] (client) page reload src/main.tsx
+[2026-05-11T08:20:52.056Z] 4:20:52 AM [vite] (client) page reload src/_core/hooks/useAuth.ts
+[2026-05-11T08:20:52.056Z] 4:20:52 AM [vite] (client) page reload src/contexts/ThemeContext.tsx
+[2026-05-11T08:20:52.057Z] 4:20:52 AM [vite] (client) page reload src/components/AIChatBox.tsx
+[2026-05-11T08:20:52.057Z] 4:20:52 AM [vite] (client) page reload src/components/Accordion.tsx
+[2026-05-11T08:20:52.057Z] 4:20:52 AM [vite] (client) page reload src/components/AnealingProfileEditor.test.ts
+[2026-05-11T08:20:52.058Z] 4:20:52 AM [vite] (client) page reload src/components/AnealingProfileEditor.tsx
+[2026-05-11T08:20:52.058Z] 4:20:52 AM [vite] (client) page reload src/components/ColorFamilyList.tsx
+[2026-05-11T08:20:52.058Z] 4:20:52 AM [vite] (client) page reload src/components/ColorWheelPicker.tsx
+[2026-05-11T08:20:52.059Z] 4:20:52 AM [vite] (client) page reload src/components/ColoredGlassJar.tsx
+[2026-05-11T08:20:52.059Z] 4:20:52 AM [vite] (client) page reload src/components/DashboardLayout.tsx
+[2026-05-11T08:20:52.060Z] 4:20:52 AM [vite] (client) page reload src/components/DashboardLayoutSkeleton.tsx
+[2026-05-11T08:20:52.061Z] 4:20:52 AM [vite] (client) page reload src/components/DragonTearsBar.tsx
+[2026-05-11T08:20:52.062Z] 4:20:52 AM [vite] (client) page reload src/components/DragonTearsInfoPanel.tsx
+[2026-05-11T08:20:52.062Z] 4:20:52 AM [vite] (client) page reload src/components/ErrorBoundary.tsx
+[2026-05-11T08:20:52.062Z] 4:20:52 AM [vite] (client) page reload src/components/FeaturedColorBar.tsx
+[2026-05-11T08:20:52.063Z] 4:20:52 AM [vite] (client) page reload src/components/ManusDialog.tsx
+[2026-05-11T08:20:52.063Z] 4:20:52 AM [vite] (client) page reload src/components/Map.tsx
+[2026-05-11T08:20:52.064Z] 4:20:52 AM [vite] (client) page reload src/components/PDFViewer.tsx
+[2026-05-11T08:20:52.064Z] 4:20:52 AM [vite] (client) page reload src/components/SaveScheduleModal.test.ts
+[2026-05-11T08:20:52.064Z] 4:20:52 AM [vite] (client) page reload src/components/SaveScheduleModal.tsx
+[2026-05-11T08:20:52.065Z] 4:20:52 AM [vite] (client) page reload src/components/SearchResults.tsx
+[2026-05-11T08:20:52.065Z] 4:20:52 AM [vite] (client) page reload src/components/ThermochromismSimulator.tsx
+[2026-05-11T08:20:52.066Z] 4:20:52 AM [vite] (client) page reload src/components/icons/CalculatorIcon.tsx
+[2026-05-11T08:20:52.066Z] 4:20:52 AM [vite] (client) page reload src/components/icons/EquipmentIcon.tsx
+[2026-05-11T08:20:52.066Z] 4:20:52 AM [vite] (client) page reload src/components/icons/GlassRodsIcon.tsx
+[2026-05-11T08:20:52.068Z] 4:20:52 AM [vite] (client) page reload src/components/icons/StudioScienceIcon.tsx
+[2026-05-11T08:20:52.068Z] 4:20:52 AM [vite] (client) page reload src/components/ui/accordion.tsx
+[2026-05-11T08:20:52.068Z] 4:20:52 AM [vite] (client) page reload src/components/ui/alert-dialog.tsx
+[2026-05-11T08:20:52.069Z] 4:20:52 AM [vite] (client) page reload src/components/ui/alert.tsx
+[2026-05-11T08:20:52.069Z] 4:20:52 AM [vite] (client) page reload src/components/ui/aspect-ratio.tsx
+[2026-05-11T08:20:52.069Z] 4:20:52 AM [vite] (client) page reload src/components/ui/avatar.tsx
+[2026-05-11T08:20:52.070Z] 4:20:52 AM [vite] (client) page reload src/components/ui/badge.tsx
+[2026-05-11T08:20:52.072Z] 4:20:52 AM [vite] (client) page reload src/components/ui/breadcrumb.tsx
+[2026-05-11T08:20:52.073Z] 4:20:52 AM [vite] (client) page reload src/components/ui/button-group.tsx
+[2026-05-11T08:20:52.074Z] 4:20:52 AM [vite] (client) page reload src/components/ui/button.tsx
+[2026-05-11T08:20:52.076Z] 4:20:52 AM [vite] (client) page reload src/components/ui/calendar.tsx
+[2026-05-11T08:20:52.077Z] 4:20:52 AM [vite] (client) page reload src/components/ui/card.tsx
+[2026-05-11T08:20:52.078Z] 4:20:52 AM [vite] (client) page reload src/components/ui/carousel.tsx
+[2026-05-11T08:20:52.078Z] 4:20:52 AM [vite] (client) page reload src/components/ui/chart.tsx
+[2026-05-11T08:20:52.079Z] 4:20:52 AM [vite] (client) page reload src/components/ui/checkbox.tsx
+[2026-05-11T08:20:52.079Z] 4:20:52 AM [vite] (client) page reload src/components/ui/collapsible.tsx
+[2026-05-11T08:20:52.080Z] 4:20:52 AM [vite] (client) page reload src/components/ui/command.tsx
+[2026-05-11T08:20:52.080Z] 4:20:52 AM [vite] (client) page reload src/components/ui/context-menu.tsx
+[2026-05-11T08:20:52.080Z] 4:20:52 AM [vite] (client) page reload src/components/ui/dialog.tsx
+[2026-05-11T08:20:52.081Z] 4:20:52 AM [vite] (client) page reload src/components/ui/drawer.tsx
+[2026-05-11T08:20:52.081Z] 4:20:52 AM [vite] (client) page reload src/components/ui/dropdown-menu.tsx
+[2026-05-11T08:20:52.081Z] 4:20:52 AM [vite] (client) page reload src/components/ui/empty.tsx
+[2026-05-11T08:20:52.082Z] 4:20:52 AM [vite] (client) page reload src/components/ui/field.tsx
+[2026-05-11T08:20:52.082Z] 4:20:52 AM [vite] (client) page reload src/components/ui/form.tsx
+[2026-05-11T08:20:52.084Z] 4:20:52 AM [vite] (client) page reload src/components/ui/hover-card.tsx
+[2026-05-11T08:20:52.084Z] 4:20:52 AM [vite] (client) page reload src/components/ui/input-group.tsx
+[2026-05-11T08:20:52.085Z] 4:20:52 AM [vite] (client) page reload src/components/ui/input-otp.tsx
+[2026-05-11T08:20:52.085Z] 4:20:52 AM [vite] (client) page reload src/components/ui/input.tsx
+[2026-05-11T08:20:52.085Z] 4:20:52 AM [vite] (client) page reload src/components/ui/item.tsx
+[2026-05-11T08:20:52.086Z] 4:20:52 AM [vite] (client) page reload src/components/ui/kbd.tsx
+[2026-05-11T08:20:52.086Z] 4:20:52 AM [vite] (client) page reload src/components/ui/label.tsx
+[2026-05-11T08:20:52.086Z] 4:20:52 AM [vite] (client) page reload src/components/ui/menubar.tsx
+[2026-05-11T08:20:52.087Z] 4:20:52 AM [vite] (client) page reload src/components/ui/navigation-menu.tsx
+[2026-05-11T08:20:52.087Z] 4:20:52 AM [vite] (client) page reload src/components/ui/pagination.tsx
+[2026-05-11T08:20:52.087Z] 4:20:52 AM [vite] (client) page reload src/components/ui/popover.tsx
+[2026-05-11T08:20:52.088Z] 4:20:52 AM [vite] (client) page reload src/components/ui/progress.tsx
+[2026-05-11T08:20:52.088Z] 4:20:52 AM [vite] (client) page reload src/components/ui/radio-group.tsx
+[2026-05-11T08:20:52.089Z] 4:20:52 AM [vite] (client) page reload src/components/ui/resizable.tsx
+[2026-05-11T08:20:52.089Z] 4:20:52 AM [vite] (client) page reload src/components/ui/scroll-area.tsx
+[2026-05-11T08:20:52.090Z] 4:20:52 AM [vite] (client) page reload src/components/ui/select.tsx
+[2026-05-11T08:20:52.090Z] 4:20:52 AM [vite] (client) page reload src/components/ui/separator.tsx
+[2026-05-11T08:20:52.091Z] 4:20:52 AM [vite] (client) page reload src/components/ui/sheet.tsx
+[2026-05-11T08:20:52.091Z] 4:20:52 AM [vite] (client) page reload src/components/ui/sidebar.tsx
+[2026-05-11T08:20:52.091Z] 4:20:52 AM [vite] (client) page reload src/components/ui/skeleton.tsx
+[2026-05-11T08:20:52.092Z] 4:20:52 AM [vite] (client) page reload src/components/ui/slider.tsx
+[2026-05-11T08:20:52.092Z] 4:20:52 AM [vite] (client) page reload src/components/ui/sonner.tsx
+[2026-05-11T08:20:52.092Z] 4:20:52 AM [vite] (client) page reload src/components/ui/spinner.tsx
+[2026-05-11T08:20:52.093Z] 4:20:52 AM [vite] (client) page reload src/components/ui/switch.tsx
+[2026-05-11T08:20:52.093Z] 4:20:52 AM [vite] (client) page reload src/components/ui/table.tsx
+[2026-05-11T08:20:52.094Z] 4:20:52 AM [vite] (client) page reload src/components/ui/tabs.tsx
+[2026-05-11T08:20:52.094Z] 4:20:52 AM [vite] (client) page reload src/components/ui/textarea.tsx
+[2026-05-11T08:20:52.094Z] 4:20:52 AM [vite] (client) page reload src/components/ui/toggle-group.tsx
+[2026-05-11T08:20:52.095Z] 4:20:52 AM [vite] (client) page reload src/components/ui/toggle.tsx
+[2026-05-11T08:20:52.095Z] 4:20:52 AM [vite] (client) page reload src/components/ui/tooltip.tsx
+[2026-05-11T08:20:52.096Z] 4:20:52 AM [vite] (client) page reload src/data/colors.ts
+[2026-05-11T08:20:52.096Z] 4:20:52 AM [vite] (client) page reload src/data/dragonTearsV2.ts
+[2026-05-11T08:20:52.097Z] 4:20:52 AM [vite] (client) page reload src/data/equipment.ts
+[2026-05-11T08:20:52.097Z] 4:20:52 AM [vite] (client) page reload src/data/glassAlchemyColors.ts
+[2026-05-11T08:20:52.098Z] 4:20:52 AM [vite] (client) page reload src/data/glass_colors.ts
+[2026-05-11T08:20:52.098Z] 4:20:52 AM [vite] (client) page reload src/data/schedules.ts
+[2026-05-11T08:20:52.099Z] 4:20:52 AM [vite] (client) page reload src/data/torches_expanded.ts
+[2026-05-11T08:20:52.099Z] 4:20:52 AM [vite] (client) page reload src/hooks/useComposition.ts
+[2026-05-11T08:20:52.100Z] 4:20:52 AM [vite] (client) page reload src/hooks/useMobile.tsx
+[2026-05-11T08:20:52.100Z] 4:20:52 AM [vite] (client) page reload src/hooks/usePersistFn.ts
+[2026-05-11T08:20:52.100Z] 4:20:52 AM [vite] (client) page reload src/lib/jarRenderer.ts
+[2026-05-11T08:20:52.101Z] 4:20:52 AM [vite] (client) page reload src/lib/pdfUtils.test.ts
+[2026-05-11T08:20:52.101Z] 4:20:52 AM [vite] (client) page reload src/lib/pdfUtils.ts
+[2026-05-11T08:20:52.102Z] 4:20:52 AM [vite] (client) page reload src/lib/searchIndex.ts
+[2026-05-11T08:20:52.102Z] 4:20:52 AM [vite] (client) page reload src/lib/thermalCalculations.ts
+[2026-05-11T08:20:52.102Z] 4:20:52 AM [vite] (client) page reload src/lib/trpc.ts
+[2026-05-11T08:20:52.103Z] 4:20:52 AM [vite] (client) page reload src/lib/utils.ts
+[2026-05-11T08:20:52.103Z] 4:20:52 AM [vite] (client) page reload src/pages/Calculator.tsx
+[2026-05-11T08:20:52.104Z] 4:20:52 AM [vite] (client) page reload src/pages/CalculatorTab.tsx
+[2026-05-11T08:20:52.104Z] 4:20:52 AM [vite] (client) page reload src/pages/ColorPicker.tsx
+[2026-05-11T08:20:52.104Z] 4:20:52 AM [vite] (client) page reload src/pages/ColorScience.tsx
+[2026-05-11T08:20:52.105Z] 4:20:52 AM [vite] (client) page reload src/pages/FiringTracker.tsx
+[2026-05-11T08:20:52.105Z] 4:20:52 AM [vite] (client) page reload src/pages/FlameSimulator.tsx
+[2026-05-11T08:20:52.106Z] 4:20:52 AM [vite] (client) page reload src/pages/GlassScience.tsx
+[2026-05-11T08:20:52.106Z] 4:20:52 AM [vite] (client) page reload src/pages/KilnLog.tsx
+[2026-05-11T08:20:52.107Z] 4:20:52 AM [vite] (client) page reload src/pages/LogoHome.tsx
+[2026-05-11T08:20:52.107Z] 4:20:52 AM [vite] (client) page reload src/pages/Logs.addLogModal.test.ts
+[2026-05-11T08:20:52.108Z] 4:20:52 AM [vite] (client) page reload src/pages/Logs.saveAsSchedule.test.ts
+[2026-05-11T08:20:52.108Z] 4:20:52 AM [vite] (client) page reload src/pages/Logs.test.ts
+[2026-05-11T08:20:52.109Z] 4:20:52 AM [vite] (client) page reload src/pages/Logs.tsx
+[2026-05-11T08:20:52.109Z] 4:20:52 AM [vite] (client) page reload src/pages/Logs.tsx.fix
+[2026-05-11T08:20:52.110Z] 4:20:52 AM [vite] (client) page reload src/pages/NotFound.tsx
+[2026-05-11T08:20:52.110Z] 4:20:52 AM [vite] (client) page reload src/pages/References.tsx
+[2026-05-11T08:20:52.110Z] 4:20:52 AM [vite] (client) page reload src/pages/ToolHome.tsx
+[2026-05-11T08:20:52.380Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T08:20:52.381Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T08:20:52.382Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T08:20:52.382Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T08:20:52.384Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T08:20:52.384Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T08:20:52.384Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T08:20:52.385Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T08:20:52.473Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T08:20:52.474Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T08:20:52.474Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T08:20:52.475Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
+[2026-05-11T15:25:23.092Z] Error: ENOENT: no such file or directory, open '/home/ubuntu/boro_kiln_research/client/index.html'
+[2026-05-11T15:25:23.096Z] at async open (node:internal/fs/promises:638:25)
+[2026-05-11T15:25:23.096Z] at async Object.readFile (node:internal/fs/promises:1242:14)
+[2026-05-11T15:25:23.096Z] at async <anonymous> (/home/ubuntu/boro_kiln_research/server/_core/vite.ts:36:22)
