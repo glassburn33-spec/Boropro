@@ -428,8 +428,11 @@
 - [x] Verify all tests pass (80/80)
 
 
-## Add Folders Button
+## Add Folders Button - Integrated with Logs Grid
 - [x] Add "Add Folders" button next to Select button
-- [x] Style with purple background
-- [x] Add placeholder functionality with toast message
+- [x] Create folders that display in the logs grid alongside saved logs
+- [x] Style folders with purple border and folder emoji
+- [x] Add delete button for each folder
+- [x] Persist folders to localStorage and load on mount
+- [x] Show prompt dialog to input folder name when Add Folders is clicked
 - [x] Verify all tests pass (80/80)

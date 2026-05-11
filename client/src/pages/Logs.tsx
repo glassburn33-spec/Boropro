@@ -90,11 +90,18 @@ export default function Logs() {
   const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [selectedLogIds, setSelectedLogIds] = useState<Set<string>>(new Set());
+  const [folders, setFolders] = useState<Array<{ id: string; name: string; createdAt: Date }>>([]);
+  const [showFolderInput, setShowFolderInput] = useState(false);
+  const [newFolderName, setNewFolderName] = useState("");
 
-  // Load logs from localStorage on mount
+  // Load logs and folders from localStorage on mount
   useEffect(() => {
     const loadLogs = () => {
       try {
+        const storedFolders = localStorage.getItem("kilnFolders");
+        if (storedFolders) {
+          setFolders(JSON.parse(storedFolders));
+        }
         const storedLogs = localStorage.getItem("kilnLogs");
         if (storedLogs) {
           const parsedLogs = JSON.parse(storedLogs);
@@ -667,8 +674,18 @@ export default function Logs() {
             <div className="flex items-center justify-end gap-4 mb-4">
               <button
                 onClick={() => {
-                  console.log('Add Folders clicked');
-                  toast.info('Folder feature coming soon');
+                  const folderName = prompt('Enter folder name:');
+                  if (folderName && folderName.trim()) {
+                    const newFolder = {
+                      id: Date.now().toString(),
+                      name: folderName.trim(),
+                      createdAt: new Date()
+                    };
+                    const updatedFolders = [...folders, newFolder];
+                    setFolders(updatedFolders);
+                    localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                    toast.success(`Folder "${newFolder.name}" created`);
+                  }
                 }}
                 className="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-sm font-medium"
               >
@@ -721,6 +738,31 @@ export default function Logs() {
             </div>
             {/* Logs List */}
             <div className="grid gap-4">
+              {folders.map((folder) => (
+                <div
+                  key={folder.id}
+                  className="border border-purple-600 rounded-lg bg-purple-900/20 p-4 hover:bg-purple-900/40 transition-colors cursor-pointer flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📁</span>
+                    <div>
+                      <h3 className="text-white font-semibold">{folder.name}</h3>
+                      <p className="text-stone-400 text-xs">Folder</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const updatedFolders = folders.filter(f => f.id !== folder.id);
+                      setFolders(updatedFolders);
+                      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                      toast.success(`Folder deleted`);
+                    }}
+                    className="px-3 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-xs font-medium"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
               {filteredLogs.map((log) => (
                 <div
                   key={log.id}
