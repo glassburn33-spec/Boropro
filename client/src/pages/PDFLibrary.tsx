@@ -1292,61 +1292,75 @@ export default function LogLibrary() {
         {/* View Modal */}
         {showViewModal && viewingLog && (
           <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-            <div className="bg-stone-900 border border-stone-700 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-stone-900 border-b border-stone-700 p-6 flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-amber-400">{viewingLog.filename}</h2>
-                <button
-                  onClick={() => setShowViewModal(false)}
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
+            <div className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl">
+              <div className="bg-black text-amber-400 p-8 border-b-4 border-amber-400">
+                <h1 className="text-3xl font-bold mb-2">{viewingLog.filename}</h1>
+                <p className="text-sm text-amber-300">Saved: {new Date(viewingLog.savedAt).toLocaleDateString()}</p>
               </div>
               
-              <div className="p-6 space-y-6">
+              <div className="p-8 space-y-8 bg-white text-black">
+                <div className="border-b-2 border-black pb-4">
+                  <h2 className="text-2xl font-bold text-black mb-2">Annealing Schedule Log</h2>
+                  <p className="text-sm text-gray-600">Temperature Profile Report</p>
+                </div>
                 {/* Plot */}
                 {viewingLog.temperatures && viewingLog.temperatures.length > 0 ? (
                   <div>
-                    <h3 className="text-lg font-bold text-amber-300 mb-4">Temperature Profile</h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={viewingLog.temperatures.map((temp: number, idx: number) => ({
-                        time: viewingLog.times[idx] || idx,
-                        temperature: temp
-                      }))}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#404040" />
-                        <XAxis dataKey="time" stroke="#a1a1a1" />
-                        <YAxis stroke="#a1a1a1" />
-                        <Tooltip contentStyle={{ backgroundColor: '#1c1917', border: '1px solid #78350f' }} />
-                        <Legend />
-                        <Line type="monotone" dataKey="temperature" stroke="#fbbf24" dot={false} />
-                      </LineChart>
-                    </ResponsiveContainer>
+                    <h3 className="text-lg font-bold text-black mb-4">Temperature Profile</h3>
+                    <div className="bg-gray-50 p-4 rounded border border-gray-300">
+                      <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={viewingLog.temperatures.map((temp: number, idx: number) => ({
+                          time: viewingLog.times[idx] || idx,
+                          temperature: temp
+                        }))}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                          <XAxis dataKey="time" stroke="#374151" />
+                          <YAxis stroke="#374151" />
+                          <Tooltip contentStyle={{ backgroundColor: '#f3f4f6', border: '1px solid #d1d5db' }} />
+                          <Legend />
+                          <Line type="monotone" dataKey="temperature" stroke="#dc2626" dot={false} strokeWidth={2} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
-                ) : (
-                  <div className="text-stone-400 text-center py-8">No temperature data available</div>
-                )}
+                ) : null}
                 
                 {/* Notes */}
                 {viewingLog.notes && (
                   <div>
-                    <h3 className="text-lg font-bold text-amber-300 mb-2">Materials & Notes</h3>
-                    <p className="text-stone-300 bg-stone-800/50 p-3 rounded">{viewingLog.notes}</p>
+                    <h3 className="text-lg font-bold text-black mb-2">Materials & Notes</h3>
+                    <div className="bg-gray-50 p-4 rounded border border-gray-300 text-gray-800 whitespace-pre-wrap text-sm">
+                      {viewingLog.notes}
+                    </div>
                   </div>
                 )}
                 
                 {/* Results */}
                 {viewingLog.results && (
                   <div>
-                    <h3 className="text-lg font-bold text-amber-300 mb-2">Results & Observations</h3>
-                    <p className="text-stone-300 bg-stone-800/50 p-3 rounded">{viewingLog.results}</p>
+                    <h3 className="text-lg font-bold text-black mb-2">Results & Observations</h3>
+                    <div className="bg-gray-50 p-4 rounded border border-gray-300 text-gray-800 whitespace-pre-wrap text-sm">
+                      {viewingLog.results}
+                    </div>
                   </div>
                 )}
+                
+                {/* Footer */}
+                <div className="border-t-2 border-black pt-4 text-xs text-gray-600 text-center">
+                  <p>Generated on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}</p>
+                </div>
               </div>
               
-              <div className="border-t border-stone-700 p-6 flex justify-end">
+              <div className="bg-gray-100 border-t border-gray-300 p-4 flex justify-end gap-3">
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold transition-colors"
+                >
+                  Print
+                </button>
                 <button
                   onClick={() => setShowViewModal(false)}
-                  className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded font-semibold transition-colors"
+                  className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded font-semibold transition-colors"
                 >
                   Close
                 </button>
