@@ -291,3 +291,10 @@
 
 ## UI Text Updates
 - [x] Change "Show Rename" button text to "Rename"
+
+
+## Select Multiple for Saved Annealed Results
+- [x] Add "Select Multiple" button to saved annealed results section (blue button with toggle)
+- [x] Add checkboxes to each saved annealed result (checkboxes appear in selection mode)
+- [x] Add delete button for selected results (red Delete Selected button)
+- [x] Test select multiple functionality for annealed results (74 tests passing, 1 unrelated failure)
