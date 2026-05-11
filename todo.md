@@ -505,3 +505,10 @@
 - [x] Pass tempUnit to all PDF generation functions (handlePreviewPDF, handleExportPDF, handleUploadPDF)
 - [x] PDF now generates with correct temperature unit in tables and plots
 - [x] 109 tests passing (3 pre-existing failures in AnealingProfileEditor unrelated to this change)
+
+
+## Add Glass Science Title Header
+- [x] Add "Glass Science" title header to Glass Science tab
+- [x] Match Color Science tab title styling (text-4xl md:text-5xl, font-bold, text-amber-400)
+- [x] Add proper spacing with mb-12 for consistency
+- [x] Tests passing (109/112, 3 pre-existing failures)

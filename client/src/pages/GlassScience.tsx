@@ -236,6 +236,11 @@ export default function Home() {
 function StudioTab() {
   return (
     <div className="space-y-6">
+      {/* GLASS SCIENCE TITLE */}
+      <div className="mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Glass Science</h1>
+      </div>
+
       {/* GLASS SCIENCE HEADER */}
       <div className="border-t border-stone-700 pt-8 mt-8">
 
