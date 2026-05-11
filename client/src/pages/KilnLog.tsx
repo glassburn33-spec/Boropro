@@ -21,6 +21,7 @@ interface KilnLogEntry {
   startTime: Date;
   endTime?: Date;
   notes?: string;
+  lineColor?: string;
   createdAt: Date;
 }
 
@@ -39,6 +40,7 @@ export default function KilnLog() {
     startTime: new Date().toISOString().slice(0, 16),
     endTime: "",
     notes: "",
+    lineColor: "#d97706",
   });
 
   // Fetch kiln logs from backend
@@ -362,6 +364,21 @@ export default function KilnLog() {
                     placeholder="Any observations or notes about this kiln run..."
                     className="w-full rounded-lg bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-stone-500 focus:border-amber-500 focus:outline-none min-h-24"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-amber-500 mb-2">
+                    Chart Line Color
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="color"
+                      value={formData.lineColor}
+                      onChange={(e) => setFormData({ ...formData, lineColor: e.target.value })}
+                      className="w-16 h-10 rounded-lg cursor-pointer border border-white/20"
+                    />
+                    <span className="text-sm text-stone-400">{formData.lineColor}</span>
+                  </div>
                 </div>
 
                 <div className="flex gap-3 justify-end pt-4 border-t border-white/10">

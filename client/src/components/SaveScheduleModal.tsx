@@ -20,6 +20,7 @@ interface SaveScheduleModalProps {
     startTime: Date;
     endTime?: Date;
     notes?: string;
+    lineColor?: string;
   };
   onClose: () => void;
   onAddToLibrary: (base64: string, filename: string) => Promise<void>;
@@ -46,6 +47,7 @@ export function SaveScheduleModal({
         startTime: kilnLog.startTime,
         endTime: kilnLog.endTime,
         notes: kilnLog.notes,
+        lineColor: kilnLog.lineColor,
       };
 
       const doc = generateKilnLogPDF(pdfData);
@@ -80,6 +82,7 @@ export function SaveScheduleModal({
         startTime: kilnLog.startTime,
         endTime: kilnLog.endTime,
         notes: kilnLog.notes,
+        lineColor: kilnLog.lineColor,
       };
 
       const doc = generateKilnLogPDF(pdfData);
