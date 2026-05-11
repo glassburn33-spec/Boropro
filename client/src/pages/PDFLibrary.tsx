@@ -1290,6 +1290,54 @@ export default function LogLibrary() {
                               };
 
                               const doc = generateKilnLogPDF(pdfData);
+                              
+                              // Add plot page
+                              doc.addPage();
+                              const pageWidth = doc.internal.pageSize.getWidth();
+                              doc.setFontSize(14);
+                              doc.setTextColor(40, 40, 40);
+                              doc.text('Temperature Profile', 20, 20);
+                              
+                              // Create canvas plot
+                              const canvas = document.createElement('canvas');
+                              canvas.width = 800;
+                              canvas.height = 500;
+                              const ctx = canvas.getContext('2d');
+                              if (ctx) {
+                                ctx.fillStyle = '#1c1917';
+                                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                                ctx.strokeStyle = '#404040';
+                                ctx.lineWidth = 1;
+                                const maxTemp = Math.max(...log.temperatures) + 50;
+                                for (let temp = 0; temp <= maxTemp; temp += 100) {
+                                  const y = canvas.height - (temp / maxTemp) * canvas.height;
+                                  ctx.beginPath();
+                                  ctx.moveTo(50, y);
+                                  ctx.lineTo(canvas.width - 50, y);
+                                  ctx.stroke();
+                                }
+                                ctx.strokeStyle = '#fbbf24';
+                                ctx.lineWidth = 3;
+                                ctx.beginPath();
+                                const maxTime = Math.max(...log.times);
+                                for (let i = 0; i < log.temperatures.length; i++) {
+                                  const x = 50 + (log.times[i] / maxTime) * (canvas.width - 100);
+                                  const y = canvas.height - (log.temperatures[i] / maxTemp) * canvas.height;
+                                  if (i === 0) ctx.moveTo(x, y);
+                                  else ctx.lineTo(x, y);
+                                }
+                                ctx.stroke();
+                                ctx.strokeStyle = '#999';
+                                ctx.lineWidth = 2;
+                                ctx.beginPath();
+                                ctx.moveTo(50, 50);
+                                ctx.lineTo(50, canvas.height - 50);
+                                ctx.lineTo(canvas.width - 50, canvas.height - 50);
+                                ctx.stroke();
+                              }
+                              
+                              const imgData = canvas.toDataURL('image/png');
+                              doc.addImage(imgData, 'PNG', 15, 35, pageWidth - 30, 150);
                               doc.save(`${log.filename}.pdf`);
                               toast.success('PDF exported successfully!');
                             } catch (error) {
