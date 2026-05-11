@@ -323,6 +323,9 @@ export default function Logs() {
   };
 
   const handleDelete = (logId: string) => {
+    const confirmed = window.confirm('Are you sure you want to delete this log? This action cannot be undone.');
+    if (!confirmed) return;
+    
     try {
       const updatedLogs = logs.filter((log) => log.id !== logId);
       setLogs(updatedLogs);
@@ -955,7 +958,7 @@ export default function Logs() {
                       <button
                         onClick={() => handleDelete(log.id)}
                         className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
-                        title="Delete log"
+                        title="Delete log (requires confirmation)"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
