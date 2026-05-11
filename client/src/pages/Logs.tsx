@@ -757,9 +757,9 @@ export default function Logs() {
                       localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
                       toast.success(`Folder deleted`);
                     }}
-                    className="px-3 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-xs font-medium"
+                    className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
                   >
-                    Delete
+                    <span className="text-sm">Delete</span>
                   </button>
                 </div>
               ))}
