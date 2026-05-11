@@ -530,6 +530,19 @@ export default function Logs() {
                   </div>
                 </div>
               ` : ''}
+              ${log.selectedColors && log.selectedColors.length > 0 ? `
+                <div class="notes">
+                  <h3>Selected Glass Colors</h3>
+                  <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px;">
+                    ${log.selectedColors.map((color, idx) => `
+                      <div style="text-align: center;">
+                        <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">${getColorNameFromHex(color)}</div>
+                        <div style="width: 40px; height: 40px; background-color: ${color}; border: 2px solid #d97706; border-radius: 4px;"></div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
               ${log.savedColorCombinations && log.savedColorCombinations.length > 0 ? `
                 <div class="notes">
                   <h3>Saved Color Combinations</h3>
