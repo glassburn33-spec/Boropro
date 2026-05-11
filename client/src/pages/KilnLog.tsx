@@ -218,7 +218,7 @@ export default function KilnLog() {
               Calculator
             </a>
             <a
-              href="/pdf-library"
+              href="/logs"
               className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
             >
               Log Library

@@ -100,8 +100,37 @@ export default function Logs() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-4">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
+          </a>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Color
+            </a>
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Flame Char
+            </a>
+            <a href="/calculator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Reheat Calc
+            </a>
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Kiln Log
+            </a>
+            <a href="/logs" className="text-xs uppercase tracking-wider text-amber-500">
+              Logs
+            </a>
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
+            </a>
+          </nav>
+        </div>
+      </header>
+
       <main className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Page Title */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-amber-400 mb-2">Kiln Logs</h1>
           <p className="text-stone-400">
