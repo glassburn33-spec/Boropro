@@ -3,7 +3,7 @@ Logs Page - View and manage saved kiln logs with localStorage persistence
 */
 
 import { useState, useEffect } from "react";
-import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle, Palette, ChevronDown, ChevronRight } from "lucide-react";
+import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle, Palette } from "lucide-react";
 import { toast } from "sonner";
 import { ColoredGlassJar } from "@/components/ColoredGlassJar";
 
@@ -104,24 +104,6 @@ export default function Logs() {
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [selectedLogsForAddition, setSelectedLogsForAddition] = useState<Set<string>>(new Set());
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
-
-  // Toggle folder expansion
-  const toggleFolderExpansion = (folderId: string) => {
-    const newExpanded = new Set(expandedFolders);
-    if (newExpanded.has(folderId)) {
-      newExpanded.delete(folderId);
-    } else {
-      newExpanded.add(folderId);
-    }
-    setExpandedFolders(newExpanded);
-  };
-
-  // Get logs for a specific folder
-  const getLogsForFolder = (folderId: string) => {
-    const folder = folders.find((f) => f.id === folderId);
-    return folder?.logIds?.map((logId) => logs.find((log) => log.id === logId)).filter(Boolean) || [];
-  };
 
   // Load logs and folders from localStorage on mount
   useEffect(() => {
@@ -171,20 +153,6 @@ export default function Logs() {
     }
     setSelectedLogsForAddition(newSelection);
   };
-
-  // Helper function to get all log IDs that are in any folder
-  const getLogsInFolders = () => {
-    const logsInFolders = new Set<string>();
-    folders.forEach((folder) => {
-      folder.logIds?.forEach((logId) => {
-        logsInFolders.add(logId);
-      });
-    });
-    return logsInFolders;
-  };
-
-  // Get standalone logs (logs not in any folder)
-  const standaloneLogsFiltered = logs.filter((log) => !getLogsInFolders().has(log.id));
 
   // Add all selected logs to the current folder
   const handleAddSelectedLogs = () => {
@@ -843,130 +811,43 @@ export default function Logs() {
             </div>
             {/* Logs List */}
             <div className="grid gap-4">
-              {folders.map((folder) => {
-                const isExpanded = expandedFolders.has(folder.id);
-                const folderLogs = getLogsForFolder(folder.id);
-                return (
-                  <div key={folder.id}>
-                    {/* Folder Header */}
-                    <div className="border border-purple-600 rounded-lg bg-purple-900/20 p-4 hover:bg-purple-900/40 transition-colors flex items-center justify-between">
-                      <div className="flex items-center gap-3 flex-1">
-                        <button
-                          onClick={() => toggleFolderExpansion(folder.id)}
-                          className="flex items-center justify-center w-6 h-6 text-purple-400 hover:text-purple-300 transition-colors"
-                        >
-                          {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                        </button>
-                        <span className="text-2xl">📁</span>
-                        <div>
-                          <h3 className="text-white font-semibold">{folder.name}</h3>
-                          <p className="text-stone-400 text-xs">{folderLogs.length} log{folderLogs.length !== 1 ? 's' : ''}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => {
-                            setSelectedFolderForAddLog(folder.id);
-                            setShowAddLogModal(true);
-                          }}
-                          className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
-                        >
-                          <span className="text-sm">Add Log</span>
-                        </button>
-                        <button
-                          onClick={() => {
-                            const updatedFolders = folders.filter(f => f.id !== folder.id);
-                            setFolders(updatedFolders);
-                            localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                            toast.success(`Folder deleted`);
-                          }}
-                          className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
-                        >
-                          <span className="text-sm">Delete</span>
-                        </button>
-                      </div>
+              {folders.map((folder) => (
+                <div
+                  key={folder.id}
+                  className="border border-purple-600 rounded-lg bg-purple-900/20 p-4 hover:bg-purple-900/40 transition-colors cursor-pointer flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📁</span>
+                    <div>
+                      <h3 className="text-white font-semibold">{folder.name}</h3>
+                      <p className="text-stone-400 text-xs">Folder</p>
                     </div>
-
-                    {/* Expanded Logs - Same format as standalone logs */}
-                    {isExpanded && folderLogs.length > 0 && (
-                      <div className="space-y-4 mt-4 ml-4">
-                        {folderLogs.map((log) => (
-                          <div
-                            key={log?.id}
-                            className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
-                          >
-                            <div className="flex items-start justify-between">
-                              {showCheckboxes && (
-                                <input
-                                  type="checkbox"
-                                  checked={selectedLogIds.has(log?.id || '')}
-                                  onChange={(e) => {
-                                    const newSelected = new Set(selectedLogIds);
-                                    if (e.target.checked) {
-                                      newSelected.add(log?.id || '');
-                                    } else {
-                                      newSelected.delete(log?.id || '');
-                                    }
-                                    setSelectedLogIds(newSelected);
-                                  }}
-                                  className="mr-4 w-5 h-5 cursor-pointer"
-                                />
-                              )}
-                              <div className="flex-1">
-                                <h3 className="text-lg font-semibold text-white mb-1">
-                                  {log?.name}
-                                </h3>
-                              </div>
-
-                              <div className="flex gap-2 ml-4">
-                                <button
-                                  onClick={() => handlePreviewPDF(log!)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
-                                  title="Preview PDF before printing"
-                                >
-                                  <span className="text-sm">Preview PDF</span>
-                                </button>
-
-                                <button
-                                  onClick={() => handleExportCSV(log!)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
-                                >
-                                  <Download size={18} />
-                                  <span className="text-sm">Export CSV</span>
-                                </button>
-
-                                <button
-                                  onClick={() => {
-                                    setColorWheelLog(log!);
-                                    setShowColorWheelModal(true);
-                                  }}
-                                  className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
-                                >
-                                  <Palette size={18} />
-                                  <span className="text-sm">Color Wheel</span>
-                                </button>
-
-                                <button
-                                  onClick={() => {
-                                    const updatedLogs = logs.filter((l) => l.id !== log?.id);
-                                    setLogs(updatedLogs);
-                                    localStorage.setItem("kilnLogs", JSON.stringify(updatedLogs));
-                                    toast.success("Log deleted");
-                                  }}
-                                  className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
-                                >
-                                  <Trash2 size={18} />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
-                );
-              })}
-              {standaloneLogsFiltered.map((log) => (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        setSelectedFolderForAddLog(folder.id);
+                        setShowAddLogModal(true);
+                      }}
+                      className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                    >
+                      <span className="text-sm">Add Log</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        const updatedFolders = folders.filter(f => f.id !== folder.id);
+                        setFolders(updatedFolders);
+                        localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                        toast.success(`Folder deleted`);
+                      }}
+                      className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
+                    >
+                      <span className="text-sm">Delete</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {filteredLogs.map((log) => (
                 <div
                   key={log.id}
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
@@ -1886,10 +1767,10 @@ export default function Logs() {
               ) : (
                 <>
                   {/* Display standalone logs */}
-                  {standaloneLogsFiltered.length > 0 && (
+                  {logs.length > 0 && (
                     <>
                       <div className="text-sm font-semibold text-amber-400 mb-2">Standalone Logs</div>
-                      {standaloneLogsFiltered.map((log) => (
+                      {logs.map((log) => (
                         <div
                           key={log.id}
                           className="flex items-center gap-3 px-4 py-3 bg-stone-800 hover:bg-stone-700 text-white rounded transition-colors border border-stone-700 hover:border-amber-600 cursor-pointer"
