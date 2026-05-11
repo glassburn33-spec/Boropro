@@ -222,3 +222,33 @@
 [2026-05-11T15:41:32.646Z] at runPnpmCli (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:208879:5)
 [2026-05-11T15:41:32.646Z] at runDepsStatusCheck (file:///home/ubuntu/.nvm/versions/node/v22.13.0/lib/node_modules/pnpm/dist/pnpm.mjs:210581:7)
 [2026-05-11T15:41:32.665Z] Dev server exited with code 1
+[2026-05-11T15:43:30.132Z] Starting dev server with command: pnpm run dev
+[2026-05-11T15:43:30.874Z] 
+[2026-05-11T15:43:30.875Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-11T15:43:30.876Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-11T15:43:30.876Z] 
+[2026-05-11T15:43:32.593Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-11T15:43:32.848Z] Server running on http://localhost:3000/
+[2026-05-11T15:44:01.766Z] Dev server process group stopped
+[2026-05-11T15:44:01.768Z] ELIFECYCLE  Command failed.
+[2026-05-11T15:44:01.817Z] Dev server exited with code -15
+[2026-05-11T15:44:04.777Z] Starting dev server with command: pnpm run dev
+[2026-05-11T15:44:05.509Z] 
+[2026-05-11T15:44:05.510Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-11T15:44:05.510Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-11T15:44:05.510Z] 
+[2026-05-11T15:44:07.108Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-11T15:44:07.350Z] Server running on http://localhost:3000/
+[2026-05-11T15:44:34.510Z] Dev server process group stopped
+[2026-05-11T15:44:34.513Z] ELIFECYCLE  Command failed.
+[2026-05-11T15:44:34.557Z] Dev server exited with code -15
+[2026-05-11T15:44:37.522Z] Starting dev server with command: pnpm run dev
+[2026-05-11T15:44:38.239Z] 
+[2026-05-11T15:44:38.240Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-11T15:44:38.240Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-11T15:44:38.240Z] 
+[2026-05-11T15:44:39.853Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-11T15:44:40.084Z] Server running on http://localhost:3000/
+[2026-05-11T15:44:51.566Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-11T15:44:59.655Z] 11:44:59 AM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-11T15:46:07.039Z] 11:46:07 AM [vite] (client) hmr update /src/index.css
