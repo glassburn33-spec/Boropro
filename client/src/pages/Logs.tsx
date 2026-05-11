@@ -929,9 +929,8 @@ export default function Logs() {
 
                                 <button
                                   onClick={() => handleExportCSV(log!)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
+                                  className="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
                                 >
-                                  <Download size={18} />
                                   <span className="text-sm">Export CSV</span>
                                 </button>
 
@@ -940,19 +939,17 @@ export default function Logs() {
                                     setColorWheelLog(log!);
                                     setShowColorWheelModal(true);
                                   }}
-                                  className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
+                                  className="px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
                                   title="View glass colors used"
                                 >
-                                  <Palette size={18} />
                                   <span className="text-sm">Colors</span>
                                 </button>
 
                                 <button
                                   onClick={() => handleOpenComments(log!)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                                  className="px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                                   title="View and edit comments"
                                 >
-                                  <MessageCircle size={18} />
                                   <span className="text-sm">Comments</span>
                                 </button>
 
@@ -1072,7 +1069,7 @@ export default function Logs() {
                           setColorWheelLog(log);
                           setShowColorWheelModal(true);
                         }}
-                        className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
+                        className="px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
                         title="View glass colors used"
                       >
                         <span className="text-sm">Colors</span>
@@ -1080,7 +1077,7 @@ export default function Logs() {
 
                       <button
                         onClick={() => handleOpenComments(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                        className="px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                         title="View and edit comments"
                       >
                         <span className="text-sm">Comments</span>
