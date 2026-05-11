@@ -297,3 +297,10 @@
 - [x] Ensure PDF export uses Save Schedule data structure
 - [x] Test that schedules save correctly to kiln logs
 - [x] Verify PDF generation works with new logic
+
+
+## Update PDF to Display Only Saved Color Combinations
+- [x] Remove Description section from PDF
+- [x] Remove Notes section from PDF
+- [x] Keep only Saved Color Combinations section
+- [x] Verify all tests pass

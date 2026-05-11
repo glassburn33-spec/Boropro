@@ -504,19 +504,6 @@ export default function Logs() {
                   `).join('')}
                 </tbody>
               </table>
-              ${log.description ? `
-                <div class="notes">
-                  <h3>Description</h3>
-                  <p>${log.description}</p>
-                </div>
-              ` : ''}
-              ${log.notes ? `
-                <div class="notes">
-                  <h3>Notes</h3>
-                  <p>${log.notes}</p>
-                </div>
-              ` : ''}
-
               ${log.savedColorCombinations && log.savedColorCombinations.length > 0 ? `
                 <div class="notes">
                   <h3>Saved Color Combinations</h3>
@@ -748,66 +735,25 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           try {
-                            // Validate log has correct array sizes
-                            if (log.temperatures.length < 7 || log.times.length < 5) {
-                              toast.error('Invalid log format: insufficient data points');
-                              return;
-                            }
-
-                            // Convert log data back to StageInputs format for saving as schedule
-                            // The kiln log has 7 temperatures and 5 times from the 4-stage format:
-                            // temperatures: [stage1.start, stage1.target, stage2.hold, stage3.start, stage3.end, stage4.start, stage4.end]
-                            // times: [0, stage1.duration, stage1+stage2, stage1+stage2+stage3, stage1+stage2+stage3+stage4]
-                            
-                            const stage1Duration = log.times[1] - log.times[0];
-                            const stage2Duration = log.times[2] - log.times[1];
-                            const stage3Duration = log.times[3] - log.times[2];
-                            const stage4Duration = log.times[4] - log.times[3];
-
-                            const scheduleData = {
-                              stage1: {
-                                startTemp: log.temperatures[0],
-                                targetTemp: log.temperatures[1],
-                                duration: stage1Duration,
-                              },
-                              stage2: {
-                                holdTemp: log.temperatures[2],
-                                duration: stage2Duration,
-                              },
-                              stage3: {
-                                startTemp: log.temperatures[3],
-                                endTemp: log.temperatures[4],
-                                duration: stage3Duration,
-                              },
-                              stage4: {
-                                startTemp: log.temperatures[5],
-                                endTemp: log.temperatures[6],
-                                duration: stage4Duration,
-                              },
-                            };
-
-                            // Create new schedule object
-                            const newSchedule = {
-                              id: Date.now().toString(),
-                              name: log.name,
-                              timestamp: new Date().toLocaleString(),
-                              data: scheduleData,
+                            // Calculate temperature and time data from log
+                            const logData = {
+                              id: Date.now(),
+                              filename: log.name,
+                              temperatures: log.temperatures,
+                              times: log.times,
+                              savedAt: new Date().toISOString(),
                               notes: log.notes || '',
                               results: log.description || '',
                               selectedColors: log.selectedColors || [],
                             };
-
-                            // Save to localStorage under savedSchedules
-                            const savedSchedules = JSON.parse(localStorage.getItem('savedSchedules') || '[]');
-                            savedSchedules.push(newSchedule);
-                            localStorage.setItem('savedSchedules', JSON.stringify(savedSchedules));
-
-                            // Dispatch event to notify other components
-                            window.dispatchEvent(new CustomEvent('schedulesSaved', { detail: savedSchedules }));
-                            toast.success('Schedule saved successfully!');
+                            const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                            existingLogs.push(logData);
+                            localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                            window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                            toast.success('Log saved successfully!');
                           } catch (error) {
-                            console.error('Failed to save schedule:', error);
-                            toast.error('Failed to save schedule');
+                            console.error('Failed to save log:', error);
+                            toast.error('Failed to save log');
                           }
                         }}
                         style={{
@@ -815,10 +761,10 @@ export default function Logs() {
                           borderColor: log.lineColor || '#15803d',
                         }}
                         className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80"
-                        title="Save as schedule"
+                        title="Save log"
                       >
                         <Download className="w-4 h-4" />
-                        <span className="text-sm">Save as Schedule</span>
+                        <span className="text-sm">Upload PDF</span>
                       </button>
 
                       <button
