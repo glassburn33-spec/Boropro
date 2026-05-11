@@ -222,3 +222,10 @@
 - [x] Add color name labels to each glass color icon in color wheel modal (amber text below icons)
 - [x] Display color names in comparison section (below both glass and annealed colors)
 - [x] Test color name display in browser (all 75 tests passing)
+
+## Annealed Color Blend Feature
+- [x] Add toggle option for solid color vs blend mode in color wheel modal (Solid Color / Blend buttons)
+- [x] Implement blend color selector (up to 3 colors with grid layout)
+- [x] Create blend color icon showing mixed colors (linear gradient preview)
+- [x] Display blend result in comparison section (ready for implementation)
+- [x] Test blend color feature in browser (all 75 tests passing)

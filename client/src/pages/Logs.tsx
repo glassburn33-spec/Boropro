@@ -67,6 +67,8 @@ export default function Logs() {
   const [selectedAnnealedColor, setSelectedAnnealedColor] = useState<string | null>(null);
   const [tempAnnealedColor, setTempAnnealedColor] = useState<string>("");
   const [selectedGlassColor, setSelectedGlassColor] = useState<string | null>(null);
+  const [blendMode, setBlendMode] = useState<'solid' | 'blend'>('solid');
+  const [blendColors, setBlendColors] = useState<string[]>([]);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -955,20 +957,80 @@ export default function Logs() {
             {/* Annealed Color Selector */}
             <div className="mb-6 border-t border-stone-700 pt-6">
               <h3 className="text-lg font-bold text-amber-500 mb-4">Annealed Result Color</h3>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm text-stone-300 mb-2">Select annealed color:</label>
-                  <input
-                    type="color"
-                    value={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'}
-                    onChange={(e) => setTempAnnealedColor(e.target.value)}
-                    className="w-full h-12 rounded border-2 border-stone-600 cursor-pointer"
-                  />
-                </div>
-                <div className="w-16 h-16 rounded-lg border-2 border-amber-600 flex items-center justify-center bg-stone-800">
-                  <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
-                </div>
+              
+              {/* Mode Toggle */}
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={() => setBlendMode('solid')}
+                  className={`flex-1 px-3 py-2 rounded font-semibold transition-colors ${
+                    blendMode === 'solid'
+                      ? 'bg-amber-600 text-white'
+                      : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                  }`}
+                >
+                  Solid Color
+                </button>
+                <button
+                  onClick={() => setBlendMode('blend')}
+                  className={`flex-1 px-3 py-2 rounded font-semibold transition-colors ${
+                    blendMode === 'blend'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                  }`}
+                >
+                  Blend (Up to 3)
+                </button>
               </div>
+
+              {/* Solid Color Mode */}
+              {blendMode === 'solid' && (
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <label className="block text-sm text-stone-300 mb-2">Select annealed color:</label>
+                    <input
+                      type="color"
+                      value={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'}
+                      onChange={(e) => setTempAnnealedColor(e.target.value)}
+                      className="w-full h-12 rounded border-2 border-stone-600 cursor-pointer"
+                    />
+                  </div>
+                  <div className="w-16 h-16 rounded-lg border-2 border-amber-600 flex items-center justify-center bg-stone-800">
+                    <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
+                  </div>
+                </div>
+              )}
+
+              {/* Blend Color Mode */}
+              {blendMode === 'blend' && (
+                <div className="space-y-3">
+                  <p className="text-sm text-stone-400">Select up to 3 colors to blend:</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[0, 1, 2].map((index) => (
+                      <div key={index}>
+                        <label className="block text-xs text-stone-400 mb-1">Color {index + 1}</label>
+                        <input
+                          type="color"
+                          value={blendColors[index] || '#ffffff'}
+                          onChange={(e) => {
+                            const newColors = [...blendColors];
+                            newColors[index] = e.target.value;
+                            setBlendColors(newColors);
+                          }}
+                          className="w-full h-10 rounded border-2 border-stone-600 cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 mt-3">
+                    <div className="flex-1 h-12 rounded border-2 border-purple-600" style={{
+                      background: `linear-gradient(90deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
+                    }}>
+                    </div>
+                    <div className="text-sm text-stone-400">Preview</div>
+                  </div>
+                </div>
+              )}
+
               <button
                 onClick={handleSaveAnnealedColor}
                 className="mt-4 w-full px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded transition-colors font-semibold"
@@ -992,10 +1054,21 @@ export default function Logs() {
                   <div className="text-amber-500 font-bold text-3xl">→</div>
                   <div className="flex flex-col items-center">
                     <div className="text-sm text-stone-400 mb-2">Annealed Result</div>
-                    <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
-                      <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
-                    </div>
-                    <p className="text-xs text-amber-500 font-semibold text-center">{getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}</p>
+                    {blendMode === 'solid' ? (
+                      <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
+                        <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
+                      </div>
+                    ) : (
+                      <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
+                        background: `linear-gradient(90deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
+                      }}>
+                      </div>
+                    )}
+                    <p className="text-xs text-amber-500 font-semibold text-center">
+                      {blendMode === 'solid' 
+                        ? getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')
+                        : 'Blend Mix'}
+                    </p>
                   </div>
                 </div>
               </div>
