@@ -1316,7 +1316,6 @@ export default function Logs() {
                             setSelectedAnnealedIds(newSelected);
                           } else {
                             setTempAnnealedColor(result.color);
-                            setBlendMode(result.mode);
                           }
                         }}
                       className={`p-3 rounded-lg border-2 transition-all ${
