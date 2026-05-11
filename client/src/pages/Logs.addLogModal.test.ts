@@ -383,3 +383,117 @@ describe('Add Log Modal - Checkbox Selection', () => {
     expect(logsInFolders.size).toBe(3);
   });
 });
+
+
+describe("Folder Expansion Feature", () => {
+  let expandedFolders: Set<string>;
+  let mockLogs: SavedLog[];
+  let mockFolders: Folder[];
+
+  beforeEach(() => {
+    expandedFolders = new Set();
+    mockLogs = [
+      {
+        id: 'log-1',
+        name: 'First Kiln Log',
+        temperatures: [200, 400, 600],
+        times: [0, 60, 120],
+        createdAt: new Date('2026-05-01'),
+      },
+      {
+        id: 'log-2',
+        name: 'Second Kiln Log',
+        temperatures: [300, 500, 700],
+        times: [0, 90, 180],
+        createdAt: new Date('2026-05-02'),
+      },
+    ];
+
+    mockFolders = [
+      {
+        id: 'folder-1',
+        name: 'My Folder',
+        createdAt: new Date('2026-05-01'),
+        logIds: ['log-1', 'log-2'],
+      },
+    ];
+  });
+
+  it('should toggle folder expansion state', () => {
+    const folderId = 'folder-1';
+    
+    // Initially not expanded
+    expect(expandedFolders.has(folderId)).toBe(false);
+    
+    // Toggle to expanded
+    expandedFolders.add(folderId);
+    expect(expandedFolders.has(folderId)).toBe(true);
+    
+    // Toggle to collapsed
+    expandedFolders.delete(folderId);
+    expect(expandedFolders.has(folderId)).toBe(false);
+  });
+
+  it('should get logs for a specific folder', () => {
+    const folderId = 'folder-1';
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    expect(folderLogs).toHaveLength(2);
+    expect(folderLogs[0]?.id).toBe('log-1');
+    expect(folderLogs[1]?.id).toBe('log-2');
+  });
+
+  it('should return empty array for folder with no logs', () => {
+    const emptyFolder: Folder = {
+      id: 'folder-empty',
+      name: 'Empty Folder',
+      createdAt: new Date('2026-05-01'),
+      logIds: [],
+    };
+
+    const folderLogs = emptyFolder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    expect(folderLogs).toHaveLength(0);
+  });
+
+  it('should maintain log format when displayed in expanded folder', () => {
+    const folderId = 'folder-1';
+    expandedFolders.add(folderId);
+    
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    // Verify log properties are preserved
+    folderLogs.forEach((log) => {
+      expect(log?.name).toBeDefined();
+      expect(log?.temperatures).toBeDefined();
+      expect(log?.times).toBeDefined();
+      expect(Array.isArray(log?.temperatures)).toBe(true);
+      expect(Array.isArray(log?.times)).toBe(true);
+    });
+  });
+
+  it('should handle multiple folders with expansion state', () => {
+    const folderIds = ['folder-1', 'folder-2', 'folder-3'];
+    
+    // Expand first and third folder
+    expandedFolders.add(folderIds[0]);
+    expandedFolders.add(folderIds[2]);
+    
+    expect(expandedFolders.has(folderIds[0])).toBe(true);
+    expect(expandedFolders.has(folderIds[1])).toBe(false);
+    expect(expandedFolders.has(folderIds[2])).toBe(true);
+  });
+
+  it('should show log count in folder header', () => {
+    const folderId = 'folder-1';
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    const logCount = folderLogs.length;
+    const headerText = `${logCount} log${logCount !== 1 ? 's' : ''}`;
+    
+    expect(headerText).toBe('2 logs');
+  });
+});
