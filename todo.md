@@ -319,3 +319,10 @@
 - [x] Show appropriate toast messages based on combo count
 - [x] Ensure color combinations persist to kiln log for PDF use
 - [x] Verify all tests pass
+
+
+## Add Comments to PDF Export
+- [x] Update PDF generation to include Comments & Notes section
+- [x] Display comments with proper formatting (white-space preserved)
+- [x] Only show comments section if notes exist
+- [x] Verify all tests pass
