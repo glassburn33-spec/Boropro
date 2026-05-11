@@ -516,35 +516,7 @@ export default function Logs() {
                   <p>${log.notes}</p>
                 </div>
               ` : ''}
-              ${log.selectedColors && log.selectedColors.length > 0 ? `
-                <div class="notes">
-                  <h3>Glass Colors Used</h3>
-                  <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
-                    ${log.selectedColors.map((color) => `
-                      <div style="display: flex; align-items: center; gap: 8px;">
-                        <div style="width: 40px; height: 40px; background-color: ${color}; border: 2px solid #d97706; border-radius: 4px;"></div>
-                        <div>
-                          <p style="margin: 0; color: #fbbf24; font-weight: bold;">${getColorNameFromHex(color)}</p>
-                          <p style="margin: 0; color: #d97706; font-size: 12px;">${color}</p>
-                        </div>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              ` : ''}
-              ${log.selectedColors && log.selectedColors.length > 0 ? `
-                <div class="notes">
-                  <h3>Selected Glass Colors</h3>
-                  <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px;">
-                    ${log.selectedColors.map((color, idx) => `
-                      <div style="text-align: center;">
-                        <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">${getColorNameFromHex(color)}</div>
-                        <div style="width: 40px; height: 40px; background-color: ${color}; border: 2px solid #d97706; border-radius: 4px;"></div>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              ` : ''}
+
               ${log.savedColorCombinations && log.savedColorCombinations.length > 0 ? `
                 <div class="notes">
                   <h3>Saved Color Combinations</h3>
@@ -572,27 +544,6 @@ export default function Logs() {
                         </div>
                       </div>
                     `).join('')}
-                  </div>
-                </div>
-              ` : log.annealedColor && log.selectedColors && log.selectedColors.length > 0 ? `
-                <div class="notes">
-                  <h3>Color Transformation Results</h3>
-                  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
-                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background-color: #292524; border-radius: 4px;">
-                      <div style="text-align: center;">
-                        <div style="font-size: 11px; color: #a3a3a3; margin-bottom: 4px;">Glass</div>
-                        <div style="width: 30px; height: 30px; background-color: ${log.selectedColors[0]}; border: 2px solid #d97706; border-radius: 3px;"></div>
-                      </div>
-                      <div style="color: #fbbf24; font-weight: bold; font-size: 14px;">→</div>
-                      <div style="text-align: center;">
-                        <div style="font-size: 11px; color: #a3a3a3; margin-bottom: 4px;">Annealed</div>
-                        <div style="width: 30px; height: 30px; background-color: ${log.annealedColor}; border: 2px solid #d97706; border-radius: 3px;"></div>
-                      </div>
-                      <div style="flex: 1; margin-left: 8px;">
-                        <p style="margin: 0; color: #fbbf24; font-size: 11px;"><strong>Input:</strong> ${getColorNameFromHex(log.selectedColors[0])} (${log.selectedColors[0]})</p>
-                        <p style="margin: 0; color: #fbbf24; font-size: 11px;"><strong>Output:</strong> ${log.annealedColor ? getColorNameFromHex(log.annealedColor) : 'Unknown'} (${log.annealedColor})</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               ` : ''}
