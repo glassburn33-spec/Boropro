@@ -835,8 +835,8 @@ export function CalculatorTab() {
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
 
-        {/* ROOM TEMPERATURE — user-adjustable ambient temperature */}
-        <div>
+        {/* ROOM TEMPERATURE — Hidden */}
+        {/* <div>
           <label className="block text-sm font-semibold text-stone-300 mb-1">
             Room Temperature (°C)
           </label>
@@ -858,7 +858,7 @@ export function CalculatorTab() {
               <span>Room temperature must be between 0 and 40 °C</span>
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
