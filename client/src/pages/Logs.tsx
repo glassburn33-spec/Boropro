@@ -131,23 +131,29 @@ export default function Logs() {
 
       const chartSVG = `
         <svg width="${chartWidth}" height="${chartHeight}" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="${chartWidth}" height="${chartHeight}" fill="#1c1917"/>
+          
           <!-- Grid lines -->
-          <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${chartHeight - padding}" stroke="#ccc" stroke-width="2"/>
-          <line x1="${padding}" y1="${chartHeight - padding}" x2="${chartWidth - padding}" y2="${chartHeight - padding}" stroke="#ccc" stroke-width="2"/>
+          <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${chartHeight - padding}" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          <line x1="${padding}" y1="${chartHeight - padding}" x2="${chartWidth - padding}" y2="${chartHeight - padding}" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          
+          <!-- Grid background -->
+          <rect x="${padding}" y="${padding}" width="${plotWidth}" height="${plotHeight}" fill="#292524" opacity="0.5"/>
           
           <!-- Temperature line -->
-          <path d="${pathData}" stroke="#d97706" stroke-width="2" fill="none"/>
+          <path d="${pathData}" stroke="#d97706" stroke-width="3" fill="none"/>
           
           <!-- Data points -->
           ${log.times.map((time, idx) => {
             const x = padding + (time / maxTime) * plotWidth;
             const y = chartHeight - padding - ((log.temperatures[idx] - minTemp) / (maxTemp - minTemp)) * plotHeight;
-            return `<circle cx="${x}" cy="${y}" r="3" fill="#d97706"/>`;
+            return `<circle cx="${x}" cy="${y}" r="4" fill="#d97706" stroke="#fbbf24" stroke-width="1"/>`;
           }).join('')}
           
           <!-- Axis labels -->
-          <text x="${chartWidth / 2}" y="${chartHeight - 5}" text-anchor="middle" font-size="12">Time (hours)</text>
-          <text x="15" y="${chartHeight / 2}" text-anchor="middle" font-size="12" transform="rotate(-90 15 ${chartHeight / 2})">Temperature (°F)</text>
+          <text x="${chartWidth / 2}" y="${chartHeight - 5}" text-anchor="middle" font-size="14" fill="#d1d5db" font-weight="bold">Time (hours)</text>
+          <text x="15" y="${chartHeight / 2}" text-anchor="middle" font-size="14" fill="#d1d5db" font-weight="bold" transform="rotate(-90 15 ${chartHeight / 2})">Temperature (°F)</text>
         </svg>
       `;
 
@@ -156,14 +162,17 @@ export default function Logs() {
           <head>
             <title>${log.name} - Kiln Log</title>
             <style>
-              body { font-family: Arial, sans-serif; margin: 20px; background: white; }
-              h1 { color: #333; }
-              .metadata { margin: 20px 0; color: #666; }
-              .chart { margin: 30px 0; border: 1px solid #ddd; padding: 10px; }
+              body { font-family: Arial, sans-serif; margin: 20px; background: #1c1917; color: #d1d5db; }
+              h1 { color: #fbbf24; border-bottom: 2px solid #d97706; padding-bottom: 10px; }
+              h2 { color: #fbbf24; margin-top: 30px; }
+              .metadata { margin: 20px 0; color: #9ca3af; background: #292524; padding: 15px; border-left: 3px solid #d97706; }
+              .metadata p { margin: 5px 0; }
+              .chart { margin: 30px 0; background: #292524; padding: 15px; border: 1px solid #404040; }
               table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-              th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-              th { background-color: #f2f2f2; font-weight: bold; }
-              tr:nth-child(even) { background-color: #f9f9f9; }
+              th, td { border: 1px solid #404040; padding: 12px; text-align: left; }
+              th { background-color: #292524; font-weight: bold; color: #fbbf24; }
+              td { background-color: #1c1917; }
+              tr:nth-child(even) td { background-color: #292524; }
             </style>
           </head>
           <body>
