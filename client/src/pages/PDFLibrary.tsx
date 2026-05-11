@@ -53,6 +53,8 @@ export default function LogLibrary() {
   const [logs, setLogs] = useState<any[]>([]);
   const [viewingLog, setViewingLog] = useState<any | null>(null);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [showPDFPreview, setShowPDFPreview] = useState(false);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -1267,6 +1269,15 @@ export default function LogLibrary() {
                         </button>
                         <button
                           onClick={() => {
+                            setViewingLog(log);
+                            setShowPDFPreview(true);
+                          }}
+                          className="px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white text-xs font-bold rounded transition-colors"
+                        >
+                          Display
+                        </button>
+                        <button
+                          onClick={() => {
                             try {
                               const doc = new jsPDF();
                               const pageWidth = doc.internal.pageSize.getWidth();
@@ -1479,6 +1490,92 @@ export default function LogLibrary() {
                 </button>
                 <button
                   onClick={() => setShowViewModal(false)}
+                  className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded font-semibold transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* PDF Preview Modal */}
+        {showPDFPreview && viewingLog && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl flex flex-col">
+              <div className="bg-black text-amber-400 p-6 border-b-4 border-amber-400 flex justify-between items-center">
+                <div>
+                  <h1 className="text-2xl font-bold mb-1">{viewingLog.filename}</h1>
+                  <p className="text-sm text-amber-300">PDF Preview</p>
+                </div>
+                <button
+                  onClick={() => setShowPDFPreview(false)}
+                  className="text-white hover:text-amber-400 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto p-8 bg-gray-100">
+                <div className="bg-white p-8 shadow-lg">
+                  <div className="bg-black text-amber-400 p-6 mb-6 rounded">
+                    <h2 className="text-2xl font-bold">{viewingLog.filename}</h2>
+                    <p className="text-sm text-amber-300 mt-2">Saved: {new Date(viewingLog.savedAt).toLocaleDateString()}</p>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-bold text-black mb-4">Annealing Schedule Log</h3>
+                      <p className="text-sm text-gray-600">Temperature Profile Report</p>
+                    </div>
+                    
+                    {viewingLog.temperatures && viewingLog.temperatures.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-bold text-black mb-4">Temperature Profile</h4>
+                        <div className="bg-gray-50 p-4 rounded border border-gray-300">
+                          <ResponsiveContainer width="100%" height={300}>
+                            <LineChart data={viewingLog.temperatures.map((temp: number, idx: number) => ({
+                              time: viewingLog.times[idx] || idx,
+                              temperature: temp
+                            }))}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                              <XAxis dataKey="time" stroke="#374151" />
+                              <YAxis stroke="#374151" />
+                              <Tooltip contentStyle={{ backgroundColor: '#f3f4f6', border: '1px solid #d1d5db' }} />
+                              <Legend />
+                              <Line type="monotone" dataKey="temperature" stroke="#dc2626" strokeWidth={2} dot={{ fill: '#dc2626' }} />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {viewingLog.notes && (
+                      <div>
+                        <h4 className="text-lg font-bold text-black mb-2">Materials & Notes</h4>
+                        <p className="text-gray-700 text-sm">{viewingLog.notes}</p>
+                      </div>
+                    )}
+                    
+                    {viewingLog.results && (
+                      <div>
+                        <h4 className="text-lg font-bold text-black mb-2">Results & Observations</h4>
+                        <p className="text-gray-700 text-sm">{viewingLog.results}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gray-100 border-t border-gray-300 p-4 flex justify-end gap-3">
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold transition-colors"
+                >
+                  Print
+                </button>
+                <button
+                  onClick={() => setShowPDFPreview(false)}
                   className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded font-semibold transition-colors"
                 >
                   Close
