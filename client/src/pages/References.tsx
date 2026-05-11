@@ -407,30 +407,7 @@ export default function References() {
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-stone-700/30">
-                            {ref.doi && (
-                              <a
-                                href={`https://doi.org/${ref.doi}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
-                              >
-                                <ExternalLink className="w-4 h-4" />
-                                DOI: {ref.doi}
-                              </a>
-                            )}
-                            {ref.url && (
-                              <a
-                                href={ref.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 transition-colors"
-                              >
-                                <ExternalLink className="w-4 h-4" />
-                                View Source
-                              </a>
-                            )}
-                          </div>
+
                         </div>
                       ))}
                     </div>
