@@ -1281,15 +1281,6 @@ export default function Logs() {
                         Delete Selected
                       </button>
                     )}
-                    <button
-                      onClick={() => {
-                        setDeleteMode(!deleteMode);
-                        setSelectedAnnealedIds(new Set());
-                      }}
-                      className="px-3 py-1 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
-                    >
-                      {deleteMode ? 'Cancel' : 'Delete'}
-                    </button>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
