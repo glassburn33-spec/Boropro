@@ -49,6 +49,7 @@ export default function LogLibrary() {
   const [selectedColor, setSelectedColor] = useState('#dc2626');
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
+  const [logs, setLogs] = useState<any[]>([]);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -56,6 +57,24 @@ export default function LogLibrary() {
     { value: '#22c55e', label: 'Green' },
     { value: '#3b82f6', label: 'Blue' },
   ];
+
+  // Load logs from localStorage on mount
+  useEffect(() => {
+    const loadLogs = () => {
+      const savedLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+      setLogs(savedLogs);
+    };
+
+    loadLogs();
+
+    // Listen for logs update events
+    const handleLogsUpdate = (event: any) => {
+      setLogs(event.detail);
+    };
+
+    window.addEventListener('logsUpdated', handleLogsUpdate);
+    return () => window.removeEventListener('logsUpdated', handleLogsUpdate);
+  }, []);
 
   // Fetch PDF library from backend
   const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
@@ -1178,6 +1197,55 @@ export default function LogLibrary() {
             </div>
           </div>
         )}
+        
+        {/* Logs Section */}
+        <section id="logs" className="border-b border-white/10 py-16">
+          <div className="container max-w-6xl">
+            <h2 className="text-2xl font-bold text-white mb-8">Logs</h2>
+            <div className="grid gap-6">
+              {displayLibrary.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-stone-400 text-sm">No logs saved yet. Create and save a schedule to see it here.</p>
+                </div>
+              ) : (
+                displayLibrary.map((pdf) => (
+                  <div key={pdf.id} className="rounded-lg border border-stone-700 bg-stone-900 p-4 hover:border-amber-500/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-amber-400 mb-2">{pdf.filename}</h3>
+                        <div className="text-xs text-stone-400 space-y-1">
+                          <div>Temperature points: <span className="text-amber-300">{pdf.temperatures.length}</span></div>
+                          <div>Duration: <span className="text-amber-300">{pdf.times[pdf.times.length - 1] || 0} hours</span></div>
+                          <div>Saved: <span className="text-amber-300">{pdf.uploadedAt.toLocaleDateString()}</span></div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 flex-wrap">
+                        <button className="px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white text-xs font-bold rounded transition-colors">
+                          View
+                        </button>
+                        <button className="px-3 py-2 bg-green-700 hover:bg-green-600 text-white text-xs font-bold rounded transition-colors">
+                          Rename
+                        </button>
+                        <button className="px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold rounded transition-colors">
+                          Results
+                        </button>
+                        <button className="px-3 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded transition-colors">
+                          Export PDF
+                        </button>
+                        <button
+                          onClick={() => handleDelete(pdf.id)}
+                          className="px-3 py-2 bg-red-700 hover:bg-red-600 text-white text-xs font-bold rounded transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </section>
         
         {/* Bottom Image */}
         <div className="w-full">

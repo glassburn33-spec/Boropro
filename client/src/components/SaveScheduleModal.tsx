@@ -3,7 +3,7 @@ Save Schedule Modal - Appears after creating a new Kiln Log
 Offers two options: Export to Computer or Add to PDF Library
 */
 
-import { Download, Save, X } from "lucide-react";
+import { Download, Save, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
 import type { KilnLogPDFData } from "@/lib/pdfUtils";
@@ -97,6 +97,42 @@ export function SaveScheduleModal({
     }
   };
 
+  const handleSaveToLogs = () => {
+    try {
+      // Create JSON data structure for logs
+      const logData = {
+        id: Date.now(),
+        filename: kilnLog.name,
+        name: kilnLog.name,
+        description: kilnLog.description,
+        temperatures: kilnLog.temperatures,
+        times: kilnLog.times,
+        startTime: kilnLog.startTime.toISOString(),
+        endTime: kilnLog.endTime?.toISOString() || null,
+        notes: kilnLog.notes,
+        savedAt: new Date().toISOString(),
+      };
+
+      // Get existing logs from localStorage
+      const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+      
+      // Add new log
+      existingLogs.push(logData);
+      
+      // Save back to localStorage
+      localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+
+      toast.success("Log saved successfully!");
+      onClose();
+    } catch (error) {
+      console.error("Failed to save log:", error);
+      toast.error("Failed to save log");
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
@@ -141,13 +177,23 @@ export function SaveScheduleModal({
             {isAddingToLibrary ? "Adding to Library..." : "Add to PDF Library"}
           </Button>
 
-          <Button
-            onClick={handleExportToComputer}
-            className="w-full bg-amber-600 hover:bg-amber-500 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
-          >
-            <Download size={16} />
-            Export to Computer
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={handleExportToComputer}
+              className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
+            >
+              <Download size={16} />
+              Export
+            </Button>
+
+            <Button
+              onClick={handleSaveToLogs}
+              className="flex-1 bg-blue-700 hover:bg-blue-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
+            >
+              <BookOpen size={16} />
+              Logs
+            </Button>
+          </div>
 
           <Button
             onClick={onClose}
