@@ -1391,12 +1391,7 @@ export default function AnealingProfileEditor() {
                           <Download className="w-3 h-3" />
                           Export PDF
                         </button>
-                        <button
-                          onClick={() => handleEditSchedule(schedule)}
-                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
-                        >
-                          Edit
-                        </button>
+
                         <button
                           onClick={() => handleDeleteSchedule(schedule.id)}
                           className="px-3 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-sm font-semibold"
