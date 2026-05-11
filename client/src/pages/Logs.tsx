@@ -545,7 +545,7 @@ export default function Logs() {
                             <div style="text-align: center;">
                               <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Result</div>
                               ${result.mode === 'blend' ? `
-                                <div style="width: 25px; height: 25px; background: linear-gradient(90deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
+                                <div style="width: 25px; height: 25px; background: linear-gradient(135deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
                               ` : `
                                 <div style="width: 25px; height: 25px; background-color: ${result.color}; border: 1px solid #d97706; border-radius: 2px;"></div>
                               `}
@@ -1228,7 +1228,7 @@ export default function Logs() {
                   </div>
                   <div className="flex items-center gap-2 mt-3">
                     <div className="flex-1 h-12 rounded border-2 border-purple-600" style={{
-                      background: `linear-gradient(90deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
+                      background: `linear-gradient(135deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
                     }}>
                     </div>
                     <div className="text-sm text-stone-400">Preview</div>
@@ -1328,7 +1328,7 @@ export default function Logs() {
                       <div className="w-12 h-12 rounded mb-2 flex items-center justify-center" style={{ backgroundColor: result.color }}>
                         {result.mode === 'blend' ? (
                           <div className="w-full h-full rounded" style={{
-                            background: `linear-gradient(90deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%)`
+                            background: `linear-gradient(135deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%)`
                           }} />
                         ) : (
                           <ColoredGlassJar color={result.color} size={40} />
@@ -1363,7 +1363,7 @@ export default function Logs() {
                       </div>
                     ) : (
                       <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
-                        background: `linear-gradient(90deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
+                        background: `linear-gradient(135deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
                       }}>
                       </div>
                     )}
