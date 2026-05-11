@@ -81,7 +81,7 @@ export default function Logs() {
   const [newColorHex, setNewColorHex] = useState("#ff0000");
   const [deleteMode, setDeleteMode] = useState(false);
   const [selectedAnnealedIds, setSelectedAnnealedIds] = useState<Set<string>>(new Set());
-  const [selectedGlassColors, setSelectedGlassColors] = useState<Set<string>>(new Set());
+  const [selectedGlassColors, setSelectedGlassColors] = useState<Set<number>>(new Set());
   const [showColorCheckboxes, setShowColorCheckboxes] = useState(false);
   const [colorSelectionMode, setColorSelectionMode] = useState(false);
   const [selectedAnnealedResultForComparison, setSelectedAnnealedResultForComparison] = useState<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] } | null>(null);
@@ -1067,7 +1067,7 @@ export default function Logs() {
                   <button
                     onClick={() => {
                       const updatedColors = colorWheelLog.selectedColors?.filter(
-                        (color) => !selectedGlassColors.has(color)
+                        (_, index) => !selectedGlassColors.has(index)
                       );
                       const updatedLog = { ...colorWheelLog, selectedColors: updatedColors };
                       const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
@@ -1101,13 +1101,13 @@ export default function Logs() {
                       {colorSelectionMode && (
                         <input
                           type="checkbox"
-                          checked={selectedGlassColors.has(color)}
+                          checked={selectedGlassColors.has(index)}
                           onChange={(e) => {
                             const newSelected = new Set(selectedGlassColors);
                             if (e.target.checked) {
-                              newSelected.add(color);
+                              newSelected.add(index);
                             } else {
-                              newSelected.delete(color);
+                              newSelected.delete(index);
                             }
                             setSelectedGlassColors(newSelected);
                           }}
@@ -1118,10 +1118,10 @@ export default function Logs() {
                         onClick={() => {
                           if (colorSelectionMode) {
                             const newSelected = new Set(selectedGlassColors);
-                            if (newSelected.has(color)) {
-                              newSelected.delete(color);
+                            if (newSelected.has(index)) {
+                              newSelected.delete(index);
                             } else {
-                              newSelected.add(color);
+                              newSelected.add(index);
                             }
                             setSelectedGlassColors(newSelected);
                           } else {
@@ -1129,7 +1129,7 @@ export default function Logs() {
                           }
                         }}
                         className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all mb-2 ${
-                          colorSelectionMode && selectedGlassColors.has(color)
+                          colorSelectionMode && selectedGlassColors.has(index)
                             ? 'border-blue-500 ring-2 ring-blue-400 scale-110 bg-stone-700'
                             : selectedGlassColor === color
                             ? 'border-amber-500 ring-2 ring-amber-400 scale-110 bg-stone-800'
