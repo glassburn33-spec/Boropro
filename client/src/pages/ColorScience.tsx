@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Accordion } from '@/components/Accordion';
-import { ThermochromismSimulator } from '@/components/ThermochromismSimulator';
+
 
 export default function ColorScienceTab() {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -506,18 +506,6 @@ export default function ColorScienceTab() {
               </ul>
             </div>
           </div>
-        </div>
-      ),
-    },
-    {
-      id: 'thermochromism-simulator',
-      title: '8. Interactive Thermochromism Simulator',
-      content: (
-        <div className="space-y-4">
-          <p className="text-stone-300">
-            This interactive visualization demonstrates the relationship between thermal conditions and chromatic response in transition-metal-doped silicate matrices. Manipulate the thermal-range slider and combustion-environment parameters to observe instantaneous chromatic transformations across the spectrum of glass colorant systems, illustrating temperature-dependent coordination geometry shifts and electronic-state transitions.
-          </p>
-          <ThermochromismSimulator />
         </div>
       ),
     },
