@@ -918,6 +918,11 @@ export function CalculatorTab() {
                 : ''
             }`}
           />
+          {!kilnTempInvalid && tempUnit === 'F' && kilnTemp && (
+            <p className="text-xs text-stone-400 mt-1">
+              ✓ Converts to {((parseFloat(kilnTemp) - 32) * (5 / 9)).toFixed(1)} °C for calculation
+            </p>
+          )}
           {kilnTempInvalid && (
             <p className="text-xs text-red-400 mt-1">
               ⚠ Kiln temperature must be between {tempUnit === 'C' ? '565 °C and 650 °C' : '1049 °F and 1202 °F'}.

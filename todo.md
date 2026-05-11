@@ -458,3 +458,9 @@
 - [x] Clear selection when modal closes
 - [x] Write comprehensive unit tests (9/9 passing)
 - [x] Verify all tests pass (89/89 total)
+
+## Display Converted Celsius Value in Calculator
+- [x] Add visual indicator showing converted Celsius value when Fahrenheit is entered
+- [x] Display message: "✓ Converts to [value] °C for calculation"
+- [x] Show conversion only when valid temperature is entered
+- [x] Test feature in browser (all 79 tests passing)
