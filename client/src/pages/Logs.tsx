@@ -1317,7 +1317,7 @@ export default function Logs() {
                           }
                         }}
                       className={`p-3 rounded-lg border-2 transition-all ${
-                        tempAnnealedColor === result.color && !deleteMode
+                        selectedAnnealedResultForComparison?.id === result.id && !deleteMode
                           ? 'border-purple-500 ring-2 ring-purple-400'
                           : 'border-stone-600 hover:border-stone-500'
                       } bg-stone-800`}
