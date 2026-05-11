@@ -1465,6 +1465,70 @@ export default function Logs() {
               </div>
             )}
 
+            {/* Saved Color Comparisons Section */}
+            {colorWheelLog && colorWheelLog.savedColorCombinations && colorWheelLog.savedColorCombinations.length > 0 && (
+              <div className="mt-6 border-t border-stone-700 pt-6">
+                <h3 className="text-lg font-bold text-amber-500 mb-4">Saved Color Comparisons ({colorWheelLog.savedColorCombinations.length})</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto">
+                  {colorWheelLog.savedColorCombinations.map((combo, idx) => (
+                    <div key={combo.id} className="bg-stone-800 border border-amber-700/50 rounded-lg p-3 flex flex-col items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="text-center">
+                          <div className="text-xs text-stone-400 mb-1">Glass</div>
+                          <div
+                            className="w-8 h-8 rounded border border-amber-600"
+                            style={{ backgroundColor: combo.glassColor }}
+                          />
+                        </div>
+                        <div className="text-amber-400 font-bold">→</div>
+                        <div className="text-center">
+                          <div className="text-xs text-stone-400 mb-1">{combo.annealedResult.mode === 'blend' ? 'Blend' : 'Solid'}</div>
+                          {combo.annealedResult.mode === 'blend' ? (
+                            <div
+                              className="w-8 h-8 rounded border border-amber-600"
+                              style={{
+                                background: `linear-gradient(135deg, ${combo.annealedResult.blendColors?.[0] || '#ffffff'} 0%, ${combo.annealedResult.blendColors?.[1] || '#ffffff'} 50%, ${combo.annealedResult.blendColors?.[2] || '#ffffff'} 100%)`
+                              }}
+                            />
+                          ) : (
+                            <div
+                              className="w-8 h-8 rounded border border-amber-600"
+                              style={{ backgroundColor: combo.annealedResult.color }}
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const updatedCombinations = colorWheelLog.savedColorCombinations?.filter((_, i) => i !== idx) || [];
+                          const updatedLog = { ...colorWheelLog, savedColorCombinations: updatedCombinations };
+                          const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                          const updatedLogs = logs.map((log: SavedLog) =>
+                            log.name === colorWheelLog.name ? updatedLog : log
+                          );
+                          localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                          setColorWheelLog(updatedLog);
+                          
+                          // Refresh PDF preview
+                          try {
+                            const htmlContent = generatePDFContent(updatedLog);
+                            setPDFPreviewContent(htmlContent);
+                          } catch (error) {
+                            console.error('PDF refresh error:', error);
+                          }
+                          
+                          toast.success('Combination deleted');
+                        }}
+                        className="w-full px-2 py-1 text-xs bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Close Button */}
             <div className="flex justify-end">
               <button
