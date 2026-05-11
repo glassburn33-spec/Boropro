@@ -76,6 +76,9 @@ export default function Logs() {
   const [renamingColorName, setRenamingColorName] = useState<string>("");
   const [customColorNames, setCustomColorNames] = useState<{ [hex: string]: string }>({});
   const [showRenameButtons, setShowRenameButtons] = useState(false);
+  const [showAddColorModal, setShowAddColorModal] = useState(false);
+  const [newColorName, setNewColorName] = useState("");
+  const [newColorHex, setNewColorHex] = useState("#ff0000");
   const [deleteMode, setDeleteMode] = useState(false);
   const [selectedAnnealedIds, setSelectedAnnealedIds] = useState<Set<string>>(new Set());
   const [selectedGlassColors, setSelectedGlassColors] = useState<Set<string>>(new Set());
@@ -224,6 +227,33 @@ export default function Logs() {
       setRenamingColorName("");
       toast.success('Color renamed successfully');
     }
+  };
+
+  const handleAddColor = () => {
+    if (!newColorName.trim() || !newColorHex.trim()) {
+      toast.error('Please enter both color name and hex value');
+      return;
+    }
+    
+    if (!colorWheelLog) return;
+    
+    const newColor = newColorHex;
+    const updatedLog = {
+      ...colorWheelLog,
+      selectedColors: [...(colorWheelLog.selectedColors || []), newColor]
+    };
+    
+    const updatedLogs = logs.map((log) =>
+      log.id === colorWheelLog.id ? updatedLog : log
+    );
+    setLogs(updatedLogs);
+    localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+    setColorWheelLog(updatedLog);
+    
+    setShowAddColorModal(false);
+    setNewColorName('');
+    setNewColorHex('#ff0000');
+    toast.success('Color added successfully');
   };
 
   const handleDelete = (logId: string) => {
@@ -773,6 +803,17 @@ export default function Logs() {
                       >
                         <Palette className="w-4 h-4" />
                         <span className="text-sm">Colors</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setColorWheelLog(log);
+                          setShowAddColorModal(true);
+                        }}
+                        className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
+                        title="Add new color to compare"
+                      >
+                        <span className="text-sm">Add</span>
                       </button>
 
                       <button
@@ -1347,6 +1388,57 @@ export default function Logs() {
                 className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Color Modal */}
+      {showAddColorModal && colorWheelLog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-stone-900 border-2 border-green-700 rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-bold text-green-500 mb-4">Add New Color</h3>
+            <div className="mb-4">
+              <label className="block text-sm text-stone-300 mb-2">Color Name (Optional):</label>
+              <input
+                type="text"
+                value={newColorName}
+                onChange={(e) => setNewColorName(e.target.value)}
+                placeholder="Enter color name"
+                className="w-full px-3 py-2 bg-stone-800 border-2 border-stone-600 rounded text-stone-100 placeholder-stone-500 focus:outline-none focus:border-green-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm text-stone-300 mb-2">Hex Color:</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={newColorHex}
+                  onChange={(e) => setNewColorHex(e.target.value)}
+                  className="w-16 h-10 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={newColorHex}
+                  onChange={(e) => setNewColorHex(e.target.value)}
+                  placeholder="#ff0000"
+                  className="flex-1 px-3 py-2 bg-stone-800 border-2 border-stone-600 rounded text-stone-100 placeholder-stone-500 focus:outline-none focus:border-green-600"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setShowAddColorModal(false)}
+                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddColor}
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition-colors font-semibold"
+              >
+                Add Color
               </button>
             </div>
           </div>
