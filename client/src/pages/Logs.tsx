@@ -84,6 +84,7 @@ export default function Logs() {
   const [selectedGlassColors, setSelectedGlassColors] = useState<Set<string>>(new Set());
   const [showColorCheckboxes, setShowColorCheckboxes] = useState(false);
   const [colorSelectionMode, setColorSelectionMode] = useState(false);
+  const [selectedAnnealedResultForComparison, setSelectedAnnealedResultForComparison] = useState<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] } | null>(null);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -1312,6 +1313,7 @@ export default function Logs() {
                             setSelectedAnnealedIds(newSelected);
                           } else {
                             setTempAnnealedColor(result.color);
+                            setSelectedAnnealedResultForComparison(result);
                           }
                         }}
                       className={`p-3 rounded-lg border-2 transition-all ${
@@ -1365,6 +1367,41 @@ export default function Logs() {
                     <p className="text-xs text-amber-500 font-semibold text-center">
                       {blendMode === 'solid' 
                         ? getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')
+                        : 'Blend Mix'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Saved Result Comparison Section */}
+            {selectedGlassColor && selectedAnnealedResultForComparison && (
+              <div className="mb-6 border-t border-stone-700 pt-6">
+                <h3 className="text-lg font-bold text-purple-400 mb-4">Saved Result Comparison</h3>
+                <div className="flex items-center justify-center gap-8 p-6 bg-stone-800 rounded">
+                  <div className="flex flex-col items-center">
+                    <div className="text-sm text-stone-400 mb-2">Selected Glass Color</div>
+                    <div className="w-20 h-20 rounded-lg border-2 border-stone-600 flex items-center justify-center mb-2" style={{ backgroundColor: selectedGlassColor }}>
+                      <ColoredGlassJar color={selectedGlassColor} size={60} />
+                    </div>
+                    <p className="text-xs text-amber-500 font-semibold text-center">{getColorNameFromHex(selectedGlassColor)}</p>
+                  </div>
+                  <div className="text-amber-500 font-bold text-3xl">→</div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-sm text-stone-400 mb-2">Saved Annealed Result</div>
+                    {selectedAnnealedResultForComparison.mode === 'solid' ? (
+                      <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: selectedAnnealedResultForComparison.color }}>
+                        <ColoredGlassJar color={selectedAnnealedResultForComparison.color} size={60} />
+                      </div>
+                    ) : (
+                      <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
+                        background: `linear-gradient(135deg, ${selectedAnnealedResultForComparison.blendColors?.[0] || '#ffffff'} 0%, ${selectedAnnealedResultForComparison.blendColors?.[1] || '#ffffff'} 50%, ${selectedAnnealedResultForComparison.blendColors?.[2] || '#ffffff'} 100%)`
+                      }}>
+                      </div>
+                    )}
+                    <p className="text-xs text-amber-500 font-semibold text-center">
+                      {selectedAnnealedResultForComparison.mode === 'solid' 
+                        ? getColorNameFromHex(selectedAnnealedResultForComparison.color)
                         : 'Blend Mix'}
                     </p>
                   </div>
