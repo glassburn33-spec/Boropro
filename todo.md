@@ -291,3 +291,9 @@
 
 ## UI Text Updates
 - [x] Change "Show Rename" button text to "Rename"
+
+## Update Upload PDF Button Logic (New)
+- [x] Switch Upload PDF button logic from Log button to Save Schedule button
+- [x] Ensure PDF export uses Save Schedule data structure
+- [x] Test that schedules save correctly to kiln logs
+- [x] Verify PDF generation works with new logic

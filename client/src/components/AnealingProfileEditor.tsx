@@ -728,7 +728,7 @@ export default function AnealingProfileEditor() {
 
   const handleSaveSchedule = () => {
     if (scheduleName.trim()) {
-      setSavedSchedules(prev => [...prev, {
+      const newSchedule = {
         id: Date.now().toString(),
         name: scheduleName,
         timestamp: new Date().toLocaleString(),
@@ -736,7 +736,51 @@ export default function AnealingProfileEditor() {
         notes: notes,
         results: '',
         selectedColors: [],
-      }]);
+      };
+      
+      setSavedSchedules(prev => [...prev, newSchedule]);
+      
+      try {
+        // Transform nested stage data into flat arrays
+        const temperatures: number[] = [];
+        const times: number[] = [];
+        
+        // Stage 1: Ramp to target
+        temperatures.push(inputs.stage1.startTemp, inputs.stage1.targetTemp);
+        times.push(0, inputs.stage1.duration);
+        
+        // Stage 2: Hold
+        temperatures.push(inputs.stage2.holdTemp);
+        times.push(inputs.stage1.duration + inputs.stage2.duration);
+        
+        // Stage 3: Ramp down
+        temperatures.push(inputs.stage3.startTemp, inputs.stage3.endTemp);
+        times.push(inputs.stage1.duration + inputs.stage2.duration + inputs.stage3.duration);
+        
+        // Stage 4: Cool down
+        temperatures.push(inputs.stage4.startTemp, inputs.stage4.endTemp);
+        times.push(inputs.stage1.duration + inputs.stage2.duration + inputs.stage3.duration + inputs.stage4.duration);
+        
+        const kilnLog = {
+          id: newSchedule.id,
+          name: scheduleName,
+          createdAt: new Date().toISOString(),
+          description: notes,
+          temperatures,
+          times,
+          notes: notes,
+          selectedColors: [],
+          annealedColor: '',
+          savedColorCombinations: [],
+        };
+        
+        const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+        logs.push(kilnLog);
+        localStorage.setItem('kilnLogs', JSON.stringify(logs));
+      } catch (error) {
+        console.error('Error saving to kiln logs:', error);
+      }
+      
       setScheduleName('');
       setNotes('');
       setShowSaveDialog(false);
