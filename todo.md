@@ -183,3 +183,9 @@
 - [x] Create modal to display selected colors as ColoredGlassJar icons
 - [x] Show color names and hex values (grid layout with color name and hex)
 - [x] Test color wheel display in browser (all 75 tests passing)
+
+## PDF Color Swatches Feature
+- [x] Extract selectedColors from log data in handleExportPDF
+- [x] Add color swatches section to PDF HTML (flex layout with color squares)
+- [x] Display color names and hex values in PDF (amber/gold styling)
+- [x] Test PDF export with colors in browser (all 75 tests passing)
