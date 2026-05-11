@@ -145,3 +145,8 @@
 - [x] Implement PDF preview display in modal/window
 - [x] Add print button in preview modal
 - [x] Test preview functionality in browser
+
+## Preview Viewer Expansion
+- [x] Expand PDF preview modal to use more screen space (95vw x 95vh)
+- [x] Improve iframe sizing and scrolling
+- [x] Test expanded preview in browser
