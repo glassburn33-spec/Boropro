@@ -1413,7 +1413,15 @@ export default function Logs() {
                       localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
                       setColorWheelLog(updatedLog);
                       
-                      toast.success('Color combination saved!');
+                      // Refresh PDF preview with updated combinations
+                      try {
+                        const htmlContent = generatePDFContent(updatedLog);
+                        setPDFPreviewContent(htmlContent);
+                      } catch (error) {
+                        console.error('PDF refresh error:', error);
+                      }
+                      
+                      toast.success('Color combination saved and PDF updated!');
                     }}
                     className="w-full mt-4 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
                   >
