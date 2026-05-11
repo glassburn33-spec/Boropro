@@ -54,6 +54,14 @@ interface SavedLog {
   savedColorCombinations?: Array<{ id: string; glassColor: string; annealedResult: { id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] }; savedAt: Date }>;
 }
 
+
+interface Folder {
+  id: string;
+  name: string;
+  createdAt: Date;
+  logIds: string[];
+}
+
 export default function Logs() {
   const [logs, setLogs] = useState<SavedLog[]>([]);
   const [selectedLog, setSelectedLog] = useState<SavedLog | null>(null);
@@ -90,7 +98,9 @@ export default function Logs() {
   const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [selectedLogIds, setSelectedLogIds] = useState<Set<string>>(new Set());
-  const [folders, setFolders] = useState<Array<{ id: string; name: string; createdAt: Date }>>([]);
+  const [folders, setFolders] = useState<Folder[]>([]);
+  const [showAddLogModal, setShowAddLogModal] = useState(false);
+  const [selectedFolderForAddLog, setSelectedFolderForAddLog] = useState<string | null>(null);
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
 
@@ -676,10 +686,11 @@ export default function Logs() {
                 onClick={() => {
                   const folderName = prompt('Enter folder name:');
                   if (folderName && folderName.trim()) {
-                    const newFolder = {
+                    const newFolder: Folder = {
                       id: Date.now().toString(),
                       name: folderName.trim(),
-                      createdAt: new Date()
+                      createdAt: new Date(),
+                      logIds: []
                     };
                     const updatedFolders = [...folders, newFolder];
                     setFolders(updatedFolders);
@@ -753,7 +764,8 @@ export default function Logs() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => {
-                        toast.info('Add Log feature coming soon');
+                        setSelectedFolderForAddLog(folder.id);
+                        setShowAddLogModal(true);
                       }}
                       className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
                     >
@@ -1682,6 +1694,93 @@ export default function Logs() {
         </div>
       )}
 
+      {/* Add Log Modal */}
+      {showAddLogModal && selectedFolderForAddLog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <h2 className="text-2xl font-bold text-amber-500 mb-4">Select Logs to Add</h2>
+            <div className="space-y-2 mb-6">
+              {logs.length === 0 && folders.length === 0 ? (
+                <p className="text-stone-400">No logs or folders available</p>
+              ) : (
+                <>
+                  {/* Display standalone logs */}
+                  {logs.length > 0 && (
+                    <>
+                      <div className="text-sm font-semibold text-amber-400 mb-2">Standalone Logs</div>
+                      {logs.map((log) => (
+                        <button
+                          key={log.id}
+                          onClick={() => {
+                            const updatedFolders = folders.map((f) =>
+                              f.id === selectedFolderForAddLog
+                                ? { ...f, logIds: [...(f.logIds || []), log.id] }
+                                : f
+                            );
+                            setFolders(updatedFolders);
+                            localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                            toast.success(`Added "${log.name}" to folder`);
+                            setShowAddLogModal(false);
+                          }}
+                          className="w-full text-left px-4 py-3 bg-stone-800 hover:bg-stone-700 text-white rounded transition-colors border border-stone-700 hover:border-amber-600"
+                        >
+                          <div className="font-semibold">{log.name}</div>
+                          <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
+                        </button>
+                      ))}
+                    </>
+                  )}
+                  
+                  {/* Display logs from other folders */}
+                  {folders.length > 0 && (
+                    <>
+                      <div className="text-sm font-semibold text-amber-400 mb-2 mt-4">Logs in Folders</div>
+                      {folders.map((folder) => (
+                        folder.id !== selectedFolderForAddLog && folder.logIds && folder.logIds.length > 0 && (
+                          <div key={folder.id} className="border border-stone-700 rounded p-3 bg-stone-800">
+                            <div className="text-sm font-semibold text-purple-400 mb-2">📁 {folder.name}</div>
+                            <div className="space-y-2">
+                              {folder.logIds.map((logId) => {
+                                const log = logs.find((l) => l.id === logId);
+                                return log ? (
+                                  <button
+                                    key={logId}
+                                    onClick={() => {
+                                      const updatedFolders = folders.map((f) =>
+                                        f.id === selectedFolderForAddLog
+                                          ? { ...f, logIds: [...(f.logIds || []), log.id] }
+                                          : f
+                                      );
+                                      setFolders(updatedFolders);
+                                      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                                      toast.success(`Added "${log.name}" to folder`);
+                                      setShowAddLogModal(false);
+                                    }}
+                                    className="w-full text-left px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors border border-stone-600 hover:border-amber-600 text-sm"
+                                  >
+                                    <div className="font-semibold">{log.name}</div>
+                                    <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
+                                  </button>
+                                ) : null;
+                              })}
+                            </div>
+                          </div>
+                        )
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+            <button
+              onClick={() => setShowAddLogModal(false)}
+              className="w-full px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
       {/* Footer Image */}
       <div className="mt-16 mb-8 flex justify-center">
         <img src="/manus-storage/libraryfooter(2)_d1998909.png" alt="Glass Art Footer" className="w-full max-w-4xl object-contain" />

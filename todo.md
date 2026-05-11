@@ -436,3 +436,13 @@
 - [x] Persist folders to localStorage and load on mount
 - [x] Show prompt dialog to input folder name when Add Folders is clicked
 - [x] Verify all tests pass (80/80)
+
+
+## Implement Add Log Button Functionality
+- [x] Add Log button opens a dialog/prompt
+- [x] Display all available logs (not in any folder or in other folders)
+- [x] Allow user to select logs to add to current folder
+- [x] Update folder data structure to track logs
+- [x] Persist folder-log associations to localStorage
+- [x] Include folders in the list to select logs to add section
+- [x] Verify all tests pass (80/80)
