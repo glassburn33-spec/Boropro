@@ -150,3 +150,6 @@
 - [x] Expand PDF preview modal to use more screen space (95vw x 95vh)
 - [x] Improve iframe sizing and scrolling
 - [x] Test expanded preview in browser
+
+## UI Cleanup
+- [x] Remove "Preview" button from kiln log list section

@@ -507,27 +507,6 @@ export default function Logs() {
 
                     <div className="flex gap-2 ml-4">
                       <button
-                        onClick={() => {
-                          setSelectedLog(log);
-                          setShowPreview(true);
-                        }}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-                        title="Preview log"
-                      >
-                        <Eye className="w-4 h-4" />
-                        <span className="text-sm">Preview</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleExportCSV(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition-colors"
-                        title="Export to CSV"
-                      >
-                        <Download className="w-4 h-4" />
-                        <span className="text-sm">CSV</span>
-                      </button>
-
-                      <button
                         onClick={() => handlePreviewPDF(log)}
                         className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
                         title="Preview PDF before printing"
