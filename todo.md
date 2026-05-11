@@ -304,3 +304,10 @@
 - [x] Remove Notes section from PDF
 - [x] Keep only Saved Color Combinations section
 - [x] Verify all tests pass
+
+
+## Update Done Button to Save Color Comparisons
+- [x] Update Done button to save all color comparisons from Saved Color Comparisons section
+- [x] Save updated log to localStorage with color comparisons
+- [x] Show success toast message with count of saved comparisons
+- [x] Verify all tests pass

@@ -1512,7 +1512,25 @@ export default function Logs() {
             {/* Close Button */}
             <div className="flex justify-end gap-2">
               <button
-                onClick={() => setShowColorWheelModal(false)}
+                onClick={() => {
+                  // Save all color comparisons from the Saved Color Comparisons section
+                  if (colorWheelLog && colorWheelLog.savedColorCombinations && colorWheelLog.savedColorCombinations.length > 0) {
+                    try {
+                      // Update the log with current savedColorCombinations
+                      const updatedLog = { ...colorWheelLog };
+                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                      const updatedLogs = logs.map((log: SavedLog) =>
+                        log.name === colorWheelLog.name ? updatedLog : log
+                      );
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      toast.success(`Saved ${colorWheelLog.savedColorCombinations.length} color comparison(s)`);
+                    } catch (error) {
+                      console.error('Failed to save color comparisons:', error);
+                      toast.error('Failed to save color comparisons');
+                    }
+                  }
+                  setShowColorWheelModal(false);
+                }}
                 className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
               >
                 Done
