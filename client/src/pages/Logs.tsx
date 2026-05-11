@@ -130,6 +130,28 @@ export default function Logs() {
       });
       const pathData = `M ${points.join(' L ')}`;
 
+      // Generate axis tick marks and labels
+      const xTicks = 5;
+      const yTicks = 5;
+      const xTickSpacing = plotWidth / (xTicks - 1);
+      const yTickSpacing = plotHeight / (yTicks - 1);
+      
+      let xAxisLabels = '';
+      for (let i = 0; i < xTicks; i++) {
+        const xPos = padding + i * xTickSpacing;
+        const timeValue = (i / (xTicks - 1)) * maxTime;
+        xAxisLabels += `<line x1="${xPos}" y1="${chartHeight - padding}" x2="${xPos}" y2="${chartHeight - padding + 5}" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>`;
+        xAxisLabels += `<text x="${xPos}" y="${chartHeight - padding + 20}" text-anchor="middle" font-size="11" fill="#9ca3af">${timeValue.toFixed(1)}</text>`;
+      }
+      
+      let yAxisLabels = '';
+      for (let i = 0; i < yTicks; i++) {
+        const yPos = chartHeight - padding - i * yTickSpacing;
+        const tempValue = minTemp + (i / (yTicks - 1)) * (maxTemp - minTemp);
+        yAxisLabels += `<line x1="${padding - 5}" y1="${yPos}" x2="${padding}" y2="${yPos}" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>`;
+        yAxisLabels += `<text x="${padding - 10}" y="${yPos + 4}" text-anchor="end" font-size="11" fill="#9ca3af">${tempValue.toFixed(0)}</text>`;
+      }
+
       const chartSVG = `
         <svg width="${chartWidth}" height="${chartHeight}" xmlns="http://www.w3.org/2000/svg">
           <!-- Background -->
@@ -141,6 +163,12 @@ export default function Logs() {
           
           <!-- Grid background -->
           <rect x="${padding}" y="${padding}" width="${plotWidth}" height="${plotHeight}" fill="#292524" opacity="0.5"/>
+          
+          <!-- X-axis tick marks and labels -->
+          ${xAxisLabels}
+          
+          <!-- Y-axis tick marks and labels -->
+          ${yAxisLabels}
           
           <!-- Temperature line -->
           <path d="${pathData}" stroke="#d97706" stroke-width="3" fill="none"/>
