@@ -256,7 +256,6 @@ export interface KilnLogPDFData {
   startTime: Date;
   endTime?: Date;
   notes?: string;
-  lineColor?: string;
 }
 
 export function generateKilnLogPDF(data: KilnLogPDFData): jsPDF {

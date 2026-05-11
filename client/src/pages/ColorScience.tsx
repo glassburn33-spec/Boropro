@@ -523,104 +523,39 @@ export default function ColorScienceTab() {
     },
   ];
 
-  const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
-
-  const handleHeaderImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setHeaderImage(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
-      {/* UNIFIED FIXED HEADER BLOCK */}
+    <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100">
+      {/* Fixed Header with Hamburger Menu */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
-        {/* ROW 1: Hamburger Menu, Logo and Header Image */}
-        <div className="flex items-center h-28 px-4 gap-2 relative">
-          {/* Hamburger Menu Button with Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setShowDrawer(!showDrawer)}
-              className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
-              aria-label="Toggle navigation menu"
-            >
-              <Menu className="w-6 h-6 text-stone-300" />
-            </button>
-            
-            {/* Dropdown Menu */}
-            {showDrawer && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
-                <a
-                  href="/explore?tab=studio"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Glass-Science
-                </a>
-                <a
-                  href="/explore?tab=scieequip"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Scie-Equip
-                </a>
-                <a
-                  href="/explore?tab=colorscience"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Color-Scie
-                </a>
-                <a
-                  href="/tools"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Tools
-                </a>
-                <a
-                  href="/references"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  References
-                </a>
-              </div>
-            )}
-          </div>
-          
-          {/* Logo on left */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
-          
-          {/* Header image placeholder on right */}
-          <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
-            {headerImage ? (
-              <img src={headerImage} alt="Header" className="w-full h-full object-cover" />
-            ) : (
-              <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
-                <span className="text-stone-400 text-sm">Click to add header image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleHeaderImageUpload}
-                  className="hidden"
-                />
-              </label>
-            )}
-            {headerImage && (
-              <button
-                onClick={() => setHeaderImage("")}
-                className="absolute top-2 right-2 bg-stone-900/80 hover:bg-stone-900 text-stone-300 px-2 py-1 text-xs rounded"
+        <div className="flex items-center justify-between h-16 px-4">
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setShowDrawer(!showDrawer)}
+            className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-6 h-6 text-stone-300" />
+          </button>
+
+          {/* Dropdown Menu */}
+          {showDrawer && (
+            <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
+              <a
+                href="/tools"
+                onClick={() => setShowDrawer(false)}
+                className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
               >
-                Remove
-              </button>
-            )}
-          </div>
+                Tools
+              </a>
+              <a
+                href="/references"
+                onClick={() => setShowDrawer(false)}
+                className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+              >
+                References
+              </a>
+            </div>
+          )}
         </div>
       </header>
 
@@ -632,18 +567,18 @@ export default function ColorScienceTab() {
         />
       )}
 
-      {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '120px' }}>
+      {/* Main Content */}
+      <div className="min-h-screen bg-gradient-to-b from-stone-950 to-stone-900 text-stone-100 p-6 md:p-12" style={{ marginTop: '64px' }}>
         {/* Header */}
-        <div className="mb-12">
+        <div className="max-w-6xl mx-auto mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
         </div>
 
         {/* Accordion Sections */}
-        <div>
+        <div className="max-w-6xl mx-auto">
           <Accordion items={accordionItems} allowMultiple={true} />
         </div>
-      </main>
+      </div>
     </div>
   );
 }

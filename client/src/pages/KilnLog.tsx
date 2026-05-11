@@ -4,7 +4,7 @@ Persistent database storage for complete history
 */
 
 import { useState } from "react";
-import { Plus, Trash2, Download, Clock, Thermometer, Save } from "lucide-react";
+import { Plus, Trash2, Download, Clock, Thermometer, Save, FileText } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -21,7 +21,6 @@ interface KilnLogEntry {
   startTime: Date;
   endTime?: Date;
   notes?: string;
-  lineColor?: string;
   createdAt: Date;
 }
 
@@ -40,7 +39,6 @@ export default function KilnLog() {
     startTime: new Date().toISOString().slice(0, 16),
     endTime: "",
     notes: "",
-    lineColor: "#d97706",
   });
 
   // Fetch kiln logs from backend
@@ -195,7 +193,41 @@ export default function KilnLog() {
 
     toast.success("CSV exported successfully!");
   };
+  const handleSaveToPDFLibrary = async () => {
+    if (!selectedLog) return;
 
+    try {
+
+      // Generate PDF from kiln log data
+      const pdfData: KilnLogPDFData = {
+        name: selectedLog.name,
+        description: selectedLog.description,
+        temperatures: selectedLog.temperatures,
+        times: selectedLog.times,
+        startTime: selectedLog.startTime,
+        endTime: selectedLog.endTime,
+        notes: selectedLog.notes,
+      };
+
+      const doc = generateKilnLogPDF(pdfData);
+      const base64 = pdfToBase64(doc);
+
+      // Save to PDF library via backend
+      await saveGeneratedMutation.mutateAsync({
+        filename: `${selectedLog.name}_klog.pdf`,
+        fileBase64: base64,
+        temperatures: selectedLog.temperatures,
+        times: selectedLog.times,
+      });
+
+      toast.success("Kiln log saved to Log Library!");
+      refetch();
+    } catch (error) {
+      console.error("Failed to save to Log library:", error);
+      toast.error("Failed to save to Log library");
+    } finally {
+    }
+  };
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
@@ -220,7 +252,7 @@ export default function KilnLog() {
               Calculator
             </a>
             <a
-              href="/logs"
+              href="/pdf-library"
               className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors"
             >
               Log Library
@@ -366,21 +398,6 @@ export default function KilnLog() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-amber-500 mb-2">
-                    Chart Line Color
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="color"
-                      value={formData.lineColor}
-                      onChange={(e) => setFormData({ ...formData, lineColor: e.target.value })}
-                      className="w-16 h-10 rounded-lg cursor-pointer border border-white/20"
-                    />
-                    <span className="text-sm text-stone-400">{formData.lineColor}</span>
-                  </div>
-                </div>
-
                 <div className="flex gap-3 justify-end pt-4 border-t border-white/10">
                   <button
                     type="button"
@@ -501,7 +518,27 @@ export default function KilnLog() {
                         >
                           <Save size={16} />
                         </button>
-
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const csv = [
+                              ['Temperature (°C)', 'Time (min)'],
+                              ...log.temperatures.map((temp, idx) => [temp, log.times[idx] || ''])
+                            ].map(row => row.join(',')).join('\n');
+                            const blob = new Blob([csv], { type: 'text/csv' });
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `${log.name}.csv`;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            toast.success('CSV exported successfully!');
+                          }}
+                          className="p-2 rounded-lg border border-white/20 hover:border-blue-500 text-stone-400 hover:text-blue-500 transition-colors"
+                          title="Export schedule as CSV"
+                        >
+                          <FileText size={16} />
+                        </button>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -643,7 +680,14 @@ export default function KilnLog() {
                 )}
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
-
+                  <button
+                    onClick={handleSaveToPDFLibrary}
+                    disabled={saveGeneratedMutation.isPending}
+                    className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
+                  >
+                    <Save size={16} />
+                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to Log Library"}
+                  </button>
                   <button
                     onClick={handleExportCSV}
                     className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
@@ -663,12 +707,15 @@ export default function KilnLog() {
             isOpen={showSaveModal}
             kilnLog={savedKilnLog}
             onClose={() => setShowSaveModal(false)}
-            onAddToLibrary={async (base64, filename) => {
+            onAddToLibrary={async (base64, filename, metadata) => {
               await saveGeneratedMutation.mutateAsync({
                 filename,
                 fileBase64: base64,
                 temperatures: savedKilnLog.temperatures,
                 times: savedKilnLog.times,
+                notes: metadata?.notes,
+                results: metadata?.results,
+                color: metadata?.color,
               });
             }}
             isAddingToLibrary={saveGeneratedMutation.isPending}

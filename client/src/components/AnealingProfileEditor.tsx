@@ -5,7 +5,7 @@ with 4-stage temperature curve visualization and schedule logging
 */
 
 import { useState, useMemo } from 'react';
-import { AlertCircle, Download, Save } from 'lucide-react';
+import { AlertCircle, Download, Save, FileText } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { trpc } from '@/lib/trpc';
@@ -528,7 +528,7 @@ export default function AnealingProfileEditor() {
     }
 
     return (
-      <svg width="100%" height="600" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" className="border border-stone-600 rounded-lg bg-stone-900" style={{ minHeight: '400px' }}>
+      <svg width="100%" height="auto" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" className="border border-stone-600 rounded-lg bg-stone-900" style={{ minHeight: '400px' }}>
         {/* Background */}
         <rect width={width} height={height} fill="#1c1917" />
 
@@ -766,7 +766,111 @@ export default function AnealingProfileEditor() {
     setSavedSchedules(prev => prev.filter(s => s.id !== id));
   };
 
-
+  
+  // Handler to save schedule to PDF library
+  const handleSaveScheduleToPDFLibrary = async (schedule: SavedSchedule) => {
+    try {
+      // Generate temperature and time arrays from schedule stages
+      const temperatures: number[] = [];
+      const times: number[] = [];
+      
+      temperatures.push(schedule.data.stage1.startTemp);
+      times.push(0);
+      temperatures.push(schedule.data.stage1.targetTemp);
+      times.push(schedule.data.stage1.duration);
+      temperatures.push(schedule.data.stage2.holdTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration);
+      temperatures.push(schedule.data.stage3.endTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration);
+      temperatures.push(schedule.data.stage4.endTemp);
+      times.push(schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration);
+      
+      // Generate and capture plot SVG (same as Export PDF button)
+      let plotImage: string | undefined;
+      let tempSvgContainer: HTMLDivElement | null = null;
+      try {
+        tempSvgContainer = document.createElement('div');
+        tempSvgContainer.style.position = 'absolute';
+        tempSvgContainer.style.left = '-9999px';
+        tempSvgContainer.style.top = '-9999px';
+        tempSvgContainer.style.width = '800px';
+        tempSvgContainer.style.height = '500px';
+        document.body.appendChild(tempSvgContainer);
+        
+        const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines);
+        tempSvgContainer.appendChild(svgElement);
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('Could not get canvas context');
+        
+        canvas.width = 1600;
+        canvas.height = 960;
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        const svgString = new XMLSerializer().serializeToString(svgElement);
+        const svg = new Blob([svgString], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(svg);
+        const img = new Image();
+        
+        await new Promise<void>((resolve) => {
+          img.onload = () => {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url);
+            plotImage = canvas.toDataURL('image/png', 0.95);
+            resolve();
+          };
+          img.onerror = () => {
+            console.error('Failed to load SVG image');
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          img.src = url;
+        });
+        
+      } catch (error) {
+        console.error('Error capturing plot:', error);
+      } finally {
+        if (tempSvgContainer && tempSvgContainer.parentNode) {
+          document.body.removeChild(tempSvgContainer);
+        }
+      }
+      
+      // Create PDF data using same format as Export PDF button
+      const pdfData: AnealingSchedulePDFData = {
+        name: schedule.name,
+        timestamp: schedule.timestamp,
+        stage1: schedule.data.stage1,
+        stage2: schedule.data.stage2,
+        stage3: schedule.data.stage3,
+        stage4: schedule.data.stage4,
+        annealingPoint: referenceLines.annealingPoint,
+        strainPoint: referenceLines.strainPoint,
+        notes: schedule.notes || '',
+        results: schedule.results || '',
+        plotImage: plotImage,
+        selectedColors: schedule.selectedColors || [],
+      };
+      
+      // Generate PDF using same format as Export PDF button
+      const pdf = generateAnealingSchedulePDF(pdfData);
+      const base64 = await pdfToBase64(pdf);
+      
+      // Save to library
+      await saveGeneratedMutation.mutateAsync({
+        filename: `${schedule.name}_klog.pdf`,
+        fileBase64: base64,
+        temperatures: temperatures,
+        times: times,
+      });
+      
+      toast.success('Schedule saved to PDF Library');
+    } catch (error) {
+      toast.error('Failed to save to PDF Library');
+      console.error(error);
+    }
+  };
 
   return (
     <div className="space-y-8 bg-stone-900/50 p-8 rounded-lg border border-stone-700">
@@ -1398,54 +1502,56 @@ export default function AnealingProfileEditor() {
                           Edit
                         </button>
                         <button
+                          onClick={async () => {
+                            try {
+                              const data = schedule.data;
+                              const csv = [
+                                ['Stage', 'Temperature (°C)', 'Time (min)'],
+                                ['Stage 1 - Start', data.stage1.startTemp, data.stage1.duration],
+                                ['Stage 1 - Target', data.stage1.targetTemp, ''],
+                                ['Stage 2 - Hold', data.stage2.holdTemp, data.stage2.duration],
+                                ['Stage 3 - Start', data.stage3.startTemp, data.stage3.duration],
+                                ['Stage 3 - End', data.stage3.endTemp, ''],
+                                ['Stage 4 - Start', data.stage4.startTemp, data.stage4.duration],
+                                ['Stage 4 - End', data.stage4.endTemp, '']
+                              ].map(row => row.join(',')).join('\n');
+                              const blob = new Blob([csv], { type: 'text/csv' });
+                              const arrayBuffer = await blob.arrayBuffer();
+                              const uint8Array = new Uint8Array(arrayBuffer);
+                              const fileBase64 = btoa(String.fromCharCode(...Array.from(uint8Array)));
+                              
+                              // Save to PDF Library
+                              await saveGeneratedMutation.mutateAsync({
+                                filename: `${schedule.name}.csv`,
+                                fileBase64: fileBase64,
+                                temperatures: [],
+                                times: []
+                              });
+                              toast.success('CSV saved to Schedule Library!');
+                            } catch (error) {
+                              console.error('Error saving CSV:', error);
+                              toast.error('Failed to save CSV to library');
+                            }
+                          }}
+                          disabled={saveGeneratedMutation.isPending}
+                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 disabled:bg-blue-500 text-white rounded text-sm font-semibold flex items-center gap-1"
+                          title="Export schedule as CSV and save to library"
+                        >
+                          <FileText className="w-3 h-3" />
+                          {saveGeneratedMutation.isPending ? 'Saving...' : 'Export CSV'}
+                        </button>
+                        <button
                           onClick={() => handleDeleteSchedule(schedule.id)}
                           className="px-3 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-sm font-semibold"
                         >
                           Delete
                         </button>
-
                         <button
-                          onClick={() => {
-                            try {
-                              // Calculate temperature and time data from schedule
-                              const cumulativeTimes = [
-                                0,
-                                schedule.data.stage1.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration,
-                              ];
-                              
-                              const temperatures = [
-                                schedule.data.stage1.startTemp,
-                                schedule.data.stage1.targetTemp,
-                                schedule.data.stage2.holdTemp,
-                                schedule.data.stage3.endTemp,
-                                schedule.data.stage4.endTemp,
-                              ];
-                              
-                              const logData = {
-                                id: Date.now(),
-                                filename: schedule.name,
-                                temperatures: temperatures,
-                                times: cumulativeTimes,
-                                savedAt: new Date().toISOString(),
-                                notes: schedule.notes || '',
-                                results: schedule.results || '',
-                              };
-                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                              existingLogs.push(logData);
-                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
-                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
-                              toast.success('Log saved successfully!');
-                            } catch (error) {
-                              console.error('Failed to save log:', error);
-                              toast.error('Failed to save log');
-                            }
-                          }}
-                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                          onClick={() => handleSaveScheduleToPDFLibrary(schedule)}
+                          disabled={saveGeneratedMutation.isPending}
+                          className="px-3 py-1 bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white text-sm rounded transition-colors font-semibold"
                         >
-                          Logs
+                          {saveGeneratedMutation.isPending ? 'Saving...' : 'Save to PDF Library'}
                         </button>
                       </div>
                     </div>
