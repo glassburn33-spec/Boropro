@@ -679,6 +679,7 @@ export function CalculatorTab() {
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
+  const [timerLoop,     setTimerLoop]     = useState<boolean>(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -732,14 +733,20 @@ export function CalculatorTab() {
     setTimerRunning(true);
     intervalRef.current = setInterval(() => {
       setTimeRemaining((prev) => {
-        if (prev === null || prev <= 1) {
+    if (timeRemaining === null || timeRemaining <= 1) {
           clearInterval(intervalRef.current!);
           intervalRef.current = null;
-          setTimerRunning(false);
           playBeeps(3);
-          return originalTimeRef.current;   // reset to original value
+          if (timerLoop) {
+            // Restart the timer automatically if loop is enabled
+            setTimeRemaining(originalTimeRef.current);
+            return originalTimeRef.current;
+          } else {
+            setTimerRunning(false);
+            return originalTimeRef.current;
+          }
         }
-        return prev - 1;
+        return (prev ?? 0) - 1;
       });
     }, 1000);
   }
@@ -1056,7 +1063,7 @@ export function CalculatorTab() {
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-2">
                 <Button
                   onClick={handleStartStop}
                   className={`flex-1 font-bold text-white ${
@@ -1075,6 +1082,18 @@ export function CalculatorTab() {
                   ↺ Reset
                 </Button>
               </div>
+
+              {/* Loop toggle button */}
+              <Button
+                onClick={() => setTimerLoop(!timerLoop)}
+                className={`w-full font-bold text-white ${
+                  timerLoop
+                    ? 'bg-amber-700 hover:bg-amber-600'
+                    : 'bg-stone-700 hover:bg-stone-600'
+                }`}
+              >
+                {timerLoop ? '🔁 Loop: ON' : '🔁 Loop: OFF'}
+              </Button>
 
               <p className="text-xs text-stone-500 mt-3 text-center">
                 Timer beeps 3× and resets automatically when it reaches zero.
