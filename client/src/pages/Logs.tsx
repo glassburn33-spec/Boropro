@@ -51,6 +51,7 @@ interface SavedLog {
   annealedColors?: Array<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] }>;
   annealedColor?: string;
   colorNames?: { [hex: string]: string };
+  savedColorCombinations?: Array<{ id: string; glassColor: string; annealedResult: { id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] }; savedAt: Date }>;
 }
 
 export default function Logs() {
@@ -529,30 +530,29 @@ export default function Logs() {
                   </div>
                 </div>
               ` : ''}
-              ${log.annealedColors && log.annealedColors.length > 0 && log.selectedColors && log.selectedColors.length > 0 ? `
+              ${log.savedColorCombinations && log.savedColorCombinations.length > 0 ? `
                 <div class="notes">
-                  <h3>Color Transformation Results</h3>
+                  <h3>Saved Color Combinations</h3>
                   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
-                    ${log.annealedColors.map((result) => `
+                    ${log.savedColorCombinations.map((combo) => `
                       <div style="border: 1px solid #d97706; border-radius: 4px; padding: 12px; background-color: #292524; margin-bottom: 8px;">
-                        <div style="color: #fbbf24; font-size: 12px; font-weight: bold; margin-bottom: 8px;">Saved Result: ${result.mode === 'blend' ? 'Blend' : 'Solid'}</div>
                         <div style="display: flex; align-items: center; gap: 12px; padding: 8px; background-color: #1c1917; border-radius: 3px; margin-bottom: 6px;">
                           <div style="text-align: center;">
                             <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Glass</div>
-                            <div style="width: 25px; height: 25px; background-color: ${log.selectedColors?.[0] || '#ffffff'}; border: 1px solid #d97706; border-radius: 2px;"></div>
+                            <div style="width: 25px; height: 25px; background-color: ${combo.glassColor}; border: 1px solid #d97706; border-radius: 2px;"></div>
                           </div>
                           <div style="color: #fbbf24; font-weight: bold; font-size: 12px;">→</div>
                           <div style="text-align: center;">
-                            <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">Result</div>
-                            ${result.mode === 'blend' ? `
-                              <div style="width: 25px; height: 25px; background: linear-gradient(135deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
+                            <div style="font-size: 10px; color: #a3a3a3; margin-bottom: 3px;">${combo.annealedResult.mode === 'blend' ? 'Blend' : 'Solid'}</div>
+                            ${combo.annealedResult.mode === 'blend' ? `
+                              <div style="width: 25px; height: 25px; background: linear-gradient(135deg, ${combo.annealedResult.blendColors?.[0] || '#ffffff'} 0%, ${combo.annealedResult.blendColors?.[1] || '#ffffff'} 50%, ${combo.annealedResult.blendColors?.[2] || '#ffffff'} 100%); border: 1px solid #d97706; border-radius: 2px;"></div>
                             ` : `
-                              <div style="width: 25px; height: 25px; background-color: ${result.color}; border: 1px solid #d97706; border-radius: 2px;"></div>
+                              <div style="width: 25px; height: 25px; background-color: ${combo.annealedResult.color}; border: 1px solid #d97706; border-radius: 2px;"></div>
                             `}
                           </div>
                           <div style="flex: 1; margin-left: 8px;">
-                            <p style="margin: 0; color: #fbbf24; font-size: 10px;"><strong>Input:</strong> ${log.selectedColors?.[0] ? getColorNameFromHex(log.selectedColors[0]) : 'Unknown'}</p>
-                            <p style="margin: 0; color: #d97706; font-size: 10px;"><strong>Output:</strong> ${result.mode === 'blend' ? 'Blend' : getColorNameFromHex(result.color)}</p>
+                            <p style="margin: 0; color: #fbbf24; font-size: 10px;"><strong>Input:</strong> ${getColorNameFromHex(combo.glassColor)}</p>
+                            <p style="margin: 0; color: #d97706; font-size: 10px;"><strong>Output:</strong> ${combo.annealedResult.mode === 'blend' ? 'Blend Mix' : getColorNameFromHex(combo.annealedResult.color)}</p>
                           </div>
                         </div>
                       </div>
