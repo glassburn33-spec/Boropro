@@ -130,3 +130,12 @@
 - [x] Add unit tests for PDF generation with updated information
 - [x] Fix TypeScript errors (downlevelIteration, Set types)
 - [x] Verify Edit modal functionality in browser
+
+
+## PDF Export Improvements (New)
+- [x] Update Logs.tsx PDF export to match Firing Tracker plot styling (dark theme, amber/gold colors, grid, axes)
+- [x] Add custom line color support to SaveScheduleModal and Logs page (notes field verified)
+- [x] Implement coordinate labels and tick marks in PDF export SVG
+- [x] Verify notes field is properly saved and displayed in PDFs
+- [x] Write vitest tests for PDF export with custom colors (20 tests passing)
+- [x] Test PDF export in browser to verify visual output

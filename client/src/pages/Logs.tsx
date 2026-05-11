@@ -13,6 +13,7 @@ interface SavedLog {
   times: number[];
   createdAt: string;
   description?: string;
+  notes?: string;
 }
 
 export default function Logs() {
@@ -111,88 +112,240 @@ export default function Logs() {
 
   const handleExportPDF = (log: SavedLog) => {
     try {
-      // Generate SVG chart matching KilnLog plot
+      // Generate SVG chart matching Firing Tracker plot styling
       const minTemp = Math.min(...log.temperatures);
-      const maxTemp = Math.max(...log.temperatures);
+      const maxTemp = Math.max(...log.temperatures) + 50; // Add padding like Firing Tracker
       const maxTime = Math.max(...log.times);
-      const chartWidth = 600;
-      const chartHeight = 300;
-      const padding = 40;
-      const plotWidth = chartWidth - 2 * padding;
-      const plotHeight = chartHeight - 2 * padding;
+      
+      // SVG dimensions and margins matching Firing Tracker
+      const width = 1000;
+      const height = 600;
+      const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+      const plotWidth = width - margin.left - margin.right;
+      const plotHeight = height - margin.top - margin.bottom;
 
-      // Create SVG path for temperature line
-      const points = log.times.map((time, idx) => {
-        const x = padding + (time / maxTime) * plotWidth;
-        const y = chartHeight - padding - ((log.temperatures[idx] - minTemp) / (maxTemp - minTemp)) * plotHeight;
-        return `${x},${y}`;
+      // Scale functions
+      const scaleX = (time: number) => (time / maxTime) * plotWidth;
+      const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
+
+      // Create SVG element
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', width.toString());
+      svg.setAttribute('height', height.toString());
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.setAttribute('style', 'background-color: #1c1917;');
+
+      // Background
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('width', width.toString());
+      bg.setAttribute('height', height.toString());
+      bg.setAttribute('fill', '#1c1917');
+      svg.appendChild(bg);
+
+      // Gridlines
+      const tempStep = maxTemp > 600 ? 100 : 50;
+      for (let temp = 0; temp <= maxTemp; temp += tempStep) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', margin.left.toString());
+        line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
+        line.setAttribute('x2', (margin.left + plotWidth).toString());
+        line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
+        line.setAttribute('stroke', '#404040');
+        line.setAttribute('stroke-dasharray', '4');
+        line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+      }
+
+      // Temperature curve path
+      let pathD = `M ${margin.left + scaleX(log.times[0])} ${margin.top + scaleY(log.temperatures[0])}`;
+      for (let i = 1; i < log.times.length; i++) {
+        pathD += ` L ${margin.left + scaleX(log.times[i])} ${margin.top + scaleY(log.temperatures[i])}`;
+      }
+
+      // Temperature curve
+      const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      curve.setAttribute('d', pathD);
+      curve.setAttribute('stroke', '#fbbf24');
+      curve.setAttribute('stroke-width', '3');
+      curve.setAttribute('fill', 'none');
+      svg.appendChild(curve);
+
+      // Data points
+      log.times.forEach((time, idx) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', (margin.left + scaleX(time)).toString());
+        circle.setAttribute('cy', (margin.top + scaleY(log.temperatures[idx])).toString());
+        circle.setAttribute('r', '4');
+        circle.setAttribute('fill', '#fbbf24');
+        svg.appendChild(circle);
       });
-      const pathData = `M ${points.join(' L ')}`;
 
-      const chartSVG = `
-        <svg width="${chartWidth}" height="${chartHeight}" xmlns="http://www.w3.org/2000/svg">
-          <!-- Grid lines -->
-          <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${chartHeight - padding}" stroke="#ccc" stroke-width="2"/>
-          <line x1="${padding}" y1="${chartHeight - padding}" x2="${chartWidth - padding}" y2="${chartHeight - padding}" stroke="#ccc" stroke-width="2"/>
-          
-          <!-- Temperature line -->
-          <path d="${pathData}" stroke="#d97706" stroke-width="2" fill="none"/>
-          
-          <!-- Data points -->
-          ${log.times.map((time, idx) => {
-            const x = padding + (time / maxTime) * plotWidth;
-            const y = chartHeight - padding - ((log.temperatures[idx] - minTemp) / (maxTemp - minTemp)) * plotHeight;
-            return `<circle cx="${x}" cy="${y}" r="3" fill="#d97706"/>`;
-          }).join('')}
-          
-          <!-- Axis labels -->
-          <text x="${chartWidth / 2}" y="${chartHeight - 5}" text-anchor="middle" font-size="12">Time (hours)</text>
-          <text x="15" y="${chartHeight / 2}" text-anchor="middle" font-size="12" transform="rotate(-90 15 ${chartHeight / 2})">Temperature (°F)</text>
-        </svg>
-      `;
+      // Axes
+      const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      xAxis.setAttribute('x1', margin.left.toString());
+      xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
+      xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
+      xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+      xAxis.setAttribute('stroke', '#999');
+      xAxis.setAttribute('stroke-width', '2');
+      svg.appendChild(xAxis);
+
+      const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      yAxis.setAttribute('x1', margin.left.toString());
+      yAxis.setAttribute('y1', margin.top.toString());
+      yAxis.setAttribute('x2', margin.left.toString());
+      yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+      yAxis.setAttribute('stroke', '#999');
+      yAxis.setAttribute('stroke-width', '2');
+      svg.appendChild(yAxis);
+
+      // Y-axis ticks and labels
+      for (let i = 0; i <= maxTemp; i += tempStep) {
+        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        tick.setAttribute('x1', (margin.left - 5).toString());
+        tick.setAttribute('y1', (margin.top + scaleY(i)).toString());
+        tick.setAttribute('x2', margin.left.toString());
+        tick.setAttribute('y2', (margin.top + scaleY(i)).toString());
+        tick.setAttribute('stroke', '#999');
+        tick.setAttribute('stroke-width', '1');
+        svg.appendChild(tick);
+
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', (margin.left - 15).toString());
+        label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
+        label.setAttribute('text-anchor', 'end');
+        label.setAttribute('fill', '#999');
+        label.setAttribute('font-size', '11');
+        label.textContent = `${i}°C`;
+        svg.appendChild(label);
+      }
+
+      // X-axis ticks and labels
+      const timeStep = maxTime > 500 ? 100 : 50;
+      for (let time = 0; time <= maxTime; time += timeStep) {
+        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        tick.setAttribute('x1', (margin.left + scaleX(time)).toString());
+        tick.setAttribute('y1', (margin.top + plotHeight).toString());
+        tick.setAttribute('x2', (margin.left + scaleX(time)).toString());
+        tick.setAttribute('y2', (margin.top + plotHeight + 5).toString());
+        tick.setAttribute('stroke', '#999');
+        tick.setAttribute('stroke-width', '1');
+        svg.appendChild(tick);
+
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', (margin.left + scaleX(time)).toString());
+        label.setAttribute('y', (margin.top + plotHeight + 20).toString());
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('fill', '#999');
+        label.setAttribute('font-size', '11');
+        label.textContent = `${time} min`;
+        svg.appendChild(label);
+      }
+
+      // Axis labels
+      const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
+      xLabel.setAttribute('y', (height - 20).toString());
+      xLabel.setAttribute('text-anchor', 'middle');
+      xLabel.setAttribute('fill', '#999');
+      xLabel.setAttribute('font-size', '14');
+      xLabel.textContent = 'Time →';
+      svg.appendChild(xLabel);
+
+      const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      yLabel.setAttribute('x', '15');
+      yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
+      yLabel.setAttribute('text-anchor', 'middle');
+      yLabel.setAttribute('fill', '#999');
+      yLabel.setAttribute('font-size', '13');
+      yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
+      yLabel.textContent = 'Temp (°C)';
+      svg.appendChild(yLabel);
+
+      // Title
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      title.setAttribute('x', (width / 2).toString());
+      title.setAttribute('y', '40');
+      title.setAttribute('text-anchor', 'middle');
+      title.setAttribute('fill', '#fbbf24');
+      title.setAttribute('font-size', '20');
+      title.setAttribute('font-weight', 'bold');
+      title.textContent = log.name;
+      svg.appendChild(title);
+
+      // Convert SVG to data URL
+      const svgString = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
+      const svgUrl = URL.createObjectURL(svgBlob);
 
       const htmlContent = `
         <html>
           <head>
             <title>${log.name} - Kiln Log</title>
             <style>
-              body { font-family: Arial, sans-serif; margin: 20px; background: white; }
-              h1 { color: #333; }
-              .metadata { margin: 20px 0; color: #666; }
-              .chart { margin: 30px 0; border: 1px solid #ddd; padding: 10px; }
-              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-              th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-              th { background-color: #f2f2f2; font-weight: bold; }
-              tr:nth-child(even) { background-color: #f9f9f9; }
+              body { font-family: Arial, sans-serif; margin: 0; background: #1c1917; color: #fbbf24; }
+              .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+              h1 { color: #fbbf24; text-align: center; margin-bottom: 10px; }
+              .metadata { background: #2d2520; border: 1px solid #d97706; border-radius: 4px; padding: 15px; margin: 20px 0; }
+              .metadata p { margin: 8px 0; color: #d97706; }
+              .chart-container { margin: 30px 0; text-align: center; background: #1c1917; padding: 20px; border: 1px solid #d97706; border-radius: 4px; }
+              .chart-container img { max-width: 100%; height: auto; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #2d2520; }
+              th { background-color: #404040; color: #fbbf24; padding: 12px; text-align: left; border: 1px solid #d97706; font-weight: bold; }
+              td { border: 1px solid #404040; padding: 12px; text-align: left; color: #d97706; }
+              tr:nth-child(even) { background-color: #1c1917; }
+              .notes { background: #2d2520; border: 1px solid #d97706; border-radius: 4px; padding: 15px; margin-top: 20px; }
+              .notes h3 { color: #fbbf24; margin-top: 0; }
+              .notes p { color: #d97706; white-space: pre-wrap; word-wrap: break-word; }
+              .footer { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
             </style>
           </head>
           <body>
-            <h1>Kiln Log: ${log.name}</h1>
-            <div class="metadata">
-              <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleString()}</p>
-              <p><strong>Max Temperature:</strong> ${Math.max(...log.temperatures)}°C</p>
-              <p><strong>Duration:</strong> ${Math.max(...log.times)} minutes</p>
-            </div>
-            <div class="chart">
-              <h2>Temperature Profile</h2>
-              ${chartSVG}
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Time (min)</th>
-                  <th>Temperature (°C)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${log.times.map((time, index) => `
+            <div class="container">
+              <h1>Kiln Log: ${log.name}</h1>
+              <div class="metadata">
+                <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleString()}</p>
+                <p><strong>Max Temperature:</strong> ${Math.max(...log.temperatures)}°C</p>
+                <p><strong>Duration:</strong> ${Math.max(...log.times)} minutes</p>
+                <p><strong>Data Points:</strong> ${log.temperatures.length}</p>
+              </div>
+              <div class="chart-container">
+                <h2 style="color: #fbbf24; margin-top: 0;">Temperature Profile</h2>
+                <img src="${svgUrl}" alt="Temperature Profile Chart" />
+              </div>
+              <table>
+                <thead>
                   <tr>
-                    <td>${time}</td>
-                    <td>${log.temperatures[index]}</td>
+                    <th>Time (min)</th>
+                    <th>Temperature (°C)</th>
                   </tr>
-                `).join('')}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  ${log.times.map((time, index) => `
+                    <tr>
+                      <td>${time}</td>
+                      <td>${log.temperatures[index]}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+              ${log.description ? `
+                <div class="notes">
+                  <h3>Description</h3>
+                  <p>${log.description}</p>
+                </div>
+              ` : ''}
+              ${log.notes ? `
+                <div class="notes">
+                  <h3>Notes</h3>
+                  <p>${log.notes}</p>
+                </div>
+              ` : ''}
+              <div class="footer">
+                <p>Generated by BoroPro - Borosilicate Kiln Research Platform</p>
+              </div>
+            </div>
           </body>
         </html>
       `;
@@ -409,6 +562,13 @@ export default function Logs() {
                 <div>
                   <p className="text-sm text-stone-500">Description</p>
                   <p>{selectedLog.description}</p>
+                </div>
+              )}
+
+              {selectedLog.notes && (
+                <div>
+                  <p className="text-sm text-stone-500">Notes</p>
+                  <p className="whitespace-pre-wrap">{selectedLog.notes}</p>
                 </div>
               )}
 
