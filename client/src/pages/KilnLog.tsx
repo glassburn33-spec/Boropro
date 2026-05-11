@@ -3,7 +3,7 @@ Kiln Log Page - Track and manage actual kiln runs
 Persistent database storage for complete history
 */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus, Trash2, Download, Clock, Thermometer, Save } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { trpc } from "@/lib/trpc";
@@ -31,8 +31,6 @@ export default function KilnLog() {
   const [filterBy, setFilterBy] = useState<"all" | "recent" | "oldest">("all");
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [savedKilnLog, setSavedKilnLog] = useState<KilnLogEntry | null>(null);
-  const [savedLogs, setSavedLogs] = useState<any[]>([]);
-  const [showSavedLogs, setShowSavedLogs] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -48,36 +46,6 @@ export default function KilnLog() {
   const createMutation = trpc.kilnLog.create.useMutation();
   const deleteMutation = trpc.kilnLog.delete.useMutation();
   const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
-
-  // Load saved logs from localStorage
-  useEffect(() => {
-    const loadSavedLogs = () => {
-      try {
-        const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-        setSavedLogs(logs);
-      } catch (error) {
-        console.error('Failed to load saved logs:', error);
-      }
-    };
-
-    loadSavedLogs();
-
-    // Listen for updates from other components
-    const handleLogsUpdated = (event: any) => {
-      setSavedLogs(event.detail || []);
-    };
-
-    window.addEventListener('logsUpdated', handleLogsUpdated);
-    return () => window.removeEventListener('logsUpdated', handleLogsUpdated);
-  }, []);
-
-  // Delete saved log from localStorage
-  const handleDeleteSavedLog = (id: number) => {
-    const updatedLogs = savedLogs.filter((log: any) => log.id !== id);
-    setSavedLogs(updatedLogs);
-    localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-    toast.success('Log deleted');
-  };
 
   // Convert database records to display format
   let displayLogs: KilnLogEntry[] = logs.map((log: any) => ({
@@ -720,7 +688,7 @@ export default function KilnLog() {
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button
-                    onClick={() => toast.error("Feature removed")}
+                    onClick={handleSaveToPDFLibrary}
                     disabled={saveGeneratedMutation.isPending}
                     className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
                   >
@@ -757,68 +725,6 @@ export default function KilnLog() {
             isAddingToLibrary={saveGeneratedMutation.isPending}
           />
         )}
-
-        {/* Saved Logs Section */}
-        <section className="bg-stone-900 border border-stone-700 rounded-lg p-8 mt-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-amber-400 font-mono">Saved Logs</h2>
-            <button
-              onClick={() => setShowSavedLogs(!showSavedLogs)}
-              className="px-4 py-2 rounded-lg border border-amber-500 text-amber-500 hover:bg-amber-500/10 font-mono text-xs font-bold uppercase transition-colors"
-            >
-              {showSavedLogs ? 'Hide' : 'Show'} ({savedLogs.length})
-            </button>
-          </div>
-
-          {showSavedLogs && (
-            <div className="space-y-4">
-              {savedLogs.length === 0 ? (
-                <p className="text-stone-400 text-center py-8">No saved logs yet. Click the "Logs" button on a kiln log to save it.</p>
-              ) : (
-                savedLogs.map((log: any) => (
-                  <div key={log.id} className="bg-stone-800 border border-stone-700 rounded-lg p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-bold text-white text-lg">{log.filename}</h3>
-                        {log.description && <p className="text-stone-400 text-sm">{log.description}</p>}
-                      </div>
-                      <button
-                        onClick={() => handleDeleteSavedLog(log.id)}
-                        className="p-2 rounded-lg border border-red-500/30 hover:border-red-500 text-red-500 hover:bg-red-500/10 transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 text-xs text-stone-400">
-                      <div>
-                        <span className="font-mono font-bold text-amber-500">Temperature Points:</span>
-                        <p>{log.temperatures?.length || 0}</p>
-                      </div>
-                      <div>
-                        <span className="font-mono font-bold text-amber-500">Time Points:</span>
-                        <p>{log.times?.length || 0}</p>
-                      </div>
-                      <div>
-                        <span className="font-mono font-bold text-amber-500">Start Time:</span>
-                        <p>{new Date(log.startTime).toLocaleString()}</p>
-                      </div>
-                      <div>
-                        <span className="font-mono font-bold text-amber-500">Saved At:</span>
-                        <p>{new Date(log.savedAt).toLocaleString()}</p>
-                      </div>
-                    </div>
-                    {log.notes && (
-                      <div className="mt-3 pt-3 border-t border-stone-700">
-                        <p className="text-xs font-mono font-bold text-amber-500 mb-1">Notes:</p>
-                        <p className="text-stone-300 text-sm whitespace-pre-wrap">{log.notes}</p>
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
-          )}
-        </section>
       </main>
     </div>
   );
