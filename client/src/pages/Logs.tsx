@@ -1377,19 +1377,26 @@ export default function Logs() {
                 {selectedGlassColor && (tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color) && (
                   <button
                     onClick={() => {
-                      const combinationName = `${getColorNameFromHex(selectedGlassColor)} → ${selectedAnnealedResultForComparison?.mode === 'blend' ? 'Blend' : getColorNameFromHex(selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}`;
+                      if (!colorWheelLog) return;
+                      
                       const combination = {
+                        id: `combo-${Date.now()}`,
                         glassColor: selectedGlassColor,
-                        annealedColor: selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor,
-                        mode: selectedAnnealedResultForComparison?.mode || 'solid',
-                        blendColors: selectedAnnealedResultForComparison?.blendColors,
-                        name: combinationName,
-                        savedAt: new Date().toISOString()
+                        annealedResult: selectedAnnealedResultForComparison || { id: '', color: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff', mode: 'solid' as const },
+                        savedAt: new Date()
                       };
                       
-                      const savedCombinations = JSON.parse(localStorage.getItem('colorCombinations') || '[]');
-                      savedCombinations.push(combination);
-                      localStorage.setItem('colorCombinations', JSON.stringify(savedCombinations));
+                      const updatedLog = {
+                        ...colorWheelLog,
+                        savedColorCombinations: [...(colorWheelLog.savedColorCombinations || []), combination]
+                      };
+                      
+                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                      const updatedLogs = logs.map((log: SavedLog) =>
+                        log.name === colorWheelLog.name ? updatedLog : log
+                      );
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      setColorWheelLog(updatedLog);
                       
                       toast.success('Color combination saved!');
                     }}
