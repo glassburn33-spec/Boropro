@@ -1042,7 +1042,7 @@ export default function Logs() {
       {/* Color Wheel Modal */}
       {showColorWheelModal && colorWheelLog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-2xl w-full shadow-xl">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-2xl w-full shadow-xl max-h-[80vh] overflow-y-auto">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-purple-400">Glass Colors - {colorWheelLog.name}</h2>
