@@ -368,3 +368,16 @@
 - [x] Remove Palette icon from Colors button
 - [x] Remove MessageCircle icon from Comments button
 - [x] Verify all tests pass (80/80)
+
+
+## Remove Filter by Date Range
+- [x] Delete the date range filter section from kiln logs page
+- [x] Remove Start Date and End Date input fields
+- [x] Remove Clear button
+- [x] Verify all tests pass (80/80)
+
+
+## Remove Text Under Kiln Logs Title
+- [x] Delete the descriptive text under the Kiln Logs page title
+- [x] Keep only the title heading
+- [x] Verify all tests pass (80/80)

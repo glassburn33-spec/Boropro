@@ -640,51 +640,9 @@ export default function Logs() {
         {/* Page Title */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-amber-400 mb-2">Kiln Logs</h1>
-          <p className="text-stone-400">
-            View and manage your saved kiln firing logs. Export data for analysis and documentation.
-          </p>
         </div>
 
-        {/* Date Range Filter */}
-        {logs.length > 0 && (
-          <div className="mb-8 p-4 bg-stone-900/50 border border-stone-700 rounded-lg">
-            <h2 className="text-sm font-semibold text-amber-400 mb-4">Filter by Date Range</h2>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <label className="block text-xs text-stone-400 mb-2">Start Date</label>
-                <input
-                  type="date"
-                  value={filterStartDate}
-                  onChange={(e) => setFilterStartDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-600 rounded text-white text-sm"
-                />
-              </div>
-              <div className="flex-1">
-                <label className="block text-xs text-stone-400 mb-2">End Date</label>
-                <input
-                  type="date"
-                  value={filterEndDate}
-                  onChange={(e) => setFilterEndDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-600 rounded text-white text-sm"
-                />
-              </div>
-              <div className="flex items-end">
-                <button
-                  onClick={() => {
-                    setFilterStartDate("");
-                    setFilterEndDate("");
-                  }}
-                  className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-sm"
-                >
-                  Clear
-                </button>
-              </div>
-            </div>
-            <p className="text-xs text-stone-500 mt-2">
-              Showing {filteredLogs.length} of {logs.length} logs
-            </p>
-          </div>
-        )}
+        {/* Date Range Filter Removed */}
 
         {filteredLogs.length === 0 && logs.length > 0 ? (
           <div className="text-center py-12 border border-stone-700 rounded-lg bg-stone-900/50">
