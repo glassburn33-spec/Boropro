@@ -884,13 +884,9 @@ export default function Logs() {
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {colorWheelLog.selectedColors.map((color, index) => (
-                    <div key={index} className="flex flex-col items-center gap-2">
+                    <div key={index} className="flex justify-center">
                       <div className="w-16 h-16 rounded-lg border-2 border-stone-600 flex items-center justify-center bg-stone-800">
                         <ColoredGlassJar color={color} size={60} />
-                      </div>
-                      <div className="text-center">
-                        <p className="text-sm font-semibold text-stone-300">{getColorNameFromHex(color)}</p>
-                        <p className="text-xs text-stone-500">{color}</p>
                       </div>
                     </div>
                   ))}
