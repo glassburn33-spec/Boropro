@@ -382,6 +382,30 @@ export default function Logs() {
     }
   };
 
+  const handleUploadPDF = async (log: SavedLog) => {
+    try {
+      const htmlContent = generatePDFContent(log);
+      
+      // Convert HTML to blob
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      
+      // Create a temporary link and trigger download
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${log.name}-${new Date().toISOString().split('T')[0]}.html`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      toast.success('PDF downloaded successfully');
+    } catch (error) {
+      console.error('PDF upload error:', error);
+      toast.error('Failed to download PDF');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
       {/* Header */}
@@ -516,12 +540,12 @@ export default function Logs() {
                       </button>
 
                       <button
-                        onClick={() => handleExportPDF(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-                        title="Export to PDF"
+                        onClick={() => handleUploadPDF(log)}
+                        className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
+                        title="Download PDF file"
                       >
-                        <FileText className="w-4 h-4" />
-                        <span className="text-sm">Print PDF</span>
+                        <Download className="w-4 h-4" />
+                        <span className="text-sm">Upload PDF</span>
                       </button>
 
                       <button

@@ -153,3 +153,9 @@
 
 ## UI Cleanup
 - [x] Remove "Preview" button from kiln log list section
+
+## PDF Upload Feature
+- [x] Rename "Print PDF" button to "Upload PDF" in kiln log list
+- [x] Implement PDF download functionality (saves as HTML file)
+- [x] Add download handler to trigger file download
+- [x] Test upload functionality in browser
