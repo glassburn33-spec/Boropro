@@ -90,18 +90,11 @@ export default function Logs() {
   const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [selectedLogIds, setSelectedLogIds] = useState<Set<string>>(new Set());
-  const [folders, setFolders] = useState<Array<{ id: string; name: string; createdAt: Date }>>([]);
-  const [showFolderInput, setShowFolderInput] = useState(false);
-  const [newFolderName, setNewFolderName] = useState("");
 
-  // Load logs and folders from localStorage on mount
+  // Load logs from localStorage on mount
   useEffect(() => {
     const loadLogs = () => {
       try {
-        const storedFolders = localStorage.getItem("kilnFolders");
-        if (storedFolders) {
-          setFolders(JSON.parse(storedFolders));
-        }
         const storedLogs = localStorage.getItem("kilnLogs");
         if (storedLogs) {
           const parsedLogs = JSON.parse(storedLogs);
@@ -674,27 +667,12 @@ export default function Logs() {
             <div className="flex items-center justify-end gap-4 mb-4">
               <button
                 onClick={() => {
-                  if (showFolderInput) {
-                    if (newFolderName.trim()) {
-                      const newFolder = {
-                        id: Date.now().toString(),
-                        name: newFolderName,
-                        createdAt: new Date()
-                      };
-                      const updatedFolders = [...folders, newFolder];
-                      setFolders(updatedFolders);
-                      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                      setNewFolderName('');
-                      setShowFolderInput(false);
-                      toast.success(`Folder "${newFolder.name}" created`);
-                    }
-                  } else {
-                    setShowFolderInput(true);
-                  }
+                  console.log('Add Folders clicked');
+                  toast.info('Folder feature coming soon');
                 }}
                 className="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-sm font-medium"
               >
-                {showFolderInput ? 'Create' : 'Add Folders'}
+                Add Folders
               </button>
               <button
                 onClick={() => {
@@ -707,33 +685,6 @@ export default function Logs() {
               >
                 {showCheckboxes ? 'Done' : 'Select'}
               </button>
-              {showFolderInput && (
-                <input
-                  type="text"
-                  value={newFolderName}
-                  onChange={(e) => setNewFolderName(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      if (newFolderName.trim()) {
-                        const newFolder = {
-                          id: Date.now().toString(),
-                          name: newFolderName,
-                          createdAt: new Date()
-                        };
-                        const updatedFolders = [...folders, newFolder];
-                        setFolders(updatedFolders);
-                        localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                        setNewFolderName('');
-                        setShowFolderInput(false);
-                        toast.success(`Folder "${newFolder.name}" created`);
-                      }
-                    }
-                  }}
-                  placeholder="Folder name..."
-                  className="px-3 py-2 bg-stone-800 border border-stone-600 text-white rounded text-sm"
-                  autoFocus
-                />
-              )}
               {showCheckboxes && (
                 <button
                   onClick={() => {
@@ -768,33 +719,6 @@ export default function Logs() {
                 </button>
               )}
             </div>
-            {/* Folders Display */}
-            {folders.length > 0 && (
-              <div className="grid gap-2 mb-4">
-                {folders.map((folder) => (
-                  <div
-                    key={folder.id}
-                    className="border border-purple-600 rounded-lg bg-purple-900/30 p-3 hover:bg-purple-900/50 transition-colors cursor-pointer flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">📁</span>
-                      <span className="text-white font-medium">{folder.name}</span>
-                    </div>
-                    <button
-                      onClick={() => {
-                        const updatedFolders = folders.filter(f => f.id !== folder.id);
-                        setFolders(updatedFolders);
-                        localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                        toast.success(`Folder "${folder.name}" deleted`);
-                      }}
-                      className="px-2 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-xs"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
             {/* Logs List */}
             <div className="grid gap-4">
               {filteredLogs.map((log) => (
@@ -803,34 +727,7 @@ export default function Logs() {
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
                 >
                   <div className="flex items-start justify-between">
-                    {showFolderInput && (
-                <input
-                  type="text"
-                  value={newFolderName}
-                  onChange={(e) => setNewFolderName(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      if (newFolderName.trim()) {
-                        const newFolder = {
-                          id: Date.now().toString(),
-                          name: newFolderName,
-                          createdAt: new Date()
-                        };
-                        const updatedFolders = [...folders, newFolder];
-                        setFolders(updatedFolders);
-                        localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                        setNewFolderName('');
-                        setShowFolderInput(false);
-                        toast.success(`Folder "${newFolder.name}" created`);
-                      }
-                    }
-                  }}
-                  placeholder="Folder name..."
-                  className="px-3 py-2 bg-stone-800 border border-stone-600 text-white rounded text-sm"
-                  autoFocus
-                />
-              )}
-              {showCheckboxes && (
+                    {showCheckboxes && (
                       <input
                         type="checkbox"
                         checked={selectedLogIds.has(log.id)}
