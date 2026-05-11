@@ -793,7 +793,9 @@ export default function Logs() {
                       </button>
 
                       <button
-                        onClick={() => handleUploadPDF(log)}
+                        onClick={() => {
+                          // Functionality removed
+                        }}
                         style={{
                           backgroundColor: log.lineColor || '#15803d',
                           borderColor: log.lineColor || '#15803d',
@@ -1392,36 +1394,7 @@ export default function Logs() {
                 {selectedGlassColor && (tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color) && (
                   <button
                     onClick={() => {
-                      if (!colorWheelLog) return;
-                      
-                      const combination = {
-                        id: `combo-${Date.now()}`,
-                        glassColor: selectedGlassColor,
-                        annealedResult: selectedAnnealedResultForComparison || { id: '', color: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff', mode: 'solid' as const },
-                        savedAt: new Date()
-                      };
-                      
-                      const updatedLog = {
-                        ...colorWheelLog,
-                        savedColorCombinations: [...(colorWheelLog.savedColorCombinations || []), combination]
-                      };
-                      
-                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                      const updatedLogs = logs.map((log: SavedLog) =>
-                        log.name === colorWheelLog.name ? updatedLog : log
-                      );
-                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                      setColorWheelLog(updatedLog);
-                      
-                      // Refresh PDF preview with updated combinations
-                      try {
-                        const htmlContent = generatePDFContent(updatedLog);
-                        setPDFPreviewContent(htmlContent);
-                      } catch (error) {
-                        console.error('PDF refresh error:', error);
-                      }
-                      
-                      toast.success('Color combination saved and PDF updated!');
+                      // Functionality removed
                     }}
                     className="w-full mt-4 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
                   >
