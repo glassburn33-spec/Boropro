@@ -6,7 +6,7 @@ Persistent database storage for complete history
 import { useState } from "react";
 import { Plus, Trash2, Download, Clock, Thermometer, Save } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { logsStorage } from "@/lib/localStorage";
+import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
 import type { KilnLogPDFData } from "@/lib/pdfUtils";
@@ -41,18 +41,14 @@ export default function KilnLog() {
     notes: "",
   });
 
-  // Use localStorage data directly
-  const isLoading = false;
-  const [kilnLogs, setKilnLogs] = useState<KilnLogEntry[]>([]);
-  
-  const refetch = () => {
-    // Kiln logs are stored separately from PDF library
-    const savedLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-    setKilnLogs(savedLogs);
-  };
+  // Fetch kiln logs from backend
+  const { data: logs = [], refetch, isLoading } = trpc.kilnLog.list.useQuery();
+  const createMutation = trpc.kilnLog.create.useMutation();
+  const deleteMutation = trpc.kilnLog.delete.useMutation();
+  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
 
-  // Convert localStorage records to display format
-  let displayLogs: KilnLogEntry[] = kilnLogs.map((log: any) => ({
+  // Convert database records to display format
+  let displayLogs: KilnLogEntry[] = logs.map((log: any) => ({
     id: log.id,
     name: log.name,
     description: log.description,
@@ -103,10 +99,7 @@ export default function KilnLog() {
         return;
       }
 
-      // Create kiln log locally
-      const newId = Date.now();
-      const newLog: KilnLogEntry = {
-        id: newId,
+      const result = await createMutation.mutateAsync({
         name: formData.name,
         description: formData.description || undefined,
         temperatures: temps,
@@ -114,16 +107,23 @@ export default function KilnLog() {
         startTime: new Date(formData.startTime),
         endTime: formData.endTime ? new Date(formData.endTime) : undefined,
         notes: formData.notes || undefined,
-        createdAt: new Date(),
-      };
-      
-      // Store in localStorage
-      const savedLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-      savedLogs.push(newLog);
-      localStorage.setItem('kilnLogs', JSON.stringify(savedLogs));
-      
-      setSavedKilnLog(newLog);
-      setShowSaveModal(true);
+      });
+
+      // Show save modal with the newly created log
+      if (result) {
+        setSavedKilnLog({
+          id: result.id,
+          name: result.name,
+          description: result.description || undefined,
+          temperatures: Array.isArray(result.temperatures) ? result.temperatures : [],
+          times: Array.isArray(result.times) ? result.times : [],
+          startTime: new Date(result.startTime),
+          endTime: result.endTime ? new Date(result.endTime) : undefined,
+          notes: result.notes || undefined,
+          createdAt: new Date(result.createdAt),
+        });
+        setShowSaveModal(true);
+      }
 
       toast.success("Kiln log created successfully!");
       setFormData({
@@ -148,11 +148,7 @@ export default function KilnLog() {
     if (!confirmed) return;
     
     try {
-      // Delete from localStorage
-      const savedLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-      const filtered = savedLogs.filter((log: any) => log.id !== id);
-      localStorage.setItem('kilnLogs', JSON.stringify(filtered));
-      
+      await deleteMutation.mutateAsync({ id });
       toast.success("Kiln log deleted successfully!");
       if (selectedLog?.id === id) {
         setSelectedLog(null);
@@ -216,22 +212,14 @@ export default function KilnLog() {
       const doc = generateKilnLogPDF(pdfData);
       const base64 = pdfToBase64(doc);
 
-      // Save to localStorage
-      const newLog = {
-        id: Date.now().toString(),
+      // Save to PDF library via backend
+      await saveGeneratedMutation.mutateAsync({
         filename: `${selectedLog.name}_klog.pdf`,
+        fileBase64: base64,
         temperatures: selectedLog.temperatures,
         times: selectedLog.times,
-        savedAt: Date.now(),
-        notes: selectedLog.notes || '',
-        results: '',
-        color: '#dc2626',
-      };
-      logsStorage.save(newLog);
-      
-      // Notify listeners
-      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: logsStorage.getAll() }));
-      
+      });
+
       toast.success("Kiln log saved to Log Library!");
       refetch();
     } catch (error) {
@@ -441,7 +429,7 @@ export default function KilnLog() {
             </div>
 
             {/* Search and Filter Controls */}
-            {kilnLogs.length > 0 && (
+            {logs.length > 0 && (
               <div className="mb-8 space-y-4">
                 <div>
                   <input
@@ -701,11 +689,11 @@ export default function KilnLog() {
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button
                     onClick={handleSaveToPDFLibrary}
-                    disabled={false}
+                    disabled={saveGeneratedMutation.isPending}
                     className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
                   >
                     <Save size={16} />
-                    Save to Log Library
+                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to Log Library"}
                   </button>
                   <button
                     onClick={handleExportCSV}
@@ -727,20 +715,14 @@ export default function KilnLog() {
             kilnLog={savedKilnLog}
             onClose={() => setShowSaveModal(false)}
             onAddToLibrary={async (base64, filename) => {
-              const newLog = {
-                id: Date.now().toString(),
+              await saveGeneratedMutation.mutateAsync({
                 filename,
+                fileBase64: base64,
                 temperatures: savedKilnLog.temperatures,
                 times: savedKilnLog.times,
-                savedAt: Date.now(),
-                notes: savedKilnLog.notes || '',
-                results: '',
-                color: '#dc2626',
-              };
-              logsStorage.save(newLog);
-              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: logsStorage.getAll() }));
+              });
             }}
-            isAddingToLibrary={false}
+            isAddingToLibrary={saveGeneratedMutation.isPending}
           />
         )}
       </main>

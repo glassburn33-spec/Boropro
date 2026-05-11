@@ -6,7 +6,7 @@ Scientific neo-brutalist design with furnace-lab aesthetics.
 import { useState, useEffect } from "react";
 import { FileText, Trash2, Download, Upload, X, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { logsStorage, foldersStorage, schedulesStorage } from "@/lib/localStorage";
+import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
@@ -84,15 +84,13 @@ export default function LogLibrary() {
   }, []);
 
   // Fetch PDF library from backend
-  // Use localStorage data directly
-  const isLoading = false;
-  const refetch = () => {
-    const updatedLogs = logsStorage.getAll();
-    setLogs(updatedLogs);
-  };
+  const { data: library = [], refetch, isLoading } = trpc.pdfLibrary.list.useQuery();
+  const uploadMutation = trpc.pdfLibrary.upload.useMutation();
+  const saveGeneratedMutation = trpc.pdfLibrary.saveGenerated.useMutation();
+  const deleteMutation = trpc.pdfLibrary.delete.useMutation();
 
   // Convert database records to display format
-  const displayLibrary: PDFItem[] = logs
+  const displayLibrary: PDFItem[] = library
     .map((pdf: any) => ({
       id: pdf.id,
       filename: pdf.filename,
@@ -112,7 +110,7 @@ export default function LogLibrary() {
     });
   
   // Keep all PDFs for use in modals and folders
-  const allLibrary: PDFItem[] = logs.map((pdf: any) => ({
+  const allLibrary: PDFItem[] = library.map((pdf: any) => ({
     id: pdf.id,
     filename: pdf.filename,
     temperatures: pdf.temperatures ? JSON.parse(pdf.temperatures) : [],
@@ -129,20 +127,19 @@ export default function LogLibrary() {
 
     setIsUploading(true);
     try {
-      // Save the file locally with a timestamp ID
-      const newLog = {
-        id: Date.now().toString(),
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      const binaryArray = Array.from(uint8Array);
+      const binaryString = String.fromCharCode.apply(null, binaryArray as any);
+      const fileBase64 = btoa(binaryString);
+
+      await uploadMutation.mutateAsync({
         filename: file.name,
-        temperatures: [],
-        times: [],
-        savedAt: Date.now(),
-        notes: '',
-        results: '',
-        color: '#dc2626',
-      };
-      logsStorage.save(newLog);
-      refetch();
+        fileBase64,
+      });
+
       toast.success("PDF uploaded successfully!");
+      refetch();
     } catch (error) {
       console.error("Failed to upload PDF:", error);
       toast.error("Failed to upload PDF. Please ensure it is a valid PDF file.");
@@ -256,7 +253,7 @@ export default function LogLibrary() {
     if (!confirmed) return;
     
     try {
-      logsStorage.delete(id.toString());
+      await deleteMutation.mutateAsync({ id });
       toast.success("PDF deleted successfully!");
       if (selectedPDF?.id === id) {
         setSelectedPDF(null);
@@ -355,11 +352,13 @@ export default function LogLibrary() {
                         }
                         if (confirm(`Are you sure you want to delete ${selectedForDeletion.length} schedule(s)? This action cannot be undone.`)) {
                           selectedForDeletion.forEach(id => {
-                            logsStorage.delete(id.toString());
+                            deleteMutation.mutate({ id }, {
+                              onSuccess: () => {
+                                refetch();
+                                setSelectedForDeletion(selectedForDeletion.filter(selectedId => selectedId !== id));
+                              }
+                            });
                           });
-                          refetch();
-                          setSelectedForDeletion([]);
-                          toast.success(`${selectedForDeletion.length} schedule(s) deleted successfully!`);
                         }
                       }}
                       className="px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500/10 font-mono text-xs font-bold uppercase transition-colors"
@@ -1203,18 +1202,13 @@ export default function LogLibrary() {
                       
                       const newFilename = `${editingFilename || editingPDF.filename}_updated.pdf`;
                       
-                      // Save to localStorage
-                      const updatedLog = {
-                        id: editingPDF.id.toString(),
+                      // Use saveGenerated instead of upload to avoid PDF parsing issues
+                      await saveGeneratedMutation.mutateAsync({
                         filename: newFilename,
+                        fileBase64,
                         temperatures: editingPDF.temperatures || [],
                         times: editingPDF.times || [],
-                        savedAt: Date.now(),
-                        notes: editingNotes,
-                        results: editingResults,
-                        color: selectedColor,
-                      };
-                      logsStorage.save(updatedLog);
+                      });
                       refetch();
                       
                       toast.success('Updated schedule PDF created and saved');
@@ -1419,97 +1413,27 @@ export default function LogLibrary() {
                                 svg.appendChild(label);
                               }
                               
-                              // Draw directly on canvas instead of SVG
+                              // Convert SVG to canvas and add to PDF
                               const canvas = document.createElement('canvas');
-                              canvas.width = 1000;
-                              canvas.height = 600;
+                              canvas.width = width;
+                              canvas.height = height;
                               const ctx = canvas.getContext('2d');
                               
                               if (ctx) {
-                                const cWidth = canvas.width;
-                                const cHeight = canvas.height;
-                                const cMargin = { top: 80, right: 80, bottom: 120, left: 70 };
-                                const cPlotWidth = cWidth - cMargin.left - cMargin.right;
-                                const cPlotHeight = cHeight - cMargin.top - cMargin.bottom;
-                                
-                                const cScaleX = (time: number) => (time / maxTime) * cPlotWidth;
-                                const cScaleY = (temp: number) => cPlotHeight - (temp / maxTemp) * cPlotHeight;
-                                
-                                // Background
-                                ctx.fillStyle = '#1c1917';
-                                ctx.fillRect(0, 0, cWidth, cHeight);
-                                
-                                // Gridlines
-                                ctx.strokeStyle = '#404040';
-                                ctx.lineWidth = 1;
-                                ctx.setLineDash([4, 4]);
-                                const cTempStep = maxTemp > 600 ? 100 : 50;
-                                for (let temp = 0; temp <= maxTemp; temp += cTempStep) {
-                                  const y = cMargin.top + cScaleY(temp);
-                                  ctx.beginPath();
-                                  ctx.moveTo(cMargin.left, y);
-                                  ctx.lineTo(cMargin.left + cPlotWidth, y);
-                                  ctx.stroke();
-                                }
-                                ctx.setLineDash([]);
-                                
-                                // Temperature curve
-                                ctx.strokeStyle = '#fbbf24';
-                                ctx.lineWidth = 3;
-                                ctx.beginPath();
-                                for (let i = 0; i < log.temperatures.length; i++) {
-                                  const x = cMargin.left + cScaleX(log.times[i] || 0);
-                                  const y = cMargin.top + cScaleY(log.temperatures[i] || 0);
-                                  if (i === 0) ctx.moveTo(x, y);
-                                  else ctx.lineTo(x, y);
-                                }
-                                ctx.stroke();
-                                
-                                // Axes
-                                ctx.strokeStyle = '#999';
-                                ctx.lineWidth = 2;
-                                ctx.beginPath();
-                                ctx.moveTo(cMargin.left, cMargin.top);
-                                ctx.lineTo(cMargin.left, cMargin.top + cPlotHeight);
-                                ctx.lineTo(cMargin.left + cPlotWidth, cMargin.top + cPlotHeight);
-                                ctx.stroke();
-                                
-                                // Y-axis ticks and labels
-                                ctx.fillStyle = '#999';
-                                ctx.font = '10px Arial';
-                                ctx.textAlign = 'right';
-                                for (let i = 0; i <= maxTemp; i += cTempStep) {
-                                  const y = cMargin.top + cScaleY(i);
-                                  ctx.beginPath();
-                                  ctx.moveTo(cMargin.left - 5, y);
-                                  ctx.lineTo(cMargin.left, y);
-                                  ctx.stroke();
-                                  ctx.fillText(`${i}°C`, cMargin.left - 10, y + 4);
-                                }
-                                
-                                // Axis labels
-                                ctx.fillStyle = '#999';
-                                ctx.font = '14px Arial';
-                                ctx.textAlign = 'center';
-                                ctx.fillText('Time (hours) →', cMargin.left + cPlotWidth / 2, cHeight - 20);
-                                
-                                ctx.save();
-                                ctx.translate(15, cMargin.top + cPlotHeight / 2);
-                                ctx.rotate(-Math.PI / 2);
-                                ctx.fillText('Temperature (°C)', 0, 0);
-                                ctx.restore();
+                                const svgString = new XMLSerializer().serializeToString(svg);
+                                const img = new Image();
+                                img.onload = () => {
+                                  ctx.drawImage(img, 0, 0);
+                                  const imgData = canvas.toDataURL('image/png');
+                                  doc.addImage(imgData, 'PNG', 15, 35, pageWidth - 30, 150);
+                                  doc.save(`${log.filename}.pdf`);
+                                  toast.success('PDF exported successfully!');
+                                };
+                                img.src = 'data:image/svg+xml;base64,' + btoa(svgString);
+                              } else {
+                                doc.save(`${log.filename}.pdf`);
+                                toast.success('PDF exported successfully!');
                               }
-                              
-                              // Add canvas to PDF
-                              try {
-                                const imgData = canvas.toDataURL('image/png');
-                                doc.addImage(imgData, 'PNG', 15, 35, pageWidth - 30, 150);
-                              } catch (err) {
-                                console.error('Failed to add chart to PDF:', err);
-                              }
-                              
-                              doc.save(`${log.filename}.pdf`);
-                              toast.success('PDF exported successfully!');
                             } catch (error) {
                               console.error('Failed to export PDF:', error);
                               toast.error('Failed to export PDF');
