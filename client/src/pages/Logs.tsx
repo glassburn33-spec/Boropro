@@ -1271,6 +1271,10 @@ export default function Logs() {
                             setColorWheelLog(updatedLog);
                             setSelectedAnnealedIds(new Set());
                             setDeleteMode(false);
+                            // Clear the comparison if the deleted result was selected
+                            if (selectedAnnealedResultForComparison && selectedAnnealedIds.has(selectedAnnealedResultForComparison.id)) {
+                              setSelectedAnnealedResultForComparison(null);
+                            }
                           }
                         }}
                         className="px-3 py-1 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors disabled:opacity-50"
