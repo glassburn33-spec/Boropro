@@ -833,6 +833,7 @@ export function CalculatorTab() {
     setRadius('25');
     setLength('50');
     setWidth('25');
+    setKilnTemp('565');  // Reset kiln temperature to default
     setRoomTemp('25');
     setResults(null);
     setError('');

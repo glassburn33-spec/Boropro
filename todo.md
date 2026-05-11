@@ -526,3 +526,12 @@
 - [x] Fixed F to C conversion fallback from 68 to 25 (room temperature)
 - [x] Ensures correct default values when converting between temperature units
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Reset Button Logic
+- [x] Reset button now resets kiln temperature to default 565°C
+- [x] Reset button resets all dimension inputs (thickness, radius, length, width)
+- [x] Reset button resets room temperature to default 25°C
+- [x] Calculate button only enabled when temperatures are within allowable ranges for selected unit
+- [x] Verified logic for both Celsius (565-650°C, 0-40°C) and Fahrenheit (1049-1202°F, 32-104°F)
+- [x] Tests passing (109/112, 3 pre-existing failures)
