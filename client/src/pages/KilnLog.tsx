@@ -484,33 +484,7 @@ export default function KilnLog() {
                         >
                           <Save size={16} />
                         </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            try {
-                              const logData = {
-                                id: Date.now().toString(),
-                                name: log.name,
-                                timestamp: log.timestamp,
-                                data: log,
-                                createdAt: new Date().toISOString(),
-                              };
-                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                              existingLogs.push(logData);
-                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
-                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
-                              toast.success('Log saved to localStorage');
-                            } catch (error) {
-                              console.error('Error saving log:', error);
-                              toast.error('Failed to save log');
-                            }
-                          }}
-                          className="flex items-center gap-2 px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-                          title="Save to Logs section"
-                        >
-                          <Download className="w-4 h-4" />
-                          Save Log
-                        </button>
+
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
