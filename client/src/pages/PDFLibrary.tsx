@@ -50,6 +50,8 @@ export default function LogLibrary() {
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [viewingNotesPDF, setViewingNotesPDF] = useState<PDFItem | null>(null);
   const [logs, setLogs] = useState<any[]>([]);
+  const [viewingLog, setViewingLog] = useState<any | null>(null);
+  const [showViewModal, setShowViewModal] = useState(false);
   
   const colorOptions = [
     { value: '#dc2626', label: 'Red' },
@@ -1247,7 +1249,13 @@ export default function LogLibrary() {
                         </div>
                       </div>
                       <div className="flex gap-2 flex-wrap">
-                        <button className="px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white text-xs font-bold rounded transition-colors">
+                        <button
+                          onClick={() => {
+                            setViewingLog(log);
+                            setShowViewModal(true);
+                          }}
+                          className="px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white text-xs font-bold rounded transition-colors"
+                        >
                           View
                         </button>
                         <button className="px-3 py-2 bg-green-700 hover:bg-green-600 text-white text-xs font-bold rounded transition-colors">
@@ -1280,6 +1288,72 @@ export default function LogLibrary() {
             </div>
           </div>
         </section>
+        
+        {/* View Modal */}
+        {showViewModal && viewingLog && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-stone-900 border border-stone-700 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-stone-900 border-b border-stone-700 p-6 flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-amber-400">{viewingLog.filename}</h2>
+                <button
+                  onClick={() => setShowViewModal(false)}
+                  className="text-stone-400 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <div className="p-6 space-y-6">
+                {/* Plot */}
+                {viewingLog.temperatures && viewingLog.temperatures.length > 0 ? (
+                  <div>
+                    <h3 className="text-lg font-bold text-amber-300 mb-4">Temperature Profile</h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={viewingLog.temperatures.map((temp: number, idx: number) => ({
+                        time: viewingLog.times[idx] || idx,
+                        temperature: temp
+                      }))}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#404040" />
+                        <XAxis dataKey="time" stroke="#a1a1a1" />
+                        <YAxis stroke="#a1a1a1" />
+                        <Tooltip contentStyle={{ backgroundColor: '#1c1917', border: '1px solid #78350f' }} />
+                        <Legend />
+                        <Line type="monotone" dataKey="temperature" stroke="#fbbf24" dot={false} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <div className="text-stone-400 text-center py-8">No temperature data available</div>
+                )}
+                
+                {/* Notes */}
+                {viewingLog.notes && (
+                  <div>
+                    <h3 className="text-lg font-bold text-amber-300 mb-2">Materials & Notes</h3>
+                    <p className="text-stone-300 bg-stone-800/50 p-3 rounded">{viewingLog.notes}</p>
+                  </div>
+                )}
+                
+                {/* Results */}
+                {viewingLog.results && (
+                  <div>
+                    <h3 className="text-lg font-bold text-amber-300 mb-2">Results & Observations</h3>
+                    <p className="text-stone-300 bg-stone-800/50 p-3 rounded">{viewingLog.results}</p>
+                  </div>
+                )}
+              </div>
+              
+              <div className="border-t border-stone-700 p-6 flex justify-end">
+                <button
+                  onClick={() => setShowViewModal(false)}
+                  className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded font-semibold transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Bottom Image */}
         <div className="w-full">
