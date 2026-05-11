@@ -258,3 +258,10 @@
 - [x] Show/hide rename buttons based on toggle state (conditional rendering)
 - [x] Persist toggle state in component (showRenameButtons state)
 - [x] Test toggle functionality in browser (all 75 tests passing)
+
+
+## PDF Auto-Update with Saved Annealed Colors
+- [x] Update PDF export to use latest saved annealed color (uses annealedColors array)
+- [x] Include all saved annealed results in PDF color comparator section (maps all saved results)
+- [x] Regenerate PDF preview when annealed color is saved (dynamic rendering)
+- [x] Test PDF updates with saved annealed colors in browser (all 75 tests passing)
