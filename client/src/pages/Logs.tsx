@@ -77,7 +77,6 @@ export default function Logs() {
   const [customColorNames, setCustomColorNames] = useState<{ [hex: string]: string }>({});
   const [showRenameButtons, setShowRenameButtons] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
-  const [annealedSelectionMode, setAnnealedSelectionMode] = useState(false);
   const [selectedAnnealedIds, setSelectedAnnealedIds] = useState<Set<string>>(new Set());
   const [selectedGlassColors, setSelectedGlassColors] = useState<Set<string>>(new Set());
   const [showColorCheckboxes, setShowColorCheckboxes] = useState(false);
@@ -1211,15 +1210,6 @@ export default function Logs() {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-purple-400">Saved Annealed Results</h3>
                   <div className="flex gap-2">
-                    <button
-                      onClick={() => {
-                        setAnnealedSelectionMode(!annealedSelectionMode);
-                        setSelectedAnnealedIds(new Set());
-                      }}
-                      className="px-3 py-1 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
-                    >
-                      {annealedSelectionMode ? 'Cancel' : 'Select Multiple'}
-                    </button>
                     {deleteMode && (
                       <button
                         onClick={() => {
@@ -1259,44 +1249,13 @@ export default function Logs() {
                   {colorWheelLog.annealedColors.map((result) => (
                     <button
                       key={result.id}
-                      onClick={() => {
-                        if (annealedSelectionMode) {
-                          const newSelected = new Set(selectedAnnealedIds);
-                          if (newSelected.has(result.id)) {
-                            newSelected.delete(result.id);
-                          } else {
-                            newSelected.add(result.id);
-                          }
-                          setSelectedAnnealedIds(newSelected);
-                        } else {
-                          setTempAnnealedColor(result.color);
-                        }
-                      }}
-                      className={`p-3 rounded-lg border-2 transition-all relative ${
-                        annealedSelectionMode && selectedAnnealedIds.has(result.id)
-                          ? 'border-blue-500 ring-2 ring-blue-400 bg-stone-700'
-                          : tempAnnealedColor === result.color
-                          ? 'border-purple-500 ring-2 ring-purple-400 bg-stone-800'
-                          : 'border-stone-600 hover:border-stone-500 bg-stone-800'
-                      }`}
+                      onClick={() => setTempAnnealedColor(result.color)}
+                      className={`p-3 rounded-lg border-2 transition-all ${
+                        tempAnnealedColor === result.color
+                          ? 'border-purple-500 ring-2 ring-purple-400'
+                          : 'border-stone-600 hover:border-stone-500'
+                      } bg-stone-800`}
                     >
-                      {annealedSelectionMode && (
-                        <input
-                          type="checkbox"
-                          checked={selectedAnnealedIds.has(result.id)}
-                          onChange={(e) => {
-                            const newSelected = new Set(selectedAnnealedIds);
-                            if (e.target.checked) {
-                              newSelected.add(result.id);
-                            } else {
-                              newSelected.delete(result.id);
-                            }
-                            setSelectedAnnealedIds(newSelected);
-                          }}
-                          className="absolute top-1 left-1 w-5 h-5 cursor-pointer z-10"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      )}
                       <div className="w-12 h-12 rounded mb-2 flex items-center justify-center" style={{ backgroundColor: result.color }}>
                         {result.mode === 'blend' ? (
                           <div className="w-full h-full rounded" style={{
