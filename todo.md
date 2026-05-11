@@ -474,3 +474,14 @@
 - [x] Update logic to exclude logs already in folders from all views
 - [x] Write tests for log filtering (3 new tests)
 - [x] Verify all tests pass (15/15 passing)
+
+## Add Expandable Folder Dropdown with Log Navigation
+- [x] Add state management for expanded/collapsed folders (expandedFolders Set)
+- [x] Create toggleFolderExpansion function to handle expand/collapse
+- [x] Add getLogsForFolder helper to retrieve logs for a specific folder
+- [x] Update folder display with chevron icon (ChevronDown/ChevronRight)
+- [x] Show log count in folder header
+- [x] Implement expandable logs list inside each folder
+- [x] Add log action buttons inside folder dropdown (Preview PDF, Export CSV, Remove from folder)
+- [x] Show "No logs in this folder" message for empty folders
+- [x] Verify all tests pass (15/15 passing)
