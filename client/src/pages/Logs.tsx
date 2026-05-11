@@ -622,7 +622,9 @@ export default function Logs() {
 
   const handleUploadPDF = async (log: SavedLog) => {
     try {
-      const htmlContent = generatePDFContent(log);
+      // Use colorWheelLog if it's the same log (when called from modal), otherwise use the passed log
+      const logToUse = colorWheelLog && colorWheelLog.name === log.name ? colorWheelLog : log;
+      const htmlContent = generatePDFContent(logToUse);
       
       // Convert HTML to blob
       const blob = new Blob([htmlContent], { type: 'text/html' });
