@@ -695,8 +695,8 @@ export function CalculatorTab() {
       setRoomTemp(roomF.toString());
     } else {
       // F to C: subtract 32 and multiply by 5/9
-      const kilnC = Math.round(((parseFloat(kilnTemp) || 1049) - 32) * (5 / 9));
-      const roomC = Math.round(((parseFloat(roomTemp) || 68) - 32) * (5 / 9));
+      const kilnC = Math.round(((parseFloat(kilnTemp) || 565) - 32) * (5 / 9));
+      const roomC = Math.round(((parseFloat(roomTemp) || 25) - 32) * (5 / 9));
       setKilnTemp(kilnC.toString());
       setRoomTemp(roomC.toString());
     }

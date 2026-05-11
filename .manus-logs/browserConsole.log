@@ -180,3 +180,27 @@
 [2026-05-11T20:12:05.706Z] {"timestamp":1778530323757,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-11T20:12:15.709Z] {"timestamp":1778530335451,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
 [2026-05-11T20:12:15.709Z] {"timestamp":1778530335451,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:13:22.816Z] {"timestamp":1778530400810,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:13:22.816Z] {"timestamp":1778530400831,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:13:22.816Z] {"timestamp":1778530401029,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-11T20:14:03.441Z] {"timestamp":1778530441421,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:14:07.048Z] {"timestamp":1778530444906,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:14:07.048Z] {"timestamp":1778530445073,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:14:13.307Z] {"timestamp":1778530451160,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:14:13.307Z] {"timestamp":1778530451347,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:14:18.568Z] {"timestamp":1778530456434,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:14:18.568Z] {"timestamp":1778530456626,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:14:23.302Z] {"timestamp":1778530461163,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:14:23.303Z] {"timestamp":1778530461336,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:16:43.873Z] {"timestamp":1778530601731,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:16:43.873Z] {"timestamp":1778530601926,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:17:09.121Z] {"timestamp":1778530626983,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:17:09.121Z] {"timestamp":1778530627157,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:18:56.386Z] {"timestamp":1778530734239,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:18:56.386Z] {"timestamp":1778530734435,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:20:43.007Z] {"timestamp":1778530840859,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:20:43.007Z] {"timestamp":1778530841053,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:21:03.470Z] {"timestamp":1778530861314,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T20:21:03.470Z] {"timestamp":1778530861477,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:21:25.476Z] {"timestamp":1778530885175,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:21:25.476Z] {"timestamp":1778530885176,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}

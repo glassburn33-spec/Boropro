@@ -519,3 +519,10 @@
 - [x] Match Color Science and Glass Science tab title styling (text-4xl md:text-5xl, font-bold, text-amber-400)
 - [x] Add proper spacing with mb-12 for consistency
 - [x] Tests passing (108/112, 4 failures - 3 pre-existing + 1 new in GlassScience)
+
+
+## Fix Temperature Unit Conversion Fallback Values
+- [x] Fixed F to C conversion fallback from 1049 to 565 (kiln temperature)
+- [x] Fixed F to C conversion fallback from 68 to 25 (room temperature)
+- [x] Ensures correct default values when converting between temperature units
+- [x] Tests passing (109/112, 3 pre-existing failures)
