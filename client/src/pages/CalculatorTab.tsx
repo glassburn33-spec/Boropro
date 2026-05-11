@@ -733,14 +733,14 @@ export function CalculatorTab() {
     setTimerRunning(true);
     intervalRef.current = setInterval(() => {
       setTimeRemaining((prev) => {
-    if (timeRemaining === null || timeRemaining <= 1) {
+        if (prev === null || prev <= 1) {
           clearInterval(intervalRef.current!);
           intervalRef.current = null;
           setTimerRunning(false);
           playBeeps(3);
           return originalTimeRef.current;   // reset to original value
         }
-        return (prev ?? 0) - 1;
+        return prev - 1;
       });
     }, 1000);
   }
