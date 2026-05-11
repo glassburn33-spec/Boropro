@@ -194,3 +194,14 @@
 - [x] Remove color name and hex text from color wheel modal display
 - [x] Keep only visual color jar icons (centered in grid)
 - [x] Test color wheel modal in browser (all 75 tests passing)
+
+## PDF Color Text Enhancement
+- [ ] Add color name and hex text to PDF color swatches section
+- [ ] Format text to match PDF styling (amber/gold colors)
+- [ ] Test PDF export with color text in browser
+
+## Annealed Color Comparison Feature
+- [x] Add annealed color selector to color wheel modal (color picker + preview)
+- [x] Display comparison between selected glass colors and annealed result (arrows showing transformation)
+- [x] Store annealed color selection in log data (localStorage persistence)
+- [x] Test color comparison in browser (all 75 tests passing)

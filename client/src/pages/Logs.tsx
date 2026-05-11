@@ -48,6 +48,7 @@ interface SavedLog {
   lineColor?: string;
   notes?: string;
   selectedColors?: string[];
+  annealedColor?: string;
 }
 
 export default function Logs() {
@@ -63,6 +64,8 @@ export default function Logs() {
   const [editingComments, setEditingComments] = useState<string>("");
   const [showColorWheelModal, setShowColorWheelModal] = useState(false);
   const [colorWheelLog, setColorWheelLog] = useState<SavedLog | null>(null);
+  const [selectedAnnealedColor, setSelectedAnnealedColor] = useState<string | null>(null);
+  const [tempAnnealedColor, setTempAnnealedColor] = useState<string>("");
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -147,6 +150,25 @@ export default function Logs() {
     } catch (error) {
       console.error("Save comments error:", error);
       toast.error("Failed to save comments");
+    }
+  };
+
+  const handleSaveAnnealedColor = () => {
+    try {
+      if (!colorWheelLog || !tempAnnealedColor) {
+        toast.error('Please select an annealed color');
+        return;
+      }
+      const updatedLogs = logs.map((log) =>
+        log.id === colorWheelLog.id ? { ...log, annealedColor: tempAnnealedColor } : log
+      );
+      setLogs(updatedLogs);
+      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+      setColorWheelLog({ ...colorWheelLog, annealedColor: tempAnnealedColor });
+      toast.success('Annealed color saved');
+    } catch (error) {
+      console.error('Save annealed color error:', error);
+      toast.error('Failed to save annealed color');
     }
   };
 
@@ -895,6 +917,52 @@ export default function Logs() {
                 <p className="text-stone-400 text-center py-8">No glass colors recorded for this log</p>
               )}
             </div>
+
+            {/* Annealed Color Selector */}
+            <div className="mb-6 border-t border-stone-700 pt-6">
+              <h3 className="text-lg font-bold text-amber-500 mb-4">Annealed Result Color</h3>
+              <div className="flex items-center gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm text-stone-300 mb-2">Select annealed color:</label>
+                  <input
+                    type="color"
+                    value={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'}
+                    onChange={(e) => setTempAnnealedColor(e.target.value)}
+                    className="w-full h-12 rounded border-2 border-stone-600 cursor-pointer"
+                  />
+                </div>
+                <div className="w-16 h-16 rounded-lg border-2 border-amber-600 flex items-center justify-center bg-stone-800">
+                  <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
+                </div>
+              </div>
+              <button
+                onClick={handleSaveAnnealedColor}
+                className="mt-4 w-full px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded transition-colors font-semibold"
+              >
+                Save Annealed Color
+              </button>
+            </div>
+
+            {/* Comparison Section */}
+            {(tempAnnealedColor || colorWheelLog?.annealedColor) && colorWheelLog?.selectedColors && colorWheelLog.selectedColors.length > 0 && (
+              <div className="mb-6 border-t border-stone-700 pt-6">
+                <h3 className="text-lg font-bold text-purple-400 mb-4">Color Comparison</h3>
+                <div className="space-y-3">
+                  {colorWheelLog.selectedColors.map((color, index) => (
+                    <div key={index} className="flex items-center gap-4 p-3 bg-stone-800 rounded">
+                      <div className="text-sm text-stone-400">Glass {index + 1}:</div>
+                      <div className="w-12 h-12 rounded border-2 border-stone-600 flex items-center justify-center" style={{ backgroundColor: color }}>
+                        <ColoredGlassJar color={color} size={40} />
+                      </div>
+                      <div className="text-amber-500 font-semibold">→</div>
+                      <div className="w-12 h-12 rounded border-2 border-amber-600 flex items-center justify-center" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
+                        <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={40} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Close Button */}
             <div className="flex justify-end">
