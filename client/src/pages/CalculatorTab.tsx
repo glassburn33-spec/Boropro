@@ -832,13 +832,13 @@ export function CalculatorTab() {
 
   const kilnTempValue  = parseFloat(kilnTemp);
   const kilnTempInvalid = isNaN(kilnTempValue) ||
-                          kilnTempValue < 565  ||
-                          kilnTempValue > 650;
+                          (tempUnit === 'C' && (kilnTempValue < 565 || kilnTempValue > 650)) ||
+                          (tempUnit === 'F' && (kilnTempValue < 1049 || kilnTempValue > 1202));
 
   const roomTempValue  = parseFloat(roomTemp);
   const roomTempInvalid = isNaN(roomTempValue) ||
-                          roomTempValue < 0   ||
-                          roomTempValue > 40;
+                          (tempUnit === 'C' && (roomTempValue < 0 || roomTempValue > 40)) ||
+                          (tempUnit === 'F' && (roomTempValue < 32 || roomTempValue > 104));
 
   const calcBlocked =
     kilnTempInvalid ||
