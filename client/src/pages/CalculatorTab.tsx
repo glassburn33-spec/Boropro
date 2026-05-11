@@ -736,9 +736,16 @@ export function CalculatorTab() {
         if (prev === null || prev <= 1) {
           clearInterval(intervalRef.current!);
           intervalRef.current = null;
-          setTimerRunning(false);
           playBeeps(3);
-          return originalTimeRef.current;   // reset to original value
+          if (timerLoop) {
+            // Restart timer automatically if loop is enabled
+            setTimeout(() => {
+              startTimer();
+            }, 500);
+          } else {
+            setTimerRunning(false);
+          }
+          return originalTimeRef.current;
         }
         return prev - 1;
       });
