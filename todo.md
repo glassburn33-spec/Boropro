@@ -265,3 +265,10 @@
 - [x] Include all saved annealed results in PDF color comparator section (maps all saved results)
 - [x] Regenerate PDF preview when annealed color is saved (dynamic rendering)
 - [x] Test PDF updates with saved annealed colors in browser (all 75 tests passing)
+
+
+## Delete Saved Annealed Colors Feature
+- [x] Add delete button to toggle checkbox visibility (Delete/Cancel buttons in header)
+- [x] Add checkboxes to each saved annealed result (checkboxes appear in delete mode)
+- [x] Implement delete handler to remove selected results (Delete Selected button)
+- [x] Test delete functionality in browser (all 75 tests passing)

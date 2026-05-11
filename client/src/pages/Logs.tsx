@@ -76,6 +76,8 @@ export default function Logs() {
   const [renamingColorName, setRenamingColorName] = useState<string>("");
   const [customColorNames, setCustomColorNames] = useState<{ [hex: string]: string }>({});
   const [showRenameButtons, setShowRenameButtons] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [selectedAnnealedIds, setSelectedAnnealedIds] = useState<Set<string>>(new Set());
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -1140,7 +1142,44 @@ export default function Logs() {
             {/* Annealed Color History */}
             {colorWheelLog?.annealedColors && colorWheelLog.annealedColors.length > 0 && (
               <div className="mb-6 border-t border-stone-700 pt-6">
-                <h3 className="text-lg font-bold text-purple-400 mb-4">Saved Annealed Results</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-purple-400">Saved Annealed Results</h3>
+                  <div className="flex gap-2">
+                    {deleteMode && (
+                      <button
+                        onClick={() => {
+                          if (selectedAnnealedIds.size > 0) {
+                            const updatedColors = colorWheelLog.annealedColors?.filter(
+                              (result) => !selectedAnnealedIds.has(result.id)
+                            );
+                            const updatedLog = { ...colorWheelLog, annealedColors: updatedColors };
+                            const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                            const updatedLogs = logs.map((log: SavedLog) =>
+                              log.name === colorWheelLog.name ? updatedLog : log
+                            );
+                            localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                            setColorWheelLog(updatedLog);
+                            setSelectedAnnealedIds(new Set());
+                            setDeleteMode(false);
+                          }
+                        }}
+                        className="px-3 py-1 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors disabled:opacity-50"
+                        disabled={selectedAnnealedIds.size === 0}
+                      >
+                        Delete Selected
+                      </button>
+                    )}
+                    <button
+                      onClick={() => {
+                        setDeleteMode(!deleteMode);
+                        setSelectedAnnealedIds(new Set());
+                      }}
+                      className="px-3 py-1 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
+                    >
+                      {deleteMode ? 'Cancel' : 'Delete'}
+                    </button>
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {colorWheelLog.annealedColors.map((result) => (
                     <button
