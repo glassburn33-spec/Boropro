@@ -3,136 +3,11 @@ Save Schedule Modal - Appears after creating a new Kiln Log
 Offers two options: Export to Computer or Add to PDF Library
 */
 
-import { Download, Save, X } from "lucide-react";
+import { Download, Save, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateKilnLogPDF, pdfToBase64 } from "@/lib/pdfUtils";
 import type { KilnLogPDFData } from "@/lib/pdfUtils";
-import type { ScheduleMetadata } from "@shared/scheduleTypes";
 import { toast } from "sonner";
-
-// Helper function to generate temperature plot SVG
-function generateTemperaturePlotSVG(
-  temperatures: number[],
-  times: number[],
-  scheduleName: string,
-  refLines: { annealingPoint: number; strainPoint: number }
-): SVGSVGElement {
-  const width = 1000;
-  const height = 600;
-  const margin = { top: 80, right: 80, bottom: 120, left: 70 };
-  const plotWidth = width - margin.left - margin.right;
-  const plotHeight = height - margin.top - margin.bottom;
-
-  const plotData = temperatures.map((temp, idx) => ({
-    time: times[idx] || 0,
-    temp: temp,
-  }));
-
-  if (plotData.length === 0) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', width.toString());
-    svg.setAttribute('height', height.toString());
-    svg.setAttribute('style', 'background-color: #1c1917;');
-    return svg;
-  }
-
-  const maxTemp = Math.max(...temperatures) + 50;
-  const maxTime = Math.max(...times);
-
-  const scaleX = (time: number) => (time / maxTime) * plotWidth;
-  const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', width.toString());
-  svg.setAttribute('height', height.toString());
-  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  svg.setAttribute('style', 'background-color: #1c1917;');
-
-  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  bg.setAttribute('width', width.toString());
-  bg.setAttribute('height', height.toString());
-  bg.setAttribute('fill', '#1c1917');
-  svg.appendChild(bg);
-
-  // Gridlines
-  for (let temp = 0; temp <= Math.ceil(maxTemp / 100) * 100; temp += 100) {
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', margin.left.toString());
-    line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
-    line.setAttribute('x2', (margin.left + plotWidth).toString());
-    line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
-    line.setAttribute('stroke', '#404040');
-    line.setAttribute('stroke-dasharray', '4');
-    line.setAttribute('stroke-width', '1');
-    svg.appendChild(line);
-  }
-
-  // Reference lines
-  const annealingLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  annealingLine.setAttribute('x1', margin.left.toString());
-  annealingLine.setAttribute('y1', (margin.top + scaleY(refLines.annealingPoint)).toString());
-  annealingLine.setAttribute('x2', (margin.left + plotWidth).toString());
-  annealingLine.setAttribute('y2', (margin.top + scaleY(refLines.annealingPoint)).toString());
-  annealingLine.setAttribute('stroke', '#60a5fa');
-  annealingLine.setAttribute('stroke-dasharray', '4');
-  annealingLine.setAttribute('stroke-width', '2');
-  svg.appendChild(annealingLine);
-
-  const strainLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  strainLine.setAttribute('x1', margin.left.toString());
-  strainLine.setAttribute('y1', (margin.top + scaleY(refLines.strainPoint)).toString());
-  strainLine.setAttribute('x2', (margin.left + plotWidth).toString());
-  strainLine.setAttribute('y2', (margin.top + scaleY(refLines.strainPoint)).toString());
-  strainLine.setAttribute('stroke', '#60a5fa');
-  strainLine.setAttribute('stroke-dasharray', '4');
-  strainLine.setAttribute('stroke-width', '2');
-  svg.appendChild(strainLine);
-
-  // Temperature curve
-  let pathD = `M ${margin.left + scaleX(plotData[0].time)} ${margin.top + scaleY(plotData[0].temp)}`;
-  for (let i = 1; i < plotData.length; i++) {
-    pathD += ` L ${margin.left + scaleX(plotData[i].time)} ${margin.top + scaleY(plotData[i].temp)}`;
-  }
-
-  const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  curve.setAttribute('d', pathD);
-  curve.setAttribute('stroke', '#fbbf24');
-  curve.setAttribute('stroke-width', '3');
-  curve.setAttribute('fill', 'none');
-  svg.appendChild(curve);
-
-  // Axes
-  const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  xAxis.setAttribute('x1', margin.left.toString());
-  xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
-  xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
-  xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
-  xAxis.setAttribute('stroke', '#999');
-  xAxis.setAttribute('stroke-width', '2');
-  svg.appendChild(xAxis);
-
-  const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  yAxis.setAttribute('x1', margin.left.toString());
-  yAxis.setAttribute('y1', margin.top.toString());
-  yAxis.setAttribute('x2', margin.left.toString());
-  yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
-  yAxis.setAttribute('stroke', '#999');
-  yAxis.setAttribute('stroke-width', '2');
-  svg.appendChild(yAxis);
-
-  // Title
-  const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  title.setAttribute('x', (width / 2).toString());
-  title.setAttribute('y', '30');
-  title.setAttribute('text-anchor', 'middle');
-  title.setAttribute('fill', '#fbbf24');
-  title.setAttribute('font-size', '20');
-  title.setAttribute('font-weight', 'bold');
-  title.textContent = scheduleName;
-  svg.appendChild(title);
-
-  return svg;
-}
 
 interface SaveScheduleModalProps {
   isOpen: boolean;
@@ -145,11 +20,9 @@ interface SaveScheduleModalProps {
     startTime: Date;
     endTime?: Date;
     notes?: string;
-    results?: string;
-    color?: string;
   };
   onClose: () => void;
-  onAddToLibrary: (base64: string, filename: string, metadata?: { notes?: string; results?: string; color?: string }) => Promise<void>;
+  onAddToLibrary: (base64: string, filename: string) => Promise<void>;
   isAddingToLibrary?: boolean;
 }
 
@@ -196,78 +69,67 @@ export function SaveScheduleModal({
     }
   };
 
-  const handleExportJSONMetadata = async () => {
-    try {
-      // Create JSON metadata object with minimal data for plot recreation
-      const metadata: ScheduleMetadata = {
-        name: kilnLog.name,
-        description: kilnLog.description,
-        temperatures: kilnLog.temperatures,
-        times: kilnLog.times,
-        startTime: kilnLog.startTime.toISOString(),
-        endTime: kilnLog.endTime?.toISOString(),
-        notes: kilnLog.notes,
-        results: kilnLog.results,
-        color: kilnLog.color,
-        annealingPoint: 565,
-        strainPoint: 510,
-        createdAt: new Date().toISOString(),
-      };
-
-      // Convert to JSON string and encode as base64
-      const jsonString = JSON.stringify(metadata, null, 2);
-      const base64 = btoa(jsonString);
-      const filename = `${kilnLog.name}_metadata.json`;
-
-      // Call the parent handler to save to library
-      await onAddToLibrary(base64, filename, {
-        notes: kilnLog.notes,
-        results: kilnLog.results,
-        color: kilnLog.color,
-      });
-
-      toast.success("Schedule metadata saved to library (minimal storage)!");
-      onClose();
-    } catch (error) {
-      console.error("Failed to save metadata to library:", error);
-      toast.error("Failed to save metadata to library");
-    }
-  };
-
   const handleAddToLibrary = async () => {
     try {
-      // Save as JSON metadata instead of PDF for minimal storage
-      const metadata: ScheduleMetadata = {
+      // Generate PDF
+      const pdfData: KilnLogPDFData = {
         name: kilnLog.name,
         description: kilnLog.description,
         temperatures: kilnLog.temperatures,
         times: kilnLog.times,
-        startTime: kilnLog.startTime.toISOString(),
-        endTime: kilnLog.endTime?.toISOString(),
+        startTime: kilnLog.startTime,
+        endTime: kilnLog.endTime,
         notes: kilnLog.notes,
-        results: kilnLog.results,
-        color: kilnLog.color,
-        annealingPoint: 565,
-        strainPoint: 510,
-        createdAt: new Date().toISOString(),
       };
 
-      const jsonString = JSON.stringify(metadata, null, 2);
-      const base64 = btoa(jsonString);
-      const filename = `${kilnLog.name}_metadata.json`;
+      const doc = generateKilnLogPDF(pdfData);
+      const base64 = pdfToBase64(doc);
+      const filename = `${kilnLog.name}_klog.pdf`;
 
       // Call the parent handler to save to library
-      await onAddToLibrary(base64, filename, {
-        notes: kilnLog.notes,
-        results: kilnLog.results,
-        color: kilnLog.color,
-      });
+      await onAddToLibrary(base64, filename);
 
-      toast.success("Schedule saved to library (minimal storage)!");
+      toast.success("Schedule added to PDF Library!");
       onClose();
     } catch (error) {
       console.error("Failed to add to library:", error);
-      toast.error("Failed to save schedule to library");
+      toast.error("Failed to add to PDF Library");
+    }
+  };
+
+  const handleSaveToLogs = () => {
+    try {
+      // Create JSON data structure for logs
+      const logData = {
+        id: Date.now(),
+        filename: kilnLog.name,
+        name: kilnLog.name,
+        description: kilnLog.description,
+        temperatures: kilnLog.temperatures,
+        times: kilnLog.times,
+        startTime: kilnLog.startTime.toISOString(),
+        endTime: kilnLog.endTime?.toISOString() || null,
+        notes: kilnLog.notes,
+        savedAt: new Date().toISOString(),
+      };
+
+      // Get existing logs from localStorage
+      const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+      
+      // Add new log
+      existingLogs.push(logData);
+      
+      // Save back to localStorage
+      localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+
+      toast.success("Log saved successfully!");
+      onClose();
+    } catch (error) {
+      console.error("Failed to save log:", error);
+      toast.error("Failed to save log");
     }
   };
 
@@ -312,26 +174,26 @@ export function SaveScheduleModal({
             className="w-full bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
           >
             <Save size={16} />
-            {isAddingToLibrary ? "Saving..." : "Save to Library (Minimal Storage)"}
+            {isAddingToLibrary ? "Adding to Library..." : "Add to PDF Library"}
           </Button>
 
-          <Button
-            onClick={handleAddToLibrary}
-            disabled={isAddingToLibrary}
-            className="w-full bg-blue-700 hover:bg-blue-600 disabled:bg-stone-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
-          >
-            <Save size={16} />
-            {isAddingToLibrary ? "Saving..." : "Save File"}
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={handleExportToComputer}
+              className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
+            >
+              <Download size={16} />
+              Export
+            </Button>
 
-          <Button
-            onClick={handleExportJSONMetadata}
-            disabled={isAddingToLibrary}
-            className="w-full bg-amber-600 hover:bg-amber-500 disabled:bg-stone-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
-          >
-            <Download size={16} />
-            {isAddingToLibrary ? "Exporting..." : "Export to Computer"}
-          </Button>
+            <Button
+              onClick={handleSaveToLogs}
+              className="flex-1 bg-blue-700 hover:bg-blue-600 text-white font-mono text-sm font-bold uppercase flex items-center justify-center gap-2"
+            >
+              <BookOpen size={16} />
+              Logs
+            </Button>
+          </div>
 
           <Button
             onClick={onClose}

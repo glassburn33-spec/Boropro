@@ -64,6 +64,20 @@
       "when": 1778442845344,
       "tag": "0008_early_black_widow",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1778450676236,
+      "tag": "0009_sudden_shadowcat",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1778456830090,
+      "tag": "0010_light_white_queen",
+      "breakpoints": true
     }
   ]
 }
