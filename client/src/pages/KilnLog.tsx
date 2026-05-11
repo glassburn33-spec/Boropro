@@ -521,6 +521,34 @@ export default function KilnLog() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
+                            try {
+                              const logData = {
+                                id: Date.now(),
+                                filename: log.name,
+                                temperatures: log.temperatures,
+                                times: log.times,
+                                savedAt: new Date().toISOString(),
+                                notes: log.notes || '',
+                                results: '',
+                              };
+                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                              existingLogs.push(logData);
+                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                              toast.success('Log saved successfully!');
+                            } catch (error) {
+                              console.error('Failed to save log:', error);
+                              toast.error('Failed to save log');
+                            }
+                          }}
+                          className="px-3 py-1 rounded-lg border border-white/20 hover:border-blue-500 text-stone-400 hover:text-blue-500 transition-colors text-xs font-semibold"
+                          title="Save to Logs section"
+                        >
+                          Logs
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
                             handleDelete(log.id);
                           }}
                           className="p-2 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
