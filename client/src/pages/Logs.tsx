@@ -66,6 +66,7 @@ export default function Logs() {
   const [colorWheelLog, setColorWheelLog] = useState<SavedLog | null>(null);
   const [selectedAnnealedColor, setSelectedAnnealedColor] = useState<string | null>(null);
   const [tempAnnealedColor, setTempAnnealedColor] = useState<string>("");
+  const [selectedGlassColor, setSelectedGlassColor] = useState<string | null>(null);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -903,13 +904,21 @@ export default function Logs() {
 
             {/* Colors Display */}
             <div className="mb-6">
+              <h3 className="text-lg font-bold text-amber-500 mb-4">Select Glass Color to Compare</h3>
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {colorWheelLog.selectedColors.map((color, index) => (
                     <div key={index} className="flex justify-center">
-                      <div className="w-16 h-16 rounded-lg border-2 border-stone-600 flex items-center justify-center bg-stone-800">
+                      <button
+                        onClick={() => setSelectedGlassColor(color)}
+                        className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all ${
+                          selectedGlassColor === color
+                            ? 'border-amber-500 ring-2 ring-amber-400 scale-110'
+                            : 'border-stone-600 hover:border-stone-500'
+                        } bg-stone-800 cursor-pointer`}
+                      >
                         <ColoredGlassJar color={color} size={60} />
-                      </div>
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -944,22 +953,23 @@ export default function Logs() {
             </div>
 
             {/* Comparison Section */}
-            {(tempAnnealedColor || colorWheelLog?.annealedColor) && colorWheelLog?.selectedColors && colorWheelLog.selectedColors.length > 0 && (
+            {(tempAnnealedColor || colorWheelLog?.annealedColor) && selectedGlassColor && (
               <div className="mb-6 border-t border-stone-700 pt-6">
                 <h3 className="text-lg font-bold text-purple-400 mb-4">Color Comparison</h3>
-                <div className="space-y-3">
-                  {colorWheelLog.selectedColors.map((color, index) => (
-                    <div key={index} className="flex items-center gap-4 p-3 bg-stone-800 rounded">
-                      <div className="text-sm text-stone-400">Glass {index + 1}:</div>
-                      <div className="w-12 h-12 rounded border-2 border-stone-600 flex items-center justify-center" style={{ backgroundColor: color }}>
-                        <ColoredGlassJar color={color} size={40} />
-                      </div>
-                      <div className="text-amber-500 font-semibold">→</div>
-                      <div className="w-12 h-12 rounded border-2 border-amber-600 flex items-center justify-center" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
-                        <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={40} />
-                      </div>
+                <div className="flex items-center justify-center gap-8 p-6 bg-stone-800 rounded">
+                  <div className="flex flex-col items-center">
+                    <div className="text-sm text-stone-400 mb-2">Selected Glass Color</div>
+                    <div className="w-20 h-20 rounded-lg border-2 border-stone-600 flex items-center justify-center" style={{ backgroundColor: selectedGlassColor }}>
+                      <ColoredGlassJar color={selectedGlassColor} size={60} />
                     </div>
-                  ))}
+                  </div>
+                  <div className="text-amber-500 font-bold text-3xl">→</div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-sm text-stone-400 mb-2">Annealed Result</div>
+                    <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
+                      <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

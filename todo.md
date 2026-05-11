@@ -205,3 +205,9 @@
 - [x] Display comparison between selected glass colors and annealed result (arrows showing transformation)
 - [x] Store annealed color selection in log data (localStorage persistence)
 - [x] Test color comparison in browser (all 75 tests passing)
+
+## Individual Color Selection Feature
+- [x] Add click-to-select functionality to glass color icons (button with click handlers)
+- [x] Display comparison for only the selected color (single side-by-side comparison)
+- [x] Highlight selected color in the grid (amber border, ring, scale effect)
+- [x] Test individual color selection in browser (all 75 tests passing)
