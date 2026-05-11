@@ -426,3 +426,10 @@
 - [x] Add confirmation dialog before deleting logs
 - [x] Confirmation shows count of logs to be deleted
 - [x] Verify all tests pass (80/80)
+
+
+## Add Folders Button
+- [x] Add "Add Folders" button next to Select button
+- [x] Style with purple background
+- [x] Add placeholder functionality with toast message
+- [x] Verify all tests pass (80/80)
