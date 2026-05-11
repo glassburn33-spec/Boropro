@@ -251,3 +251,10 @@
 - [x] Show list of all saved annealed results with timestamps (grid layout with solid/blend labels)
 - [x] Update comparison section to use selected saved result (uses tempAnnealedColor)
 - [x] Test annealed color history selection in browser (all 75 tests passing)
+
+
+## Rename Button Toggle Feature
+- [x] Add toggle button next to glass colors heading (Show Rename/Hide Rename button)
+- [x] Show/hide rename buttons based on toggle state (conditional rendering)
+- [x] Persist toggle state in component (showRenameButtons state)
+- [x] Test toggle functionality in browser (all 75 tests passing)

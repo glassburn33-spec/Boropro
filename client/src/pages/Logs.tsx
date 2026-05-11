@@ -75,6 +75,7 @@ export default function Logs() {
   const [renameColorHex, setRenameColorHex] = useState<string>("");
   const [renamingColorName, setRenamingColorName] = useState<string>("");
   const [customColorNames, setCustomColorNames] = useState<{ [hex: string]: string }>({});
+  const [showRenameButtons, setShowRenameButtons] = useState(false);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -975,7 +976,15 @@ export default function Logs() {
 
             {/* Colors Display */}
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-amber-500 mb-4">Select Glass Color to Compare</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-amber-500">Select Glass Color to Compare</h3>
+                <button
+                  onClick={() => setShowRenameButtons(!showRenameButtons)}
+                  className="px-3 py-1 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                >
+                  {showRenameButtons ? 'Hide Rename' : 'Show Rename'}
+                </button>
+              </div>
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {colorWheelLog.selectedColors.map((color, index) => (
@@ -991,16 +1000,18 @@ export default function Logs() {
                         <ColoredGlassJar color={color} size={60} />
                       </button>
                       <p className="text-xs text-amber-500 text-center font-semibold">{customColorNames?.[color] || getColorNameFromHex(color)}</p>
-                      <button
-                        onClick={() => {
-                          setRenameColorHex(color);
-                          setRenamingColorName(customColorNames?.[color] || getColorNameFromHex(color));
-                          setShowRenameModal(true);
-                        }}
-                        className="mt-1 text-xs px-2 py-1 bg-stone-700 hover:bg-stone-600 text-stone-300 rounded transition-colors"
-                      >
-                        Rename
-                      </button>
+                      {showRenameButtons && (
+                        <button
+                          onClick={() => {
+                            setRenameColorHex(color);
+                            setRenamingColorName(customColorNames?.[color] || getColorNameFromHex(color));
+                            setShowRenameModal(true);
+                          }}
+                          className="mt-1 text-xs px-2 py-1 bg-stone-700 hover:bg-stone-600 text-stone-300 rounded transition-colors"
+                        >
+                          Rename
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
