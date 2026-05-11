@@ -726,26 +726,6 @@ export default function Logs() {
             <div className="flex items-center justify-end gap-4 mb-4">
               <button
                 onClick={() => {
-                  const folderName = prompt('Enter folder name:');
-                  if (folderName && folderName.trim()) {
-                    const newFolder: Folder = {
-                      id: Date.now().toString(),
-                      name: folderName.trim(),
-                      createdAt: new Date(),
-                      logIds: []
-                    };
-                    const updatedFolders = [...folders, newFolder];
-                    setFolders(updatedFolders);
-                    localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                    toast.success(`Folder "${newFolder.name}" created`);
-                  }
-                }}
-                className="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-sm font-medium"
-              >
-                Add Folders
-              </button>
-              <button
-                onClick={() => {
                   setShowCheckboxes(!showCheckboxes);
                   if (showCheckboxes) {
                     setSelectedLogIds(new Set());
