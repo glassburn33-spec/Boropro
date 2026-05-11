@@ -458,3 +458,11 @@
 - [x] Clear selection when modal closes
 - [x] Write comprehensive unit tests (9/9 passing)
 - [x] Verify all tests pass (89/89 total)
+
+## Prevent Duplicate Logs in Folders
+- [x] Filter out logs that already exist in the target folder
+- [x] Only add new logs that don't exist in the folder yet
+- [x] Show error message if all selected logs already exist
+- [x] Show success message with duplicate count if some logs already existed
+- [x] Update tests to verify duplicate prevention logic (12/12 passing)
+- [x] Verify all tests pass (93/93 total, 3 pre-existing failures unrelated)

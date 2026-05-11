@@ -161,14 +161,34 @@ export default function Logs() {
       return;
     }
     try {
+      const currentFolder = folders.find((f) => f.id === selectedFolderForAddLog);
+      const existingLogIds = new Set(currentFolder?.logIds || []);
+      
+      // Filter out logs that already exist in the folder
+      const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
+        (logId) => !existingLogIds.has(logId)
+      );
+      
+      const duplicateCount = selectedLogsForAddition.size - newLogsToAdd.length;
+      
+      if (newLogsToAdd.length === 0) {
+        toast.error("All selected logs are already in this folder");
+        return;
+      }
+      
       const updatedFolders = folders.map((f) =>
         f.id === selectedFolderForAddLog
-          ? { ...f, logIds: [...new Set([...(f.logIds || []), ...selectedLogsForAddition])] }
+          ? { ...f, logIds: [...(f.logIds || []), ...newLogsToAdd] }
           : f
       );
       setFolders(updatedFolders);
       localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-      toast.success(`Added ${selectedLogsForAddition.size} log(s) to folder`);
+      
+      if (duplicateCount > 0) {
+        toast.success(`Added ${newLogsToAdd.length} log(s) to folder (${duplicateCount} already existed)`);
+      } else {
+        toast.success(`Added ${newLogsToAdd.length} log(s) to folder`);
+      }
       setShowAddLogModal(false);
       setSelectedLogsForAddition(new Set());
     } catch (error) {
