@@ -1404,9 +1404,51 @@ export default function AnealingProfileEditor() {
 
                         <button
                           onClick={() => {
-                            toast.info('Logs feature coming soon');
+                            try {
+                              // Calculate temperature and time data from schedule
+                              const cumulativeTimes = [
+                                0,
+                                schedule.data.stage1.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration,
+                              ];
+                              
+                              const temperatures = [
+                                schedule.data.stage1.startTemp,
+                                schedule.data.stage1.targetTemp,
+                                schedule.data.stage2.holdTemp,
+                                schedule.data.stage3.endTemp,
+                                schedule.data.stage4.endTemp,
+                              ];
+                              
+                              const logData = {
+                                id: Date.now().toString(),
+                                name: schedule.name,
+                                createdAt: new Date().toISOString(),
+                                temperatures: temperatures,
+                                times: cumulativeTimes,
+                                notes: schedule.notes || '',
+                                results: schedule.results || '',
+                                selectedColors: schedule.selectedColors || [],
+                                annealedColor: '',
+                                savedColorCombinations: [],
+                              };
+                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                              existingLogs.push(logData);
+                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                              toast.success('Schedule saved to kiln logs!');
+                            } catch (error) {
+                              console.error('Failed to save log:', error);
+                              toast.error('Failed to save log');
+                            }
                           }}
-                          className="px-3 py-1 bg-stone-600 hover:bg-stone-500 text-white rounded text-sm font-semibold transition-colors flex items-center gap-1"
+                          style={{
+                            backgroundColor: schedule.selectedColors?.[0] || '#1e40af',
+                            borderColor: schedule.selectedColors?.[0] || '#1e40af',
+                          }}
+                          className="px-3 py-1 text-white rounded text-sm font-semibold hover:opacity-80 transition-opacity flex items-center gap-1"
                         >
                           {schedule.selectedColors && schedule.selectedColors.length > 0 && (
                             <span className="text-xs">🎨</span>

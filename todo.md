@@ -333,3 +333,8 @@
 - [x] Remove kiln log saving script from Logs button in saved schedules
 - [x] Replace with placeholder toast notifications
 - [x] Verify all tests pass (80/80)
+
+## Reactivate Logs Button for Kiln Log Insertion
+- [x] Restore kiln log saving functionality to Logs button
+- [x] Ensure JSON data is properly formatted for kiln logs
+- [x] Verify all tests pass (80/80)
