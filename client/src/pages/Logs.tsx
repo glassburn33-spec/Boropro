@@ -105,6 +105,7 @@ export default function Logs() {
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [selectedLogsForAddition, setSelectedLogsForAddition] = useState<Set<string>>(new Set());
+  const [tempUnit, setTempUnit] = useState<'C' | 'F'>('C');
 
   // Load logs and folders from localStorage on mount
   useEffect(() => {
@@ -350,10 +351,15 @@ export default function Logs() {
     }
   };
 
-  const generatePDFContent = (log: SavedLog): string => {
+  const generatePDFContent = (log: SavedLog, unit: 'C' | 'F' = 'C'): string => {
+    // Convert temperatures if Fahrenheit is selected
+    const convertTemp = (celsius: number) => unit === 'F' ? Math.round((celsius * 9/5) + 32) : celsius;
+    const convertedTemps = log.temperatures.map(convertTemp);
+    const convertedMinTemp = Math.min(...convertedTemps);
+    const convertedMaxTemp = Math.max(...convertedTemps) + 50;
     // Generate SVG chart matching Firing Tracker plot styling
-    const minTemp = Math.min(...log.temperatures);
-    const maxTemp = Math.max(...log.temperatures) + 50; // Add padding like Firing Tracker
+    const minTemp = convertedMinTemp;
+    const maxTemp = convertedMaxTemp;
     const maxTime = Math.max(...log.times);
     
     // SVG dimensions and margins matching Firing Tracker
@@ -397,9 +403,9 @@ export default function Logs() {
     }
 
     // Temperature curve path
-    let pathD = `M ${margin.left + scaleX(log.times[0])} ${margin.top + scaleY(log.temperatures[0])}`;
+    let pathD = `M ${margin.left + scaleX(log.times[0])} ${margin.top + scaleY(convertedTemps[0])}`;
     for (let i = 1; i < log.times.length; i++) {
-      pathD += ` L ${margin.left + scaleX(log.times[i])} ${margin.top + scaleY(log.temperatures[i])}`;
+      pathD += ` L ${margin.left + scaleX(log.times[i])} ${margin.top + scaleY(convertedTemps[i])}`;
     }
 
     // Temperature curve
@@ -414,7 +420,7 @@ export default function Logs() {
     log.times.forEach((time, idx) => {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('cx', (margin.left + scaleX(time)).toString());
-      circle.setAttribute('cy', (margin.top + scaleY(log.temperatures[idx])).toString());
+      circle.setAttribute('cy', (margin.top + scaleY(convertedTemps[idx])).toString());
       circle.setAttribute('r', '4');
       circle.setAttribute('fill', '#fbbf24');
       svg.appendChild(circle);
@@ -499,7 +505,7 @@ export default function Logs() {
     yLabel.setAttribute('fill', '#999');
     yLabel.setAttribute('font-size', '13');
     yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
-    yLabel.textContent = 'Temp (°C)';
+    yLabel.textContent = `Temp (°${unit})`;
     svg.appendChild(yLabel);
 
     // Title
@@ -545,7 +551,7 @@ export default function Logs() {
               <h1>Kiln Log: ${log.name}</h1>
               <div class="metadata">
                 <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleString()}</p>
-                <p><strong>Max Temperature:</strong> ${Math.max(...log.temperatures)}°C</p>
+                <p><strong>Max Temperature:</strong> ${Math.max(...convertedTemps)}°${unit}</p>
                 <p><strong>Duration:</strong> ${Math.max(...log.times)} minutes</p>
                 <p><strong>Data Points:</strong> ${log.temperatures.length}</p>
               </div>
@@ -557,15 +563,15 @@ export default function Logs() {
                 <thead>
                   <tr>
                     <th>Time (min)</th>
-                    <th>Temperature (°C)</th>
+                    <th>Temperature (°${unit})</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${log.times.map((time, index) => `
-                    <tr>
-                      <td>${time}</td>
-                      <td>${log.temperatures[index]}</td>
-                    </tr>
+                  <tr>
+                    <td>${time}</td>
+                    <td>${convertedTemps[index]}°${unit}</td>
+                  </tr>
                   `).join('')}
                 </tbody>
               </table>
@@ -618,7 +624,7 @@ export default function Logs() {
 
   const handlePreviewPDF = (log: SavedLog) => {
     try {
-      const htmlContent = generatePDFContent(log);
+      const htmlContent = generatePDFContent(log, tempUnit);
       setPDFPreviewContent(htmlContent);
       setShowPDFPreview(true);
       toast.success('PDF preview opened');
@@ -630,7 +636,7 @@ export default function Logs() {
 
   const handleExportPDF = (log: SavedLog) => {
     try {
-      const htmlContent = generatePDFContent(log);
+      const htmlContent = generatePDFContent(log, tempUnit);
       const printWindow = window.open('', '', 'height=800,width=1000');
       if (printWindow) {
         printWindow.document.write(htmlContent);
@@ -648,7 +654,7 @@ export default function Logs() {
     try {
       // Use colorWheelLog if it's the same log (when called from modal), otherwise use the passed log
       const logToUse = colorWheelLog && colorWheelLog.name === log.name ? colorWheelLog : log;
-      const htmlContent = generatePDFContent(logToUse);
+      const htmlContent = generatePDFContent(logToUse, tempUnit);
       
       // Convert HTML to blob
       const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -726,6 +732,16 @@ export default function Logs() {
           </div>
         ) : filteredLogs.length > 0 ? (
           <div className="space-y-4">
+            {/* Temperature Unit Toggle */}
+            <div className="flex items-center justify-center mb-6">
+              <button
+                onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
+                className="px-6 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded-lg transition-colors font-medium text-sm"
+              >
+                Temperature: °{tempUnit} {tempUnit === 'C' ? '→ °F' : '→ °C'}
+              </button>
+            </div>
+
             {/* Logs List Header */}
             <div className="flex items-center justify-end gap-4 mb-4">
               <button
@@ -848,12 +864,12 @@ export default function Logs() {
                         <span className="text-sm">View</span>
                       </button>
 
-                      {/* Upload PDF button - Hidden */}
-                      {/* <button
+                      {/* Upload PDF button - Temperature Unit Toggle */}
+                      <button
                         onClick={() => {
                           try {
-                            // Generate the same HTML content as preview
-                            const htmlContent = generatePDFContent(log);
+                            // Generate the same HTML content as preview with selected temperature unit
+                            const htmlContent = generatePDFContent(log, tempUnit);
                             
                             // Create a temporary iframe to render the HTML
                             const iframe = document.createElement('iframe');
@@ -915,7 +931,7 @@ export default function Logs() {
                         title="Download log as PDF"
                       >
                         <span className="text-sm">Upload PDF</span>
-                      </button> */}
+                      </button>
 
                       <button
                         onClick={() => {

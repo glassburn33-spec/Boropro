@@ -278,3 +278,11 @@
 [2026-05-11T19:42:15.387Z] 3:42:15 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-11T19:42:24.204Z] 3:42:24 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-11T19:43:01.100Z] 3:43:01 PM [vite] (client) hmr update /src/index.css
+[2026-05-11T20:00:06.708Z] 4:00:06 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:00:32.934Z] 4:00:32 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:00:47.838Z] 4:00:47 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:00:55.157Z] 4:00:55 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:01:03.535Z] 4:01:03 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:01:19.148Z] 4:01:19 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:01:35.079Z] 4:01:35 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-11T20:02:08.597Z] 4:02:08 PM [vite] (client) hmr update /src/index.css

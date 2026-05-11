@@ -115,3 +115,35 @@
 [2026-05-11T19:42:40.624Z] {"timestamp":1778528558619,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
 [2026-05-11T19:42:40.624Z] {"timestamp":1778528558737,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-11T19:42:40.624Z] {"timestamp":1778528558877,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-11T19:43:33.944Z] {"timestamp":1778528611938,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T19:43:33.944Z] {"timestamp":1778528612012,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T19:43:33.944Z] {"timestamp":1778528612199,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613455,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613456,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613703,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613703,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613960,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528613960,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528614198,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528614198,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-11T19:43:35.281Z] {"timestamp":1778528614328,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T19:54:23.066Z] {"timestamp":1778529260918,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T19:54:23.066Z] {"timestamp":1778529261092,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T19:54:27.827Z] {"timestamp":1778529265687,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T19:54:27.827Z] {"timestamp":1778529265865,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T19:54:41.806Z] {"timestamp":1778529279658,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-11T19:54:41.806Z] {"timestamp":1778529279857,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673284,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673284,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673387,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673387,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673479,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673479,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673574,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673574,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673667,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:14.526Z] {"timestamp":1778529673667,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:20.552Z] {"timestamp":1778529679524,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:20.552Z] {"timestamp":1778529679524,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-11T20:01:36.576Z] {"timestamp":1778529695874,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-11T20:01:36.576Z] {"timestamp":1778529695875,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}

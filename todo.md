@@ -492,3 +492,16 @@
 - [x] Add tempUnit to useMemo dependency array
 - [x] Pass tempUnit to generatePlotSVG when exporting schedules
 - [x] Plot now dynamically displays °C or °F based on user selection
+
+
+## PDF Export with Temperature Unit Toggle in Logs
+- [x] Add tempUnit state to Logs component
+- [x] Update generatePDFContent function to accept and use tempUnit parameter
+- [x] Convert all temperatures in PDF tables to selected unit (C or F)
+- [x] Update y-axis label in PDF plot to show selected unit
+- [x] Update all PDF metadata to display temperatures in selected unit
+- [x] Uncomment and enable the "Upload PDF" button
+- [x] Add temperature unit toggle button to Logs header
+- [x] Pass tempUnit to all PDF generation functions (handlePreviewPDF, handleExportPDF, handleUploadPDF)
+- [x] PDF now generates with correct temperature unit in tables and plots
+- [x] 109 tests passing (3 pre-existing failures in AnealingProfileEditor unrelated to this change)
