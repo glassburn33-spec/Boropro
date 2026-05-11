@@ -1083,12 +1083,14 @@ export default function Logs() {
                     Delete Selected ({selectedGlassColors.size})
                   </button>
                 )}
-                <button
-                  onClick={() => setShowRenameButtons(!showRenameButtons)}
-                  className="px-3 py-1 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
-                >
-                  {showRenameButtons ? 'Hide Rename' : 'Rename'}
-                </button>
+                {!colorSelectionMode && (
+                  <button
+                    onClick={() => setShowRenameButtons(!showRenameButtons)}
+                    className="px-3 py-1 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                  >
+                    {showRenameButtons ? 'Hide Rename' : 'Rename'}
+                  </button>
+                )}
               </div>
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
