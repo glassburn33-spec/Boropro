@@ -140,3 +140,59 @@ describe('CalculatorTab - Temperature Validation', () => {
     });
   });
 });
+
+
+describe('Calculate Button State', () => {
+  // Helper function to determine if Calculate button should be enabled
+  function isCalculateEnabled(kilnTemp: number, roomTemp: number, unit: 'C' | 'F', shape: string = 'cylinder', thickness: number = 2, radius: number = 25): boolean {
+    const kilnTempValue = kilnTemp;
+    const kilnTempInvalid = isNaN(kilnTempValue) ||
+                            (unit === 'C' && (kilnTempValue < 565 || kilnTempValue > 650)) ||
+                            (unit === 'F' && (kilnTempValue < 1049 || kilnTempValue > 1202));
+
+    const roomTempValue = roomTemp;
+    const roomTempInvalid = isNaN(roomTempValue) ||
+                            (unit === 'C' && (roomTempValue < 0 || roomTempValue > 40)) ||
+                            (unit === 'F' && (roomTempValue < 32 || roomTempValue > 104));
+
+    const calcBlocked = kilnTempInvalid || roomTempInvalid || (shape === 'cylinder' && thickness >= radius);
+    
+    return !calcBlocked;
+  }
+
+  it('should enable Calculate button when valid Fahrenheit kiln temperature is entered', () => {
+    expect(isCalculateEnabled(1049, 68, 'F')).toBe(true);
+    expect(isCalculateEnabled(1112, 68, 'F')).toBe(true);
+    expect(isCalculateEnabled(1202, 68, 'F')).toBe(true);
+  });
+
+  it('should disable Calculate button when invalid Fahrenheit kiln temperature is entered', () => {
+    expect(isCalculateEnabled(1048, 68, 'F')).toBe(false);
+    expect(isCalculateEnabled(1203, 68, 'F')).toBe(false);
+  });
+
+  it('should enable Calculate button when valid Celsius kiln temperature is entered', () => {
+    expect(isCalculateEnabled(565, 25, 'C')).toBe(true);
+    expect(isCalculateEnabled(600, 25, 'C')).toBe(true);
+    expect(isCalculateEnabled(650, 25, 'C')).toBe(true);
+  });
+
+  it('should disable Calculate button when invalid Celsius kiln temperature is entered', () => {
+    expect(isCalculateEnabled(564, 25, 'C')).toBe(false);
+    expect(isCalculateEnabled(651, 25, 'C')).toBe(false);
+  });
+
+  it('should disable Calculate button when room temperature is invalid', () => {
+    expect(isCalculateEnabled(1049, 31, 'F')).toBe(false);
+    expect(isCalculateEnabled(1049, 105, 'F')).toBe(false);
+    expect(isCalculateEnabled(565, -1, 'C')).toBe(false);
+    expect(isCalculateEnabled(565, 41, 'C')).toBe(false);
+  });
+
+  it('should enable Calculate button when both temperatures are valid', () => {
+    expect(isCalculateEnabled(1049, 32, 'F')).toBe(true);
+    expect(isCalculateEnabled(1202, 104, 'F')).toBe(true);
+    expect(isCalculateEnabled(565, 0, 'C')).toBe(true);
+    expect(isCalculateEnabled(650, 40, 'C')).toBe(true);
+  });
+});
