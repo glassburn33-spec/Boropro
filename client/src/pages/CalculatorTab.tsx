@@ -1086,7 +1086,14 @@ export function CalculatorTab() {
 
               {/* Loop toggle button */}
               <Button
-                onClick={() => setTimerLoop(!timerLoop)}
+                onClick={() => {
+                  const newLoopState = !timerLoop;
+                  setTimerLoop(newLoopState);
+                  // If turning off loop while timer is running, stop the timer
+                  if (timerLoop && timerRunning) {
+                    stopTimer();
+                  }
+                }}
                 className={`w-full font-bold text-white ${
                   timerLoop
                     ? 'bg-amber-700 hover:bg-amber-600'
