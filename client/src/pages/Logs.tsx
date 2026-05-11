@@ -1103,11 +1103,9 @@ export default function Logs() {
                           type="checkbox"
                           checked={selectedGlassColors.has(index)}
                           onChange={(e) => {
-                            const newSelected = new Set(selectedGlassColors);
+                            const newSelected = new Set<number>();
                             if (e.target.checked) {
                               newSelected.add(index);
-                            } else {
-                              newSelected.delete(index);
                             }
                             setSelectedGlassColors(newSelected);
                           }}
@@ -1117,10 +1115,9 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           if (colorSelectionMode) {
-                            const newSelected = new Set(selectedGlassColors);
-                            if (newSelected.has(index)) {
-                              newSelected.delete(index);
-                            } else {
+                            // In delete mode, only one selection at a time
+                            const newSelected = new Set<number>();
+                            if (!selectedGlassColors.has(index)) {
                               newSelected.add(index);
                             }
                             setSelectedGlassColors(newSelected);
