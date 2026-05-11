@@ -1555,6 +1555,11 @@ export default function Logs() {
           </div>
         </div>
       )}
+
+      {/* Footer Image */}
+      <div className="mt-16 mb-8 flex justify-center">
+        <img src="/manus-storage/libraryfooter(2)_d1998909.png" alt="Glass Art Footer" className="w-full max-w-4xl object-contain" />
+      </div>
     </div>
   );
 }

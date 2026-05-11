@@ -394,3 +394,10 @@
 - [x] Center the image below the title
 - [x] Scale image to 2.5x size (h-80 w-80 = 320px)
 - [x] Verify all tests pass (80/80)
+
+
+## Add Footer Image to Logs Page
+- [x] Upload libraryfooter(2).png to webdev storage
+- [x] Insert image at the bottom of the Logs page
+- [x] Center and scale image responsively
+- [x] Verify all tests pass (80/80)
