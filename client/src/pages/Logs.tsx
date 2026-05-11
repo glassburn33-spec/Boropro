@@ -918,7 +918,7 @@ export default function Logs() {
                                 </h3>
                               </div>
 
-                              <div className="flex gap-2 ml-4 flex-wrap">
+                              <div className="flex gap-2 ml-4">
                                 <button
                                   onClick={() => handlePreviewPDF(log!)}
                                   className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
@@ -943,35 +943,7 @@ export default function Logs() {
                                   className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
                                 >
                                   <Palette size={18} />
-                                  <span className="text-sm">Colors</span>
-                                </button>
-
-                                <button
-                                  onClick={() => handleOpenComments(log!)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
-                                  title="View and edit comments"
-                                >
-                                  <MessageCircle size={18} />
-                                  <span className="text-sm">Comments</span>
-                                </button>
-
-                                <button
-                                  onClick={() => {
-                                    const newName = prompt('Enter new log name:', log?.name);
-                                    if (newName && newName.trim()) {
-                                      const updatedLogs = logs.map(l => 
-                                        l.id === log?.id ? { ...l, name: newName.trim() } : l
-                                      );
-                                      setLogs(updatedLogs);
-                                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                                      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
-                                      toast.success('Log renamed successfully!');
-                                    }
-                                  }}
-                                  className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-                                  title="Rename log"
-                                >
-                                  <span className="text-sm">Rename</span>
+                                  <span className="text-sm">Color Wheel</span>
                                 </button>
 
                                 <button
@@ -981,10 +953,9 @@ export default function Logs() {
                                     localStorage.setItem("kilnLogs", JSON.stringify(updatedLogs));
                                     toast.success("Log deleted");
                                   }}
-                                  className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
-                                  title="Delete log"
+                                  className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
                                 >
-                                  <Trash2 className="w-4 h-4" />
+                                  <Trash2 size={18} />
                                 </button>
                               </div>
                             </div>
