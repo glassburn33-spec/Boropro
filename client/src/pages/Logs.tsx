@@ -1514,7 +1514,7 @@ export default function Logs() {
               <button
                 onClick={() => {
                   // Save all color comparisons from the Saved Color Comparisons section
-                  if (colorWheelLog && colorWheelLog.savedColorCombinations && colorWheelLog.savedColorCombinations.length > 0) {
+                  if (colorWheelLog) {
                     try {
                       // Update the log with current savedColorCombinations
                       const updatedLog = { ...colorWheelLog };
@@ -1523,7 +1523,15 @@ export default function Logs() {
                         log.name === colorWheelLog.name ? updatedLog : log
                       );
                       localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                      toast.success(`Saved ${colorWheelLog.savedColorCombinations.length} color comparison(s)`);
+                      // Update the logs state to reflect the changes
+                      setLogs(updatedLogs);
+                      
+                      const comboCount = colorWheelLog.savedColorCombinations?.length || 0;
+                      if (comboCount > 0) {
+                        toast.success(`Saved ${comboCount} color comparison(s) to kiln log`);
+                      } else {
+                        toast.info('No color comparisons to save');
+                      }
                     } catch (error) {
                       console.error('Failed to save color comparisons:', error);
                       toast.error('Failed to save color comparisons');
