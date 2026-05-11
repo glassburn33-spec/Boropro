@@ -346,3 +346,11 @@
 - [x] Delete data points and max temperature text
 - [x] Keep only the log title
 - [x] Verify all tests pass (80/80)
+
+
+## Add Rename Button and Remove Delete All Logs
+- [x] Add Rename button to each kiln log entry
+- [x] Implement rename functionality with prompt dialog
+- [x] Save renamed logs to localStorage
+- [x] Remove Delete All Logs button from bulk actions
+- [x] Verify all tests pass (80/80)

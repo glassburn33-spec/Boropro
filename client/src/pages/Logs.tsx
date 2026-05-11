@@ -783,6 +783,25 @@ export default function Logs() {
                       </button>
 
                       <button
+                        onClick={() => {
+                          const newName = prompt('Enter new log name:', log.name);
+                          if (newName && newName.trim()) {
+                            const updatedLogs = logs.map(l => 
+                              l.id === log.id ? { ...l, name: newName.trim() } : l
+                            );
+                            setLogs(updatedLogs);
+                            localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                            window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                            toast.success('Log renamed successfully!');
+                          }
+                        }}
+                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+                        title="Rename log"
+                      >
+                        <span className="text-sm">Rename</span>
+                      </button>
+
+                      <button
                         onClick={() => handleDelete(log.id)}
                         className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
                         title="Delete log"
@@ -795,15 +814,7 @@ export default function Logs() {
               ))}
             </div>
 
-            {/* Bulk Actions */}
-            <div className="flex justify-end gap-2 pt-4 border-t border-stone-700">
-              <button
-                onClick={handleDeleteAll}
-                className="px-4 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors text-sm font-semibold"
-              >
-                Delete All Logs
-              </button>
-            </div>
+
           </div>
         ) : null}
       </main>
