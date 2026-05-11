@@ -938,16 +938,7 @@ export function CalculatorTab() {
                 >
                   565°C
                 </button>
-                <button
-                  onClick={() => setKilnTemp('600')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '600'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  600°C
-                </button>
+
                 <button
                   onClick={() => setKilnTemp('650')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
@@ -971,16 +962,7 @@ export function CalculatorTab() {
                 >
                   1049°F
                 </button>
-                <button
-                  onClick={() => setKilnTemp('1112')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '1112'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  1112°F
-                </button>
+
                 <button
                   onClick={() => setKilnTemp('1202')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
