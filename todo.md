@@ -229,3 +229,25 @@
 - [x] Create blend color icon showing mixed colors (linear gradient preview)
 - [x] Display blend result in comparison section (ready for implementation)
 - [x] Test blend color feature in browser (all 75 tests passing)
+
+## Color Rename Feature
+- [x] Add rename button to color wheel modal (button below each color icon)
+- [x] Create modal/input for renaming colors (modal with text input)
+- [x] Store custom color names in log data (colorNames object in SavedLog)
+- [x] Display renamed colors in UI (shows custom name or default name)
+- [x] Test rename functionality in browser (all 75 tests passing)
+
+## Bug Fix - Annealed Color Overwriting
+- [x] Store multiple annealed color results instead of single value (annealedColors array)
+- [x] Allow users to compare multiple annealed results without losing previous ones
+- [x] Update SavedLog interface to support array of annealed colors (with id, color, mode, blendColors)
+- [x] Modify save handler to append instead of overwrite (spreads existing results)
+- [x] Test multiple annealed color comparisons in browser (all 75 tests passing)
+
+
+## Annealed Color History UI
+- [x] Add section to display previously saved annealed colors (Saved Annealed Results section)
+- [x] Allow users to select a saved annealed result for comparison (clickable buttons)
+- [x] Show list of all saved annealed results with timestamps (grid layout with solid/blend labels)
+- [x] Update comparison section to use selected saved result (uses tempAnnealedColor)
+- [x] Test annealed color history selection in browser (all 75 tests passing)

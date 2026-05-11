@@ -48,7 +48,9 @@ interface SavedLog {
   lineColor?: string;
   notes?: string;
   selectedColors?: string[];
+  annealedColors?: Array<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] }>;
   annealedColor?: string;
+  colorNames?: { [hex: string]: string };
 }
 
 export default function Logs() {
@@ -69,6 +71,10 @@ export default function Logs() {
   const [selectedGlassColor, setSelectedGlassColor] = useState<string | null>(null);
   const [blendMode, setBlendMode] = useState<'solid' | 'blend'>('solid');
   const [blendColors, setBlendColors] = useState<string[]>([]);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [renameColorHex, setRenameColorHex] = useState<string>("");
+  const [renamingColorName, setRenamingColorName] = useState<string>("");
+  const [customColorNames, setCustomColorNames] = useState<{ [hex: string]: string }>({});
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -162,16 +168,55 @@ export default function Logs() {
         toast.error('Please select an annealed color');
         return;
       }
+      const newAnnealedResult = {
+        id: `annealed-${Date.now()}`,
+        color: tempAnnealedColor,
+        mode: blendMode,
+        blendColors: blendMode === 'blend' ? blendColors : undefined,
+      };
+      const existingResults = colorWheelLog.annealedColors || [];
       const updatedLogs = logs.map((log) =>
-        log.id === colorWheelLog.id ? { ...log, annealedColor: tempAnnealedColor } : log
+        log.id === colorWheelLog.id 
+          ? { 
+              ...log, 
+              annealedColors: [...existingResults, newAnnealedResult],
+              annealedColor: tempAnnealedColor 
+            } 
+          : log
       );
       setLogs(updatedLogs);
       localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-      setColorWheelLog({ ...colorWheelLog, annealedColor: tempAnnealedColor });
+      setColorWheelLog({ 
+        ...colorWheelLog, 
+        annealedColors: [...existingResults, newAnnealedResult],
+        annealedColor: tempAnnealedColor 
+      });
       toast.success('Annealed color saved');
     } catch (error) {
       console.error('Save annealed color error:', error);
       toast.error('Failed to save annealed color');
+    }
+  };
+
+  const handleSaveColorName = () => {
+    if (renameColorHex && renamingColorName) {
+      const newNames = { ...customColorNames, [renameColorHex]: renamingColorName };
+      setCustomColorNames(newNames);
+      if (colorWheelLog) {
+        const updatedLogs = logs.map((log) =>
+          log.id === colorWheelLog.id ? { ...log, colorNames: newNames } : log
+        );
+        setLogs(updatedLogs);
+        localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+        setColorWheelLog({
+          ...colorWheelLog,
+          colorNames: newNames,
+        });
+      }
+      setShowRenameModal(false);
+      setRenameColorHex("");
+      setRenamingColorName("");
+      toast.success('Color renamed successfully');
     }
   };
 
@@ -945,7 +990,17 @@ export default function Logs() {
                       >
                         <ColoredGlassJar color={color} size={60} />
                       </button>
-                      <p className="text-xs text-amber-500 text-center font-semibold">{getColorNameFromHex(color)}</p>
+                      <p className="text-xs text-amber-500 text-center font-semibold">{customColorNames?.[color] || getColorNameFromHex(color)}</p>
+                      <button
+                        onClick={() => {
+                          setRenameColorHex(color);
+                          setRenamingColorName(customColorNames?.[color] || getColorNameFromHex(color));
+                          setShowRenameModal(true);
+                        }}
+                        className="mt-1 text-xs px-2 py-1 bg-stone-700 hover:bg-stone-600 text-stone-300 rounded transition-colors"
+                      >
+                        Rename
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -1039,6 +1094,37 @@ export default function Logs() {
               </button>
             </div>
 
+            {/* Annealed Color History */}
+            {colorWheelLog?.annealedColors && colorWheelLog.annealedColors.length > 0 && (
+              <div className="mb-6 border-t border-stone-700 pt-6">
+                <h3 className="text-lg font-bold text-purple-400 mb-4">Saved Annealed Results</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {colorWheelLog.annealedColors.map((result) => (
+                    <button
+                      key={result.id}
+                      onClick={() => setTempAnnealedColor(result.color)}
+                      className={`p-3 rounded-lg border-2 transition-all ${
+                        tempAnnealedColor === result.color
+                          ? 'border-purple-500 ring-2 ring-purple-400'
+                          : 'border-stone-600 hover:border-stone-500'
+                      } bg-stone-800`}
+                    >
+                      <div className="w-12 h-12 rounded mb-2 flex items-center justify-center" style={{ backgroundColor: result.color }}>
+                        {result.mode === 'blend' ? (
+                          <div className="w-full h-full rounded" style={{
+                            background: `linear-gradient(90deg, ${result.blendColors?.[0] || '#ffffff'} 0%, ${result.blendColors?.[1] || '#ffffff'} 50%, ${result.blendColors?.[2] || '#ffffff'} 100%)`
+                          }} />
+                        ) : (
+                          <ColoredGlassJar color={result.color} size={40} />
+                        )}
+                      </div>
+                      <div className="text-xs text-stone-400 text-center">{result.mode === 'blend' ? 'Blend' : 'Solid'}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Comparison Section */}
             {(tempAnnealedColor || colorWheelLog?.annealedColor) && selectedGlassColor && (
               <div className="mb-6 border-t border-stone-700 pt-6">
@@ -1069,6 +1155,39 @@ export default function Logs() {
                         ? getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')
                         : 'Blend Mix'}
                     </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Rename Color Modal */}
+            {showRenameModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-stone-900 border-2 border-amber-700 rounded-lg p-6 max-w-md w-full mx-4">
+                  <h3 className="text-lg font-bold text-amber-500 mb-4">Rename Color</h3>
+                  <div className="mb-4">
+                    <label className="block text-sm text-stone-300 mb-2">New name for color:</label>
+                    <input
+                      type="text"
+                      value={renamingColorName}
+                      onChange={(e) => setRenamingColorName(e.target.value)}
+                      placeholder="Enter color name"
+                      className="w-full px-3 py-2 bg-stone-800 border-2 border-stone-600 rounded text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-600"
+                    />
+                  </div>
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={() => setShowRenameModal(false)}
+                      className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSaveColorName}
+                      className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded transition-colors font-semibold"
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
