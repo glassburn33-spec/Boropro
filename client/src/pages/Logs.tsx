@@ -840,9 +840,9 @@ export default function Logs() {
                       <button
                         onClick={() => handlePreviewPDF(log)}
                         className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
-                        title="Preview PDF before printing"
+                        title="View log"
                       >
-                        <span className="text-sm">Preview PDF</span>
+                        <span className="text-sm">View</span>
                       </button>
 
                       {/* Upload PDF button - Hidden */}
