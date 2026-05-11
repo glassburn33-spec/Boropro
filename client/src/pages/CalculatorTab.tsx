@@ -684,9 +684,15 @@ export function CalculatorTab() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const isFirstRenderRef = useRef<boolean>(true);
 
-  // Convert temperatures when unit changes
+  // Convert temperatures when unit changes (but not on initial render)
   useEffect(() => {
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+      return;
+    }
+    
     if (tempUnit === 'F') {
       // C to F: multiply by 9/5 and add 32
       const kilnF = Math.round((parseFloat(kilnTemp) || 565) * (9 / 5) + 32);
@@ -695,8 +701,8 @@ export function CalculatorTab() {
       setRoomTemp(roomF.toString());
     } else {
       // F to C: subtract 32 and multiply by 5/9
-      const kilnC = Math.round(((parseFloat(kilnTemp) || 565) - 32) * (5 / 9));
-      const roomC = Math.round(((parseFloat(roomTemp) || 25) - 32) * (5 / 9));
+      const kilnC = Math.round(((parseFloat(kilnTemp) || 1049) - 32) * (5 / 9));
+      const roomC = Math.round(((parseFloat(roomTemp) || 77) - 32) * (5 / 9));
       setKilnTemp(kilnC.toString());
       setRoomTemp(roomC.toString());
     }

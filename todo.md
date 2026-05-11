@@ -538,3 +538,12 @@
 - [x] Reset button sets Celsius defaults: 565°C kiln, 25°C room
 - [x] Reset button sets Fahrenheit defaults: 1049°F kiln, 77°F room
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Fix Default Kiln Temperature Display on Page Load
+- [x] Fixed useEffect hook preventing incorrect temperature conversion on initial mount
+- [x] Added isFirstRenderRef to skip conversion logic on first render
+- [x] Calculator page now opens with correct default: 565°C kiln temperature
+- [x] Reheat Calc nav button now directs to calculator with correct 565°C default (not 296)
+- [x] Temperature conversion only occurs when user toggles between C and F units
+- [x] Tests passing (109/112, 3 pre-existing failures)
