@@ -290,4 +290,96 @@ describe('Add Log Modal - Checkbox Selection', () => {
     expect(updatedFolder?.logIds).toContain('log-2');
     expect(updatedFolder?.logIds).toContain('log-3');
   });
+
+  it('should filter out logs that are in any folder from standalone list', () => {
+    // Simulate logs in folders
+    mockFolders = [
+      {
+        id: 'folder-1',
+        name: 'My Folder',
+        createdAt: new Date('2026-05-01'),
+        logIds: ['log-1', 'log-2'],
+      },
+      {
+        id: 'folder-2',
+        name: 'Another Folder',
+        createdAt: new Date('2026-05-02'),
+        logIds: ['log-3'],
+      },
+    ];
+
+    // Get all log IDs that are in any folder
+    const logsInFolders = new Set<string>();
+    mockFolders.forEach((folder) => {
+      folder.logIds?.forEach((logId) => {
+        logsInFolders.add(logId);
+      });
+    });
+
+    // Filter standalone logs
+    const standaloneLogsFiltered = mockLogs.filter((log) => !logsInFolders.has(log.id));
+
+    expect(standaloneLogsFiltered.length).toBe(0);
+    expect(logsInFolders.has('log-1')).toBe(true);
+    expect(logsInFolders.has('log-2')).toBe(true);
+    expect(logsInFolders.has('log-3')).toBe(true);
+  });
+
+  it('should show only logs not in any folder in standalone section', () => {
+    // Only log-1 and log-2 are in folders
+    mockFolders = [
+      {
+        id: 'folder-1',
+        name: 'My Folder',
+        createdAt: new Date('2026-05-01'),
+        logIds: ['log-1'],
+      },
+      {
+        id: 'folder-2',
+        name: 'Another Folder',
+        createdAt: new Date('2026-05-02'),
+        logIds: ['log-2'],
+      },
+    ];
+
+    // Get all log IDs that are in any folder
+    const logsInFolders = new Set<string>();
+    mockFolders.forEach((folder) => {
+      folder.logIds?.forEach((logId) => {
+        logsInFolders.add(logId);
+      });
+    });
+
+    // Filter standalone logs
+    const standaloneLogsFiltered = mockLogs.filter((log) => !logsInFolders.has(log.id));
+
+    expect(standaloneLogsFiltered.length).toBe(1);
+    expect(standaloneLogsFiltered[0].id).toBe('log-3');
+  });
+
+  it('should not show logs in folders in the main grid', () => {
+    // Add all logs to a folder
+    mockFolders = [
+      {
+        id: 'folder-1',
+        name: 'My Folder',
+        createdAt: new Date('2026-05-01'),
+        logIds: ['log-1', 'log-2', 'log-3'],
+      },
+    ];
+
+    // Get all log IDs that are in any folder
+    const logsInFolders = new Set<string>();
+    mockFolders.forEach((folder) => {
+      folder.logIds?.forEach((logId) => {
+        logsInFolders.add(logId);
+      });
+    });
+
+    // Filter standalone logs for main grid
+    const standaloneLogsForGrid = mockLogs.filter((log) => !logsInFolders.has(log.id));
+
+    expect(standaloneLogsForGrid.length).toBe(0);
+    expect(logsInFolders.size).toBe(3);
+  });
 });

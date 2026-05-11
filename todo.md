@@ -466,3 +466,11 @@
 - [x] Show success message with duplicate count if some logs already existed
 - [x] Update tests to verify duplicate prevention logic (12/12 passing)
 - [x] Verify all tests pass (93/93 total, 3 pre-existing failures unrelated)
+
+## Hide Logs in Folders from Standalone Display
+- [x] Create helper function to identify all logs in any folder
+- [x] Filter standalone logs from main grid display
+- [x] Filter standalone logs from Add Log modal
+- [x] Update logic to exclude logs already in folders from all views
+- [x] Write tests for log filtering (3 new tests)
+- [x] Verify all tests pass (15/15 passing)

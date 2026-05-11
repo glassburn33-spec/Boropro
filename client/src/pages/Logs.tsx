@@ -154,6 +154,20 @@ export default function Logs() {
     setSelectedLogsForAddition(newSelection);
   };
 
+  // Helper function to get all log IDs that are in any folder
+  const getLogsInFolders = () => {
+    const logsInFolders = new Set<string>();
+    folders.forEach((folder) => {
+      folder.logIds?.forEach((logId) => {
+        logsInFolders.add(logId);
+      });
+    });
+    return logsInFolders;
+  };
+
+  // Get standalone logs (logs not in any folder)
+  const standaloneLogsFiltered = logs.filter((log) => !getLogsInFolders().has(log.id));
+
   // Add all selected logs to the current folder
   const handleAddSelectedLogs = () => {
     if (selectedLogsForAddition.size === 0) {
@@ -847,7 +861,7 @@ export default function Logs() {
                   </div>
                 </div>
               ))}
-              {filteredLogs.map((log) => (
+              {standaloneLogsFiltered.map((log) => (
                 <div
                   key={log.id}
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
@@ -1767,10 +1781,10 @@ export default function Logs() {
               ) : (
                 <>
                   {/* Display standalone logs */}
-                  {logs.length > 0 && (
+                  {standaloneLogsFiltered.length > 0 && (
                     <>
                       <div className="text-sm font-semibold text-amber-400 mb-2">Standalone Logs</div>
-                      {logs.map((log) => (
+                      {standaloneLogsFiltered.map((log) => (
                         <div
                           key={log.id}
                           className="flex items-center gap-3 px-4 py-3 bg-stone-800 hover:bg-stone-700 text-white rounded transition-colors border border-stone-700 hover:border-amber-600 cursor-pointer"
