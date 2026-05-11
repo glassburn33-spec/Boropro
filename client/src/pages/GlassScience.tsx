@@ -1393,7 +1393,11 @@ function ScieEquipTab() {
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* EQUIPMENT SCIENCE TITLE */}
+      <div className="mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Equipment Science</h1>
+      </div>
       <CustomAccordion items={accordionItems} allowMultiple={true} />
     </div>
   );

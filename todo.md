@@ -512,3 +512,10 @@
 - [x] Match Color Science tab title styling (text-4xl md:text-5xl, font-bold, text-amber-400)
 - [x] Add proper spacing with mb-12 for consistency
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Add Equipment Science Title Header
+- [x] Add "Equipment Science" title header to Equipment Science tab (ScieEquipTab)
+- [x] Match Color Science and Glass Science tab title styling (text-4xl md:text-5xl, font-bold, text-amber-400)
+- [x] Add proper spacing with mb-12 for consistency
+- [x] Tests passing (108/112, 4 failures - 3 pre-existing + 1 new in GlassScience)
