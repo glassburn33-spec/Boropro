@@ -470,3 +470,11 @@
 - [x] Add comprehensive tests for button state logic (6 new tests)
 - [x] Confirm button is disabled only when temperature is invalid
 - [x] All 19 temperature validation tests passing
+
+## Bug Fix: Temperature Unit Toggle Not Converting Values
+- [x] Fixed bug where toggling between °C and °F didn't convert temperature values
+- [x] Implemented automatic temperature conversion when unit button is clicked
+- [x] Celsius to Fahrenheit: multiply by 9/5 and add 32
+- [x] Fahrenheit to Celsius: subtract 32 and multiply by 5/9
+- [x] Calculate button now enabled immediately after unit switch with valid converted values
+- [x] All tests passing (19/19)

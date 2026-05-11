@@ -853,7 +853,25 @@ export function CalculatorTab() {
       <div className="flex items-center gap-2 mb-4">
         <span className="text-sm text-stone-400">Temperature Unit:</span>
         <button
-          onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
+          onClick={() => {
+            const newUnit = tempUnit === 'C' ? 'F' : 'C';
+            setTempUnit(newUnit);
+            
+            // Convert temperatures when unit changes
+            if (newUnit === 'F') {
+              // C to F: multiply by 9/5 and add 32
+              const kilnF = Math.round((parseFloat(kilnTemp) || 565) * (9 / 5) + 32);
+              const roomF = Math.round((parseFloat(roomTemp) || 25) * (9 / 5) + 32);
+              setKilnTemp(kilnF.toString());
+              setRoomTemp(roomF.toString());
+            } else {
+              // F to C: subtract 32 and multiply by 5/9
+              const kilnC = Math.round(((parseFloat(kilnTemp) || 1049) - 32) * (5 / 9));
+              const roomC = Math.round(((parseFloat(roomTemp) || 68) - 32) * (5 / 9));
+              setKilnTemp(kilnC.toString());
+              setRoomTemp(roomC.toString());
+            }
+          }}
           className={`px-4 py-2 rounded font-semibold transition-all ${
             tempUnit === 'C'
               ? 'bg-amber-700 border-amber-500 text-white'
