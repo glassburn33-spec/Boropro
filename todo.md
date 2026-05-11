@@ -211,3 +211,9 @@
 - [x] Display comparison for only the selected color (single side-by-side comparison)
 - [x] Highlight selected color in the grid (amber border, ring, scale effect)
 - [x] Test individual color selection in browser (all 75 tests passing)
+
+## PDF Color Comparator Display
+- [x] Add color comparator section to PDF export (Color Transformation Results section)
+- [x] Display each glass color with arrow to annealed result (30x30px color boxes with arrow)
+- [x] Format comparator to match PDF styling (amber/gold colors, dark backgrounds)
+- [x] Test PDF export with color comparator in browser (all 75 tests passing)
