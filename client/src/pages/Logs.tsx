@@ -1503,7 +1503,13 @@ export default function Logs() {
             )}
 
             {/* Close Button */}
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowColorWheelModal(false)}
+                className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
+              >
+                Done
+              </button>
               <button
                 onClick={() => setShowColorWheelModal(false)}
                 className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
