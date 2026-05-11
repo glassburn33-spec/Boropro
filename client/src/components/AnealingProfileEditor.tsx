@@ -1514,6 +1514,32 @@ export default function AnealingProfileEditor() {
                         >
                           {saveGeneratedMutation.isPending ? 'Saving...' : 'Save to PDF Library'}
                         </button>
+                        <button
+                          onClick={() => {
+                            try {
+                              const logData = {
+                                id: Date.now(),
+                                filename: schedule.name,
+                                temperatures: [],
+                                times: [],
+                                savedAt: new Date().toISOString(),
+                                notes: schedule.notes || '',
+                                results: schedule.results || '',
+                              };
+                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                              existingLogs.push(logData);
+                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                              toast.success('Log saved successfully!');
+                            } catch (error) {
+                              console.error('Failed to save log:', error);
+                              toast.error('Failed to save log');
+                            }
+                          }}
+                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                        >
+                          Logs
+                        </button>
                       </div>
                     </div>
                     {schedule.notes && (
