@@ -676,16 +676,33 @@ export default function Logs() {
               >
                 {showCheckboxes ? 'Done' : 'Select'}
               </button>
+              {showCheckboxes && (
+                <button
+                  onClick={() => {
+                    if (selectedLogIds.size === filteredLogs.length) {
+                      setSelectedLogIds(new Set());
+                    } else {
+                      const allIds = new Set(filteredLogs.map(log => log.id));
+                      setSelectedLogIds(allIds);
+                    }
+                  }}
+                  className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-sm font-medium"
+                >
+                  {selectedLogIds.size === filteredLogs.length && filteredLogs.length > 0 ? 'Deselect All' : 'Select All'}
+                </button>
+              )}
               {showCheckboxes && selectedLogIds.size > 0 && (
                 <button
                   onClick={() => {
-                    const updatedLogs = logs.filter(log => !selectedLogIds.has(log.id));
-                    setLogs(updatedLogs);
-                    localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                    setSelectedLogIds(new Set());
-                    setShowCheckboxes(false);
-                    toast.success(`Deleted ${selectedLogIds.size} log(s)`);
-                    window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                    if (window.confirm(`Are you sure you want to delete ${selectedLogIds.size} log(s)? This action cannot be undone.`)) {
+                      const updatedLogs = logs.filter(log => !selectedLogIds.has(log.id));
+                      setLogs(updatedLogs);
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      setSelectedLogIds(new Set());
+                      setShowCheckboxes(false);
+                      toast.success(`Deleted ${selectedLogIds.size} log(s)`);
+                      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                    }
                   }}
                   className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors text-sm font-medium"
                 >

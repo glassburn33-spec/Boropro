@@ -418,3 +418,11 @@
 - [x] Dispatch logsUpdated event after deletion
 - [x] Show success toast with count of deleted logs
 - [x] Verify all tests pass (80/80)
+
+
+## Add Select All / Deselect All and Confirmation Dialog
+- [x] Add Select All button that appears when Select mode is active
+- [x] Select All button toggles to Deselect All when all logs are selected
+- [x] Add confirmation dialog before deleting logs
+- [x] Confirmation shows count of logs to be deleted
+- [x] Verify all tests pass (80/80)
