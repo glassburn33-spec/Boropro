@@ -3,7 +3,7 @@ Logs Page - View and manage saved kiln logs with localStorage persistence
 */
 
 import { useState, useEffect } from "react";
-import { Download, Trash2, Eye } from "lucide-react";
+import { Download, Trash2, Eye, FileText } from "lucide-react";
 import { toast } from "sonner";
 
 interface SavedLog {
@@ -192,7 +192,16 @@ export default function Logs() {
                         title="Export to CSV"
                       >
                         <Download className="w-4 h-4" />
-                        <span className="text-sm">Export</span>
+                        <span className="text-sm">CSV</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleExportPDF(log)}
+                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+                        title="Export to PDF"
+                      >
+                        <FileText className="w-4 h-4" />
+                        <span className="text-sm">PDF</span>
                       </button>
 
                       <button
@@ -302,3 +311,59 @@ export default function Logs() {
     </div>
   );
 }
+
+  const handleExportPDF = (log: SavedLog) => {
+    try {
+      const htmlContent = `
+        <html>
+          <head>
+            <title>${log.name} - Kiln Log</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; background: white; }
+              h1 { color: #333; }
+              .metadata { margin: 20px 0; color: #666; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+              th { background-color: #f2f2f2; font-weight: bold; }
+              tr:nth-child(even) { background-color: #f9f9f9; }
+            </style>
+          </head>
+          <body>
+            <h1>Kiln Log: ${log.name}</h1>
+            <div class="metadata">
+              <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleString()}</p>
+              <p><strong>Max Temperature:</strong> ${Math.max(...log.temperatures)}°C</p>
+              <p><strong>Duration:</strong> ${Math.max(...log.times)} minutes</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Time (min)</th>
+                  <th>Temperature (°C)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${log.times.map((time, index) => `
+                  <tr>
+                    <td>${time}</td>
+                    <td>${log.temperatures[index]}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+
+      const printWindow = window.open('', '', 'height=600,width=800');
+      if (printWindow) {
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.print();
+        toast.success('PDF ready to print');
+      }
+    } catch (error) {
+      console.error('PDF export error:', error);
+      toast.error('Failed to export PDF');
+    }
+  };
