@@ -736,15 +736,9 @@ export function CalculatorTab() {
     if (timeRemaining === null || timeRemaining <= 1) {
           clearInterval(intervalRef.current!);
           intervalRef.current = null;
+          setTimerRunning(false);
           playBeeps(3);
-          if (timerLoop) {
-            // Restart the timer automatically if loop is enabled
-            setTimeRemaining(originalTimeRef.current);
-            return originalTimeRef.current;
-          } else {
-            setTimerRunning(false);
-            return originalTimeRef.current;
-          }
+          return originalTimeRef.current;   // reset to original value
         }
         return (prev ?? 0) - 1;
       });
