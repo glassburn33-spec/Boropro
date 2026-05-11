@@ -433,3 +433,12 @@
 - [x] Style with purple background
 - [x] Add placeholder functionality with toast message
 - [x] Verify all tests pass (80/80)
+
+
+## Implement Add Folders Functionality
+- [x] Add folder state management with localStorage persistence
+- [x] Implement Add Folders button to toggle folder input
+- [x] Create folder input field with Enter key support
+- [x] Display created folders in the logs list with delete option
+- [x] Load folders from localStorage on component mount
+- [x] Verify all tests pass (80/80)
