@@ -13,6 +13,7 @@ interface SavedLog {
   times: number[];
   createdAt: string;
   description?: string;
+  notes?: string;
 }
 
 export default function Logs() {
@@ -173,6 +174,9 @@ export default function Logs() {
               th { background-color: #292524; font-weight: bold; color: #fbbf24; }
               td { background-color: #1c1917; }
               tr:nth-child(even) td { background-color: #292524; }
+              .notes-section { margin: 30px 0; background: #292524; padding: 15px; border-left: 3px solid #d97706; }
+              .notes-section h2 { margin-top: 0; }
+              .notes-section p { line-height: 1.6; color: #d1d5db; }
             </style>
           </head>
           <body>
@@ -202,6 +206,12 @@ export default function Logs() {
                 `).join('')}
               </tbody>
             </table>
+            ${log.notes ? `
+            <div class="notes-section">
+              <h2>Notes</h2>
+              <p>${log.notes.replace(/\n/g, '<br>')}</p>
+            </div>
+            ` : ''}
           </body>
         </html>
       `;
