@@ -287,3 +287,7 @@
 - [x] Implement delete handler to remove selected colors from log (filters out selected colors)
 - [x] Update localStorage when colors are deleted (saves updated log)
 - [x] Test delete selected colors functionality in browser (all 75 tests passing)
+
+
+## UI Text Updates
+- [x] Change "Show Rename" button text to "Rename"

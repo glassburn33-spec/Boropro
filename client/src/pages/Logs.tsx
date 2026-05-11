@@ -1049,7 +1049,7 @@ export default function Logs() {
                   onClick={() => setShowRenameButtons(!showRenameButtons)}
                   className="px-3 py-1 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                 >
-                  {showRenameButtons ? 'Hide Rename' : 'Show Rename'}
+                  {showRenameButtons ? 'Hide Rename' : 'Rename'}
                 </button>
               </div>
               {colorWheelLog.selectedColors && colorWheelLog.selectedColors.length > 0 ? (
