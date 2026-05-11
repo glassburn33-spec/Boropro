@@ -1517,11 +1517,28 @@ export default function AnealingProfileEditor() {
                         <button
                           onClick={() => {
                             try {
+                              // Calculate temperature and time data from schedule
+                              const cumulativeTimes = [
+                                0,
+                                schedule.data.stage1.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration,
+                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration,
+                              ];
+                              
+                              const temperatures = [
+                                schedule.data.stage1.startTemp,
+                                schedule.data.stage1.targetTemp,
+                                schedule.data.stage2.holdTemp,
+                                schedule.data.stage3.endTemp,
+                                schedule.data.stage4.endTemp,
+                              ];
+                              
                               const logData = {
                                 id: Date.now(),
                                 filename: schedule.name,
-                                temperatures: [],
-                                times: [],
+                                temperatures: temperatures,
+                                times: cumulativeTimes,
                                 savedAt: new Date().toISOString(),
                                 notes: schedule.notes || '',
                                 results: schedule.results || '',
