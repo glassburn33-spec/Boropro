@@ -407,3 +407,14 @@
 - [x] Change Select button alignment from left to right
 - [x] Update justify-start to justify-end in header div
 - [x] Verify all tests pass (80/80)
+
+
+## Implement Checkbox Selection and Bulk Delete
+- [x] Add showCheckboxes and selectedLogIds state
+- [x] Implement Select button to toggle checkbox visibility
+- [x] Add checkboxes to each log entry
+- [x] Implement Delete button that appears when logs are selected
+- [x] Delete selected logs from localStorage and update UI
+- [x] Dispatch logsUpdated event after deletion
+- [x] Show success toast with count of deleted logs
+- [x] Verify all tests pass (80/80)

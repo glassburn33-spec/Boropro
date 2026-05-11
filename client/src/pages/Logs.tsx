@@ -88,6 +88,8 @@ export default function Logs() {
   const [selectedAnnealedResultForComparison, setSelectedAnnealedResultForComparison] = useState<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] } | null>(null);
   const [savedComboSelectionMode, setSavedComboSelectionMode] = useState(false);
   const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
+  const [selectedLogIds, setSelectedLogIds] = useState<Set<string>>(new Set());
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -665,13 +667,31 @@ export default function Logs() {
             <div className="flex items-center justify-end gap-4 mb-4">
               <button
                 onClick={() => {
-                  // Select all logs functionality
-                  console.log('Select all logs');
+                  setShowCheckboxes(!showCheckboxes);
+                  if (showCheckboxes) {
+                    setSelectedLogIds(new Set());
+                  }
                 }}
                 className="px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-sm font-medium"
               >
-                Select
+                {showCheckboxes ? 'Done' : 'Select'}
               </button>
+              {showCheckboxes && selectedLogIds.size > 0 && (
+                <button
+                  onClick={() => {
+                    const updatedLogs = logs.filter(log => !selectedLogIds.has(log.id));
+                    setLogs(updatedLogs);
+                    localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                    setSelectedLogIds(new Set());
+                    setShowCheckboxes(false);
+                    toast.success(`Deleted ${selectedLogIds.size} log(s)`);
+                    window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                  }}
+                  className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors text-sm font-medium"
+                >
+                  Delete ({selectedLogIds.size})
+                </button>
+              )}
             </div>
             {/* Logs List */}
             <div className="grid gap-4">
@@ -681,6 +701,22 @@ export default function Logs() {
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
                 >
                   <div className="flex items-start justify-between">
+                    {showCheckboxes && (
+                      <input
+                        type="checkbox"
+                        checked={selectedLogIds.has(log.id)}
+                        onChange={(e) => {
+                          const newSelected = new Set(selectedLogIds);
+                          if (e.target.checked) {
+                            newSelected.add(log.id);
+                          } else {
+                            newSelected.delete(log.id);
+                          }
+                          setSelectedLogIds(newSelected);
+                        }}
+                        className="mr-4 w-5 h-5 cursor-pointer"
+                      />
+                    )}
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-white mb-1">
                         {log.name}
