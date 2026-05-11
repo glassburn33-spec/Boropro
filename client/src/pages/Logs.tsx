@@ -1183,7 +1183,7 @@ export default function Logs() {
                       : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
                   }`}
                 >
-                  Blend (Up to 3)
+                  Color Strike
                 </button>
               </div>
 
