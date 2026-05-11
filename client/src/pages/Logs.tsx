@@ -1340,7 +1340,7 @@ export default function Logs() {
             )}
 
             {/* Comparison Section */}
-            {(tempAnnealedColor || colorWheelLog?.annealedColor) && selectedGlassColor && (
+            {(tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison) && selectedGlassColor && (
               <div className="mb-6 border-t border-stone-700 pt-6">
                 <h3 className="text-lg font-bold text-purple-400 mb-4">Color Comparison</h3>
                 <div className="flex items-center justify-center gap-8 p-6 bg-stone-800 rounded">
@@ -1354,20 +1354,22 @@ export default function Logs() {
                   <div className="text-amber-500 font-bold text-3xl">→</div>
                   <div className="flex flex-col items-center">
                     <div className="text-sm text-stone-400 mb-2">Annealed Result</div>
-                    {blendMode === 'solid' ? (
-                      <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
-                        <ColoredGlassJar color={tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
+                    {selectedAnnealedResultForComparison?.mode === 'blend' || blendMode === 'blend' ? (
+                      <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
+                        background: selectedAnnealedResultForComparison?.mode === 'blend'
+                          ? `linear-gradient(135deg, ${selectedAnnealedResultForComparison.blendColors?.[0] || '#ffffff'} 0%, ${selectedAnnealedResultForComparison.blendColors?.[1] || '#ffffff'} 50%, ${selectedAnnealedResultForComparison.blendColors?.[2] || '#ffffff'} 100%)`
+                          : `linear-gradient(135deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
+                      }}>
                       </div>
                     ) : (
-                      <div className="w-20 h-20 rounded-lg border-2 border-purple-600 flex items-center justify-center mb-2" style={{
-                        background: `linear-gradient(135deg, ${blendColors[0] || '#ffffff'} 0%, ${blendColors[1] || '#ffffff'} 50%, ${blendColors[2] || '#ffffff'} 100%)`
-                      }}>
+                      <div className="w-20 h-20 rounded-lg border-2 border-amber-600 flex items-center justify-center mb-2" style={{ backgroundColor: selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff' }}>
+                        <ColoredGlassJar color={selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff'} size={60} />
                       </div>
                     )}
                     <p className="text-xs text-amber-500 font-semibold text-center">
-                      {blendMode === 'solid' 
-                        ? getColorNameFromHex(tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')
-                        : 'Blend Mix'}
+                      {selectedAnnealedResultForComparison?.mode === 'blend' || blendMode === 'blend'
+                        ? 'Blend Mix'
+                        : getColorNameFromHex(selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}
                     </p>
                   </div>
                 </div>
