@@ -661,6 +661,18 @@ export default function Logs() {
           </div>
         ) : filteredLogs.length > 0 ? (
           <div className="space-y-4">
+            {/* Logs List Header */}
+            <div className="flex items-center justify-end gap-4 mb-4">
+              <button
+                onClick={() => {
+                  // Select all logs functionality
+                  console.log('Select all logs');
+                }}
+                className="px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-sm font-medium"
+              >
+                Select
+              </button>
+            </div>
             {/* Logs List */}
             <div className="grid gap-4">
               {filteredLogs.map((log) => (

@@ -401,3 +401,9 @@
 - [x] Insert image at the bottom of the Logs page
 - [x] Center and scale image responsively
 - [x] Verify all tests pass (80/80)
+
+
+## Move Select Button to Right Side
+- [x] Change Select button alignment from left to right
+- [x] Update justify-start to justify-end in header div
+- [x] Verify all tests pass (80/80)
