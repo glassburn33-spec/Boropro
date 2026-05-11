@@ -280,3 +280,10 @@
 - [x] Add save button to save selected colors as a group (Save Selected button with count)
 - [x] Implement collapsible checkbox section (Select Multiple/Cancel buttons toggle mode)
 - [x] Test individual color selection and group save in browser (all 75 tests passing)
+
+
+## Delete Selected Glass Colors Feature
+- [x] Add delete button to remove selected glass colors (red Delete Selected button)
+- [x] Implement delete handler to remove selected colors from log (filters out selected colors)
+- [x] Update localStorage when colors are deleted (saves updated log)
+- [x] Test delete selected colors functionality in browser (all 75 tests passing)

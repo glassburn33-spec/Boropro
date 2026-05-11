@@ -1016,6 +1016,36 @@ export default function Logs() {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold text-amber-500">Select Glass Color to Compare</h3>
                 <button
+                  onClick={() => {
+                    setColorSelectionMode(!colorSelectionMode);
+                    setSelectedGlassColors(new Set());
+                  }}
+                  className="px-3 py-1 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                >
+                  {colorSelectionMode ? 'Cancel' : 'Select Multiple'}
+                </button>
+                {colorSelectionMode && selectedGlassColors.size > 0 && (
+                  <button
+                    onClick={() => {
+                      const updatedColors = colorWheelLog.selectedColors?.filter(
+                        (color) => !selectedGlassColors.has(color)
+                      );
+                      const updatedLog = { ...colorWheelLog, selectedColors: updatedColors };
+                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                      const updatedLogs = logs.map((log: SavedLog) =>
+                        log.name === colorWheelLog.name ? updatedLog : log
+                      );
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      setColorWheelLog(updatedLog);
+                      setColorSelectionMode(false);
+                      setSelectedGlassColors(new Set());
+                    }}
+                    className="px-3 py-1 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
+                  >
+                    Delete Selected ({selectedGlassColors.size})
+                  </button>
+                )}
+                <button
                   onClick={() => setShowRenameButtons(!showRenameButtons)}
                   className="px-3 py-1 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                 >
