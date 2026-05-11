@@ -714,18 +714,6 @@ export default function Logs() {
                       <h3 className="text-lg font-semibold text-white mb-1">
                         {log.name}
                       </h3>
-                      {log.description && (
-                        <p className="text-sm text-stone-400 mb-2">
-                          {log.description}
-                        </p>
-                      )}
-                      <p className="text-xs text-stone-500">
-                        Created: {new Date(log.createdAt).toLocaleString()}
-                      </p>
-                      <p className="text-xs text-stone-500 mt-1">
-                        {log.temperatures.length} data points • Max temp:{" "}
-                        {Math.max(...log.temperatures)}°C
-                      </p>
                     </div>
 
                     <div className="flex gap-2 ml-4">

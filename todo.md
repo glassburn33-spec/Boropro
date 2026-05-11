@@ -338,3 +338,11 @@
 - [x] Restore kiln log saving functionality to Logs button
 - [x] Ensure JSON data is properly formatted for kiln logs
 - [x] Verify all tests pass (80/80)
+
+
+## Remove Text Under Log Title
+- [x] Delete description text under log title
+- [x] Delete created date text
+- [x] Delete data points and max temperature text
+- [x] Keep only the log title
+- [x] Verify all tests pass (80/80)
