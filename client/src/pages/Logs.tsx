@@ -1316,10 +1316,11 @@ export default function Logs() {
                             setSelectedAnnealedIds(newSelected);
                           } else {
                             setTempAnnealedColor(result.color);
+                            setBlendMode(result.mode);
                           }
                         }}
                       className={`p-3 rounded-lg border-2 transition-all ${
-                        tempAnnealedColor === result.color
+                        tempAnnealedColor === result.color && !deleteMode
                           ? 'border-purple-500 ring-2 ring-purple-400'
                           : 'border-stone-600 hover:border-stone-500'
                       } bg-stone-800`}
