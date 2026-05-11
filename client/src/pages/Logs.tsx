@@ -845,7 +845,8 @@ export default function Logs() {
                         <span className="text-sm">Preview PDF</span>
                       </button>
 
-                      <button
+                      {/* Upload PDF button - Hidden */}
+                      {/* <button
                         onClick={() => {
                           try {
                             // Generate the same HTML content as preview
@@ -911,7 +912,7 @@ export default function Logs() {
                         title="Download log as PDF"
                       >
                         <span className="text-sm">Upload PDF</span>
-                      </button>
+                      </button> */}
 
                       <button
                         onClick={() => {
