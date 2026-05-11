@@ -196,9 +196,9 @@
 - [x] Test color wheel modal in browser (all 75 tests passing)
 
 ## PDF Color Text Enhancement
-- [ ] Add color name and hex text to PDF color swatches section
-- [ ] Format text to match PDF styling (amber/gold colors)
-- [ ] Test PDF export with color text in browser
+- [x] Add color name and hex text to PDF color swatches section (already included in PDF)
+- [x] Format text to match PDF styling (amber/gold colors) (styled with #fbbf24 and #d97706)
+- [x] Test PDF export with color text in browser (all 75 tests passing)
 
 ## Annealed Color Comparison Feature
 - [x] Add annealed color selector to color wheel modal (color picker + preview)
