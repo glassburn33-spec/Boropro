@@ -1432,6 +1432,7 @@ export default function AnealingProfileEditor() {
                                 savedAt: new Date().toISOString(),
                                 notes: schedule.notes || '',
                                 results: schedule.results || '',
+                                selectedColors: schedule.selectedColors || [],
                               };
                               const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
                               existingLogs.push(logData);
@@ -1443,8 +1444,15 @@ export default function AnealingProfileEditor() {
                               toast.error('Failed to save log');
                             }
                           }}
-                          className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                          style={{
+                            backgroundColor: schedule.selectedColors?.[0] || '#1e40af',
+                            borderColor: schedule.selectedColors?.[0] || '#1e40af',
+                          }}
+                          className="px-3 py-1 text-white rounded text-sm font-semibold hover:opacity-80 transition-opacity flex items-center gap-1"
                         >
+                          {schedule.selectedColors && schedule.selectedColors.length > 0 && (
+                            <span className="text-xs">🎨</span>
+                          )}
                           Logs
                         </button>
                       </div>

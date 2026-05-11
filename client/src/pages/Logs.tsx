@@ -9,12 +9,13 @@ import { toast } from "sonner";
 interface SavedLog {
   id: string;
   name: string;
+  description?: string;
   temperatures: number[];
   times: number[];
-  createdAt: string;
-  description?: string;
-  notes?: string;
+  createdAt: Date;
   lineColor?: string;
+  notes?: string;
+  selectedColors?: string[];
 }
 
 export default function Logs() {

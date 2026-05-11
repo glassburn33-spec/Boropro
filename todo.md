@@ -171,3 +171,9 @@
 - [x] Create modal to display and edit log notes/comments (textarea with 48 height)
 - [x] Save updated comments to localStorage
 - [x] Test comments functionality in browser (all 75 tests passing)
+
+## Firing Tracker Log Button Color Update
+- [x] Update log button in schedule list to use selected line color (uses first selectedColor)
+- [x] Pass selectedColors from SavedSchedule to log data
+- [x] Apply custom color to log button styling (dynamic backgroundColor)
+- [x] Test color display in Firing Tracker tab (all 75 tests passing)
