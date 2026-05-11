@@ -326,3 +326,10 @@
 - [x] Display comments with proper formatting (white-space preserved)
 - [x] Only show comments section if notes exist
 - [x] Verify all tests pass
+
+
+## Remove Kiln Log Saving Scripts
+- [x] Remove kiln log saving script from Save Schedule button
+- [x] Remove kiln log saving script from Logs button in saved schedules
+- [x] Replace with placeholder toast notifications
+- [x] Verify all tests pass (80/80)

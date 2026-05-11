@@ -740,47 +740,6 @@ export default function AnealingProfileEditor() {
       
       setSavedSchedules(prev => [...prev, newSchedule]);
       
-      try {
-        // Transform nested stage data into flat arrays
-        const temperatures: number[] = [];
-        const times: number[] = [];
-        
-        // Stage 1: Ramp to target
-        temperatures.push(inputs.stage1.startTemp, inputs.stage1.targetTemp);
-        times.push(0, inputs.stage1.duration);
-        
-        // Stage 2: Hold
-        temperatures.push(inputs.stage2.holdTemp);
-        times.push(inputs.stage1.duration + inputs.stage2.duration);
-        
-        // Stage 3: Ramp down
-        temperatures.push(inputs.stage3.startTemp, inputs.stage3.endTemp);
-        times.push(inputs.stage1.duration + inputs.stage2.duration + inputs.stage3.duration);
-        
-        // Stage 4: Cool down
-        temperatures.push(inputs.stage4.startTemp, inputs.stage4.endTemp);
-        times.push(inputs.stage1.duration + inputs.stage2.duration + inputs.stage3.duration + inputs.stage4.duration);
-        
-        const kilnLog = {
-          id: newSchedule.id,
-          name: scheduleName,
-          createdAt: new Date().toISOString(),
-          description: notes,
-          temperatures,
-          times,
-          notes: notes,
-          selectedColors: [],
-          annealedColor: '',
-          savedColorCombinations: [],
-        };
-        
-        const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-        logs.push(kilnLog);
-        localStorage.setItem('kilnLogs', JSON.stringify(logs));
-      } catch (error) {
-        console.error('Error saving to kiln logs:', error);
-      }
-      
       setScheduleName('');
       setNotes('');
       setShowSaveDialog(false);
@@ -1445,49 +1404,9 @@ export default function AnealingProfileEditor() {
 
                         <button
                           onClick={() => {
-                            try {
-                              // Calculate temperature and time data from schedule
-                              const cumulativeTimes = [
-                                0,
-                                schedule.data.stage1.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration,
-                                schedule.data.stage1.duration + schedule.data.stage2.duration + schedule.data.stage3.duration + schedule.data.stage4.duration,
-                              ];
-                              
-                              const temperatures = [
-                                schedule.data.stage1.startTemp,
-                                schedule.data.stage1.targetTemp,
-                                schedule.data.stage2.holdTemp,
-                                schedule.data.stage3.endTemp,
-                                schedule.data.stage4.endTemp,
-                              ];
-                              
-                              const logData = {
-                                id: Date.now(),
-                                filename: schedule.name,
-                                temperatures: temperatures,
-                                times: cumulativeTimes,
-                                savedAt: new Date().toISOString(),
-                                notes: schedule.notes || '',
-                                results: schedule.results || '',
-                                selectedColors: schedule.selectedColors || [],
-                              };
-                              const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                              existingLogs.push(logData);
-                              localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
-                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
-                              toast.success('Log saved successfully!');
-                            } catch (error) {
-                              console.error('Failed to save log:', error);
-                              toast.error('Failed to save log');
-                            }
+                            toast.info('Logs feature coming soon');
                           }}
-                          style={{
-                            backgroundColor: schedule.selectedColors?.[0] || '#1e40af',
-                            borderColor: schedule.selectedColors?.[0] || '#1e40af',
-                          }}
-                          className="px-3 py-1 text-white rounded text-sm font-semibold hover:opacity-80 transition-opacity flex items-center gap-1"
+                          className="px-3 py-1 bg-stone-600 hover:bg-stone-500 text-white rounded text-sm font-semibold transition-colors flex items-center gap-1"
                         >
                           {schedule.selectedColors && schedule.selectedColors.length > 0 && (
                             <span className="text-xs">🎨</span>
