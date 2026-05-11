@@ -638,9 +638,9 @@ export default function Logs() {
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Title */}
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-col items-center justify-center gap-4">
           <h1 className="text-4xl font-bold text-amber-400">Logs</h1>
-          <img src="/manus-storage/glasslogicon_44f4be74.png" alt="Glassmaker's Log" className="h-32 w-32 object-contain" />
+          <img src="/manus-storage/glasslogicon_44f4be74.png" alt="Glassmaker's Log" className="h-80 w-80 object-contain" />
         </div>
 
         {/* Date Range Filter Removed */}

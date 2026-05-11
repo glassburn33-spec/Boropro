@@ -388,3 +388,9 @@
 - [x] Add image to the right of the page title
 - [x] Rename "Kiln Logs" to "Logs"
 - [x] Verify all tests pass (80/80)
+
+
+## Center and Scale Glassmaker's Log Image
+- [x] Center the image below the title
+- [x] Scale image to 2.5x size (h-80 w-80 = 320px)
+- [x] Verify all tests pass (80/80)
