@@ -193,41 +193,7 @@ export default function KilnLog() {
 
     toast.success("CSV exported successfully!");
   };
-  const handleSaveToPDFLibrary = async () => {
-    if (!selectedLog) return;
 
-    try {
-
-      // Generate PDF from kiln log data
-      const pdfData: KilnLogPDFData = {
-        name: selectedLog.name,
-        description: selectedLog.description,
-        temperatures: selectedLog.temperatures,
-        times: selectedLog.times,
-        startTime: selectedLog.startTime,
-        endTime: selectedLog.endTime,
-        notes: selectedLog.notes,
-      };
-
-      const doc = generateKilnLogPDF(pdfData);
-      const base64 = pdfToBase64(doc);
-
-      // Save to PDF library via backend
-      await saveGeneratedMutation.mutateAsync({
-        filename: `${selectedLog.name}_klog.pdf`,
-        fileBase64: base64,
-        temperatures: selectedLog.temperatures,
-        times: selectedLog.times,
-      });
-
-      toast.success("Kiln log saved to Log Library!");
-      refetch();
-    } catch (error) {
-      console.error("Failed to save to Log library:", error);
-      toast.error("Failed to save to Log library");
-    } finally {
-    }
-  };
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
@@ -686,14 +652,7 @@ export default function KilnLog() {
                 )}
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-end gap-3">
-                  <button
-                    onClick={handleSaveToPDFLibrary}
-                    disabled={saveGeneratedMutation.isPending}
-                    className="px-4 py-2 rounded-lg bg-green-700 hover:bg-green-600 disabled:bg-stone-600 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
-                  >
-                    <Save size={16} />
-                    {saveGeneratedMutation.isPending ? "Saving..." : "Save to Log Library"}
-                  </button>
+
                   <button
                     onClick={handleExportCSV}
                     className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2"
