@@ -272,3 +272,11 @@
 - [x] Add checkboxes to each saved annealed result (checkboxes appear in delete mode)
 - [x] Implement delete handler to remove selected results (Delete Selected button)
 - [x] Test delete functionality in browser (all 75 tests passing)
+
+
+## Individual Glass Color Selection Feature
+- [x] Add checkboxes to each glass color in color wheel modal (checkboxes appear in selection mode)
+- [x] Allow multiple glass colors to be selected individually (click to toggle selection)
+- [x] Add save button to save selected colors as a group (Save Selected button with count)
+- [x] Implement collapsible checkbox section (Select Multiple/Cancel buttons toggle mode)
+- [x] Test individual color selection and group save in browser (all 75 tests passing)

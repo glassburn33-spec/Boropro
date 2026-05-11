@@ -78,6 +78,9 @@ export default function Logs() {
   const [showRenameButtons, setShowRenameButtons] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
   const [selectedAnnealedIds, setSelectedAnnealedIds] = useState<Set<string>>(new Set());
+  const [selectedGlassColors, setSelectedGlassColors] = useState<Set<string>>(new Set());
+  const [showColorCheckboxes, setShowColorCheckboxes] = useState(false);
+  const [colorSelectionMode, setColorSelectionMode] = useState(false);
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -1023,16 +1026,48 @@ export default function Logs() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {colorWheelLog.selectedColors.map((color, index) => (
                     <div key={index} className="flex flex-col items-center">
+                      <div className="relative">
+                      {colorSelectionMode && (
+                        <input
+                          type="checkbox"
+                          checked={selectedGlassColors.has(color)}
+                          onChange={(e) => {
+                            const newSelected = new Set(selectedGlassColors);
+                            if (e.target.checked) {
+                              newSelected.add(color);
+                            } else {
+                              newSelected.delete(color);
+                            }
+                            setSelectedGlassColors(newSelected);
+                          }}
+                          className="absolute top-1 left-1 w-5 h-5 cursor-pointer z-10"
+                        />
+                      )}
                       <button
-                        onClick={() => setSelectedGlassColor(color)}
+                        onClick={() => {
+                          if (colorSelectionMode) {
+                            const newSelected = new Set(selectedGlassColors);
+                            if (newSelected.has(color)) {
+                              newSelected.delete(color);
+                            } else {
+                              newSelected.add(color);
+                            }
+                            setSelectedGlassColors(newSelected);
+                          } else {
+                            setSelectedGlassColor(color);
+                          }
+                        }}
                         className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all mb-2 ${
-                          selectedGlassColor === color
-                            ? 'border-amber-500 ring-2 ring-amber-400 scale-110'
-                            : 'border-stone-600 hover:border-stone-500'
-                        } bg-stone-800 cursor-pointer`}
+                          colorSelectionMode && selectedGlassColors.has(color)
+                            ? 'border-blue-500 ring-2 ring-blue-400 scale-110 bg-stone-700'
+                            : selectedGlassColor === color
+                            ? 'border-amber-500 ring-2 ring-amber-400 scale-110 bg-stone-800'
+                            : 'border-stone-600 hover:border-stone-500 bg-stone-800'
+                        } cursor-pointer`}
                       >
                         <ColoredGlassJar color={color} size={60} />
                       </button>
+                    </div>
                       <p className="text-xs text-amber-500 text-center font-semibold">{customColorNames?.[color] || getColorNameFromHex(color)}</p>
                       {showRenameButtons && (
                         <button
