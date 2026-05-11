@@ -3,7 +3,7 @@ Logs Page - View and manage saved kiln logs with localStorage persistence
 */
 
 import { useState, useEffect } from "react";
-import { Download, Trash2, Eye, FileText } from "lucide-react";
+import { Download, Trash2, Eye, FileText, Eye as EyeIcon } from "lucide-react";
 import { toast } from "sonner";
 
 interface SavedLog {
@@ -20,6 +20,8 @@ export default function Logs() {
   const [logs, setLogs] = useState<SavedLog[]>([]);
   const [selectedLog, setSelectedLog] = useState<SavedLog | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [showPDFPreview, setShowPDFPreview] = useState(false);
+  const [pdfPreviewContent, setPDFPreviewContent] = useState<string>("");
   const [filterStartDate, setFilterStartDate] = useState<string>("");
   const [filterEndDate, setFilterEndDate] = useState<string>("");
 
@@ -110,176 +112,175 @@ export default function Logs() {
     }
   };
 
-  const handleExportPDF = (log: SavedLog) => {
-    try {
-      // Generate SVG chart matching Firing Tracker plot styling
-      const minTemp = Math.min(...log.temperatures);
-      const maxTemp = Math.max(...log.temperatures) + 50; // Add padding like Firing Tracker
-      const maxTime = Math.max(...log.times);
-      
-      // SVG dimensions and margins matching Firing Tracker
-      const width = 1000;
-      const height = 600;
-      const margin = { top: 80, right: 80, bottom: 120, left: 70 };
-      const plotWidth = width - margin.left - margin.right;
-      const plotHeight = height - margin.top - margin.bottom;
+  const generatePDFContent = (log: SavedLog): string => {
+    // Generate SVG chart matching Firing Tracker plot styling
+    const minTemp = Math.min(...log.temperatures);
+    const maxTemp = Math.max(...log.temperatures) + 50; // Add padding like Firing Tracker
+    const maxTime = Math.max(...log.times);
+    
+    // SVG dimensions and margins matching Firing Tracker
+    const width = 1000;
+    const height = 600;
+    const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
 
-      // Scale functions
-      const scaleX = (time: number) => (time / maxTime) * plotWidth;
-      const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
+    // Scale functions
+    const scaleX = (time: number) => (time / maxTime) * plotWidth;
+    const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
 
-      // Create SVG element
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('width', width.toString());
-      svg.setAttribute('height', height.toString());
-      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      svg.setAttribute('style', 'background-color: #1c1917;');
+    // Create SVG element
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', width.toString());
+    svg.setAttribute('height', height.toString());
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('style', 'background-color: #1c1917;');
 
-      // Background
-      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      bg.setAttribute('width', width.toString());
-      bg.setAttribute('height', height.toString());
-      bg.setAttribute('fill', '#1c1917');
-      svg.appendChild(bg);
+    // Background
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bg.setAttribute('width', width.toString());
+    bg.setAttribute('height', height.toString());
+    bg.setAttribute('fill', '#1c1917');
+    svg.appendChild(bg);
 
-      // Gridlines
-      const tempStep = maxTemp > 600 ? 100 : 50;
-      for (let temp = 0; temp <= maxTemp; temp += tempStep) {
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', margin.left.toString());
-        line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
-        line.setAttribute('x2', (margin.left + plotWidth).toString());
-        line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
-        line.setAttribute('stroke', '#404040');
-        line.setAttribute('stroke-dasharray', '4');
-        line.setAttribute('stroke-width', '1');
-        svg.appendChild(line);
-      }
+    // Gridlines
+    const tempStep = maxTemp > 600 ? 100 : 50;
+    for (let temp = 0; temp <= maxTemp; temp += tempStep) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', margin.left.toString());
+      line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
+      line.setAttribute('x2', (margin.left + plotWidth).toString());
+      line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
+      line.setAttribute('stroke', '#404040');
+      line.setAttribute('stroke-dasharray', '4');
+      line.setAttribute('stroke-width', '1');
+      svg.appendChild(line);
+    }
 
-      // Temperature curve path
-      let pathD = `M ${margin.left + scaleX(log.times[0])} ${margin.top + scaleY(log.temperatures[0])}`;
-      for (let i = 1; i < log.times.length; i++) {
-        pathD += ` L ${margin.left + scaleX(log.times[i])} ${margin.top + scaleY(log.temperatures[i])}`;
-      }
+    // Temperature curve path
+    let pathD = `M ${margin.left + scaleX(log.times[0])} ${margin.top + scaleY(log.temperatures[0])}`;
+    for (let i = 1; i < log.times.length; i++) {
+      pathD += ` L ${margin.left + scaleX(log.times[i])} ${margin.top + scaleY(log.temperatures[i])}`;
+    }
 
-      // Temperature curve
-      const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      curve.setAttribute('d', pathD);
-      curve.setAttribute('stroke', '#fbbf24');
-      curve.setAttribute('stroke-width', '3');
-      curve.setAttribute('fill', 'none');
-      svg.appendChild(curve);
+    // Temperature curve
+    const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    curve.setAttribute('d', pathD);
+    curve.setAttribute('stroke', '#fbbf24');
+    curve.setAttribute('stroke-width', '3');
+    curve.setAttribute('fill', 'none');
+    svg.appendChild(curve);
 
-      // Data points
-      log.times.forEach((time, idx) => {
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', (margin.left + scaleX(time)).toString());
-        circle.setAttribute('cy', (margin.top + scaleY(log.temperatures[idx])).toString());
-        circle.setAttribute('r', '4');
-        circle.setAttribute('fill', '#fbbf24');
-        svg.appendChild(circle);
-      });
+    // Data points
+    log.times.forEach((time, idx) => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', (margin.left + scaleX(time)).toString());
+      circle.setAttribute('cy', (margin.top + scaleY(log.temperatures[idx])).toString());
+      circle.setAttribute('r', '4');
+      circle.setAttribute('fill', '#fbbf24');
+      svg.appendChild(circle);
+    });
 
-      // Axes
-      const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      xAxis.setAttribute('x1', margin.left.toString());
-      xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
-      xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
-      xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
-      xAxis.setAttribute('stroke', '#999');
-      xAxis.setAttribute('stroke-width', '2');
-      svg.appendChild(xAxis);
+    // Axes
+    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    xAxis.setAttribute('x1', margin.left.toString());
+    xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
+    xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
+    xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+    xAxis.setAttribute('stroke', '#999');
+    xAxis.setAttribute('stroke-width', '2');
+    svg.appendChild(xAxis);
 
-      const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      yAxis.setAttribute('x1', margin.left.toString());
-      yAxis.setAttribute('y1', margin.top.toString());
-      yAxis.setAttribute('x2', margin.left.toString());
-      yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
-      yAxis.setAttribute('stroke', '#999');
-      yAxis.setAttribute('stroke-width', '2');
-      svg.appendChild(yAxis);
+    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    yAxis.setAttribute('x1', margin.left.toString());
+    yAxis.setAttribute('y1', margin.top.toString());
+    yAxis.setAttribute('x2', margin.left.toString());
+    yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+    yAxis.setAttribute('stroke', '#999');
+    yAxis.setAttribute('stroke-width', '2');
+    svg.appendChild(yAxis);
 
-      // Y-axis ticks and labels
-      for (let i = 0; i <= maxTemp; i += tempStep) {
-        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        tick.setAttribute('x1', (margin.left - 5).toString());
-        tick.setAttribute('y1', (margin.top + scaleY(i)).toString());
-        tick.setAttribute('x2', margin.left.toString());
-        tick.setAttribute('y2', (margin.top + scaleY(i)).toString());
-        tick.setAttribute('stroke', '#999');
-        tick.setAttribute('stroke-width', '1');
-        svg.appendChild(tick);
+    // Y-axis ticks and labels
+    for (let i = 0; i <= maxTemp; i += tempStep) {
+      const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tick.setAttribute('x1', (margin.left - 5).toString());
+      tick.setAttribute('y1', (margin.top + scaleY(i)).toString());
+      tick.setAttribute('x2', margin.left.toString());
+      tick.setAttribute('y2', (margin.top + scaleY(i)).toString());
+      tick.setAttribute('stroke', '#999');
+      tick.setAttribute('stroke-width', '1');
+      svg.appendChild(tick);
 
-        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        label.setAttribute('x', (margin.left - 15).toString());
-        label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
-        label.setAttribute('text-anchor', 'end');
-        label.setAttribute('fill', '#999');
-        label.setAttribute('font-size', '11');
-        label.textContent = `${i}°C`;
-        svg.appendChild(label);
-      }
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', (margin.left - 15).toString());
+      label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
+      label.setAttribute('text-anchor', 'end');
+      label.setAttribute('fill', '#999');
+      label.setAttribute('font-size', '11');
+      label.textContent = `${i}°C`;
+      svg.appendChild(label);
+    }
 
-      // X-axis ticks and labels
-      const timeStep = maxTime > 500 ? 100 : 50;
-      for (let time = 0; time <= maxTime; time += timeStep) {
-        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        tick.setAttribute('x1', (margin.left + scaleX(time)).toString());
-        tick.setAttribute('y1', (margin.top + plotHeight).toString());
-        tick.setAttribute('x2', (margin.left + scaleX(time)).toString());
-        tick.setAttribute('y2', (margin.top + plotHeight + 5).toString());
-        tick.setAttribute('stroke', '#999');
-        tick.setAttribute('stroke-width', '1');
-        svg.appendChild(tick);
+    // X-axis ticks and labels
+    const timeStep = maxTime > 500 ? 100 : 50;
+    for (let time = 0; time <= maxTime; time += timeStep) {
+      const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tick.setAttribute('x1', (margin.left + scaleX(time)).toString());
+      tick.setAttribute('y1', (margin.top + plotHeight).toString());
+      tick.setAttribute('x2', (margin.left + scaleX(time)).toString());
+      tick.setAttribute('y2', (margin.top + plotHeight + 5).toString());
+      tick.setAttribute('stroke', '#999');
+      tick.setAttribute('stroke-width', '1');
+      svg.appendChild(tick);
 
-        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        label.setAttribute('x', (margin.left + scaleX(time)).toString());
-        label.setAttribute('y', (margin.top + plotHeight + 20).toString());
-        label.setAttribute('text-anchor', 'middle');
-        label.setAttribute('fill', '#999');
-        label.setAttribute('font-size', '11');
-        label.textContent = `${time} min`;
-        svg.appendChild(label);
-      }
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', (margin.left + scaleX(time)).toString());
+      label.setAttribute('y', (margin.top + plotHeight + 20).toString());
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('fill', '#999');
+      label.setAttribute('font-size', '11');
+      label.textContent = `${time} min`;
+      svg.appendChild(label);
+    }
 
-      // Axis labels
-      const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
-      xLabel.setAttribute('y', (height - 20).toString());
-      xLabel.setAttribute('text-anchor', 'middle');
-      xLabel.setAttribute('fill', '#999');
-      xLabel.setAttribute('font-size', '14');
-      xLabel.textContent = 'Time →';
-      svg.appendChild(xLabel);
+    // Axis labels
+    const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
+    xLabel.setAttribute('y', (height - 20).toString());
+    xLabel.setAttribute('text-anchor', 'middle');
+    xLabel.setAttribute('fill', '#999');
+    xLabel.setAttribute('font-size', '14');
+    xLabel.textContent = 'Time →';
+    svg.appendChild(xLabel);
 
-      const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      yLabel.setAttribute('x', '15');
-      yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
-      yLabel.setAttribute('text-anchor', 'middle');
-      yLabel.setAttribute('fill', '#999');
-      yLabel.setAttribute('font-size', '13');
-      yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
-      yLabel.textContent = 'Temp (°C)';
-      svg.appendChild(yLabel);
+    const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    yLabel.setAttribute('x', '15');
+    yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
+    yLabel.setAttribute('text-anchor', 'middle');
+    yLabel.setAttribute('fill', '#999');
+    yLabel.setAttribute('font-size', '13');
+    yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
+    yLabel.textContent = 'Temp (°C)';
+    svg.appendChild(yLabel);
 
-      // Title
-      const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      title.setAttribute('x', (width / 2).toString());
-      title.setAttribute('y', '40');
-      title.setAttribute('text-anchor', 'middle');
-      title.setAttribute('fill', '#fbbf24');
-      title.setAttribute('font-size', '20');
-      title.setAttribute('font-weight', 'bold');
-      title.textContent = log.name;
-      svg.appendChild(title);
+    // Title
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    title.setAttribute('x', (width / 2).toString());
+    title.setAttribute('y', '40');
+    title.setAttribute('text-anchor', 'middle');
+    title.setAttribute('fill', '#fbbf24');
+    title.setAttribute('font-size', '20');
+    title.setAttribute('font-weight', 'bold');
+    title.textContent = log.name;
+    svg.appendChild(title);
 
-      // Convert SVG to data URL
-      const svgString = new XMLSerializer().serializeToString(svg);
-      const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
-      const svgUrl = URL.createObjectURL(svgBlob);
+    // Convert SVG to data URL
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
+    const svgUrl = URL.createObjectURL(svgBlob);
 
-      const htmlContent = `
+    const htmlContent = `
         <html>
           <head>
             <title>${log.name} - Kiln Log</title>
@@ -350,6 +351,24 @@ export default function Logs() {
         </html>
       `;
 
+    return htmlContent;
+  };
+
+  const handlePreviewPDF = (log: SavedLog) => {
+    try {
+      const htmlContent = generatePDFContent(log);
+      setPDFPreviewContent(htmlContent);
+      setShowPDFPreview(true);
+      toast.success('PDF preview opened');
+    } catch (error) {
+      console.error('PDF preview error:', error);
+      toast.error('Failed to generate PDF preview');
+    }
+  };
+
+  const handleExportPDF = (log: SavedLog) => {
+    try {
+      const htmlContent = generatePDFContent(log);
       const printWindow = window.open('', '', 'height=800,width=1000');
       if (printWindow) {
         printWindow.document.write(htmlContent);
@@ -509,12 +528,21 @@ export default function Logs() {
                       </button>
 
                       <button
+                        onClick={() => handlePreviewPDF(log)}
+                        className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                        title="Preview PDF before printing"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span className="text-sm">Preview PDF</span>
+                      </button>
+
+                      <button
                         onClick={() => handleExportPDF(log)}
                         className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
                         title="Export to PDF"
                       >
                         <FileText className="w-4 h-4" />
-                        <span className="text-sm">PDF</span>
+                        <span className="text-sm">Print PDF</span>
                       </button>
 
                       <button
@@ -624,6 +652,58 @@ export default function Logs() {
                   Close
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PDF Preview Modal */}
+      {showPDFPreview && pdfPreviewContent && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-stone-700 sticky top-0 bg-stone-900">
+              <h2 className="text-xl font-bold text-amber-400">PDF Preview</h2>
+              <button
+                onClick={() => setShowPDFPreview(false)}
+                className="text-stone-400 hover:text-white text-2xl"
+                aria-label="Close preview"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* PDF Content */}
+            <div className="flex-1 overflow-auto bg-stone-800">
+              <iframe
+                srcDoc={pdfPreviewContent}
+                className="w-full h-full border-none"
+                title="PDF Preview"
+              />
+            </div>
+
+            {/* Footer with Actions */}
+            <div className="flex gap-2 p-4 border-t border-stone-700 bg-stone-900">
+              <button
+                onClick={() => {
+                  const printWindow = window.open('', '', 'height=800,width=1000');
+                  if (printWindow) {
+                    printWindow.document.write(pdfPreviewContent);
+                    printWindow.document.close();
+                    printWindow.print();
+                  }
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition-colors flex-1 justify-center"
+              >
+                <FileText className="w-4 h-4" />
+                Print PDF
+              </button>
+              <button
+                onClick={() => setShowPDFPreview(false)}
+                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

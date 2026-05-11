@@ -139,3 +139,9 @@
 - [x] Verify notes field is properly saved and displayed in PDFs
 - [x] Write vitest tests for PDF export with custom colors (20 tests passing)
 - [x] Test PDF export in browser to verify visual output
+
+## PDF Preview Feature (New)
+- [x] Add "Preview PDF" button to Logs page
+- [x] Implement PDF preview display in modal/window
+- [x] Add print button in preview modal
+- [x] Test preview functionality in browser
