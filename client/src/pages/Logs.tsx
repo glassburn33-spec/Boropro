@@ -19,6 +19,8 @@ export default function Logs() {
   const [logs, setLogs] = useState<SavedLog[]>([]);
   const [selectedLog, setSelectedLog] = useState<SavedLog | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [filterStartDate, setFilterStartDate] = useState<string>("");
+  const [filterEndDate, setFilterEndDate] = useState<string>("");
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -37,6 +39,15 @@ export default function Logs() {
 
     loadLogs();
   }, []);
+
+  // Filter logs by date range
+  const filteredLogs = logs.filter((log) => {
+    if (!filterStartDate && !filterEndDate) return true;
+    const logDate = new Date(log.createdAt).toISOString().split('T')[0];
+    if (filterStartDate && logDate < filterStartDate) return false;
+    if (filterEndDate && logDate > filterEndDate) return false;
+    return true;
+  });
 
   const handleExportCSV = (log: SavedLog) => {
     try {
@@ -239,18 +250,66 @@ export default function Logs() {
           </p>
         </div>
 
-        {logs.length === 0 ? (
+        {/* Date Range Filter */}
+        {logs.length > 0 && (
+          <div className="mb-8 p-4 bg-stone-900/50 border border-stone-700 rounded-lg">
+            <h2 className="text-sm font-semibold text-amber-400 mb-4">Filter by Date Range</h2>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <label className="block text-xs text-stone-400 mb-2">Start Date</label>
+                <input
+                  type="date"
+                  value={filterStartDate}
+                  onChange={(e) => setFilterStartDate(e.target.value)}
+                  className="w-full px-3 py-2 bg-stone-800 border border-stone-600 rounded text-white text-sm"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block text-xs text-stone-400 mb-2">End Date</label>
+                <input
+                  type="date"
+                  value={filterEndDate}
+                  onChange={(e) => setFilterEndDate(e.target.value)}
+                  className="w-full px-3 py-2 bg-stone-800 border border-stone-600 rounded text-white text-sm"
+                />
+              </div>
+              <div className="flex items-end">
+                <button
+                  onClick={() => {
+                    setFilterStartDate("");
+                    setFilterEndDate("");
+                  }}
+                  className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-sm"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            <p className="text-xs text-stone-500 mt-2">
+              Showing {filteredLogs.length} of {logs.length} logs
+            </p>
+          </div>
+        )}
+
+        {filteredLogs.length === 0 && logs.length > 0 ? (
+          <div className="text-center py-12 border border-stone-700 rounded-lg bg-stone-900/50">
+            <p className="text-stone-400 mb-2">No logs found in date range</p>
+            <p className="text-stone-500 text-sm">
+              Try adjusting your filter dates
+            </p>
+          </div>
+        ) : logs.length === 0 ? (
           <div className="text-center py-12 border border-stone-700 rounded-lg bg-stone-900/50">
             <p className="text-stone-400 mb-2">No logs saved yet</p>
             <p className="text-stone-500 text-sm">
               Create and save kiln logs from the Firing Tracker to see them here
             </p>
           </div>
-        ) : (
+        ) : filteredLogs.length > 0 ? (
           <div className="space-y-4">
             {/* Logs List */}
             <div className="grid gap-4">
-              {logs.map((log) => (
+              {filteredLogs.map((log) => (
                 <div
                   key={log.id}
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
@@ -328,7 +387,7 @@ export default function Logs() {
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </main>
 
       {/* Preview Modal */}
