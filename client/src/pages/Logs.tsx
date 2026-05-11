@@ -1397,22 +1397,23 @@ export default function Logs() {
           <div className="bg-stone-900 border-2 border-green-700 rounded-lg p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-bold text-green-500 mb-4">Add New Color</h3>
             <div className="mb-4">
-              <label className="block text-sm text-stone-300 mb-2">Hex Color:</label>
-              <div className="flex gap-2">
-                <input
-                  type="color"
-                  value={newColorHex}
-                  onChange={(e) => setNewColorHex(e.target.value)}
-                  className="w-16 h-10 rounded cursor-pointer"
-                />
-                <input
-                  type="text"
-                  value={newColorHex}
-                  onChange={(e) => setNewColorHex(e.target.value)}
-                  placeholder="#ff0000"
-                  className="flex-1 px-3 py-2 bg-stone-800 border-2 border-stone-600 rounded text-stone-100 placeholder-stone-500 focus:outline-none focus:border-green-600"
-                />
-              </div>
+              <label className="block text-sm text-stone-300 mb-2">Color Picker:</label>
+              <input
+                type="color"
+                value={newColorHex}
+                onChange={(e) => setNewColorHex(e.target.value)}
+                className="w-full h-12 rounded cursor-pointer border-2 border-stone-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm text-stone-300 mb-2">Color Name:</label>
+              <input
+                type="text"
+                value={newColorName}
+                onChange={(e) => setNewColorName(e.target.value)}
+                placeholder="Enter color name (optional)"
+                className="w-full px-3 py-2 bg-stone-800 border-2 border-stone-600 rounded text-stone-100 placeholder-stone-500 focus:outline-none focus:border-green-600"
+              />
             </div>
             <div className="flex gap-2 justify-end">
               <button
