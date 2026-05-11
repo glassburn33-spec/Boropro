@@ -1291,55 +1291,149 @@ export default function LogLibrary() {
 
                               const doc = generateKilnLogPDF(pdfData);
                               
+                              // Extract JSON data to create plot
+                              const maxTemp = Math.max(...log.temperatures, 1000) + 50;
+                              const maxTime = Math.max(...log.times, 1) || 1;
+                              
                               // Add plot page
                               doc.addPage();
                               const pageWidth = doc.internal.pageSize.getWidth();
+                              const pageHeight = doc.internal.pageSize.getHeight();
+                              
                               doc.setFontSize(14);
                               doc.setTextColor(40, 40, 40);
-                              doc.text('Temperature Profile', 20, 20);
+                              doc.text('Temperature Profile Chart', 20, 20);
                               
-                              // Create canvas plot
-                              const canvas = document.createElement('canvas');
-                              canvas.width = 800;
-                              canvas.height = 500;
-                              const ctx = canvas.getContext('2d');
-                              if (ctx) {
-                                ctx.fillStyle = '#1c1917';
-                                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                                ctx.strokeStyle = '#404040';
-                                ctx.lineWidth = 1;
-                                const maxTemp = Math.max(...log.temperatures) + 50;
-                                for (let temp = 0; temp <= maxTemp; temp += 100) {
-                                  const y = canvas.height - (temp / maxTemp) * canvas.height;
-                                  ctx.beginPath();
-                                  ctx.moveTo(50, y);
-                                  ctx.lineTo(canvas.width - 50, y);
-                                  ctx.stroke();
-                                }
-                                ctx.strokeStyle = '#fbbf24';
-                                ctx.lineWidth = 3;
-                                ctx.beginPath();
-                                const maxTime = Math.max(...log.times);
-                                for (let i = 0; i < log.temperatures.length; i++) {
-                                  const x = 50 + (log.times[i] / maxTime) * (canvas.width - 100);
-                                  const y = canvas.height - (log.temperatures[i] / maxTemp) * canvas.height;
-                                  if (i === 0) ctx.moveTo(x, y);
-                                  else ctx.lineTo(x, y);
-                                }
-                                ctx.stroke();
-                                ctx.strokeStyle = '#999';
-                                ctx.lineWidth = 2;
-                                ctx.beginPath();
-                                ctx.moveTo(50, 50);
-                                ctx.lineTo(50, canvas.height - 50);
-                                ctx.lineTo(canvas.width - 50, canvas.height - 50);
-                                ctx.stroke();
+                              // Create SVG plot similar to Annealing Profile Editor
+                              const width = 1000;
+                              const height = 600;
+                              const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+                              const plotWidth = width - margin.left - margin.right;
+                              const plotHeight = height - margin.top - margin.bottom;
+                              
+                              const scaleX = (time: number) => (time / maxTime) * plotWidth;
+                              const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
+                              
+                              const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                              svg.setAttribute('width', width.toString());
+                              svg.setAttribute('height', height.toString());
+                              svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+                              
+                              // Background
+                              const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                              bg.setAttribute('width', width.toString());
+                              bg.setAttribute('height', height.toString());
+                              bg.setAttribute('fill', '#1c1917');
+                              svg.appendChild(bg);
+                              
+                              // Gridlines
+                              const tempStep = maxTemp > 600 ? 100 : 50;
+                              for (let temp = 0; temp <= maxTemp; temp += tempStep) {
+                                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                                line.setAttribute('x1', margin.left.toString());
+                                line.setAttribute('y1', (margin.top + scaleY(temp)).toString());
+                                line.setAttribute('x2', (margin.left + plotWidth).toString());
+                                line.setAttribute('y2', (margin.top + scaleY(temp)).toString());
+                                line.setAttribute('stroke', '#404040');
+                                line.setAttribute('stroke-dasharray', '4');
+                                line.setAttribute('stroke-width', '1');
+                                svg.appendChild(line);
                               }
                               
-                              const imgData = canvas.toDataURL('image/png');
-                              doc.addImage(imgData, 'PNG', 15, 35, pageWidth - 30, 150);
-                              doc.save(`${log.filename}.pdf`);
-                              toast.success('PDF exported successfully!');
+                              // Temperature curve
+                              let pathD = `M ${margin.left + scaleX(log.times[0] || 0)} ${margin.top + scaleY(log.temperatures[0] || 0)}`;
+                              for (let i = 1; i < log.temperatures.length; i++) {
+                                pathD += ` L ${margin.left + scaleX(log.times[i] || 0)} ${margin.top + scaleY(log.temperatures[i] || 0)}`;
+                              }
+                              
+                              const curve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                              curve.setAttribute('d', pathD);
+                              curve.setAttribute('stroke', '#fbbf24');
+                              curve.setAttribute('stroke-width', '3');
+                              curve.setAttribute('fill', 'none');
+                              svg.appendChild(curve);
+                              
+                              // Axes
+                              const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                              xAxis.setAttribute('x1', margin.left.toString());
+                              xAxis.setAttribute('y1', (margin.top + plotHeight).toString());
+                              xAxis.setAttribute('x2', (margin.left + plotWidth).toString());
+                              xAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+                              xAxis.setAttribute('stroke', '#999');
+                              xAxis.setAttribute('stroke-width', '2');
+                              svg.appendChild(xAxis);
+                              
+                              const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                              yAxis.setAttribute('x1', margin.left.toString());
+                              yAxis.setAttribute('y1', margin.top.toString());
+                              yAxis.setAttribute('x2', margin.left.toString());
+                              yAxis.setAttribute('y2', (margin.top + plotHeight).toString());
+                              yAxis.setAttribute('stroke', '#999');
+                              yAxis.setAttribute('stroke-width', '2');
+                              svg.appendChild(yAxis);
+                              
+                              // Axis labels
+                              const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                              xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
+                              xLabel.setAttribute('y', (height - 20).toString());
+                              xLabel.setAttribute('text-anchor', 'middle');
+                              xLabel.setAttribute('fill', '#999');
+                              xLabel.setAttribute('font-size', '14');
+                              xLabel.textContent = 'Time (hours) →';
+                              svg.appendChild(xLabel);
+                              
+                              const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                              yLabel.setAttribute('x', '15');
+                              yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
+                              yLabel.setAttribute('text-anchor', 'middle');
+                              yLabel.setAttribute('fill', '#999');
+                              yLabel.setAttribute('font-size', '14');
+                              yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
+                              yLabel.textContent = 'Temperature (°C)';
+                              svg.appendChild(yLabel);
+                              
+                              // Y-axis ticks and labels
+                              for (let i = 0; i <= maxTemp; i += tempStep) {
+                                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                                tick.setAttribute('x1', (margin.left - 5).toString());
+                                tick.setAttribute('y1', (margin.top + scaleY(i)).toString());
+                                tick.setAttribute('x2', margin.left.toString());
+                                tick.setAttribute('y2', (margin.top + scaleY(i)).toString());
+                                tick.setAttribute('stroke', '#999');
+                                tick.setAttribute('stroke-width', '1');
+                                svg.appendChild(tick);
+                                
+                                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                                label.setAttribute('x', (margin.left - 15).toString());
+                                label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
+                                label.setAttribute('text-anchor', 'end');
+                                label.setAttribute('fill', '#999');
+                                label.setAttribute('font-size', '10');
+                                label.textContent = `${i}°C`;
+                                svg.appendChild(label);
+                              }
+                              
+                              // Convert SVG to canvas and add to PDF
+                              const canvas = document.createElement('canvas');
+                              canvas.width = width;
+                              canvas.height = height;
+                              const ctx = canvas.getContext('2d');
+                              
+                              if (ctx) {
+                                const svgString = new XMLSerializer().serializeToString(svg);
+                                const img = new Image();
+                                img.onload = () => {
+                                  ctx.drawImage(img, 0, 0);
+                                  const imgData = canvas.toDataURL('image/png');
+                                  doc.addImage(imgData, 'PNG', 15, 35, pageWidth - 30, 150);
+                                  doc.save(`${log.filename}.pdf`);
+                                  toast.success('PDF exported successfully!');
+                                };
+                                img.src = 'data:image/svg+xml;base64,' + btoa(svgString);
+                              } else {
+                                doc.save(`${log.filename}.pdf`);
+                                toast.success('PDF exported successfully!');
+                              }
                             } catch (error) {
                               console.error('Failed to export PDF:', error);
                               toast.error('Failed to export PDF');
