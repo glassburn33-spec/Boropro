@@ -91,7 +91,7 @@ interface SavedSchedule {
 }
 
 // Helper function to generate plot SVG from schedule data
-function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLines: ReferenceLines): SVGSVGElement {
+function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLines: ReferenceLines, tempUnit: 'C' | 'F' = 'C'): SVGSVGElement {
   const width = 1000;
   const height = 600;
   const margin = { top: 80, right: 80, bottom: 120, left: 70 };
@@ -307,7 +307,7 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   yLabel.setAttribute('fill', '#999');
   yLabel.setAttribute('font-size', Math.max(9, labelFontSize - 1).toString());
   yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
-  yLabel.textContent = 'Temp (°C)';
+  yLabel.textContent = `Temp (°${tempUnit})`;
   svg.appendChild(yLabel);
 
   // Y-axis ticks and labels
@@ -328,7 +328,7 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
     label.setAttribute('text-anchor', 'end');
     label.setAttribute('fill', '#999');
     label.setAttribute('font-size', tickFontSize.toString());
-    label.textContent = `${i}°C`;
+    label.textContent = `${i}°${tempUnit}`;
     svg.appendChild(label);
   }
 
@@ -718,7 +718,7 @@ export default function AnealingProfileEditor() {
           Time →
         </text>
         <text x={15} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#999" fontSize={Math.max(9, labelFontSize - 1)} transform={`rotate(-90 15 ${margin.top + plotHeight / 2})`}>
-          Temp (°C)
+          Temp (°{tempUnit})
         </text>
 
         {/* Y-axis ticks and labels - dynamically scaled */}
@@ -749,7 +749,7 @@ export default function AnealingProfileEditor() {
             <g key={`tick-${temp}`}>
               <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
               <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#999" fontSize={Math.max(8, tickFontSize - 1)}>
-                {temp}°C
+                {temp}°{tempUnit}
               </text>
             </g>
           ));
@@ -789,7 +789,7 @@ export default function AnealingProfileEditor() {
         </g>
       </svg>
     );
-  }, [inputs, referenceLines, cumulativeTimes, plotData, title, maxTemp, maxTime]);
+  }, [inputs, referenceLines, cumulativeTimes, plotData, title, maxTemp, maxTime, tempUnit]);
 
   const handleSaveSchedule = () => {
     if (scheduleName.trim()) {
@@ -1153,7 +1153,7 @@ export default function AnealingProfileEditor() {
                               document.body.appendChild(tempSvgContainer);
 
                               // Create SVG with schedule data
-                              const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines);
+                              const svgElement = generatePlotSVG(schedule.data, schedule.name, referenceLines, tempUnit);
                               tempSvgContainer.appendChild(svgElement);
 
                               // Capture the SVG as PNG image

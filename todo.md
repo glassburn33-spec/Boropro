@@ -482,3 +482,13 @@
 - [x] Update all temperature input labels to display current unit
 - [x] Automatic conversion: C→F: (T × 9/5) + 32, F→C: (T - 32) × 5/9
 - [x] All stage inputs properly reflect selected temperature unit
+
+
+## Plot Y-Axis Temperature Unit Display
+- [x] Update y-axis label to display selected temperature unit (°C/°F)
+- [x] Update all y-axis tick labels to show correct unit
+- [x] Add tempUnit parameter to generatePlotSVG function
+- [x] Update JSX plot to use tempUnit in axis labels and tick marks
+- [x] Add tempUnit to useMemo dependency array
+- [x] Pass tempUnit to generatePlotSVG when exporting schedules
+- [x] Plot now dynamically displays °C or °F based on user selection
