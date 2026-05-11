@@ -1462,7 +1462,14 @@ export default function Logs() {
             {/* Saved Color Comparisons Section */}
             {colorWheelLog && colorWheelLog.savedColorCombinations && colorWheelLog.savedColorCombinations.length > 0 && (
               <div className="mt-6 border-t border-stone-700 pt-6">
-                <h3 className="text-lg font-bold text-amber-500 mb-4">Saved Color Comparisons ({colorWheelLog.savedColorCombinations.length})</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-amber-500">Saved Color Comparisons ({colorWheelLog.savedColorCombinations.length})</h3>
+                  <button
+                    className="px-3 py-1 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors font-semibold"
+                  >
+                    Select
+                  </button>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto">
                   {colorWheelLog.savedColorCombinations.map((combo, idx) => (
                     <div key={combo.id} className="bg-stone-800 border border-amber-700/50 rounded-lg p-3 flex flex-col items-center gap-2">
@@ -1492,31 +1499,6 @@ export default function Logs() {
                           )}
                         </div>
                       </div>
-                      <button
-                        onClick={() => {
-                          const updatedCombinations = colorWheelLog.savedColorCombinations?.filter((_, i) => i !== idx) || [];
-                          const updatedLog = { ...colorWheelLog, savedColorCombinations: updatedCombinations };
-                          const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                          const updatedLogs = logs.map((log: SavedLog) =>
-                            log.name === colorWheelLog.name ? updatedLog : log
-                          );
-                          localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                          setColorWheelLog(updatedLog);
-                          
-                          // Refresh PDF preview
-                          try {
-                            const htmlContent = generatePDFContent(updatedLog);
-                            setPDFPreviewContent(htmlContent);
-                          } catch (error) {
-                            console.error('PDF refresh error:', error);
-                          }
-                          
-                          toast.success('Combination deleted');
-                        }}
-                        className="w-full px-2 py-1 text-xs bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
-                      >
-                        Delete
-                      </button>
                     </div>
                   ))}
                 </div>
