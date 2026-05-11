@@ -86,6 +86,8 @@ export default function Logs() {
   const [showColorCheckboxes, setShowColorCheckboxes] = useState(false);
   const [colorSelectionMode, setColorSelectionMode] = useState(false);
   const [selectedAnnealedResultForComparison, setSelectedAnnealedResultForComparison] = useState<{ id: string; color: string; mode: 'solid' | 'blend'; blendColors?: string[] } | null>(null);
+  const [savedComboSelectionMode, setSavedComboSelectionMode] = useState(false);
+  const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -1465,14 +1467,31 @@ export default function Logs() {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-amber-500">Saved Color Comparisons ({colorWheelLog.savedColorCombinations.length})</h3>
                   <button
+                    onClick={() => setSavedComboSelectionMode(!savedComboSelectionMode)}
                     className="px-3 py-1 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors font-semibold"
                   >
-                    Select
+                    {savedComboSelectionMode ? 'Cancel' : 'Select'}
                   </button>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto">
                   {colorWheelLog.savedColorCombinations.map((combo, idx) => (
-                    <div key={combo.id} className="bg-stone-800 border border-amber-700/50 rounded-lg p-3 flex flex-col items-center gap-2">
+                    <div key={combo.id} className="bg-stone-800 border border-amber-700/50 rounded-lg p-3 flex flex-col items-center gap-2 relative">
+                      {savedComboSelectionMode && (
+                        <input
+                          type="checkbox"
+                          checked={selectedSavedCombos.has(combo.id)}
+                          onChange={(e) => {
+                            const newSelected = new Set(selectedSavedCombos);
+                            if (e.target.checked) {
+                              newSelected.add(combo.id);
+                            } else {
+                              newSelected.delete(combo.id);
+                            }
+                            setSelectedSavedCombos(newSelected);
+                          }}
+                          className="absolute top-2 left-2 w-4 h-4 cursor-pointer"
+                        />
+                      )}
                       <div className="flex items-center gap-2">
                         <div className="text-center">
                           <div className="text-xs text-stone-400 mb-1">Glass</div>
@@ -1502,6 +1521,33 @@ export default function Logs() {
                     </div>
                   ))}
                 </div>
+                {savedComboSelectionMode && selectedSavedCombos.size > 0 && (
+                  <button
+                    onClick={() => {
+                      const updatedCombinations = colorWheelLog.savedColorCombinations?.filter((c) => !selectedSavedCombos.has(c.id)) || [];
+                      const updatedLog = { ...colorWheelLog, savedColorCombinations: updatedCombinations };
+                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                      const updatedLogs = logs.map((log: SavedLog) =>
+                        log.name === colorWheelLog.name ? updatedLog : log
+                      );
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      setColorWheelLog(updatedLog);
+                      setSelectedSavedCombos(new Set());
+                      
+                      try {
+                        const htmlContent = generatePDFContent(updatedLog);
+                        setPDFPreviewContent(htmlContent);
+                      } catch (error) {
+                        console.error('PDF refresh error:', error);
+                      }
+                      
+                      toast.success('Combinations deleted');
+                    }}
+                    className="mt-3 w-full px-3 py-2 text-sm bg-red-700 hover:bg-red-600 text-white rounded transition-colors font-semibold"
+                  >
+                    Delete Selected ({selectedSavedCombos.size})
+                  </button>
+                )}
               </div>
             )}
 
