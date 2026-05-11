@@ -528,7 +528,7 @@ export default function AnealingProfileEditor() {
     }
 
     return (
-      <svg width="100%" height="auto" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" className="border border-stone-600 rounded-lg bg-stone-900" style={{ minHeight: '400px' }}>
+      <svg width="100%" height="600" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" className="border border-stone-600 rounded-lg bg-stone-900" style={{ minHeight: '400px' }}>
         {/* Background */}
         <rect width={width} height={height} fill="#1c1917" />
 
