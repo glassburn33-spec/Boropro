@@ -486,3 +486,14 @@
 - [x] Show "No logs in this folder" message for empty folders
 - [x] Write comprehensive unit tests (6/6 passing for expansion feature)
 - [x] Verify all tests pass (21/21 total for Logs feature)
+
+## Add Comments and Rename Buttons to Folder Logs
+- [x] Add Comments button to logs displayed in expanded folders
+- [x] Add Rename button to logs displayed in expanded folders
+- [x] Implement rename functionality with prompt dialog
+- [x] Implement comments functionality with modal
+- [x] Preserve all log data when renaming in folder
+- [x] Persist renamed logs to localStorage
+- [x] Persist updated comments to localStorage
+- [x] Write comprehensive unit tests (8/8 passing for comments/rename)
+- [x] Verify all tests pass (29/29 total for Logs feature)

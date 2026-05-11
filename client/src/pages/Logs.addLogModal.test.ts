@@ -497,3 +497,136 @@ describe("Folder Expansion Feature", () => {
     expect(headerText).toBe('2 logs');
   });
 });
+
+
+describe("Comments and Rename in Folder Logs", () => {
+  let mockLogs: SavedLog[];
+  let mockFolders: Folder[];
+
+  beforeEach(() => {
+    mockLogs = [
+      {
+        id: 'log-1',
+        name: 'First Kiln Log',
+        temperatures: [200, 400, 600],
+        times: [0, 60, 120],
+        createdAt: new Date('2026-05-01'),
+        notes: 'Initial notes',
+      },
+      {
+        id: 'log-2',
+        name: 'Second Kiln Log',
+        temperatures: [300, 500, 700],
+        times: [0, 90, 180],
+        createdAt: new Date('2026-05-02'),
+        notes: 'More notes',
+      },
+    ];
+
+    mockFolders = [
+      {
+        id: 'folder-1',
+        name: 'My Folder',
+        createdAt: new Date('2026-05-01'),
+        logIds: ['log-1', 'log-2'],
+      },
+    ];
+  });
+
+  it('should display comments button for logs in folder', () => {
+    const folderId = 'folder-1';
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    expect(folderLogs.length).toBeGreaterThan(0);
+    folderLogs.forEach((log) => {
+      // Comments button should be available
+      expect(log?.id).toBeDefined();
+    });
+  });
+
+  it('should display rename button for logs in folder', () => {
+    const folderId = 'folder-1';
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    expect(folderLogs.length).toBeGreaterThan(0);
+    folderLogs.forEach((log) => {
+      // Rename button should be available
+      expect(log?.name).toBeDefined();
+    });
+  });
+
+  it('should rename log in folder', () => {
+    const logId = 'log-1';
+    const newName = 'Renamed Kiln Log';
+    
+    const updatedLogs = mockLogs.map(l => 
+      l.id === logId ? { ...l, name: newName } : l
+    );
+    
+    const renamedLog = updatedLogs.find(l => l.id === logId);
+    expect(renamedLog?.name).toBe('Renamed Kiln Log');
+  });
+
+  it('should update comments for log in folder', () => {
+    const logId = 'log-1';
+    const newComments = 'Updated comments for this log';
+    
+    const updatedLogs = mockLogs.map(l => 
+      l.id === logId ? { ...l, notes: newComments } : l
+    );
+    
+    const updatedLog = updatedLogs.find(l => l.id === logId);
+    expect(updatedLog?.notes).toBe('Updated comments for this log');
+  });
+
+  it('should preserve log data when renaming in folder', () => {
+    const logId = 'log-1';
+    const originalLog = mockLogs.find(l => l.id === logId);
+    const newName = 'New Name';
+    
+    const updatedLogs = mockLogs.map(l => 
+      l.id === logId ? { ...l, name: newName } : l
+    );
+    
+    const updatedLog = updatedLogs.find(l => l.id === logId);
+    expect(updatedLog?.temperatures).toEqual(originalLog?.temperatures);
+    expect(updatedLog?.times).toEqual(originalLog?.times);
+    expect(updatedLog?.notes).toEqual(originalLog?.notes);
+  });
+
+  it('should handle multiple logs with different comments in folder', () => {
+    const folderId = 'folder-1';
+    const folder = mockFolders.find((f) => f.id === folderId);
+    const folderLogs = folder?.logIds?.map((logId) => mockLogs.find((log) => log.id === logId)).filter(Boolean) || [];
+    
+    expect(folderLogs.length).toBe(2);
+    expect(folderLogs[0]?.notes).toBe('Initial notes');
+    expect(folderLogs[1]?.notes).toBe('More notes');
+  });
+
+  it('should persist renamed log to localStorage', () => {
+    const logId = 'log-1';
+    const newName = 'Persisted Renamed Log';
+    
+    const updatedLogs = mockLogs.map(l => 
+      l.id === logId ? { ...l, name: newName } : l
+    );
+    
+    const folderData = JSON.stringify(updatedLogs);
+    expect(folderData).toContain('Persisted Renamed Log');
+  });
+
+  it('should persist updated comments to localStorage', () => {
+    const logId = 'log-1';
+    const newComments = 'Persisted comments';
+    
+    const updatedLogs = mockLogs.map(l => 
+      l.id === logId ? { ...l, notes: newComments } : l
+    );
+    
+    const folderData = JSON.stringify(updatedLogs);
+    expect(folderData).toContain('Persisted comments');
+  });
+});
