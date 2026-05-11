@@ -354,3 +354,17 @@
 - [x] Save renamed logs to localStorage
 - [x] Remove Delete All Logs button from bulk actions
 - [x] Verify all tests pass (80/80)
+
+
+## Remove Eye Icon from Preview PDF Button
+- [x] Remove Eye icon from Preview PDF button
+- [x] Keep button text only
+- [x] Verify all tests pass (80/80)
+
+
+## Remove Icons from Kiln Log Buttons
+- [x] Remove Eye icon from Preview PDF button
+- [x] Remove Download icon from Upload PDF button
+- [x] Remove Palette icon from Colors button
+- [x] Remove MessageCircle icon from Comments button
+- [x] Verify all tests pass (80/80)

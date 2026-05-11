@@ -722,7 +722,6 @@ export default function Logs() {
                         className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
                         title="Preview PDF before printing"
                       >
-                        <Eye className="w-4 h-4" />
                         <span className="text-sm">Preview PDF</span>
                       </button>
 
@@ -757,7 +756,6 @@ export default function Logs() {
                         className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80"
                         title="Save log"
                       >
-                        <Download className="w-4 h-4" />
                         <span className="text-sm">Upload PDF</span>
                       </button>
 
@@ -769,7 +767,6 @@ export default function Logs() {
                         className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
                         title="View glass colors used"
                       >
-                        <Palette className="w-4 h-4" />
                         <span className="text-sm">Colors</span>
                       </button>
 
@@ -778,7 +775,6 @@ export default function Logs() {
                         className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
                         title="View and edit comments"
                       >
-                        <MessageCircle className="w-4 h-4" />
                         <span className="text-sm">Comments</span>
                       </button>
 
