@@ -833,8 +833,14 @@ export function CalculatorTab() {
     setRadius('25');
     setLength('50');
     setWidth('25');
-    setKilnTemp('565');  // Reset kiln temperature to default
-    setRoomTemp('25');
+    // Reset temperatures to defaults based on current unit
+    if (tempUnit === 'C') {
+      setKilnTemp('565');   // Default Celsius kiln temperature
+      setRoomTemp('25');    // Default Celsius room temperature
+    } else {
+      setKilnTemp('1049');  // Default Fahrenheit kiln temperature (565°C converted)
+      setRoomTemp('77');    // Default Fahrenheit room temperature (25°C converted)
+    }
     setResults(null);
     setError('');
     setHasCalc(false);

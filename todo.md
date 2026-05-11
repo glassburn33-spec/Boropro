@@ -534,4 +534,7 @@
 - [x] Reset button resets room temperature to default 25°C
 - [x] Calculate button only enabled when temperatures are within allowable ranges for selected unit
 - [x] Verified logic for both Celsius (565-650°C, 0-40°C) and Fahrenheit (1049-1202°F, 32-104°F)
+- [x] Added temperature unit awareness to Reset button
+- [x] Reset button sets Celsius defaults: 565°C kiln, 25°C room
+- [x] Reset button sets Fahrenheit defaults: 1049°F kiln, 77°F room
 - [x] Tests passing (109/112, 3 pre-existing failures)
