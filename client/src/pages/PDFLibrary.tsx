@@ -512,6 +512,33 @@ export default function LogLibrary() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
+                          try {
+                            const logData = {
+                              id: Date.now(),
+                              filename: pdf.filename,
+                              temperatures: pdf.temperatures,
+                              times: pdf.times,
+                              savedAt: new Date().toISOString(),
+                              notes: pdf.notes || '',
+                              results: pdf.results || '',
+                            };
+                            const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                            existingLogs.push(logData);
+                            localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                            window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                            toast.success('Log saved successfully!');
+                          } catch (error) {
+                            console.error('Failed to save log:', error);
+                            toast.error('Failed to save log');
+                          }
+                        }}
+                        className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-sm font-semibold"
+                      >
+                        Logs
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
                           handleDelete(pdf.id);
                         }}
                         className="p-1 rounded-lg border border-white/20 hover:border-red-500 text-stone-400 hover:text-red-500 transition-colors"
