@@ -750,17 +750,27 @@ export default function Logs() {
                       <p className="text-stone-400 text-xs">Folder</p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => {
-                      const updatedFolders = folders.filter(f => f.id !== folder.id);
-                      setFolders(updatedFolders);
-                      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                      toast.success(`Folder deleted`);
-                    }}
-                    className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
-                  >
-                    <span className="text-sm">Delete</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        toast.info('Add Log feature coming soon');
+                      }}
+                      className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                    >
+                      <span className="text-sm">Add Log</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        const updatedFolders = folders.filter(f => f.id !== folder.id);
+                        setFolders(updatedFolders);
+                        localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+                        toast.success(`Folder deleted`);
+                      }}
+                      className="flex items-center gap-2 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded transition-colors"
+                    >
+                      <span className="text-sm">Delete</span>
+                    </button>
+                  </div>
                 </div>
               ))}
               {filteredLogs.map((log) => (
