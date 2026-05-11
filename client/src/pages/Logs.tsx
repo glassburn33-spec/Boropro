@@ -1394,7 +1394,28 @@ export default function Logs() {
                 {selectedGlassColor && (tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color) && (
                   <button
                     onClick={() => {
-                      // Functionality removed
+                      if (!colorWheelLog) return;
+                      
+                      const combination = {
+                        id: `combo-${Date.now()}`,
+                        glassColor: selectedGlassColor,
+                        annealedResult: selectedAnnealedResultForComparison || { id: '', color: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff', mode: 'solid' as const },
+                        savedAt: new Date()
+                      };
+                      
+                      const updatedLog = {
+                        ...colorWheelLog,
+                        savedColorCombinations: [...(colorWheelLog.savedColorCombinations || []), combination]
+                      };
+                      
+                      const logs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                      const updatedLogs = logs.map((log: SavedLog) =>
+                        log.name === colorWheelLog.name ? updatedLog : log
+                      );
+                      localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                      setColorWheelLog(updatedLog);
+                      
+                      toast.success('Color combination saved!');
                     }}
                     className="w-full mt-4 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
                   >
