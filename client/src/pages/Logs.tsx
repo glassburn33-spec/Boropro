@@ -928,10 +928,37 @@ export default function Logs() {
                                 </button>
 
                                 <button
-                                  onClick={() => handleExportCSV(log!)}
-                                  className="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
+                                  onClick={() => {
+                                    try {
+                                      // Calculate temperature and time data from log
+                                      const logData = {
+                                        id: Date.now(),
+                                        filename: log!.name,
+                                        temperatures: log!.temperatures,
+                                        times: log!.times,
+                                        savedAt: new Date().toISOString(),
+                                        notes: log!.notes || '',
+                                        results: log!.description || '',
+                                        selectedColors: log!.selectedColors || [],
+                                      };
+                                      const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
+                                      existingLogs.push(logData);
+                                      localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
+                                      window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
+                                      toast.success('Log saved successfully!');
+                                    } catch (error) {
+                                      console.error('Failed to save log:', error);
+                                      toast.error('Failed to save log');
+                                    }
+                                  }}
+                                  style={{
+                                    backgroundColor: log!.lineColor || '#15803d',
+                                    borderColor: log!.lineColor || '#15803d',
+                                  }}
+                                  className="px-3 py-2 text-white rounded transition-colors hover:opacity-80"
+                                  title="Save log"
                                 >
-                                  <span className="text-sm">Export CSV</span>
+                                  <span className="text-sm">Upload PDF</span>
                                 </button>
 
                                 <button
