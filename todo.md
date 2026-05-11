@@ -473,3 +473,12 @@
 - [x] Fixed: Auto-convert temperatures when switching between °C and °F units
 - [x] Added useEffect to handle temperature conversion on unit change
 - [x] Calculate button now enabled immediately after switching to Fahrenheit with valid converted values
+
+
+## Temperature Unit Toggle for Annealing Profile Editor
+- [x] Add temperature unit toggle button (°C/°F) to AnealingProfileEditor
+- [x] Implement conversion logic for all 4 stages (Stage 1-4 temperatures)
+- [x] Convert reference lines (Annealing Point, Strain Point)
+- [x] Update all temperature input labels to display current unit
+- [x] Automatic conversion: C→F: (T × 9/5) + 32, F→C: (T - 32) × 5/9
+- [x] All stage inputs properly reflect selected temperature unit

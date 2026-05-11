@@ -423,7 +423,72 @@ export default function AnealingProfileEditor() {
   const [editingResults, setEditingResults] = useState('');
   const [editingColors, setEditingColors] = useState<string[]>([]);
   const [colorWheelHue, setColorWheelHue] = useState(0);
+  const [tempUnit, setTempUnit] = useState<'C' | 'F'>('C');
   const title = 'Heat Treatment Profile';
+
+  // Convert all temperatures when unit changes
+  const handleTempUnitToggle = () => {
+    const newUnit = tempUnit === 'C' ? 'F' : 'C';
+    setTempUnit(newUnit);
+    
+    if (newUnit === 'F') {
+      // C to F: multiply by 9/5 and add 32
+      setInputs(prev => ({
+        stage1: {
+          startTemp: Math.round((prev.stage1.startTemp * 9/5) + 32),
+          targetTemp: Math.round((prev.stage1.targetTemp * 9/5) + 32),
+          duration: prev.stage1.duration
+        },
+        stage2: {
+          holdTemp: Math.round((prev.stage2.holdTemp * 9/5) + 32),
+          duration: prev.stage2.duration
+        },
+        stage3: {
+          startTemp: Math.round((prev.stage3.startTemp * 9/5) + 32),
+          endTemp: Math.round((prev.stage3.endTemp * 9/5) + 32),
+          duration: prev.stage3.duration
+        },
+        stage4: {
+          startTemp: Math.round((prev.stage4.startTemp * 9/5) + 32),
+          endTemp: Math.round((prev.stage4.endTemp * 9/5) + 32),
+          duration: prev.stage4.duration
+        }
+      }));
+      // Convert reference lines
+      setReferenceLines(prev => ({
+        annealingPoint: Math.round((prev.annealingPoint * 9/5) + 32),
+        strainPoint: Math.round((prev.strainPoint * 9/5) + 32)
+      }));
+    } else {
+      // F to C: subtract 32 and multiply by 5/9
+      setInputs(prev => ({
+        stage1: {
+          startTemp: Math.round(((prev.stage1.startTemp - 32) * 5/9)),
+          targetTemp: Math.round(((prev.stage1.targetTemp - 32) * 5/9)),
+          duration: prev.stage1.duration
+        },
+        stage2: {
+          holdTemp: Math.round(((prev.stage2.holdTemp - 32) * 5/9)),
+          duration: prev.stage2.duration
+        },
+        stage3: {
+          startTemp: Math.round(((prev.stage3.startTemp - 32) * 5/9)),
+          endTemp: Math.round(((prev.stage3.endTemp - 32) * 5/9)),
+          duration: prev.stage3.duration
+        },
+        stage4: {
+          startTemp: Math.round(((prev.stage4.startTemp - 32) * 5/9)),
+          endTemp: Math.round(((prev.stage4.endTemp - 32) * 5/9)),
+          duration: prev.stage4.duration
+        }
+      }));
+      // Convert reference lines
+      setReferenceLines(prev => ({
+        annealingPoint: Math.round(((prev.annealingPoint - 32) * 5/9)),
+        strainPoint: Math.round(((prev.strainPoint - 32) * 5/9))
+      }));
+    }
+  };
 
   // Auto-populate stage 3 start temp from stage 2 hold temp
   const handleStage2Change = (field: string, value: number) => {
@@ -774,13 +839,27 @@ export default function AnealingProfileEditor() {
   return (
     <div className="space-y-8 bg-stone-900/50 p-8 rounded-lg border border-stone-700">
 
+      {/* Temperature Unit Toggle */}
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-sm text-stone-400">Temperature Unit:</span>
+        <button
+          onClick={handleTempUnitToggle}
+          className={`px-4 py-2 rounded font-semibold transition-all ${
+            tempUnit === 'C'
+              ? 'bg-amber-700 border-amber-500 text-white'
+              : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+          }`}
+        >
+          {tempUnit === 'C' ? '°C' : '°F'}
+        </button>
+      </div>
 
       {/* Stage 1: Rapid Reheating */}
       <div className="bg-red-900/20 border border-red-700/50 p-6 rounded-lg">
         <h3 className="text-lg font-bold text-red-400 mb-4">Stage 1: Rapid Reheating to T {'>'}  T_anneal</h3>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage1.startTemp}
@@ -789,7 +868,7 @@ export default function AnealingProfileEditor() {
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Target Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Target Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage1.targetTemp}
@@ -820,7 +899,7 @@ export default function AnealingProfileEditor() {
         <h3 className="text-lg font-bold text-orange-400 mb-4">Stage 2: Dwell – Equalization of Temperature</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Hold Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Hold Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage2.holdTemp}
@@ -845,7 +924,7 @@ export default function AnealingProfileEditor() {
         <h3 className="text-lg font-bold text-green-400 mb-4">Stage 3: Slow Cooling</h3>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage3.startTemp}
@@ -856,7 +935,7 @@ export default function AnealingProfileEditor() {
             <p className="text-xs text-stone-500 mt-1">Auto-populated</p>
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">End Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage3.endTemp}
@@ -881,7 +960,7 @@ export default function AnealingProfileEditor() {
         <h3 className="text-lg font-bold text-blue-400 mb-4">Stage 4: More Rapid Cooling</h3>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage4.startTemp}
@@ -892,7 +971,7 @@ export default function AnealingProfileEditor() {
             <p className="text-xs text-stone-500 mt-1">Auto-populated</p>
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">End Temperature (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage4.endTemp}
@@ -917,7 +996,7 @@ export default function AnealingProfileEditor() {
         <h3 className="text-lg font-bold text-blue-400 mb-4">Reference Lines</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Annealing Point (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Annealing Point (°{tempUnit})</label>
             <input
               type="number"
               value={referenceLines.annealingPoint}
@@ -926,7 +1005,7 @@ export default function AnealingProfileEditor() {
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Strain Point (°C)</label>
+            <label className="block text-sm text-stone-300 mb-2">Strain Point (°{tempUnit})</label>
             <input
               type="number"
               value={referenceLines.strainPoint}

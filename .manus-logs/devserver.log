@@ -270,3 +270,6 @@
 [2026-05-11T16:11:12.449Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [2026-05-11T19:31:28.374Z] 3:31:28 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-11T19:32:11.718Z] 3:32:11 PM [vite] (client) hmr update /src/index.css
+[2026-05-11T19:37:12.527Z] 3:37:12 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
+[2026-05-11T19:37:37.312Z] 3:37:37 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
+[2026-05-11T19:38:28.491Z] 3:38:28 PM [vite] (client) hmr update /src/index.css
