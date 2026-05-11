@@ -1372,6 +1372,30 @@ export default function Logs() {
                     </p>
                   </div>
                 </div>
+                {selectedGlassColor && (tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color) && (
+                  <button
+                    onClick={() => {
+                      const combinationName = `${getColorNameFromHex(selectedGlassColor)} → ${selectedAnnealedResultForComparison?.mode === 'blend' ? 'Blend' : getColorNameFromHex(selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}`;
+                      const combination = {
+                        glassColor: selectedGlassColor,
+                        annealedColor: selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor,
+                        mode: selectedAnnealedResultForComparison?.mode || 'solid',
+                        blendColors: selectedAnnealedResultForComparison?.blendColors,
+                        name: combinationName,
+                        savedAt: new Date().toISOString()
+                      };
+                      
+                      const savedCombinations = JSON.parse(localStorage.getItem('colorCombinations') || '[]');
+                      savedCombinations.push(combination);
+                      localStorage.setItem('colorCombinations', JSON.stringify(savedCombinations));
+                      
+                      toast.success('Color combination saved!');
+                    }}
+                    className="w-full mt-4 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
+                  >
+                    Save Color Combination
+                  </button>
+                )}
               </div>
             )}
 
