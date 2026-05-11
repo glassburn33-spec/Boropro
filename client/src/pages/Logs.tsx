@@ -847,25 +847,103 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           try {
-                            // Calculate temperature and time data from log
-                            const logData = {
-                              id: Date.now(),
-                              filename: log.name,
-                              temperatures: log.temperatures,
-                              times: log.times,
-                              savedAt: new Date().toISOString(),
-                              notes: log.notes || '',
-                              results: log.description || '',
-                              selectedColors: log.selectedColors || [],
-                            };
-                            const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
-                            existingLogs.push(logData);
-                            localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
-                            window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
-                            toast.success('Log saved successfully!');
+                            // Generate PDF from log data
+                            const doc = new (window as any).jsPDF();
+                            const pageWidth = doc.internal.pageSize.getWidth();
+                            const pageHeight = doc.internal.pageSize.getHeight();
+                            let yPosition = 20;
+
+                            // Title
+                            doc.setFontSize(20);
+                            doc.setTextColor(0, 0, 0);
+                            doc.text('Kiln Log Report', pageWidth / 2, yPosition, { align: 'center' });
+                            yPosition += 15;
+
+                            // Log name
+                            doc.setFontSize(14);
+                            doc.setTextColor(50, 50, 50);
+                            doc.text(`Log: ${log.name}`, 20, yPosition);
+                            yPosition += 10;
+
+                            // Metadata
+                            doc.setFontSize(11);
+                            doc.setTextColor(80, 80, 80);
+                            const createdDate = log.createdAt instanceof Date 
+                              ? log.createdAt.toLocaleString() 
+                              : new Date(log.createdAt).toLocaleString();
+                            doc.text(`Created: ${createdDate}`, 20, yPosition);
+                            yPosition += 7;
+
+                            if (log.description) {
+                              doc.text(`Description: ${log.description}`, 20, yPosition);
+                              yPosition += 7;
+                            }
+
+                            // Temperature Schedule
+                            yPosition += 5;
+                            doc.setFontSize(12);
+                            doc.setTextColor(0, 0, 0);
+                            doc.text('Temperature Schedule:', 20, yPosition);
+                            yPosition += 8;
+
+                            doc.setFontSize(10);
+                            doc.setTextColor(60, 60, 60);
+                            
+                            const cellWidth = (pageWidth - 40) / 3;
+                            const cellHeight = 6;
+                            
+                            // Header
+                            const headers = ['Step', 'Temperature (°C)', 'Time (min)'];
+                            headers.forEach((header, colIndex) => {
+                              const xPos = 20 + colIndex * cellWidth;
+                              doc.setFillColor(200, 200, 200);
+                              doc.setTextColor(0, 0, 0);
+                              doc.setFont(undefined, 'bold');
+                              doc.rect(xPos, yPosition, cellWidth, cellHeight, 'F');
+                              doc.rect(xPos, yPosition, cellWidth, cellHeight);
+                              doc.text(header, xPos + 2, yPosition + 4, { maxWidth: cellWidth - 4 });
+                            });
+                            yPosition += cellHeight;
+
+                            // Data rows
+                            for (let i = 0; i < Math.max(log.temperatures.length, log.times.length); i++) {
+                              const row = [`${i + 1}`, log.temperatures[i]?.toString() || '-', log.times[i]?.toString() || '-'];
+                              row.forEach((cell, colIndex) => {
+                                const xPos = 20 + colIndex * cellWidth;
+                                doc.setFillColor(245, 245, 245);
+                                doc.setTextColor(60, 60, 60);
+                                doc.setFont(undefined, 'normal');
+                                doc.rect(xPos, yPosition, cellWidth, cellHeight, 'F');
+                                doc.rect(xPos, yPosition, cellWidth, cellHeight);
+                                doc.text(cell, xPos + 2, yPosition + 4, { maxWidth: cellWidth - 4 });
+                              });
+                              yPosition += cellHeight;
+                            }
+
+                            // Notes
+                            if (log.notes) {
+                              yPosition += 10;
+                              if (yPosition > pageHeight - 30) {
+                                doc.addPage();
+                                yPosition = 20;
+                              }
+                              doc.setFontSize(12);
+                              doc.setTextColor(0, 0, 0);
+                              doc.text('Notes:', 20, yPosition);
+                              yPosition += 8;
+                              doc.setFontSize(10);
+                              doc.setTextColor(60, 60, 60);
+                              const notesLines = doc.splitTextToSize(log.notes, pageWidth - 40);
+                              doc.text(notesLines, 20, yPosition);
+                            }
+
+                            // Download PDF
+                            const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                            doc.save(filename);
+                            toast.success('PDF downloaded successfully!');
                           } catch (error) {
-                            console.error('Failed to save log:', error);
-                            toast.error('Failed to save log');
+                            console.error('Failed to generate PDF:', error);
+                            toast.error('Failed to generate PDF');
                           }
                         }}
                         style={{
@@ -873,7 +951,7 @@ export default function Logs() {
                           borderColor: log.lineColor || '#15803d',
                         }}
                         className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80"
-                        title="Save log"
+                        title="Download log as PDF"
                       >
                         <span className="text-sm">Upload PDF</span>
                       </button>
