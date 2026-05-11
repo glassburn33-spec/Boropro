@@ -1369,7 +1369,7 @@ export default function Logs() {
                     <p className="text-xs text-amber-500 font-semibold text-center">
                       {selectedAnnealedResultForComparison?.mode === 'blend'
                         ? 'Blend Mix'
-                        : getColorNameFromHex(selectedAnnealedResultForComparison?.color || tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff')}
+                        : 'Solid'}
                     </p>
                   </div>
                 </div>
