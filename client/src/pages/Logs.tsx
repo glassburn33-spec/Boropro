@@ -1294,9 +1294,11 @@ export default function Logs() {
                           type="checkbox"
                           checked={selectedAnnealedIds.has(result.id)}
                           onChange={(e) => {
-                            const newSelected = new Set<string>();
+                            const newSelected = new Set(selectedAnnealedIds);
                             if (e.target.checked) {
                               newSelected.add(result.id);
+                            } else {
+                              newSelected.delete(result.id);
                             }
                             setSelectedAnnealedIds(newSelected);
                           }}
@@ -1306,9 +1308,11 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           if (deleteMode) {
-                            const newSelected = new Set<string>();
+                            const newSelected = new Set(selectedAnnealedIds);
                             if (!selectedAnnealedIds.has(result.id)) {
                               newSelected.add(result.id);
+                            } else {
+                              newSelected.delete(result.id);
                             }
                             setSelectedAnnealedIds(newSelected);
                           } else {
