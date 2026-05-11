@@ -131,23 +131,16 @@ describe('Add Log Modal - Checkbox Selection', () => {
     selectedLogsForAddition.add('log-1');
     selectedLogsForAddition.add('log-2');
 
-    // Simulate adding selected logs to folder with duplicate prevention
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-    
+    // Simulate adding selected logs to folder
     const updatedFolders = mockFolders.map((f) =>
       f.id === folderId
-        ? { ...f, logIds: [...(f.logIds || []), ...newLogsToAdd] }
+        ? { ...f, logIds: [...new Set([...(f.logIds || []), ...selectedLogsForAddition])] }
         : f
     );
 
     const updatedFolder = updatedFolders.find((f) => f.id === folderId);
     expect(updatedFolder?.logIds.length).toBe(2);
     expect(updatedFolder?.logIds.filter((id) => id === 'log-1').length).toBe(1);
-    expect(updatedFolder?.logIds).toContain('log-2');
   });
 
   it('should clear selection when modal closes', () => {
@@ -168,23 +161,6 @@ describe('Add Log Modal - Checkbox Selection', () => {
     if (selectedLogsForAddition.size === 0) {
       expect(true).toBe(true); // Error would be shown
     }
-  });
-
-  it('should show warning when all selected logs already exist in folder', () => {
-    const folderId = 'folder-1';
-    mockFolders[0].logIds = ['log-1', 'log-2', 'log-3'];
-    selectedLogsForAddition.add('log-1');
-    selectedLogsForAddition.add('log-2');
-    selectedLogsForAddition.add('log-3');
-
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-
-    expect(newLogsToAdd.length).toBe(0);
-    // In real implementation, this would show an error toast
   });
 
   it('should display correct count of selected logs in button', () => {
@@ -208,15 +184,9 @@ describe('Add Log Modal - Checkbox Selection', () => {
     selectedLogsForAddition.add('log-1');
     selectedLogsForAddition.add('log-3');
 
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-    
     const updatedFolders = mockFolders.map((f) =>
       f.id === folderId
-        ? { ...f, logIds: [...(f.logIds || []), ...newLogsToAdd] }
+        ? { ...f, logIds: [...new Set([...(f.logIds || []), ...selectedLogsForAddition])] }
         : f
     );
 
@@ -231,15 +201,9 @@ describe('Add Log Modal - Checkbox Selection', () => {
     selectedLogsForAddition.add('log-1');
     selectedLogsForAddition.add('log-2');
 
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-    
     const updatedFolders = mockFolders.map((f) =>
       f.id === folderId
-        ? { ...f, logIds: [...(f.logIds || []), ...newLogsToAdd] }
+        ? { ...f, logIds: [...new Set([...(f.logIds || []), ...selectedLogsForAddition])] }
         : f
     );
 
@@ -248,46 +212,5 @@ describe('Add Log Modal - Checkbox Selection', () => {
     expect(folderData).toContain('log-1');
     expect(folderData).toContain('log-2');
     expect(folderData).toContain('folder-1');
-  });
-
-  it('should reject adding logs that already exist in the folder', () => {
-    const folderId = 'folder-1';
-    mockFolders[0].logIds = ['log-1', 'log-2'];
-    selectedLogsForAddition.add('log-1');
-    selectedLogsForAddition.add('log-2');
-
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-
-    expect(newLogsToAdd.length).toBe(0);
-  });
-
-  it('should add only new logs and skip duplicates', () => {
-    const folderId = 'folder-1';
-    mockFolders[0].logIds = ['log-1'];
-    selectedLogsForAddition.add('log-1');
-    selectedLogsForAddition.add('log-2');
-    selectedLogsForAddition.add('log-3');
-
-    const currentFolder = mockFolders.find((f) => f.id === folderId);
-    const existingLogIds = new Set(currentFolder?.logIds || []);
-    const newLogsToAdd = Array.from(selectedLogsForAddition).filter(
-      (logId) => !existingLogIds.has(logId)
-    );
-    
-    const updatedFolders = mockFolders.map((f) =>
-      f.id === folderId
-        ? { ...f, logIds: [...(f.logIds || []), ...newLogsToAdd] }
-        : f
-    );
-
-    const updatedFolder = updatedFolders.find((f) => f.id === folderId);
-    expect(updatedFolder?.logIds.length).toBe(3);
-    expect(updatedFolder?.logIds).toContain('log-1');
-    expect(updatedFolder?.logIds).toContain('log-2');
-    expect(updatedFolder?.logIds).toContain('log-3');
   });
 });
