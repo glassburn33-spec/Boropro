@@ -1245,9 +1245,18 @@ export default function Logs() {
             {/* Annealed Color History */}
             {colorWheelLog?.annealedColors && colorWheelLog.annealedColors.length > 0 && (
               <div className="mb-6 border-t border-stone-700 pt-6">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                   <h3 className="text-lg font-bold text-purple-400">Saved Annealed Results</h3>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
+                    <button
+                      onClick={() => {
+                        setDeleteMode(!deleteMode);
+                        setSelectedAnnealedIds(new Set());
+                      }}
+                      className="px-3 py-1 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                    >
+                      {deleteMode ? 'Cancel' : 'Select Multiple'}
+                    </button>
                     {deleteMode && (
                       <button
                         onClick={() => {
@@ -1285,9 +1294,37 @@ export default function Logs() {
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {colorWheelLog.annealedColors.map((result) => (
-                    <button
-                      key={result.id}
-                      onClick={() => setTempAnnealedColor(result.color)}
+                    <div key={result.id} className="relative">
+                      {deleteMode && (
+                        <input
+                          type="checkbox"
+                          checked={selectedAnnealedIds.has(result.id)}
+                          onChange={(e) => {
+                            const newSelected = new Set(selectedAnnealedIds);
+                            if (e.target.checked) {
+                              newSelected.add(result.id);
+                            } else {
+                              newSelected.delete(result.id);
+                            }
+                            setSelectedAnnealedIds(newSelected);
+                          }}
+                          className="absolute top-1 left-1 w-5 h-5 cursor-pointer z-10"
+                        />
+                      )}
+                      <button
+                        onClick={() => {
+                          if (deleteMode) {
+                            const newSelected = new Set(selectedAnnealedIds);
+                            if (newSelected.has(result.id)) {
+                              newSelected.delete(result.id);
+                            } else {
+                              newSelected.add(result.id);
+                            }
+                            setSelectedAnnealedIds(newSelected);
+                          } else {
+                            setTempAnnealedColor(result.color);
+                          }
+                        }}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         tempAnnealedColor === result.color
                           ? 'border-purple-500 ring-2 ring-purple-400'
@@ -1304,7 +1341,8 @@ export default function Logs() {
                         )}
                       </div>
                       <div className="text-xs text-stone-400 text-center">{result.mode === 'blend' ? 'Blend' : 'Solid'}</div>
-                    </button>
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
