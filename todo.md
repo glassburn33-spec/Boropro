@@ -159,3 +159,15 @@
 - [x] Implement PDF download functionality (saves as HTML file)
 - [x] Add download handler to trigger file download
 - [x] Test upload functionality in browser
+
+## Custom Color for Upload PDF Button
+- [x] Store custom line color from SaveScheduleModal in log data
+- [x] Retrieve custom color when displaying logs
+- [x] Apply custom color to Upload PDF button background (dynamic style)
+- [x] Test color display in browser (all 75 tests passing)
+
+## Comments Button Feature
+- [x] Add comments button to kiln log list items (amber-700 button with MessageCircle icon)
+- [x] Create modal to display and edit log notes/comments (textarea with 48 height)
+- [x] Save updated comments to localStorage
+- [x] Test comments functionality in browser (all 75 tests passing)

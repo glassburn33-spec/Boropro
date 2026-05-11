@@ -21,6 +21,7 @@ interface KilnLogEntry {
   startTime: Date;
   endTime?: Date;
   notes?: string;
+  lineColor?: string;
   createdAt: Date;
 }
 
@@ -39,6 +40,7 @@ export default function KilnLog() {
     startTime: new Date().toISOString().slice(0, 16),
     endTime: "",
     notes: "",
+    lineColor: "#d97706",
   });
 
   // Fetch kiln logs from backend
@@ -120,6 +122,7 @@ export default function KilnLog() {
           startTime: new Date(result.startTime),
           endTime: result.endTime ? new Date(result.endTime) : undefined,
           notes: result.notes || undefined,
+          lineColor: formData.lineColor,
           createdAt: new Date(result.createdAt),
         });
         setShowSaveModal(true);
@@ -134,6 +137,7 @@ export default function KilnLog() {
         startTime: new Date().toISOString().slice(0, 16),
         endTime: "",
         notes: "",
+        lineColor: "#d97706",
       });
       setShowForm(false);
       refetch();

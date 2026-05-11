@@ -20,6 +20,7 @@ interface SaveScheduleModalProps {
     startTime: Date;
     endTime?: Date;
     notes?: string;
+    lineColor?: string;
   };
   onClose: () => void;
   onAddToLibrary: (base64: string, filename: string) => Promise<void>;
@@ -110,6 +111,7 @@ export function SaveScheduleModal({
         startTime: kilnLog.startTime.toISOString(),
         endTime: kilnLog.endTime?.toISOString() || null,
         notes: kilnLog.notes,
+        lineColor: kilnLog.lineColor,
         savedAt: new Date().toISOString(),
       };
 

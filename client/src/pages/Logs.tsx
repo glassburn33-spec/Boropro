@@ -3,7 +3,7 @@ Logs Page - View and manage saved kiln logs with localStorage persistence
 */
 
 import { useState, useEffect } from "react";
-import { Download, Trash2, Eye, FileText, Eye as EyeIcon } from "lucide-react";
+import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 interface SavedLog {
@@ -14,6 +14,7 @@ interface SavedLog {
   createdAt: string;
   description?: string;
   notes?: string;
+  lineColor?: string;
 }
 
 export default function Logs() {
@@ -24,6 +25,9 @@ export default function Logs() {
   const [pdfPreviewContent, setPDFPreviewContent] = useState<string>("");
   const [filterStartDate, setFilterStartDate] = useState<string>("");
   const [filterEndDate, setFilterEndDate] = useState<string>("");
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const [commentsLog, setCommentsLog] = useState<SavedLog | null>(null);
+  const [editingComments, setEditingComments] = useState<string>("");
 
   // Load logs from localStorage on mount
   useEffect(() => {
@@ -84,6 +88,30 @@ export default function Logs() {
     } catch (error) {
       console.error("Export error:", error);
       toast.error("Failed to export CSV");
+    }
+  };
+
+  const handleOpenComments = (log: SavedLog) => {
+    setCommentsLog(log);
+    setEditingComments(log.notes || "");
+    setShowCommentsModal(true);
+  };
+
+  const handleSaveComments = () => {
+    if (!commentsLog) return;
+    try {
+      const updatedLogs = logs.map((log) =>
+        log.id === commentsLog.id ? { ...log, notes: editingComments } : log
+      );
+      setLogs(updatedLogs);
+      localStorage.setItem("kilnLogs", JSON.stringify(updatedLogs));
+      toast.success("Comments saved");
+      setShowCommentsModal(false);
+      setCommentsLog(null);
+      setEditingComments("");
+    } catch (error) {
+      console.error("Save comments error:", error);
+      toast.error("Failed to save comments");
     }
   };
 
@@ -541,11 +569,24 @@ export default function Logs() {
 
                       <button
                         onClick={() => handleUploadPDF(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors"
+                        style={{
+                          backgroundColor: log.lineColor || '#15803d',
+                          borderColor: log.lineColor || '#15803d',
+                        }}
+                        className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80"
                         title="Download PDF file"
                       >
                         <Download className="w-4 h-4" />
                         <span className="text-sm">Upload PDF</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleOpenComments(log)}
+                        className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                        title="View and edit comments"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        <span className="text-sm">Comments</span>
                       </button>
 
                       <button
@@ -707,6 +748,52 @@ export default function Logs() {
                 className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Comments Modal */}
+      {showCommentsModal && commentsLog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg p-6 max-w-2xl w-full shadow-xl">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-amber-400">Comments - {commentsLog.name}</h2>
+              <button
+                onClick={() => setShowCommentsModal(false)}
+                className="text-stone-400 hover:text-stone-300 transition text-2xl"
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Comments Textarea */}
+            <div className="mb-6">
+              <label className="block text-sm text-stone-300 mb-2">Notes & Comments</label>
+              <textarea
+                value={editingComments}
+                onChange={(e) => setEditingComments(e.target.value)}
+                className="w-full h-48 bg-stone-800 border border-stone-600 rounded px-4 py-3 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 resize-none"
+                placeholder="Add your comments and notes here..."
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowCommentsModal(false)}
+                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveComments}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition-colors font-semibold"
+              >
+                Save Comments
               </button>
             </div>
           </div>
