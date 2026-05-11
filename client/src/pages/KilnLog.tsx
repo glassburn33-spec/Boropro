@@ -523,28 +523,27 @@ export default function KilnLog() {
                             e.stopPropagation();
                             try {
                               const logData = {
-                                id: Date.now(),
-                                filename: log.name,
-                                temperatures: log.temperatures,
-                                times: log.times,
-                                savedAt: new Date().toISOString(),
-                                notes: log.notes || '',
-                                results: '',
+                                id: Date.now().toString(),
+                                name: log.name,
+                                timestamp: log.timestamp,
+                                data: log,
+                                createdAt: new Date().toISOString(),
                               };
                               const existingLogs = JSON.parse(localStorage.getItem('kilnLogs') || '[]');
                               existingLogs.push(logData);
                               localStorage.setItem('kilnLogs', JSON.stringify(existingLogs));
                               window.dispatchEvent(new CustomEvent('logsUpdated', { detail: existingLogs }));
-                              toast.success('Log saved successfully!');
+                              toast.success('Log saved to localStorage');
                             } catch (error) {
-                              console.error('Failed to save log:', error);
+                              console.error('Error saving log:', error);
                               toast.error('Failed to save log');
                             }
                           }}
-                          className="px-3 py-1 rounded-lg border border-white/20 hover:border-blue-500 text-stone-400 hover:text-blue-500 transition-colors text-xs font-semibold"
+                          className="flex items-center gap-2 px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
                           title="Save to Logs section"
                         >
-                          Logs
+                          <Download className="w-4 h-4" />
+                          Save Log
                         </button>
                         <button
                           onClick={(e) => {
