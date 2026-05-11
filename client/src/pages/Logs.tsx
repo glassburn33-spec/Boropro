@@ -848,58 +848,56 @@ export default function Logs() {
                       <button
                         onClick={() => {
                           try {
-                            // Generate simple PDF from log data
-                            const doc = new jsPDF();
-                            let yPosition = 20;
-
-                            // Title
-                            doc.setFontSize(18);
-                            doc.text(`Kiln Log: ${log.name}`, 20, yPosition);
-                            yPosition += 10;
-
-                            // Date
-                            doc.setFontSize(10);
-                            const createdDate = log.createdAt instanceof Date 
-                              ? log.createdAt.toLocaleString() 
-                              : new Date(log.createdAt).toLocaleString();
-                            doc.text(`Created: ${createdDate}`, 20, yPosition);
-                            yPosition += 8;
-
-                            // Description
-                            if (log.description) {
-                              doc.text(`Description: ${log.description}`, 20, yPosition);
-                              yPosition += 8;
-                            }
-
-                            // Temperature and Time data
-                            yPosition += 5;
-                            doc.setFontSize(12);
-                            doc.text('Temperature Schedule:', 20, yPosition);
-                            yPosition += 8;
-
-                            doc.setFontSize(10);
-                            for (let i = 0; i < Math.max(log.temperatures.length, log.times.length); i++) {
-                              const temp = log.temperatures[i] || '-';
-                              const time = log.times[i] || '-';
-                              doc.text(`Step ${i + 1}: ${temp}°C for ${time} min`, 25, yPosition);
-                              yPosition += 6;
-                            }
-
-                            // Notes
-                            if (log.notes) {
-                              yPosition += 5;
-                              doc.setFontSize(12);
-                              doc.text('Notes:', 20, yPosition);
-                              yPosition += 8;
-                              doc.setFontSize(10);
-                              const notesLines = doc.splitTextToSize(log.notes, 170);
-                              doc.text(notesLines, 20, yPosition);
-                            }
-
-                            // Download PDF
-                            const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
-                            doc.save(filename);
-                            toast.success('PDF downloaded successfully!');
+                            // Generate the same HTML content as preview
+                            const htmlContent = generatePDFContent(log);
+                            
+                            // Create a temporary iframe to render the HTML
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            document.body.appendChild(iframe);
+                            
+                            iframe.onload = () => {
+                              try {
+                                // Write HTML to iframe
+                                iframe.contentDocument?.write(htmlContent);
+                                iframe.contentDocument?.close();
+                                
+                                // Use html2pdf library if available, otherwise use print to PDF
+                                setTimeout(() => {
+                                  const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                                  
+                                  // Try using html2pdf if available
+                                  if (typeof (window as any).html2pdf !== 'undefined') {
+                                    const element = iframe.contentDocument?.body;
+                                    if (element) {
+                                      (window as any).html2pdf().set({
+                                        margin: 10,
+                                        filename: filename,
+                                        image: { type: 'jpeg', quality: 0.98 },
+                                        html2canvas: { scale: 2 },
+                                        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                                      }).from(element).save();
+                                      toast.success('PDF downloaded successfully!');
+                                    }
+                                  } else {
+                                    // Fallback: Use print dialog
+                                    iframe.contentWindow?.print();
+                                    toast.success('PDF ready to print');
+                                  }
+                                  
+                                  // Clean up
+                                  setTimeout(() => {
+                                    document.body.removeChild(iframe);
+                                  }, 1000);
+                                }, 500);
+                              } catch (error) {
+                                console.error('Failed to process PDF:', error);
+                                toast.error('Failed to generate PDF');
+                                document.body.removeChild(iframe);
+                              }
+                            };
+                            
+                            iframe.src = 'about:blank';
                           } catch (error) {
                             console.error('Failed to generate PDF:', error);
                             toast.error('Failed to generate PDF');
