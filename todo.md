@@ -446,3 +446,15 @@
 - [x] Persist folder-log associations to localStorage
 - [x] Include folders in the list to select logs to add section
 - [x] Verify all tests pass (80/80)
+
+## Add Checkboxes for Multi-Selection in Add Log Modal
+- [x] Add checkbox input to each log item in the modal
+- [x] Implement state management for selected logs (selectedLogsForAddition Set)
+- [x] Toggle log selection when checkbox is clicked
+- [x] Add "Add Selected" button to confirm bulk addition
+- [x] Display count of selected logs in button text
+- [x] Disable "Add Selected" button when no logs are selected
+- [x] Handle adding multiple logs to folder with deduplication
+- [x] Clear selection when modal closes
+- [x] Write comprehensive unit tests (9/9 passing)
+- [x] Verify all tests pass (89/89 total)

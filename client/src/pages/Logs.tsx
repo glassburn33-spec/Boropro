@@ -103,6 +103,7 @@ export default function Logs() {
   const [selectedFolderForAddLog, setSelectedFolderForAddLog] = useState<string | null>(null);
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
+  const [selectedLogsForAddition, setSelectedLogsForAddition] = useState<Set<string>>(new Set());
 
   // Load logs and folders from localStorage on mount
   useEffect(() => {
@@ -126,6 +127,13 @@ export default function Logs() {
     loadLogs();
   }, []);
 
+  // Clear selected logs when modal closes
+  useEffect(() => {
+    if (!showAddLogModal) {
+      setSelectedLogsForAddition(new Set());
+    }
+  }, [showAddLogModal]);
+
   // Filter logs by date range
   const filteredLogs = logs.filter((log) => {
     if (!filterStartDate && !filterEndDate) return true;
@@ -134,6 +142,40 @@ export default function Logs() {
     if (filterEndDate && logDate > filterEndDate) return false;
     return true;
   });
+
+  // Toggle log selection for addition
+  const toggleLogSelection = (logId: string) => {
+    const newSelection = new Set(selectedLogsForAddition);
+    if (newSelection.has(logId)) {
+      newSelection.delete(logId);
+    } else {
+      newSelection.add(logId);
+    }
+    setSelectedLogsForAddition(newSelection);
+  };
+
+  // Add all selected logs to the current folder
+  const handleAddSelectedLogs = () => {
+    if (selectedLogsForAddition.size === 0) {
+      toast.error("Please select at least one log");
+      return;
+    }
+    try {
+      const updatedFolders = folders.map((f) =>
+        f.id === selectedFolderForAddLog
+          ? { ...f, logIds: [...new Set([...(f.logIds || []), ...selectedLogsForAddition])] }
+          : f
+      );
+      setFolders(updatedFolders);
+      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
+      toast.success(`Added ${selectedLogsForAddition.size} log(s) to folder`);
+      setShowAddLogModal(false);
+      setSelectedLogsForAddition(new Set());
+    } catch (error) {
+      console.error("Error adding logs:", error);
+      toast.error("Failed to add logs");
+    }
+  };
 
   const handleExportCSV = (log: SavedLog) => {
     try {
@@ -1709,24 +1751,22 @@ export default function Logs() {
                     <>
                       <div className="text-sm font-semibold text-amber-400 mb-2">Standalone Logs</div>
                       {logs.map((log) => (
-                        <button
+                        <div
                           key={log.id}
-                          onClick={() => {
-                            const updatedFolders = folders.map((f) =>
-                              f.id === selectedFolderForAddLog
-                                ? { ...f, logIds: [...(f.logIds || []), log.id] }
-                                : f
-                            );
-                            setFolders(updatedFolders);
-                            localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                            toast.success(`Added "${log.name}" to folder`);
-                            setShowAddLogModal(false);
-                          }}
-                          className="w-full text-left px-4 py-3 bg-stone-800 hover:bg-stone-700 text-white rounded transition-colors border border-stone-700 hover:border-amber-600"
+                          className="flex items-center gap-3 px-4 py-3 bg-stone-800 hover:bg-stone-700 text-white rounded transition-colors border border-stone-700 hover:border-amber-600 cursor-pointer"
+                          onClick={() => toggleLogSelection(log.id)}
                         >
-                          <div className="font-semibold">{log.name}</div>
-                          <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
-                        </button>
+                          <input
+                            type="checkbox"
+                            checked={selectedLogsForAddition.has(log.id)}
+                            onChange={() => toggleLogSelection(log.id)}
+                            className="w-4 h-4 cursor-pointer"
+                          />
+                          <div className="flex-1">
+                            <div className="font-semibold">{log.name}</div>
+                            <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
+                          </div>
+                        </div>
                       ))}
                     </>
                   )}
@@ -1743,24 +1783,22 @@ export default function Logs() {
                               {folder.logIds.map((logId) => {
                                 const log = logs.find((l) => l.id === logId);
                                 return log ? (
-                                  <button
+                                  <div
                                     key={logId}
-                                    onClick={() => {
-                                      const updatedFolders = folders.map((f) =>
-                                        f.id === selectedFolderForAddLog
-                                          ? { ...f, logIds: [...(f.logIds || []), log.id] }
-                                          : f
-                                      );
-                                      setFolders(updatedFolders);
-                                      localStorage.setItem('kilnFolders', JSON.stringify(updatedFolders));
-                                      toast.success(`Added "${log.name}" to folder`);
-                                      setShowAddLogModal(false);
-                                    }}
-                                    className="w-full text-left px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors border border-stone-600 hover:border-amber-600 text-sm"
+                                    className="flex items-center gap-3 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors border border-stone-600 hover:border-amber-600 text-sm cursor-pointer"
+                                    onClick={() => toggleLogSelection(log.id)}
                                   >
-                                    <div className="font-semibold">{log.name}</div>
-                                    <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
-                                  </button>
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedLogsForAddition.has(log.id)}
+                                      onChange={() => toggleLogSelection(log.id)}
+                                      className="w-4 h-4 cursor-pointer"
+                                    />
+                                    <div className="flex-1">
+                                      <div className="font-semibold">{log.name}</div>
+                                      <div className="text-xs text-stone-400">Created: {new Date(log.createdAt).toLocaleDateString()}</div>
+                                    </div>
+                                  </div>
                                 ) : null;
                               })}
                             </div>
@@ -1772,12 +1810,21 @@ export default function Logs() {
                 </>
               )}
             </div>
-            <button
-              onClick={() => setShowAddLogModal(false)}
-              className="w-full px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
-            >
-              Cancel
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleAddSelectedLogs}
+                disabled={selectedLogsForAddition.size === 0}
+                className="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:bg-stone-600 disabled:cursor-not-allowed text-white rounded transition-colors font-semibold"
+              >
+                Add Selected ({selectedLogsForAddition.size})
+              </button>
+              <button
+                onClick={() => setShowAddLogModal(false)}
+                className="flex-1 px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
