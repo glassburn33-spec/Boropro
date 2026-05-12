@@ -293,8 +293,8 @@ function getShapeParameters(inputs: {
       const Char_leng  = L;
       const h_conv     = calcH_plate(Char_leng, T_work, T_room, beta, k, nu, Pr);
 
-      // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / (2*h)
-      const tau        = (GLASS.rho * GLASS.cp * t) / (2 * h_conv);
+      // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / h
+      const tau        = (GLASS.rho * GLASS.cp * t) / (h_conv);
 
       // Radiation heat flux (reporting only)
       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
