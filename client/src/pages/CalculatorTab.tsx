@@ -197,7 +197,8 @@ function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: nu
 
   // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
-  const Nu = (0.825 + Math.pow(0.387 * Ra, (1 / 6)) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27))) ** 2;
+  const Nu = (0.825 + Math.pow(0.387 * Ra, (1/6)) / 
+            Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;
 
   return (k / Char_leng) * Nu;   // [W/(m²·K)]
 }

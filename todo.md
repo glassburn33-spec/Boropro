@@ -639,3 +639,12 @@
 - [x] Uses exponentiation operator ** 2 for squaring instead of Math.pow
 - [x] Improves code readability and consistency
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Format Nusselt Calculation with Multi-Line Layout
+- [x] Updated Nusselt calculation formatting in calcH_plate function
+- [x] Added line break after numerator for improved readability
+- [x] Aligned denominator on second line with proper indentation
+- [x] Formula now spans two lines for clarity
+- [x] Maintains mathematical correctness and functionality
+- [x] Tests passing (109/112, 3 pre-existing failures)
