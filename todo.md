@@ -555,3 +555,11 @@
 - [x] Changed from: const Ra = (g * cos30 * beta * deltaT * Char_leng ** 3 / nu ** 2) * Pr;
 - [x] Changed to: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / nu ** 2) * Pr;
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Cylinder Nusselt Calculation
+- [x] Updated cylinder Nusselt number calculation to use Math.pow
+- [x] Updated line 217 in calcH_cylinder function
+- [x] Changed from: const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) / (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
+- [x] Changed to: const Nu = Math.pow((0.6 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.559 / Pr), (9 / 16))), (8 / 27)), 2);
+- [x] Tests passing (109/112, 3 pre-existing failures)
