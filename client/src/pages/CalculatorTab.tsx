@@ -214,7 +214,8 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
   const T_work_K = T_work + 273.15;
   const T_room_K = T_room + 273.15;
   const deltaT = T_work_K - T_room_K;  // Driving force is surface-to-env
-  const D_cyl = 4 * (D / 2);  // D_cyl = 4*r where r = D/2
+  const r = D / 2;  // radius
+  const D_cyl = 2 * r;  // D_cyl = twice the radius
 
   // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * beta * deltaT * D_cyl ** 3 / nu ** 2) * Pr;
@@ -235,7 +236,8 @@ function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k
   const T_work_K = T_work + 273.15;
   const T_room_K = T_room + 273.15;
   const deltaT = T_work_K - T_room_K;  // Driving force is surface-to-env
-  const D_sphere = D;  // Characteristic length is diameter
+  const r = D / 2;  // radius
+  const D_sphere = 2 * r;  // Characteristic length
 
   // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * beta * deltaT * Math.pow(D_sphere, 3) / (nu ** 2)) * Pr;

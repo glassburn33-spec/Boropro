@@ -730,3 +730,11 @@
 - [x] Uses absolute temperature for natural convection driving force
 - [x] Consistent with plate and cylinder function temperature handling
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Cylinder Characteristic Length
+- [x] Changed D_cyl calculation from 4*r to 2*r (twice the radius)
+- [x] Added explicit radius calculation: r = D/2
+- [x] Updated comment to clarify D_cyl = twice the radius
+- [x] Maintains correct Churchill-Chu correlation for horizontal cylinders
+- [x] Tests passing (109/112, 3 pre-existing failures)
