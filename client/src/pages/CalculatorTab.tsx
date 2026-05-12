@@ -287,7 +287,7 @@ function getShapeParameters(inputs: {
     case 'plate': {
       // Geometry
       const V          = t * L;
-      const A_surface  = 2 * L * W + 2*t*L + 2*t*W;
+      const A_surface  = 2 * L * W + 2*t*L;
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
       const Perimeter  = L + t;
