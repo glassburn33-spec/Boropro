@@ -298,7 +298,7 @@ function getShapeParameters(inputs: {
 
       // Radiation heat flux (reporting only)
       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_s_K - T_room_K);
       const Q_total    = Q_conv + Q_rad;
 
       // Stress shape factors — flat plate
@@ -340,7 +340,7 @@ function getShapeParameters(inputs: {
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_s_K - T_room_K);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.500;
@@ -374,7 +374,7 @@ function getShapeParameters(inputs: {
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
-      const Q_conv     = h_conv * A_outer * (T_work - T_room);
+      const Q_conv     = h_conv * A_outer * (T_s_K - T_room_K);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.333;
