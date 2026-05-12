@@ -939,7 +939,3 @@
 [2026-05-12T20:29:54.608Z] 4:29:54 PM [vite] (client) hmr update /src/index.css
 [2026-05-12T20:32:18.615Z] 4:32:18 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-12T20:32:57.620Z] 4:32:57 PM [vite] (client) hmr update /src/index.css
-[2026-05-12T20:34:46.504Z] 4:34:46 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
-[2026-05-12T20:34:52.106Z] 4:34:52 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
-[2026-05-12T20:34:57.849Z] 4:34:57 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
-[2026-05-12T20:35:48.223Z] 4:35:48 PM [vite] (client) hmr update /src/index.css
