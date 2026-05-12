@@ -621,3 +621,12 @@
 - [x] Changed to: const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
 - [x] Represents 60-degree inclination angle for vertical plate geometry
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Plate Nusselt Calculation Parentheses
+- [x] Updated Nusselt calculation in calcH_plate function
+- [x] Changed from: const Nu = Math.pow((0.825 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27)), 2);
+- [x] Changed to: const Nu = Math.pow(0.825 + Math.pow(0.387 * Ra, (1 / 6)) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27)), 2);
+- [x] Adjusted parentheses to change operator precedence for division
+- [x] Now 0.387*Ra^(1/6) is divided by denominator, then added to 0.825
+- [x] Tests passing (109/112, 3 pre-existing failures)
