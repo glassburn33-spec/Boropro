@@ -899,30 +899,35 @@ export function CalculatorTab() {
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
 
-        {/* ROOM TEMPERATURE — Hidden */}
-        {/* <div>
+        {/* ROOM TEMPERATURE */}
+        <div>
           <label className="block text-sm font-semibold text-stone-300 mb-1">
-            Room Temperature (°C)
+            Room Temperature ({tempUnit})
           </label>
           <p className="text-xs text-stone-500 mb-2">
-            Ambient air temperature where glass cools. Allowed range: 0 – 40 °C.
+            Ambient air temperature where glass cools. Allowed range: {tempUnit === 'C' ? '0 – 40 °C' : '32 – 104 °F'}.
           </p>
           <Input
             type="number"
-            min="0"
-            max="40"
+            min={tempUnit === 'C' ? '0' : '32'}
+            max={tempUnit === 'C' ? '40' : '104'}
             step="1"
             value={roomTemp}
             onChange={(e) => setRoomTemp(e.target.value)}
-            className="bg-stone-700 border-stone-600 text-stone-100"
+            placeholder={tempUnit === 'C' ? '25' : '77'}
+            className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+              roomTempInvalid
+                ? 'border-red-500 ring-1 ring-red-500'
+                : ''
+            }`}
           />
           {roomTempInvalid && (
             <div className="flex items-center gap-2 mt-2 text-red-400 text-xs">
               <AlertCircle size={14} />
-              <span>Room temperature must be between 0 and 40 °C</span>
+              <span>Room temperature must be between {tempUnit === 'C' ? '0 and 40 °C' : '32 and 104 °F'}</span>
             </div>
           )}
-        </div> */}
+        </div>
 
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
