@@ -192,7 +192,7 @@ function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: nu
   const T_s_K = T_work + 273.15;
   const T_room_K = T_room + 273.15;
   const T_strain_K = GLASS.T_strain + 273.15;
-  const deltaT = T_s_K - T_strain_K;  // Driving force is surface-to-strain
+  const deltaT = T_s_K - T_room_K;  // Driving force is surface-to-env
   const cos60  = Math.cos((60 * Math.PI) / 180);   // ≈ 0.5
 
   // EDIT RAYLEIGH AND NUSSELT:

@@ -337,3 +337,14 @@
 [2026-05-12T09:23:25.317Z] {"timestamp":1778577803539,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-12T09:24:43.771Z] {"timestamp":1778577883212,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
 [2026-05-12T09:24:43.771Z] {"timestamp":1778577883213,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-12T09:30:11.102Z] {"timestamp":1778578209002,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T09:30:11.102Z] {"timestamp":1778578209168,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T09:30:35.959Z] {"timestamp":1778578233954,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T09:30:35.959Z] {"timestamp":1778578233982,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T09:30:35.959Z] {"timestamp":1778578234153,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-12T09:53:31.966Z] {"timestamp":1778579609868,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T09:53:31.966Z] {"timestamp":1778579610077,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T10:49:18.322Z] {"timestamp":1778582956246,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T10:49:18.322Z] {"timestamp":1778582956416,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T16:10:44.366Z] {"timestamp":1778602242303,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T16:10:44.366Z] {"timestamp":1778602242535,"level":"DEBUG","args":["[vite] connected."],"stack":null}

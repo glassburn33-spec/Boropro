@@ -665,3 +665,11 @@
 - [x] Affects Rayleigh number calculation in calcH_plate
 - [x] Rayleigh now uses (L+W) instead of (L+W)³ for thermal length scale
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update DeltaT to Use Room Temperature
+- [x] Changed deltaT from T_s_K - T_strain_K to T_s_K - T_room_K
+- [x] Updated comment to reflect "surface-to-env" driving force
+- [x] Rayleigh calculation now uses room temperature difference instead of strain point
+- [x] This represents natural convection driving force from surface to ambient environment
+- [x] Tests passing (109/112, 3 pre-existing failures)
