@@ -287,7 +287,7 @@ function getShapeParameters(inputs: {
     case 'plate': {
       // Geometry
       const V          = t * L;
-      const A_surface  = 2 * L;
+      const A_surface  = 2 * L * W + 2*t*L + 2*t*W;
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
       const Perimeter  = L + t;
@@ -341,7 +341,7 @@ function getShapeParameters(inputs: {
 
       // Radiation
       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
-      const Q_conv     = h_conv * A_outer * (T_s_K - T_room_K);
+      const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.500;

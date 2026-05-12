@@ -739,3 +739,175 @@
 [2026-05-12T19:23:35.932Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:2616:24)
 [2026-05-12T19:23:49.989Z] 3:23:49 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-12T19:24:33.315Z] 3:24:33 PM [vite] (client) hmr update /src/index.css
+[2026-05-12T19:25:20.359Z] 3:25:20 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-12T19:25:40.096Z] 3:25:40 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token, expected "," (343:99)
+[2026-05-12T19:25:40.097Z] 
+[2026-05-12T19:25:40.098Z] 341 |
+[2026-05-12T19:25:40.098Z] 342 |       // Radiation
+[2026-05-12T19:25:40.099Z] > 343 |       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.099Z] |                                                                                                    ^
+[2026-05-12T19:25:40.100Z] 344 |       const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.100Z] 345 |       const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.101Z] 346 |
+[2026-05-12T19:25:40.101Z] Plugin: vite:react-babel
+[2026-05-12T19:25:40.102Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:343:99
+[2026-05-12T19:25:40.102Z] 341 |
+[2026-05-12T19:25:40.103Z] 342 |        // Radiation
+[2026-05-12T19:25:40.103Z] 343 |        const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.103Z] |                                                                                                     ^
+[2026-05-12T19:25:40.104Z] 344 |        const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.104Z] 345 |        const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.105Z] 3:25:40 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token, expected "," (343:99)
+[2026-05-12T19:25:40.105Z] 
+[2026-05-12T19:25:40.106Z] 341 |
+[2026-05-12T19:25:40.106Z] 342 |       // Radiation
+[2026-05-12T19:25:40.107Z] > 343 |       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.107Z] |                                                                                                    ^
+[2026-05-12T19:25:40.108Z] 344 |       const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.108Z] 345 |       const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.109Z] 346 |
+[2026-05-12T19:25:40.109Z] Plugin: vite:react-babel
+[2026-05-12T19:25:40.110Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:343:99
+[2026-05-12T19:25:40.110Z] 341 |
+[2026-05-12T19:25:40.110Z] 342 |        // Radiation
+[2026-05-12T19:25:40.111Z] 343 |        const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.111Z] |                                                                                                     ^
+[2026-05-12T19:25:40.112Z] 344 |        const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.113Z] 345 |        const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.338Z] 3:25:40 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token, expected "," (343:99)
+[2026-05-12T19:25:40.339Z] 
+[2026-05-12T19:25:40.340Z] 341 |
+[2026-05-12T19:25:40.340Z] 342 |       // Radiation
+[2026-05-12T19:25:40.340Z] > 343 |       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.340Z] |                                                                                                    ^
+[2026-05-12T19:25:40.341Z] 344 |       const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.341Z] 345 |       const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.341Z] 346 |
+[2026-05-12T19:25:40.341Z] Plugin: vite:react-babel
+[2026-05-12T19:25:40.342Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:343:99
+[2026-05-12T19:25:40.342Z] 341 |
+[2026-05-12T19:25:40.342Z] 342 |        // Radiation
+[2026-05-12T19:25:40.343Z] 343 |        const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:40.343Z] |                                                                                                     ^
+[2026-05-12T19:25:40.344Z] 344 |        const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:40.344Z] 345 |        const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:40.345Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-12T19:25:40.345Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1503:19)
+[2026-05-12T19:25:40.346Z] at unexpected (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1543:16)
+[2026-05-12T19:25:40.347Z] at expect (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/util.ts:157:12)
+[2026-05-12T19:25:40.347Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:1789:14)
+[2026-05-12T19:25:40.348Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:1162:21)
+[2026-05-12T19:25:40.349Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-12T19:25:40.349Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:734:23)
+[2026-05-12T19:25:40.350Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:713:21)
+[2026-05-12T19:25:40.351Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:675:23)
+[2026-05-12T19:25:40.351Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3855:20)
+[2026-05-12T19:25:40.352Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:409:14)
+[2026-05-12T19:25:40.353Z] at parseExprOpBaseRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:589:12)
+[2026-05-12T19:25:40.353Z] at parseExprOpRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:574:21)
+[2026-05-12T19:25:40.354Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:505:27)
+[2026-05-12T19:25:40.354Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:40.355Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:526:21)
+[2026-05-12T19:25:40.355Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:40.355Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:526:21)
+[2026-05-12T19:25:40.356Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:40.356Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:427:17)
+[2026-05-12T19:25:40.356Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:376:23)
+[2026-05-12T19:25:40.357Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-12T19:25:40.357Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3727:22)
+[2026-05-12T19:25:40.359Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-12T19:25:40.359Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:3187:16)
+[2026-05-12T19:25:40.359Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-12T19:25:40.360Z] at parseVar (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1582:18)
+[2026-05-12T19:25:40.360Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1246:10)
+[2026-05-12T19:25:40.361Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3126:33)
+[2026-05-12T19:25:40.361Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:607:21)
+[2026-05-12T19:25:40.362Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:40.362Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:40.362Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:40.363Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1439:16)
+[2026-05-12T19:25:40.363Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T19:25:40.364Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1380:10)
+[2026-05-12T19:25:40.364Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:617:21)
+[2026-05-12T19:25:40.364Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:40.365Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:40.365Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:40.366Z] at parseSwitchStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1154:36)
+[2026-05-12T19:25:40.366Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:540:21)
+[2026-05-12T19:25:40.367Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:40.367Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:40.367Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:40.368Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1439:16)
+[2026-05-12T19:25:40.368Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T19:25:40.369Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1380:10)
+[2026-05-12T19:25:40.369Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:2616:24)
+[2026-05-12T19:25:53.679Z] 3:25:53 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token, expected "," (343:99)
+[2026-05-12T19:25:53.680Z] 
+[2026-05-12T19:25:53.680Z] 341 |
+[2026-05-12T19:25:53.680Z] 342 |       // Radiation
+[2026-05-12T19:25:53.681Z] > 343 |       const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:53.681Z] |                                                                                                    ^
+[2026-05-12T19:25:53.681Z] 344 |       const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:53.682Z] 345 |       const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:53.682Z] 346 |
+[2026-05-12T19:25:53.682Z] Plugin: vite:react-babel
+[2026-05-12T19:25:53.682Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:343:99
+[2026-05-12T19:25:53.683Z] 341 |
+[2026-05-12T19:25:53.683Z] 342 |        // Radiation
+[2026-05-12T19:25:53.683Z] 343 |        const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4);
+[2026-05-12T19:25:53.683Z] |                                                                                                     ^
+[2026-05-12T19:25:53.684Z] 344 |        const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
+[2026-05-12T19:25:53.684Z] 345 |        const Q_total    = Q_conv + Q_rad;
+[2026-05-12T19:25:53.684Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-12T19:25:53.685Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1503:19)
+[2026-05-12T19:25:53.685Z] at unexpected (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1543:16)
+[2026-05-12T19:25:53.685Z] at expect (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/util.ts:157:12)
+[2026-05-12T19:25:53.685Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:1789:14)
+[2026-05-12T19:25:53.686Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:1162:21)
+[2026-05-12T19:25:53.686Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-12T19:25:53.686Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:734:23)
+[2026-05-12T19:25:53.687Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:713:21)
+[2026-05-12T19:25:53.687Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:675:23)
+[2026-05-12T19:25:53.687Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3855:20)
+[2026-05-12T19:25:53.687Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:409:14)
+[2026-05-12T19:25:53.688Z] at parseExprOpBaseRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:589:12)
+[2026-05-12T19:25:53.688Z] at parseExprOpRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:574:21)
+[2026-05-12T19:25:53.688Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:505:27)
+[2026-05-12T19:25:53.688Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:53.689Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:526:21)
+[2026-05-12T19:25:53.689Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:53.689Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:526:21)
+[2026-05-12T19:25:53.690Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T19:25:53.690Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:427:17)
+[2026-05-12T19:25:53.690Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:376:23)
+[2026-05-12T19:25:53.691Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-12T19:25:53.691Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3727:22)
+[2026-05-12T19:25:53.691Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-12T19:25:53.691Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:3187:16)
+[2026-05-12T19:25:53.692Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-12T19:25:53.692Z] at parseVar (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1582:18)
+[2026-05-12T19:25:53.692Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1246:10)
+[2026-05-12T19:25:53.693Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3126:33)
+[2026-05-12T19:25:53.693Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:607:21)
+[2026-05-12T19:25:53.693Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:53.694Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:53.694Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:53.695Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1439:16)
+[2026-05-12T19:25:53.695Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T19:25:53.695Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1380:10)
+[2026-05-12T19:25:53.696Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:617:21)
+[2026-05-12T19:25:53.696Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:53.697Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:53.697Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:53.697Z] at parseSwitchStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1154:36)
+[2026-05-12T19:25:53.698Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:540:21)
+[2026-05-12T19:25:53.698Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T19:25:53.698Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T19:25:53.699Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T19:25:53.699Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1439:16)
+[2026-05-12T19:25:53.699Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T19:25:53.700Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1380:10)
+[2026-05-12T19:25:53.700Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:2616:24)
+[2026-05-12T19:25:54.663Z] 3:25:54 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-12T19:30:44.496Z] 3:30:44 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-12T19:31:25.109Z] 3:31:25 PM [vite] (client) hmr update /src/index.css
