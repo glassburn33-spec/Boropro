@@ -673,3 +673,11 @@
 - [x] Rayleigh calculation now uses room temperature difference instead of strain point
 - [x] This represents natural convection driving force from surface to ambient environment
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Characteristic Length to Cube Root
+- [x] Changed Char_leng from L + W to Math.pow(L + W, (1/3))
+- [x] Characteristic length now uses cube root of sum of length and width
+- [x] Represents volumetric thermal length scale for plate geometry
+- [x] Affects Rayleigh number calculation in calcH_plate
+- [x] Tests passing (109/112, 3 pre-existing failures)
