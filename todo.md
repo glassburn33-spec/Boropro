@@ -563,3 +563,11 @@
 - [x] Changed from: const Nu = (0.6 + (0.387 * Ra ** (1 / 6)) / (1 + (0.559 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 - [x] Changed to: const Nu = Math.pow((0.6 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.559 / Pr), (9 / 16))), (8 / 27)), 2);
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Plate Nusselt Calculation
+- [x] Updated plate Nusselt number calculation to use Math.pow
+- [x] Updated line 197 in calcH_plate function
+- [x] Changed from: const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) / (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
+- [x] Changed to: const Nu = Math.pow((0.825 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27)), 2);
+- [x] Tests passing (109/112, 3 pre-existing failures)
