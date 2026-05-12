@@ -327,12 +327,12 @@ function getShapeParameters(inputs: {
       const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
 
       const r_inner    = r - t;
-      const V_cyl      = (PI / 4) * ((2 * r) ** 2 - (2 * r_inner) ** 2) * L;
+      const V_cyl      = (PI / 4) * ((2 * r) ** 2 - (2 * r_inner) ** 2);
       const A_surface  = 2 * PI * (r ** 2 - r_inner ** 2)
                        + 2 * PI * r       * L
                        + 2 * PI * r_inner * L;
       // MATLAB uses only the outer lateral surface for τ
-      const A_outer    = 2 * PI * r * L;
+      const A_outer    = 2 * PI * r;
       const mass       = rho * V_cyl;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*V / (h*A_outer)
