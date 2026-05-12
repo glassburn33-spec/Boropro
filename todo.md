@@ -583,3 +583,12 @@
 - [x] Changed Nu to: const Nu = (0.825 + Math.pow(0.589 * Ra, (1 / 4))) / Math.pow((1 + Math.pow((0.469 / Pr), (9 / 16))), (4 / 9));
 - [x] All three shape functions (plate, cylinder, sphere) now use consistent Math.pow approach
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Plate Rayleigh Calculation Parentheses
+- [x] Added explicit parentheses around (nu ** 2) in plate Rayleigh calculation
+- [x] Updated line 196 in calcH_plate function
+- [x] Changed from: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / nu ** 2) * Pr;
+- [x] Changed to: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
+- [x] Improves code clarity and ensures correct operator precedence
+- [x] Tests passing (109/112, 3 pre-existing failures)
