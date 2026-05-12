@@ -219,7 +219,8 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
 
   // EDIT RAYLEIGH AND NUSSELT:
   const Ra = (g * beta * deltaT * Math.pow(D_cyl, 3) / nu ** 2) * Pr;
-  const Nu = Math.pow((0.6 + 0.387 * Math.pow(Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.559 / Pr), (9 / 16))), (8 / 27)), 2);
+  const Nu = Math.pow(0.6 + (0.387 * Math.pow(Ra, 1/6)) / 
+             Math.pow((1 + Math.pow(0.559/Pr, 9/16)), 8/27), 2);
 
   return (k / D_cyl) * Nu;   // [W/(m²·K)]
 }
