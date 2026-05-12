@@ -401,11 +401,13 @@ function getShapeParameters(inputs: {
 
 function calcWorkingTime(tau: number, T_work: number, T_room: number ): number {
   const { T_strain } = GLASS;
- 
+  const T_strain_K = T_strain + 273.15;
+  const T_room_K = T_room + 273.15;
+  const T_s_K = T_work + 273.15;
 
   // EDIT THIS FORMULA:
   // Current: t* = -τ · ln((T_strain - T_room) / (T_work - T_room))
-  return -tau * Math.log((T_strain - T_room) / (T_work - T_room));   // [s]
+  return -tau * Math.log((T_strain_K - T_room_K) / (T_s_K - T_room_K));   // [s]
 }
 
 // ============================================================
