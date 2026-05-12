@@ -231,9 +231,8 @@ function calcH_sphere(D: number, T_work: number, T_room: number, beta: number, k
   const D_sphere = _PI * D * D / D;  // Characteristic length
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * D_sphere ** 3 / nu ** 2) * Pr;
-  const Nu = 2 + (0.589 * Ra ** (1 / 4)) /
-    (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
+  const Ra = (g * beta * deltaT * Math.pow(D_sphere, 3) / (nu ** 2)) * Pr;
+  const Nu = (0.825 + Math.pow(0.589 * Ra, (1 / 4))) / Math.pow((1 + Math.pow((0.469 / Pr), (9 / 16))), (4 / 9));
 
   return (k / D_sphere) * Nu;   // [W/(m²·K)]
 }

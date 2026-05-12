@@ -571,3 +571,15 @@
 - [x] Changed from: const Nu = (0.825 + (0.387 * Ra ** (1 / 6)) / (1 + (0.492 / Pr) ** (9 / 16)) ** (8 / 27)) ** 2;
 - [x] Changed to: const Nu = Math.pow((0.825 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27)), 2);
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Sphere Rayleigh and Nusselt Calculations
+- [x] Updated sphere Rayleigh number calculation to use Math.pow
+- [x] Updated sphere Nusselt number calculation to use Math.pow
+- [x] Updated lines 234-235 in calcH_sphere function
+- [x] Changed Ra from: const Ra = (g * beta * deltaT * D_sphere ** 3 / nu ** 2) * Pr;
+- [x] Changed Ra to: const Ra = (g * beta * deltaT * Math.pow(D_sphere, 3) / (nu ** 2)) * Pr;
+- [x] Changed Nu from: const Nu = 2 + (0.589 * Ra ** (1 / 4)) / (1 + (0.469 / Pr) ** (9 / 16)) ** (4 / 9);
+- [x] Changed Nu to: const Nu = (0.825 + Math.pow(0.589 * Ra, (1 / 4))) / Math.pow((1 + Math.pow((0.469 / Pr), (9 / 16))), (4 / 9));
+- [x] All three shape functions (plate, cylinder, sphere) now use consistent Math.pow approach
+- [x] Tests passing (109/112, 3 pre-existing failures)
