@@ -189,7 +189,9 @@ function interpolateAirProps(T_C: number): {
  */
 function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
+  const T_s_K = T_work + 273.15;
+  const T_strain_K = GLASS.T_strain + 273.15;
+  const deltaT = T_s_K - T_strain_K;  // Driving force is surface-to-strain
   const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
 
   // EDIT RAYLEIGH AND NUSSELT:

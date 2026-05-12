@@ -601,3 +601,13 @@
 - [x] Converts strain point (515°C) to Kelvin (788.15 K) for thermal calculations
 - [x] Placed after T_room_K for logical grouping of temperature conversions
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update DeltaT to Use Kelvin Temperature Difference
+- [x] Updated deltaT calculation in calcH_plate function to use Kelvin temperatures
+- [x] Added T_s_K and T_strain_K local variables in calcH_plate
+- [x] Changed from: const deltaT = T_work - GLASS.T_strain;
+- [x] Changed to: const deltaT = T_s_K - T_strain_K;
+- [x] Ensures temperature difference is calculated in absolute temperature units
+- [x] More physically accurate for thermal calculations
+- [x] Tests passing (109/112, 3 pre-existing failures)
