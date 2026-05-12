@@ -285,8 +285,8 @@ function getShapeParameters(inputs: {
     // ----------------------------------------------------------
     case 'plate': {
       // Geometry
-      const V          = t * L * W;
-      const A_surface  = 2 * (L * W) + 2 * (L * t) + 2 * (W * t);
+      const V          = t * L;
+      const A_surface  = 2 * L;
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
       const Perimeter  = L + t;
@@ -464,8 +464,8 @@ function runCalculation(inputs: {
     throw new Error('Radius must be greater than zero.');
   if (inputs.shape === 'cylinder' && inputs.thickness >= inputs.radius)
     throw new Error('Wall thickness must be less than radius.');
-  if (inputs.shape === 'plate' && (inputs.length <= 0 || inputs.width <= 0))
-    throw new Error('Length and width must be greater than zero for plate.');
+  if (inputs.shape === 'plate' && inputs.length <= 0)
+    throw new Error('Length must be greater than zero for plate.');
 
 
   const { T_work } = inputs;
@@ -1095,20 +1095,7 @@ export function CalculatorTab() {
             </div>
           )}
 
-          {/* Width — plate only */}
-          {shape === 'plate' && (
-            <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Width (mm)
-              </label>
-              <Input
-                type="number" value={width} min="0.1" step="0.1"
-                onChange={(e) => setWidth(e.target.value)}
-                placeholder="25"
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
-              />
-            </div>
-          )}
+
         </div>
 
         {/* ERROR */}
