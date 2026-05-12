@@ -340,8 +340,8 @@ function getShapeParameters(inputs: {
       const tau        = (GLASS.rho * GLASS.cp * V_cyl) / (h_conv * A_outer);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
-      const Q_conv     = h_conv * A_outer * (T_s_K - T_room_K);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_env_K, 4));
+      const Q_conv     = h_conv * A_outer * (T_s_K - T_env_K);
       const Q_total    = Q_conv + Q_rad;
 
       const b = 0.500;
