@@ -705,3 +705,11 @@
 - [x] Uses Math.pow for squaring the entire expression
 - [x] Maintains Churchill-Chu correlation for horizontal cylinders
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Sphere Nusselt Calculation
+- [x] Changed sphere Nusselt formula to use 0.825 + 0.589 * Math.pow(Ra, (1/4))
+- [x] Fixed operator precedence: 0.589 * Ra^(1/4) instead of 0.589 * Ra
+- [x] Maintains Churchill-Chu correlation for spheres
+- [x] All three shapes (plate, cylinder, sphere) now use consistent operator precedence
+- [x] Tests passing (109/112, 3 pre-existing failures)
