@@ -681,7 +681,7 @@ export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>('cylinder');
   const [thickness, setThickness] = useState<string>('2');
   const [radius,    setRadius]    = useState<string>('12.5');  // 12.5 mm radius = 25 mm diameter
-  const [length,    setLength]    = useState<string>('50');
+  const [length,    setLength]    = useState<string>('25');  // Default length 25 mm
   const [width,     setWidth]     = useState<string>('25');
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
   const [roomTemp,  setRoomTemp]  = useState<string>('25');
@@ -848,7 +848,7 @@ export function CalculatorTab() {
     setShape('cylinder');
     setThickness('2');
     setRadius('12.5');  // Reset to 25 mm diameter
-    setLength('50');
+    setLength('25');  // Reset to 25 mm length
     setWidth('25');
     // Reset temperatures to defaults based on current unit
     if (tempUnit === 'C') {
