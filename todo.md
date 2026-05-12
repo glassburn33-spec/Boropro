@@ -648,3 +648,12 @@
 - [x] Formula now spans two lines for clarity
 - [x] Maintains mathematical correctness and functionality
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update calcH_plate Function Signature
+- [x] Added T_room_K variable declaration: const T_room_K = T_room + 273.15;
+- [x] Removed unused cos30 variable (only cos60 is used)
+- [x] Cleaned up function parameter organization
+- [x] Maintained T_strain_K calculation for deltaT computation
+- [x] All temperature conversions now in Kelvin for consistency
+- [x] Tests passing (109/112, 3 pre-existing failures)
