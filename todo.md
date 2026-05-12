@@ -547,3 +547,11 @@
 - [x] Reheat Calc nav button now directs to calculator with correct 565°C default (not 296)
 - [x] Temperature conversion only occurs when user toggles between C and F units
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Rayleigh Number Calculation
+- [x] Changed plate Rayleigh number calculation to use Math.pow(Char_leng, 3)
+- [x] Updated line 196 in calcH_plate function
+- [x] Changed from: const Ra = (g * cos30 * beta * deltaT * Char_leng ** 3 / nu ** 2) * Pr;
+- [x] Changed to: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / nu ** 2) * Pr;
+- [x] Tests passing (109/112, 3 pre-existing failures)
