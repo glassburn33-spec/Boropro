@@ -713,3 +713,11 @@
 - [x] Maintains Churchill-Chu correlation for spheres
 - [x] All three shapes (plate, cylinder, sphere) now use consistent operator precedence
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Cylinder Temperature Conversion
+- [x] Added T_work_K and T_room_K Kelvin conversions to calcH_cylinder
+- [x] Changed deltaT from surface-to-strain to surface-to-env (T_work_K - T_room_K)
+- [x] Uses absolute temperature for natural convection driving force
+- [x] Consistent with plate function temperature handling
+- [x] Tests passing (109/112, 3 pre-existing failures)

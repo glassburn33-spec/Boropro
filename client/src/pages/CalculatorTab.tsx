@@ -211,7 +211,9 @@ function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: nu
  */
 function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
   const { g, PI: _PI } = GLASS;
-  const deltaT = T_work - GLASS.T_strain;  // Driving force is surface-to-strain
+  const T_work_K = T_work + 273.15;
+  const T_room_K = T_room + 273.15;
+  const deltaT = T_work_K - T_room_K;  // Driving force is surface-to-env
   const D_cyl = 4 * (D / 2);  // D_cyl = 4*r where r = D/2
 
   // EDIT RAYLEIGH AND NUSSELT:
