@@ -324,7 +324,7 @@ function getShapeParameters(inputs: {
       );
       const D          = 2 * r;
       const r_inner    = r - t;
-      const D_cyl      = 0.25 * (2*r**2 - 2*r_inner**2) * L / (r*2*L + 0.5*(2*r**2 - 2*r_inner**2));  // characteristic length
+      const D_cyl      = 2 * r;  // D_cyl = twice the radius
       const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
       const V_cyl      = (PI / 4) * ((2 * r) ** 2 - (2 * r_inner) ** 2)*L;
       const A_surface  = 2 * PI * (r ** 2 - r_inner ** 2)
