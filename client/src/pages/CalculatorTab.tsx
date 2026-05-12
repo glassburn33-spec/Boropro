@@ -699,7 +699,7 @@ export function CalculatorTab() {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const isFirstRenderRef = useRef<boolean>(true);
 
-  // Convert temperatures when unit changes (but not on initial render)
+  // Convert temperatures and dimensions when unit changes (but not on initial render)
   useEffect(() => {
     if (isFirstRenderRef.current) {
       isFirstRenderRef.current = false;
@@ -712,12 +712,22 @@ export function CalculatorTab() {
       const roomF = Math.round((parseFloat(roomTemp) || 25) * (9 / 5) + 32);
       setKilnTemp(kilnF.toString());
       setRoomTemp(roomF.toString());
+      // Switch to F defaults: 0.125 in thickness, 1 in diameter, 1 in length, 1 in width
+      setThickness('3.175');  // 0.125 in = 3.175 mm
+      setRadius('12.7');      // 1 in diameter = 25.4 mm, so 12.7 mm radius
+      setLength('25.4');      // 1 in = 25.4 mm
+      setWidth('25.4');       // 1 in = 25.4 mm
     } else {
       // F to C: subtract 32 and multiply by 5/9
       const kilnC = Math.round(((parseFloat(kilnTemp) || 1049) - 32) * (5 / 9));
       const roomC = Math.round(((parseFloat(roomTemp) || 77) - 32) * (5 / 9));
       setKilnTemp(kilnC.toString());
       setRoomTemp(roomC.toString());
+      // Switch to C defaults: 4 mm thickness, 25 mm diameter, 25 mm length, 25 mm width
+      setThickness('4');      // 4 mm
+      setRadius('12.5');      // 25 mm diameter = 12.5 mm radius
+      setLength('25');        // 25 mm
+      setWidth('25');         // 25 mm
     }
   }, [tempUnit])
 
