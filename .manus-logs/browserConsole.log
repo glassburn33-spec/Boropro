@@ -631,3 +631,14 @@
 [2026-05-12T19:48:56.180Z] {"timestamp":1778615334175,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
 [2026-05-12T19:48:56.180Z] {"timestamp":1778615334179,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-12T19:48:56.180Z] {"timestamp":1778615334374,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-12T19:49:22.402Z] {"timestamp":1778615362043,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-12T19:49:52.891Z] {"timestamp":1778615390886,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T19:49:52.891Z] {"timestamp":1778615390897,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T19:49:52.891Z] {"timestamp":1778615391104,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-12T19:51:46.687Z] {"timestamp":1778615506545,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-12T19:51:46.687Z] {"timestamp":1778615506545,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-12T19:52:02.726Z] {"timestamp":1778615522144,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-12T19:52:02.726Z] {"timestamp":1778615522144,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-12T19:52:20.273Z] {"timestamp":1778615538267,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-12T19:52:20.273Z] {"timestamp":1778615538271,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-12T19:52:20.273Z] {"timestamp":1778615538503,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}

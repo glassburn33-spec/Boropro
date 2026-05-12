@@ -467,8 +467,8 @@ function runCalculation(inputs: {
     throw new Error('Wall thickness must be less than radius.');
   if (inputs.shape === 'plate' && (inputs.length < 15 || inputs.length > 100))
     throw new Error('Length must be between 15 and 100 mm for plate.');
-  if (inputs.shape === 'cylinder' && inputs.length <= 0)
-    throw new Error('Length must be greater than zero for cylinder.');
+  if (inputs.shape === 'cylinder' && (inputs.length < 15 || inputs.length > 100))
+    throw new Error('Length must be between 15 and 100 mm for cylinder.');
 
 
   const { T_work } = inputs;
@@ -1083,8 +1083,8 @@ export function CalculatorTab() {
             </div>
           )}
 
-          {/* Length — plate only */}
-          {shape === 'plate' && (
+          {/* Length — plate and cylinder */}
+          {(shape === 'plate' || shape === 'cylinder') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
                 Length (mm)
