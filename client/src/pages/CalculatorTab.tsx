@@ -217,10 +217,10 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
   const r = D / 2;  // radius
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * beta * deltaT * Math.pow(r, 3) / nu ** 2) * Pr;
+  const Ra = (g * beta * deltaT * Math.pow(r*2, 3) / nu ** 2) * Pr;
   const Nu = Math.pow((0.6 + 0.387 * Math.pow(Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.559 / Pr), (9 / 16))), (8 / 27)), 2);
 
-  return (k / r) * Nu;   // [W/(m²·K)]
+  return (k / r*2) * Nu;   // [W/(m²·K)]
 }
 
 /**
