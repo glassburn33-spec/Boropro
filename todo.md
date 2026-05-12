@@ -592,3 +592,12 @@
 - [x] Changed to: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
 - [x] Improves code clarity and ensures correct operator precedence
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Add T_strain_K Kelvin Conversion
+- [x] Added T_strain_K calculation to convert strain point temperature to Kelvin
+- [x] Added line 268 in calculateShapeParameters function
+- [x] Added: const T_strain_K = GLASS.T_strain + 273.15;
+- [x] Converts strain point (515°C) to Kelvin (788.15 K) for thermal calculations
+- [x] Placed after T_room_K for logical grouping of temperature conversions
+- [x] Tests passing (109/112, 3 pre-existing failures)
