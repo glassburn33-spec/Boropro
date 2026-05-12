@@ -209,13 +209,13 @@ function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: nu
  *   Nu  = { 0.6 + 0.387·Ra^(1/6) / [1+(0.559/Pr)^(9/16)]^(8/27) }²
  *   h   = (k_air / (D/2)) · Nu
  */
-function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number): number {
+function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number, k: number, nu: number, Pr: number, L: number, t: number): number {
   const { g, PI: _PI } = GLASS;
   const T_work_K = T_work + 273.15;
   const T_room_K = T_room + 273.15;
   const deltaT = T_work_K - T_room_K;  // Driving force is surface-to-env
   const r = D / 2;  // radius
-  const r_inner = r - L;  // Inner radius based on wall thickness
+  const r_inner = r - t;  // Inner radius based on wall thickness
   const D_cyl = (2*r**2 - 2*r_inner**2) / (8*r);  // characteristic length
 
   // EDIT RAYLEIGH AND NUSSELT:
@@ -327,7 +327,7 @@ function getShapeParameters(inputs: {
       const D          = 2 * r;
       const r_inner    = r - t;
       const D_cyl      = (2*r**2 - 2*r_inner**2) / (8*r);  // characteristic length
-      const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr);
+      const h_conv     = calcH_cylinder(D, T_work, T_room, beta, k, nu, Pr, L, t);
       const V_cyl      = (PI / 4) * ((2 * r) ** 2 - (2 * r_inner) ** 2)*L;
       const A_surface  = 2 * PI * (r ** 2 - r_inner ** 2)
                        + 2 * PI * r       * L
