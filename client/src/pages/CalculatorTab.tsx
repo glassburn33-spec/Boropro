@@ -679,10 +679,12 @@ function exportToPDF(results: ReturnType<typeof runCalculation>, shape: string, 
 
 export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>('cylinder');
-  const [thickness, setThickness] = useState<string>('4');  // Default wall thickness 4 mm
-  const [radius,    setRadius]    = useState<string>('12.5');  // 12.5 mm radius = 25 mm diameter
-  const [length,    setLength]    = useState<string>('25');  // Default length 25 mm
-  const [width,     setWidth]     = useState<string>('25');
+  // Defaults: 4 mm (0.157 in), 25 mm diameter (0.984 in), 25 mm length (0.984 in), 25 mm width (0.984 in)
+  // For F inputs: 0.125 in thickness, 1 in diameter, 1 in length
+  const [thickness, setThickness] = useState<string>('3.175');  // 0.125 in = 3.175 mm
+  const [radius,    setRadius]    = useState<string>('12.7');  // 1 in diameter = 25.4 mm, so 12.7 mm radius
+  const [length,    setLength]    = useState<string>('25.4');  // 1 in = 25.4 mm
+  const [width,     setWidth]     = useState<string>('25.4');  // 1 in = 25.4 mm
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
   const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
@@ -846,10 +848,10 @@ export function CalculatorTab() {
 
   function handleReset() {
     setShape('cylinder');
-    setThickness('4');  // Reset to 4 mm thickness
-    setRadius('12.5');  // Reset to 25 mm diameter
-    setLength('25');  // Reset to 25 mm length
-    setWidth('25');
+    setThickness('3.175');  // Reset to 0.125 in (3.175 mm)
+    setRadius('12.7');  // Reset to 1 in diameter (12.7 mm radius)
+    setLength('25.4');  // Reset to 1 in (25.4 mm)
+    setWidth('25.4');  // Reset to 1 in (25.4 mm)
     // Reset temperatures to defaults based on current unit
     if (tempUnit === 'C') {
       setKilnTemp('565');   // Default Celsius kiln temperature
