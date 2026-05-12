@@ -611,3 +611,13 @@
 - [x] Ensures temperature difference is calculated in absolute temperature units
 - [x] More physically accurate for thermal calculations
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Add cos60 and Update Plate Rayleigh Calculation
+- [x] Added cos60 calculation in calcH_plate function
+- [x] Added: const cos60 = Math.cos((60 * Math.PI) / 180);   // ≈ 0.5
+- [x] Updated Rayleigh calculation to use cos60 instead of cos30
+- [x] Changed from: const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
+- [x] Changed to: const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
+- [x] Represents 60-degree inclination angle for vertical plate geometry
+- [x] Tests passing (109/112, 3 pre-existing failures)

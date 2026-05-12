@@ -193,9 +193,10 @@ function calcH_plate(Char_leng: number, T_work: number, T_room: number, beta: nu
   const T_strain_K = GLASS.T_strain + 273.15;
   const deltaT = T_s_K - T_strain_K;  // Driving force is surface-to-strain
   const cos30  = Math.cos((30 * Math.PI) / 180);   // ≈ 0.866
+  const cos60  = Math.cos((60 * Math.PI) / 180);   // ≈ 0.5
 
   // EDIT RAYLEIGH AND NUSSELT:
-  const Ra = (g * cos30 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
+  const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) * Pr;
   const Nu = Math.pow((0.825 + Math.pow(0.387 * Ra, (1 / 6))) / Math.pow((1 + Math.pow((0.492 / Pr), (9 / 16))), (8 / 27)), 2);
 
   return (k / Char_leng) * Nu;   // [W/(m²·K)]
