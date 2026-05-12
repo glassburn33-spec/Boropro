@@ -657,3 +657,11 @@
 - [x] Maintained T_strain_K calculation for deltaT computation
 - [x] All temperature conversions now in Kelvin for consistency
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Plate Characteristic Length Calculation
+- [x] Changed Char_leng from Math.pow(L + W, 3) to L + W
+- [x] Simplifies characteristic length to linear sum of length and width
+- [x] Affects Rayleigh number calculation in calcH_plate
+- [x] Rayleigh now uses (L+W) instead of (L+W)³ for thermal length scale
+- [x] Tests passing (109/112, 3 pre-existing failures)
