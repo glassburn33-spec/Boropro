@@ -215,7 +215,7 @@ function calcH_cylinder(D: number, T_work: number, T_room: number, beta: number,
   const T_room_K = T_room + 273.15;
   const deltaT = T_work_K - T_room_K;  // Driving force is surface-to-env
   const r = D / 2;  // radius
-  const r_inner = r - L;  // Inner radius based on wall thickness
+  const r_inner = r - t;  // Inner radius based on wall thickness
   const D_cyl = (2*r**2 - 2*r_inner**2) / (8*r);  // characteristic length
 
   // EDIT RAYLEIGH AND NUSSELT:
