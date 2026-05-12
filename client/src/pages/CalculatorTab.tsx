@@ -1071,12 +1071,12 @@ export function CalculatorTab() {
           {(shape === 'cylinder' || shape === 'sphere') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Radius (mm)
+                Outer Diameter (mm)
               </label>
               <Input
-                type="number" value={radius} min="0.1" step="0.1"
-                onChange={(e) => setRadius(e.target.value)}
-                placeholder="25"
+                type="number" value={radius * 2} min="0.1" step="0.1"
+                onChange={(e) => setRadius(parseFloat(e.target.value) / 2 || 0)}
+                placeholder="50"
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
