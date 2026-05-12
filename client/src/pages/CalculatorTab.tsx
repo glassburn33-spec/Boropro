@@ -333,7 +333,7 @@ function getShapeParameters(inputs: {
                        + 2 * PI * r       * L
                        + 2 * PI * r_inner * L;
       // MATLAB uses only the outer lateral surface for τ
-      const A_outer    = 2 * PI * r;
+      const A_outer    = 2 * PI * r * L;
       const mass       = rho * V_cyl;
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*V / (h*A_outer)
