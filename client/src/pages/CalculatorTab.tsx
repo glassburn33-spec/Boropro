@@ -1225,27 +1225,26 @@ export function CalculatorTab() {
             <p className="text-sm font-semibold text-stone-300 mb-3">
               CONVECTION DETAILS
             </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
+            <div className="space-y-2 text-xs">
+              <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">h (natural conv.)</p>
                 <p className="text-stone-200 font-bold">
                   {results.h_conv.toFixed(2)} W/m²·K
                 </p>
               </div>
-
-              <div className="bg-stone-900/60 rounded p-2">
+              <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Q conv.</p>
                 <p className="text-stone-200 font-bold">
                   {results.Q_conv.toFixed(1)} W
                 </p>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
+              <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Q rad.</p>
                 <p className="text-stone-200 font-bold">
                   {results.Q_rad.toFixed(1)} W
                 </p>
               </div>
-              <div className="bg-stone-900/60 rounded p-2 col-span-2">
+              <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center border-t border-stone-600 pt-2 mt-2">
                 <p className="text-stone-400">Q total</p>
                 <p className="text-stone-200 font-bold">
                   {results.Q_total.toFixed(1)} W
