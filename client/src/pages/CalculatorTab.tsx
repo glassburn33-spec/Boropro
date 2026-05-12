@@ -460,8 +460,8 @@ function runCalculation(inputs: {
   // Input validation
   if (inputs.shape !== 'sphere' && (inputs.thickness < 2 || inputs.thickness > 10))
     throw new Error('Thickness must be between 2 and 10 mm.');
-  if ((inputs.shape === 'cylinder' || inputs.shape === 'sphere') && inputs.radius <= 0)
-    throw new Error('Radius must be greater than zero.');
+  if ((inputs.shape === 'cylinder' || inputs.shape === 'sphere') && (inputs.radius < 10 || inputs.radius > 25))
+    throw new Error('Diameter must be between 20 and 50 mm.');
   if (inputs.shape === 'cylinder' && inputs.thickness >= inputs.radius)
     throw new Error('Wall thickness must be less than radius.');
   if (inputs.shape === 'plate' && (inputs.length < 15 || inputs.length > 100))
@@ -677,7 +677,7 @@ function exportToPDF(results: ReturnType<typeof runCalculation>, shape: string, 
 export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>('cylinder');
   const [thickness, setThickness] = useState<string>('2');
-  const [radius,    setRadius]    = useState<string>('25');
+  const [radius,    setRadius]    = useState<string>('12.5');
   const [length,    setLength]    = useState<string>('50');
   const [width,     setWidth]     = useState<string>('25');
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
@@ -1074,9 +1074,9 @@ export function CalculatorTab() {
                 Outer Diameter (mm)
               </label>
               <Input
-                type="number" value={radius * 2} min="0.1" step="0.1"
+                type="number" value={radius * 2} min="20" max="50" step="0.1"
                 onChange={(e) => setRadius(parseFloat(e.target.value) / 2 || 0)}
-                placeholder="50"
+                placeholder="35"
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1138,7 +1138,7 @@ export function CalculatorTab() {
           {/* WORKING TIME — primary output */}
           <Card className="bg-gradient-to-br from-amber-900/50 to-amber-950/50 border-2 border-amber-500 p-6 text-center">
             <p className="text-sm text-amber-300 font-semibold mb-1">
-              AVAILABLE WORKING TIME
+              TIME TO REHEAT
             </p>
             <p className="text-xs text-stone-400 mb-3">{results.shapeLabel}</p>
             <div className="text-4xl font-bold text-amber-300 mb-1">
