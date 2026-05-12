@@ -680,7 +680,7 @@ function exportToPDF(results: ReturnType<typeof runCalculation>, shape: string, 
 export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>('cylinder');
   const [thickness, setThickness] = useState<string>('2');
-  const [radius,    setRadius]    = useState<string>('12.5');
+  const [radius,    setRadius]    = useState<string>('12.5');  // 12.5 mm radius = 25 mm diameter
   const [length,    setLength]    = useState<string>('50');
   const [width,     setWidth]     = useState<string>('25');
   const [kilnTemp,  setKilnTemp]  = useState<string>('565');
@@ -847,7 +847,7 @@ export function CalculatorTab() {
   function handleReset() {
     setShape('cylinder');
     setThickness('2');
-    setRadius('25');
+    setRadius('12.5');  // Reset to 25 mm diameter
     setLength('50');
     setWidth('25');
     // Reset temperatures to defaults based on current unit
