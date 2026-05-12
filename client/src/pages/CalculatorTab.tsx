@@ -873,8 +873,8 @@ export function CalculatorTab() {
 
   const kilnTempValue  = parseFloat(kilnTemp);
   const kilnTempInvalid = isNaN(kilnTempValue) ||
-                          (tempUnit === 'C' && (kilnTempValue < 565 || kilnTempValue > 650)) ||
-                          (tempUnit === 'F' && (kilnTempValue < 1049 || kilnTempValue > 1202));
+                           (tempUnit === 'C' && (kilnTempValue < 565 || kilnTempValue > 700)) ||
+                           (tempUnit === 'F' && (kilnTempValue < 1049 || kilnTempValue > 1292));
 
   const roomTempValue  = parseFloat(roomTemp);
   const roomTempInvalid = isNaN(roomTempValue) ||
@@ -940,13 +940,13 @@ export function CalculatorTab() {
           </label>
           <p className="text-xs text-stone-500 mb-2">
             Working temperature of the glass when removed from the kiln.
-            Allowed range: {tempUnit === 'C' ? '565 – 650 °C' : '1049 – 1202 °F'}.
+            Allowed range: {tempUnit === 'C' ? '565 – 700 °C' : '1049 – 1292 °F'}.
           </p>
           <Input
             type="number"
             value={kilnTemp}
             min={tempUnit === 'C' ? '565' : '1049'}
-            max={tempUnit === 'C' ? '650' : '1202'}
+            max={tempUnit === 'C' ? '700' : '1292'}
             step="1"
             onChange={(e) => {
               const raw = e.target.value;
@@ -966,7 +966,7 @@ export function CalculatorTab() {
           )}
           {kilnTempInvalid && (
             <p className="text-xs text-red-400 mt-1">
-              ⚠ Kiln temperature must be between {tempUnit === 'C' ? '565 °C and 650 °C' : '1049 °F and 1202 °F'}.
+              ⚠ Kiln temperature must be between {tempUnit === 'C' ? '565 °C and 700 °C' : '1049 °F and 1292 °F'}.
             </p>
           )}
           
@@ -986,14 +986,14 @@ export function CalculatorTab() {
                 </button>
 
                 <button
-                  onClick={() => setKilnTemp('650')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '650'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  650°C
+                   onClick={() => setKilnTemp('700')}
+                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                     kilnTemp === '700'
+                       ? 'bg-amber-700 border-amber-500 text-white'
+                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                   }`}
+                 >
+                   700°C
                 </button>
               </>
             ) : (
@@ -1010,14 +1010,14 @@ export function CalculatorTab() {
                 </button>
 
                 <button
-                  onClick={() => setKilnTemp('1202')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '1202'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  1202°F
+                   onClick={() => setKilnTemp('1292')}
+                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                     kilnTemp === '1292'
+                       ? 'bg-amber-700 border-amber-500 text-white'
+                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                   }`}
+                 >
+                   1292°F
                 </button>
               </>
             )}
