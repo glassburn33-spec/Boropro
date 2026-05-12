@@ -950,10 +950,6 @@ export function CalculatorTab() {
           <label className="block text-sm font-semibold text-stone-300 mb-1">
             Kiln Temperature ({tempUnit})
           </label>
-          <p className="text-xs text-stone-500 mb-2">
-            Working temperature of the glass when removed from the kiln.
-            Allowed range: {tempUnit === 'C' ? '565 – 700 °C' : '1049 – 1292 °F'}.
-          </p>
           <Input
             type="number"
             value={kilnTemp}
