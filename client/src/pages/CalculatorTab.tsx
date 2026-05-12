@@ -458,8 +458,8 @@ function runCalculation(inputs: {
   T_room:   number;  // Room temperature, default 25°C
 }) {
   // Input validation
-  if (inputs.shape !== 'sphere' && inputs.thickness <= 0)
-    throw new Error('Thickness must be greater than zero.');
+  if (inputs.shape !== 'sphere' && (inputs.thickness < 2 || inputs.thickness > 10))
+    throw new Error('Thickness must be between 2 and 10 mm.');
   if ((inputs.shape === 'cylinder' || inputs.shape === 'sphere') && inputs.radius <= 0)
     throw new Error('Radius must be greater than zero.');
   if (inputs.shape === 'cylinder' && inputs.thickness >= inputs.radius)
@@ -1052,7 +1052,7 @@ export function CalculatorTab() {
                 Wall Thickness (mm)
               </label>
               <Input
-                type="number" value={thickness} min="0.1" step="0.1"
+                type="number" value={thickness} min="2" max="10" step="0.1"
                 onChange={(e) => setThickness(e.target.value)}
                 placeholder="2"
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
