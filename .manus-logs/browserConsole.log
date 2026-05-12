@@ -337,9 +337,3 @@
 [2026-05-12T09:23:25.317Z] {"timestamp":1778577803539,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-12T09:24:43.771Z] {"timestamp":1778577883212,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
 [2026-05-12T09:24:43.771Z] {"timestamp":1778577883213,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
-[2026-05-12T09:25:15.822Z] {"timestamp":1778577915710,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
-[2026-05-12T09:25:48.871Z] {"timestamp":1778577946865,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-12T09:25:48.871Z] {"timestamp":1778577946876,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-12T09:25:48.871Z] {"timestamp":1778577947098,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-12T09:28:46.247Z] {"timestamp":1778578125598,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
-[2026-05-12T09:28:46.247Z] {"timestamp":1778578125599,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
