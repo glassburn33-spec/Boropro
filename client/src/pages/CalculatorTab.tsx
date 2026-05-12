@@ -297,7 +297,7 @@ function getShapeParameters(inputs: {
       const tau        = (GLASS.rho * GLASS.cp * t) / (2 * h_conv);
 
       // Radiation heat flux (reporting only)
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -339,7 +339,7 @@ function getShapeParameters(inputs: {
       const tau        = (GLASS.rho * GLASS.cp * V_cyl) / (h_conv * A_outer);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -373,7 +373,7 @@ function getShapeParameters(inputs: {
       const tau        = (GLASS.rho * GLASS.cp * r) / (3 * h_conv);
 
       // Radiation
-      const Q_rad      = epsilon * sigma_sb * A_outer * (T_s_K ** 4 - T_room_K ** 4);
+      const Q_rad      = epsilon * sigma_sb * A_outer * (Math.pow(T_s_K, 4) - Math.pow(T_room_K, 4));
       const Q_conv     = h_conv * A_outer * (T_work - T_room);
       const Q_total    = Q_conv + Q_rad;
 
@@ -1278,48 +1278,7 @@ export function CalculatorTab() {
             </div>
           </Card>
 
-          {/* AIR PROPERTIES — interpolated at T_film */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <p className="text-sm font-semibold text-stone-300 mb-1">
-              AIR PROPERTIES @ T-film ≈ {tempUnit === 'F' 
-                ? (results.T_film_C * 9/5 + 32).toFixed(0)
-                : results.T_film_C.toFixed(0)} °{tempUnit}
-            </p>
-            <p className="text-xs text-stone-500 mb-3 italic">
-              Linearly interpolated from Cengel Table A-15 (1 atm)
-            </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">k (thermal cond.)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.k.toFixed(5)} W/(m·K)
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">ν (kinematic visc.)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.nu.toExponential(4)} m²/s
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Pr (Prandtl)</p>
-                <p className="text-stone-200 font-bold">
-                  {results.airProps.Pr.toFixed(4)}
-                </p>
-              </div>
 
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">β (exp. coeff.)</p>
-                <p className="text-stone-200 font-bold">
-                  {(1 / (results.T_film_C + 273.15)).toExponential(4)} 1/K
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Room temp used</p>
-                <p className="text-stone-200 font-bold">{results.T_room} °C</p>
-              </div>
-            </div>
-          </Card>
 
         </div>
       )}
