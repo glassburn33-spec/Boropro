@@ -697,3 +697,11 @@
 - [x] Maintains Churchill-Chu correlation for vertical plates
 - [x] Improved numerical precision with explicit Math.pow functions
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Cylinder Nusselt Calculation
+- [x] Changed cylinder Nusselt formula to use 0.6 + 0.387 * Math.pow(Ra, (1/6))
+- [x] Fixed operator precedence: 0.387 * Ra^(1/6) instead of 0.387 * Ra
+- [x] Uses Math.pow for squaring the entire expression
+- [x] Maintains Churchill-Chu correlation for horizontal cylinders
+- [x] Tests passing (109/112, 3 pre-existing failures)
