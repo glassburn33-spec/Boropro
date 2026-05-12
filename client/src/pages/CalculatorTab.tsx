@@ -285,7 +285,7 @@ function getShapeParameters(inputs: {
       const A_outer    = A_surface;   // all faces exposed
       const mass       = rho * V;
       const Perimeter  = L + t;
-      const Char_leng  = Math.pow(L + W, (1/3));
+      const Char_leng  = L;
       const h_conv     = calcH_plate(Char_leng, T_work, T_room, beta, k, nu, Pr);
 
       // Lumped time constant — matches MATLAB: tau = rho*cp*thickness / h

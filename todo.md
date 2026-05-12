@@ -681,3 +681,11 @@
 - [x] Represents volumetric thermal length scale for plate geometry
 - [x] Affects Rayleigh number calculation in calcH_plate
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Simplify Characteristic Length to L Only
+- [x] Changed Char_leng from Math.pow(L + W, (1/3)) to L
+- [x] Characteristic length now uses only the length dimension
+- [x] Simplified thermal length scale for plate geometry
+- [x] Affects Rayleigh number calculation in calcH_plate
+- [x] Tests passing (109/112, 3 pre-existing failures)
