@@ -339,3 +339,107 @@
 [2026-05-12T16:15:47.490Z] 12:15:47 PM [vite] (client) hmr update /src/index.css
 [2026-05-12T16:17:45.705Z] 12:17:45 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-12T16:18:22.484Z] 12:18:22 PM [vite] (client) hmr update /src/index.css
+[2026-05-12T16:24:45.269Z] 12:24:45 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-12T16:24:45.424Z] 12:24:45 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token (199:82)
+[2026-05-12T16:24:45.425Z] 
+[2026-05-12T16:24:45.425Z] 197 |
+[2026-05-12T16:24:45.425Z] 198 |   // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.426Z] > 199 |   const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.426Z] |                                                                                   ^
+[2026-05-12T16:24:45.426Z] 200 |             Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.426Z] 201 | }
+[2026-05-12T16:24:45.427Z] 202 |
+[2026-05-12T16:24:45.427Z] Plugin: vite:react-babel
+[2026-05-12T16:24:45.427Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:199:82
+[2026-05-12T16:24:45.427Z] 197 |
+[2026-05-12T16:24:45.429Z] 198 |    // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.430Z] 199 |  ...0 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.430Z] |                                                                 ^
+[2026-05-12T16:24:45.431Z] 200 |              Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.431Z] 201 |  }
+[2026-05-12T16:24:45.432Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-12T16:24:45.432Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1503:19)
+[2026-05-12T16:24:45.432Z] at unexpected (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/tokenizer/index.ts:1543:16)
+[2026-05-12T16:24:45.433Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:1350:16)
+[2026-05-12T16:24:45.433Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-12T16:24:45.434Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:734:23)
+[2026-05-12T16:24:45.434Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:713:21)
+[2026-05-12T16:24:45.435Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:675:23)
+[2026-05-12T16:24:45.435Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3855:20)
+[2026-05-12T16:24:45.435Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:409:14)
+[2026-05-12T16:24:45.436Z] at parseExprOpBaseRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:589:12)
+[2026-05-12T16:24:45.436Z] at parseExprOpRightExpr (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:574:21)
+[2026-05-12T16:24:45.436Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:505:27)
+[2026-05-12T16:24:45.437Z] at parseExprOp (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2913:20)
+[2026-05-12T16:24:45.437Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:427:17)
+[2026-05-12T16:24:45.437Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:376:23)
+[2026-05-12T16:24:45.437Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-12T16:24:45.438Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3727:22)
+[2026-05-12T16:24:45.438Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-12T16:24:45.438Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:3187:16)
+[2026-05-12T16:24:45.439Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-12T16:24:45.439Z] at parseVar (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1582:18)
+[2026-05-12T16:24:45.439Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1246:10)
+[2026-05-12T16:24:45.439Z] at parseVarStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3126:33)
+[2026-05-12T16:24:45.440Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:607:21)
+[2026-05-12T16:24:45.440Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T16:24:45.440Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T16:24:45.441Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:426:17)
+[2026-05-12T16:24:45.441Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1439:16)
+[2026-05-12T16:24:45.441Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T16:24:45.442Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1380:10)
+[2026-05-12T16:24:45.442Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:2616:24)
+[2026-05-12T16:24:45.442Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:2585:10)
+[2026-05-12T16:24:45.443Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:2646:20)
+[2026-05-12T16:24:45.443Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1690:12)
+[2026-05-12T16:24:45.443Z] at withSmartMixTopicForbiddingContext (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/expression.ts:3166:14)
+[2026-05-12T16:24:45.444Z] at parseFunction (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1688:10)
+[2026-05-12T16:24:45.444Z] at parseFunctionStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1075:17)
+[2026-05-12T16:24:45.444Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:520:21)
+[2026-05-12T16:24:45.445Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:3185:20)
+[2026-05-12T16:24:45.445Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:477:17)
+[2026-05-12T16:24:45.445Z] at parseModuleItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:414:17)
+[2026-05-12T16:24:45.446Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1438:16)
+[2026-05-12T16:24:45.446Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:1412:10)
+[2026-05-12T16:24:45.446Z] at parseProgram (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:229:10)
+[2026-05-12T16:24:45.446Z] at parseTopLevel (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/statement.ts:203:25)
+[2026-05-12T16:24:45.447Z] at parse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/parser/index.ts:93:10)
+[2026-05-12T16:24:45.447Z] at parse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/plugins/typescript/index.ts:4309:20)
+[2026-05-12T16:24:45.447Z] at parse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.28.4/node_modules/@babel/parser/src/index.ts:92:38)
+[2026-05-12T16:24:45.447Z] at parser (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+core@7.28.4/node_modules/@babel/core/src/parser/index.ts:28:19)
+[2026-05-12T16:24:45.552Z] 12:24:45 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token (199:82)
+[2026-05-12T16:24:45.553Z] 
+[2026-05-12T16:24:45.553Z] 197 |
+[2026-05-12T16:24:45.554Z] 198 |   // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.554Z] > 199 |   const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.554Z] |                                                                                   ^
+[2026-05-12T16:24:45.554Z] 200 |             Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.555Z] 201 | }
+[2026-05-12T16:24:45.555Z] 202 |
+[2026-05-12T16:24:45.555Z] Plugin: vite:react-babel
+[2026-05-12T16:24:45.556Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:199:82
+[2026-05-12T16:24:45.556Z] 197 |
+[2026-05-12T16:24:45.556Z] 198 |    // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.556Z] 199 |  ...0 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.557Z] |                                                                 ^
+[2026-05-12T16:24:45.557Z] 200 |              Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.557Z] 201 |  }
+[2026-05-12T16:24:45.558Z] 12:24:45 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx: Unexpected token (199:82)
+[2026-05-12T16:24:45.558Z] 
+[2026-05-12T16:24:45.558Z] 197 |
+[2026-05-12T16:24:45.558Z] 198 |   // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.559Z] > 199 |   const Ra = (g * cos60 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.559Z] |                                                                                   ^
+[2026-05-12T16:24:45.559Z] 200 |             Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.560Z] 201 | }
+[2026-05-12T16:24:45.560Z] 202 |
+[2026-05-12T16:24:45.560Z] Plugin: vite:react-babel
+[2026-05-12T16:24:45.560Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:199:82
+[2026-05-12T16:24:45.561Z] 197 |
+[2026-05-12T16:24:45.561Z] 198 |    // EDIT RAYLEIGH AND NUSSELT:
+[2026-05-12T16:24:45.561Z] 199 |  ...0 * beta * deltaT * Math.pow(Char_leng, 3) / (nu ** 2)) *   const Nu = (0.825 + 0.387 * Math.pow(Ra, (1/6)) /
+[2026-05-12T16:24:45.562Z] |                                                                 ^
+[2026-05-12T16:24:45.562Z] 200 |              Math.pow((1 + Math.pow((0.492 / Pr), (9/16))), (8/27))) ** 2;  return (k / Char_leng) * Nu;   // [W/(m²·K)]
+[2026-05-12T16:24:45.562Z] 201 |  }
+[2026-05-12T16:24:56.783Z] 12:24:56 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-12T16:25:37.514Z] 12:25:37 PM [vite] (client) hmr update /src/index.css

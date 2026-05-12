@@ -689,3 +689,11 @@
 - [x] Simplified thermal length scale for plate geometry
 - [x] Affects Rayleigh number calculation in calcH_plate
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Nusselt Calculation Parentheses
+- [x] Changed Nusselt formula to (0.825 + 0.387 * Math.pow(Ra, (1/6)) / Math.pow(...)) ** 2
+- [x] Fixed operator precedence: 0.387 * Ra^(1/6) instead of 0.387 * Ra
+- [x] Maintains Churchill-Chu correlation for vertical plates
+- [x] Improved numerical precision with explicit Math.pow functions
+- [x] Tests passing (109/112, 3 pre-existing failures)
