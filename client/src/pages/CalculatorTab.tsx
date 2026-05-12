@@ -1228,12 +1228,7 @@ export function CalculatorTab() {
                   {results.h_conv.toFixed(2)} W/m²·K
                 </p>
               </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Time constant τ</p>
-                <p className="text-stone-200 font-bold">
-                  {results.tau.toFixed(1)} s
-                </p>
-              </div>
+
               <div className="bg-stone-900/60 rounded p-2">
                 <p className="text-stone-400">Q conv.</p>
                 <p className="text-stone-200 font-bold">
@@ -1255,27 +1250,7 @@ export function CalculatorTab() {
             </div>
           </Card>
 
-          {/* KILN TEMPERATURE & FILM TEMPERATURE */}
-          <Card className="bg-stone-800 border-stone-700 p-4">
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">Kiln temp used</p>
-                <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F' 
-                    ? (results.T_work * 9/5 + 32).toFixed(0)
-                    : results.T_work} °{tempUnit}
-                </p>
-              </div>
-              <div className="bg-stone-900/60 rounded p-2">
-                <p className="text-stone-400">T&#8209;film</p>
-                <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F'
-                    ? (results.T_film_C * 9/5 + 32).toFixed(0)
-                    : results.T_film_C.toFixed(0)} °{tempUnit}
-                </p>
-              </div>
-            </div>
-          </Card>
+
 
 
 
