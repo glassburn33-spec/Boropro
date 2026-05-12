@@ -1052,19 +1052,26 @@ export function CalculatorTab() {
           {shape !== 'sphere' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Wall Thickness (mm)
+                Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" value={thickness} min="2" max="10" step="0.1"
-                onChange={(e) => setThickness(e.target.value)}
-                placeholder="2"
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
+                min={tempUnit === 'F' ? '0.08' : '2'} 
+                max={tempUnit === 'F' ? '0.39' : '10'} 
+                step="0.01"
+                onChange={(e) => {
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setThickness(val);
+                }}
+                placeholder={tempUnit === 'F' ? '0.16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
                   thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
                 }`}
               />
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({radius} mm)
+                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(2) : radius} {tempUnit === 'F' ? 'in' : 'mm'})
                 </p>
               )}
             </div>
@@ -1074,12 +1081,19 @@ export function CalculatorTab() {
           {(shape === 'cylinder' || shape === 'sphere') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Diameter (mm)
+                Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" value={radius * 2} min="20" max="50" step="0.1"
-                onChange={(e) => setRadius(parseFloat(e.target.value) / 2 || 0)}
-                placeholder="35"
+                type="number" 
+                value={tempUnit === 'F' ? ((radius * 2) / 25.4).toFixed(3) : (radius * 2)} 
+                min={tempUnit === 'F' ? '0.79' : '20'} 
+                max={tempUnit === 'F' ? '1.97' : '50'} 
+                step="0.01"
+                onChange={(e) => {
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
+                  setRadius(val || 0);
+                }}
+                placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1089,12 +1103,19 @@ export function CalculatorTab() {
           {(shape === 'plate' || shape === 'cylinder') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Length (mm)
+                Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" value={length} min="15" max="100" step="1"
-                onChange={(e) => setLength(e.target.value)}
-                placeholder="50"
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
+                onChange={(e) => {
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setLength(val);
+                }}
+                placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1104,12 +1125,19 @@ export function CalculatorTab() {
           {shape === 'plate' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Width (mm)
+                Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" value={width} min="15" max="100" step="1"
-                onChange={(e) => setWidth(e.target.value)}
-                placeholder="25"
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
+                onChange={(e) => {
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setWidth(val);
+                }}
+                placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
