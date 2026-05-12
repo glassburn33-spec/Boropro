@@ -721,3 +721,12 @@
 - [x] Uses absolute temperature for natural convection driving force
 - [x] Consistent with plate function temperature handling
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Update Sphere Temperature Conversion
+- [x] Added T_work_K and T_room_K Kelvin conversions to calcH_sphere
+- [x] Changed deltaT from surface-to-strain to surface-to-env (T_work_K - T_room_K)
+- [x] Simplified D_sphere to use diameter D directly (removed unnecessary calculation)
+- [x] Uses absolute temperature for natural convection driving force
+- [x] Consistent with plate and cylinder function temperature handling
+- [x] Tests passing (109/112, 3 pre-existing failures)
