@@ -1100,6 +1100,20 @@ export function CalculatorTab() {
             </div>
           )}
 
+          {/* Width — plate only */}
+          {shape === 'plate' && (
+            <div>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">
+                Width (mm)
+              </label>
+              <Input
+                type="number" value={width} min="15" max="100" step="1"
+                onChange={(e) => setWidth(e.target.value)}
+                placeholder="25"
+                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+              />
+            </div>
+          )}
 
         </div>
 
