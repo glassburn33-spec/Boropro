@@ -1283,25 +1283,37 @@ export function CalculatorTab() {
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">h (natural conv.)</p>
                 <p className="text-stone-200 font-bold">
-                  {results.h_conv.toFixed(2)} W/m²·K
+                  {tempUnit === 'F' 
+                    ? `${(results.h_conv * 0.176228).toFixed(2)} Btu/h·ft²·°F`
+                    : `${results.h_conv.toFixed(2)} W/m²·K`
+                  }
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Q conv.</p>
                 <p className="text-stone-200 font-bold">
-                  {results.Q_conv.toFixed(1)} W
+                  {tempUnit === 'F' 
+                    ? `${(results.Q_conv * 3.41214).toFixed(1)} Btu/h`
+                    : `${results.Q_conv.toFixed(1)} W`
+                  }
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Q rad.</p>
                 <p className="text-stone-200 font-bold">
-                  {results.Q_rad.toFixed(1)} W
+                  {tempUnit === 'F' 
+                    ? `${(results.Q_rad * 3.41214).toFixed(1)} Btu/h`
+                    : `${results.Q_rad.toFixed(1)} W`
+                  }
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center border-t border-stone-600 pt-2 mt-2">
                 <p className="text-stone-400">Q total</p>
                 <p className="text-stone-200 font-bold">
-                  {results.Q_total.toFixed(1)} W
+                  {tempUnit === 'F' 
+                    ? `${(results.Q_total * 3.41214).toFixed(1)} Btu/h`
+                    : `${results.Q_total.toFixed(1)} W`
+                  }
                 </p>
               </div>
             </div>
