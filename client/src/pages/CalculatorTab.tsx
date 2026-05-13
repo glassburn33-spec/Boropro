@@ -1259,9 +1259,7 @@ export function CalculatorTab() {
                 {timerLoop ? '🔁 Loop: ON' : '🔁 Loop: OFF'}
               </Button>
 
-              <p className="text-xs text-stone-500 mt-3 text-center">
-                Timer beeps 3× and resets automatically when it reaches zero.
-              </p>
+
             </Card>
           )}
 
