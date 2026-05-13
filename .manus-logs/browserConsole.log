@@ -1000,3 +1000,15 @@
 [2026-05-13T00:52:00.797Z] {"timestamp":1778633518792,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
 [2026-05-13T00:52:00.797Z] {"timestamp":1778633518800,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-13T00:52:00.797Z] {"timestamp":1778633519038,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-13T00:52:05.882Z] {"timestamp":1778633524920,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-13T00:52:15.392Z] {"timestamp":1778633533299,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-13T00:52:15.392Z] {"timestamp":1778633533477,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-13T00:52:18.202Z] {"timestamp":1778633536104,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-13T00:52:18.202Z] {"timestamp":1778633536270,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-13T00:52:37.228Z] {"timestamp":1778633555222,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-13T00:52:37.228Z] {"timestamp":1778633555241,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-13T00:52:37.228Z] {"timestamp":1778633555433,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-13T00:53:21.237Z] {"timestamp":1778633599140,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-13T00:53:21.237Z] {"timestamp":1778633599314,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-13T00:54:03.323Z] {"timestamp":1778633641554,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-13T00:54:03.323Z] {"timestamp":1778633641555,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
