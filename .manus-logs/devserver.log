@@ -1056,3 +1056,5 @@
 [2026-05-13T00:52:04.692Z] 8:52:04 PM [vite] (client) hmr update /src/index.css
 [2026-05-13T00:54:01.152Z] 8:54:01 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-13T00:54:15.581Z] 8:54:15 PM [vite] (client) hmr update /src/index.css
+[2026-05-13T00:57:55.840Z] 8:57:55 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-13T00:58:10.704Z] 8:58:10 PM [vite] (client) hmr update /src/index.css
