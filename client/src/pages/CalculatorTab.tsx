@@ -1195,10 +1195,10 @@ export function CalculatorTab() {
             </div>
           </Card>
 
-          {/* COUNTDOWN TIMER */}
+          {/* REHEAT REMINDER */}
           {timeRemaining !== null && (
             <Card className="bg-stone-800 border-stone-700 p-4">
-              <p className="text-sm font-semibold text-stone-300 mb-3">COUNTDOWN TIMER</p>
+              <p className="text-sm font-semibold text-stone-300 mb-3">REHEAT REMINDER</p>
 
               {/* Timer display */}
               <div className={`text-5xl font-bold text-center mb-4 font-mono tracking-widest ${
