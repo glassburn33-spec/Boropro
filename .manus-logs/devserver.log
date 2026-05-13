@@ -1030,3 +1030,13 @@
 [2026-05-13T00:37:29.066Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [2026-05-13T00:38:30.673Z] 8:38:30 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
 [2026-05-13T00:38:53.762Z] 8:38:53 PM [vite] (client) hmr update /src/index.css
+[2026-05-13T00:42:17.966Z] Starting dev server with command: pnpm run dev
+[2026-05-13T00:42:18.802Z] 
+[2026-05-13T00:42:18.803Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-13T00:42:18.803Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-13T00:42:18.804Z] 
+[2026-05-13T00:42:20.575Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-13T00:42:20.886Z] Server running on http://localhost:3000/
+[2026-05-13T00:42:22.306Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-13T00:43:01.735Z] 8:43:01 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-13T00:43:25.115Z] 8:43:25 PM [vite] (client) hmr update /src/index.css
