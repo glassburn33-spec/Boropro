@@ -900,9 +900,9 @@ export function CalculatorTab() {
 
   return (
     <div className="space-y-4 pb-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-amber-400">Reheat Calculator</h2>
-        <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="Reheat Calculator" className="h-20 w-20 object-contain" />
+      <div className="flex items-center gap-4">
+        <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="Reheat Calculator" className="h-24 w-24 object-contain flex-shrink-0" />
+        <h2 className="text-3xl font-bold text-amber-400">Reheat Calculator</h2>
       </div>
 
       {/* TEMPERATURE UNIT TOGGLE */}
