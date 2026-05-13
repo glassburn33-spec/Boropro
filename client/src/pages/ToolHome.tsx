@@ -50,7 +50,7 @@ export default function ToolHome() {
           {/* Hero Image */}
           <div className="w-full h-full flex justify-center items-center">
             <img 
-              src="/manus-storage/toolshomepageicon_8d350bc8.png" 
+              src="/manus-storage/toolhome_9983abc7.png" 
               alt="Tools and utilities overview" 
               className="w-full max-w-2xl h-full object-contain rounded-lg shadow-lg"
             />
