@@ -1060,3 +1060,5 @@
 [2026-05-13T00:58:10.704Z] 8:58:10 PM [vite] (client) hmr update /src/index.css
 [2026-05-13T00:59:41.430Z] 8:59:41 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
 [2026-05-13T00:59:56.721Z] 8:59:56 PM [vite] (client) hmr update /src/index.css
+[2026-05-13T01:01:46.220Z] 9:01:46 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-13T01:02:30.512Z] 9:02:30 PM [vite] (client) hmr update /src/index.css
