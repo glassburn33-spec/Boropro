@@ -45,14 +45,7 @@ export default function KilnLog() {
           <img src="/manus-storage/kilnlogoage_74b1e98f.png" alt="Kiln" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
         </section>
 
-        {/* Hero */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-6">
-              Kiln Log
-            </h1>
-          </div>
-        </section>
+
 
         {/* Annealing Profile Editor */}
         <section className="border-b border-white/10 py-16">
