@@ -40,6 +40,11 @@ export default function KilnLog() {
       </header>
 
       <main className="flex-1">
+        {/* Header Image */}
+        <section className="border-b border-white/10">
+          <img src="/manus-storage/kilnlogoage_74b1e98f.png" alt="Kiln" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
+        </section>
+
         {/* Hero */}
         <section className="border-b border-white/10 py-16">
           <div className="container max-w-6xl">
