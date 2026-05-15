@@ -863,18 +863,15 @@ export function CalculatorTab() {
 
   function handleReset() {
     setShape('cylinder');
-    setThickness('3.175');  // Reset to 0.125 in (3.175 mm)
-    setRadius('12.7');  // Reset to 1 in diameter (12.7 mm radius)
-    setLength('25.4');  // Reset to 1 in (25.4 mm)
-    setWidth('25.4');  // Reset to 1 in (25.4 mm)
-    // Reset temperatures to defaults based on current unit
-    if (tempUnit === 'C') {
-      setKilnTemp('565');   // Default Celsius kiln temperature
-      setRoomTemp('25');    // Default Celsius room temperature
-    } else {
-      setKilnTemp('1049');  // Default Fahrenheit kiln temperature (565°C converted)
-      setRoomTemp('77');    // Default Fahrenheit room temperature (25°C converted)
-    }
+    // Always reset to Celsius defaults and set unit to C
+    setTempUnit('C');
+    setKilnTemp('565');   // Default Celsius kiln temperature
+    setRoomTemp('25');    // Default Celsius room temperature
+    // Reset dimensions to Celsius defaults: 3.175 mm thickness, 12.7 mm radius, 25.4 mm length/width
+    setThickness('3.175');  // 0.125 in = 3.175 mm
+    setRadius('12.7');      // 1 in diameter = 25.4 mm, so 12.7 mm radius
+    setLength('25.4');      // 1 in = 25.4 mm
+    setWidth('25.4');       // 1 in = 25.4 mm
     setResults(null);
     setError('');
     setHasCalc(false);
