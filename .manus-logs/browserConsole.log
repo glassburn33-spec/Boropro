@@ -1324,3 +1324,14 @@
 [2026-05-15T20:35:13.858Z] {"timestamp":1778877311863,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-15T20:35:13.858Z] {"timestamp":1778877312053,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-15T20:35:15.858Z] {"timestamp":1778877313895,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-15T20:35:32.026Z] {"timestamp":1778877331057,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-15T20:36:03.439Z] {"timestamp":1778877361434,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-15T20:36:03.439Z] {"timestamp":1778877361441,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-15T20:36:03.439Z] {"timestamp":1778877361646,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-15T20:36:05.440Z] {"timestamp":1778877364761,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-15T20:37:50.027Z] {"timestamp":1778877469526,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-15T20:37:50.027Z] {"timestamp":1778877469526,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-15T20:37:59.182Z] {"timestamp":1778877477177,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-15T20:37:59.182Z] {"timestamp":1778877477187,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-15T20:37:59.182Z] {"timestamp":1778877477388,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-15T20:38:01.183Z] {"timestamp":1778877480680,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
