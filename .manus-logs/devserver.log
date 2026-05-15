@@ -1067,3 +1067,14 @@
 [2026-05-13T02:51:21.877Z] 10:51:21 PM [vite] (client) hmr update /src/index.css
 [2026-05-13T03:15:43.404Z] 11:15:43 PM [vite] (client) hmr update /src/index.css
 [2026-05-13T03:53:54.956Z] 11:53:54 PM [vite] (client) hmr update /src/index.css
+[2026-05-14T22:33:50.380Z] Dev server process group stopped
+[2026-05-14T22:33:53.423Z] Starting dev server with command: pnpm run dev
+[2026-05-14T22:33:55.958Z] 
+[2026-05-14T22:33:55.959Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-14T22:33:55.961Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-14T22:33:55.961Z] 
+[2026-05-14T22:34:02.148Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-14T22:34:03.024Z] 6:34:03 PM [vite] (client) Re-optimizing dependencies because lockfile has changed
+[2026-05-14T22:34:03.049Z] Server running on http://localhost:3000/
+[2026-05-14T22:34:04.551Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-15T20:13:49.000Z] 4:13:48 PM [vite] (client) hmr update /src/index.css
