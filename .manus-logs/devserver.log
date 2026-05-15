@@ -1105,3 +1105,38 @@
 [2026-05-15T20:35:30.922Z] 4:35:30 PM [vite] (client) hmr update /src/index.css
 [2026-05-15T20:37:49.211Z] 4:37:49 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-15T20:38:17.160Z] 4:38:17 PM [vite] (client) hmr update /src/index.css
+[2026-05-15T20:42:51.061Z] [Auth] Missing session cookie
+[2026-05-15T20:42:53.262Z] 4:42:53 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-15T20:43:22.891Z] Dev server process group stopped
+[2026-05-15T20:43:22.894Z] ELIFECYCLE  Command failed.
+[2026-05-15T20:43:22.941Z] Dev server exited with code -15
+[2026-05-15T20:43:29.348Z] Starting dev server with command: pnpm run dev
+[2026-05-15T20:43:30.088Z] 
+[2026-05-15T20:43:30.089Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-15T20:43:30.089Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-15T20:43:30.090Z] 
+[2026-05-15T20:43:31.711Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-15T20:43:31.947Z] Server running on http://localhost:3000/
+[2026-05-15T20:43:32.526Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-15T20:43:35.196Z] [Auth] Missing session cookie
+[2026-05-15T20:43:58.869Z] Dev server process group stopped
+[2026-05-15T20:43:58.872Z] ELIFECYCLE  Command failed.
+[2026-05-15T20:43:58.965Z] Dev server exited with code -15
+[2026-05-15T20:44:04.839Z] Starting dev server with command: pnpm run dev
+[2026-05-15T20:44:05.647Z] 
+[2026-05-15T20:44:05.648Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-15T20:44:05.648Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-15T20:44:05.648Z] 
+[2026-05-15T20:44:07.415Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-15T20:44:07.696Z] Server running on http://localhost:3000/
+[2026-05-15T20:44:08.520Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-15T20:44:18.802Z] [Auth] Missing session cookie
+[2026-05-15T20:44:49.338Z] [Auth] Missing session cookie
+[2026-05-15T20:46:53.751Z] [Auth] Missing session cookie
+[2026-05-15T20:47:03.143Z] 4:47:03 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-15T20:47:03.208Z] [Auth] Missing session cookie
+[2026-05-15T20:47:21.233Z] 4:47:21 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-15T20:47:33.817Z] [Auth] Missing session cookie
+[2026-05-15T20:47:41.158Z] [Auth] Missing session cookie
+[2026-05-15T20:47:47.027Z] [Auth] Missing session cookie
+[2026-05-15T20:47:52.304Z] 4:47:52 PM [vite] (client) hmr update /src/index.css
