@@ -8,7 +8,38 @@ import { CalculatorTab } from "./CalculatorTab";
 export default function Calculator() {
   return (
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
-      <CalculatorTab />
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-4">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
+          </a>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Color
+            </a>
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Flame Char
+            </a>
+            <a href="/calculator" className="text-xs uppercase tracking-wider text-amber-500">
+              Reheat Calc
+            </a>
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Kiln Log
+            </a>
+            <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Log
+            </a>
+            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              References
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main className="flex-1">
+        <CalculatorTab />
+      </main>
     </div>
   );
 }
