@@ -1192,3 +1192,6 @@
 [2026-05-15T21:08:30.549Z] 5:08:30 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
 [2026-05-15T21:08:49.902Z] 5:08:49 PM [vite] (client) hmr update /src/pages/Calculator.tsx, /src/index.css
 [2026-05-15T21:09:16.087Z] 5:09:16 PM [vite] (client) hmr update /src/index.css
+[2026-05-15T21:11:12.511Z] 5:11:12 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-15T21:13:06.149Z] 5:13:06 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-15T21:13:29.884Z] 5:13:29 PM [vite] (client) hmr update /src/index.css

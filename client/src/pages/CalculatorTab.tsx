@@ -689,12 +689,11 @@ export function CalculatorTab() {
   const widthParam = searchParams.get('width');
   
   const [shape,     setShape]     = useState<string>(shapeParam || 'cylinder');
-  // Defaults: 4 mm (0.157 in), 25 mm diameter (0.984 in), 25 mm length (0.984 in), 25 mm width (0.984 in)
-  // For F inputs: 0.125 in thickness, 1 in diameter, 1 in length
-  const [thickness, setThickness] = useState<string>(thicknessParam || '3.175');  // 0.125 in = 3.175 mm
-  const [radius,    setRadius]    = useState<string>(radiusParam || '12.7');  // 1 in diameter = 25.4 mm, so 12.7 mm radius
-  const [length,    setLength]    = useState<string>(lengthParam || '25.4');  // 1 in = 25.4 mm
-  const [width,     setWidth]     = useState<string>(widthParam || '25.4');  // 1 in = 25.4 mm
+  // Defaults: 4 mm thickness, 25 mm diameter (12.5 mm radius), 25 mm length, 25 mm width (Celsius)
+  const [thickness, setThickness] = useState<string>(thicknessParam || '4');  // 4 mm
+  const [radius,    setRadius]    = useState<string>(radiusParam || '12.5');  // 25 mm diameter = 12.5 mm radius
+  const [length,    setLength]    = useState<string>(lengthParam || '25');  // 25 mm
+  const [width,     setWidth]     = useState<string>(widthParam || '25');  // 25 mm
   const [kilnTemp,  setKilnTemp]  = useState<string>(kilnTempParam || '565');
   const [roomTemp,  setRoomTemp]  = useState<string>(roomTempParam || '25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
