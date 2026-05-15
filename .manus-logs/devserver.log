@@ -1082,3 +1082,14 @@
 [2026-05-15T20:16:56.759Z] 4:16:56 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
 [2026-05-15T20:17:09.898Z] 4:17:09 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
 [2026-05-15T20:18:22.338Z] 4:18:22 PM [vite] (client) hmr update /src/index.css
+[2026-05-15T20:26:08.947Z] 4:26:08 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-15T20:26:47.986Z] 4:26:47 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-15T20:26:53.007Z] 4:26:53 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-15T20:26:58.885Z] 4:26:58 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-15T20:27:08.651Z] 4:27:08 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-15T20:27:26.537Z] 4:27:26 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-15T20:27:36.228Z] [Auth] Missing session cookie
+[2026-05-15T20:27:36.585Z] 4:27:36 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
+[2026-05-15T20:27:46.043Z] 4:27:46 PM [vite] (client) hmr update /src/pages/ColorPicker.tsx, /src/index.css
+[2026-05-15T20:27:56.414Z] 4:27:56 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-15T20:28:21.113Z] 4:28:21 PM [vite] (client) hmr update /src/index.css
