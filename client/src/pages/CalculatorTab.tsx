@@ -1292,7 +1292,7 @@ export function CalculatorTab() {
             </p>
             <div className="space-y-2 text-xs">
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
-                <p className="text-stone-400">h (natural conv.)</p>
+                <p className="text-stone-400">Convective heat transfer coefficient</p>
                 <p className="text-stone-200 font-bold">
                   {tempUnit === 'F' 
                     ? `${(results.h_conv * 0.176228).toFixed(2)} Btu/h·ft²·°F`
@@ -1301,7 +1301,7 @@ export function CalculatorTab() {
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
-                <p className="text-stone-400">Q conv.</p>
+                <p className="text-stone-400">Convection rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
                   {tempUnit === 'F' 
                     ? `${(results.Q_conv * 3.41214).toFixed(1)} Btu/h`
@@ -1310,7 +1310,7 @@ export function CalculatorTab() {
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
-                <p className="text-stone-400">Q rad.</p>
+                <p className="text-stone-400">Radiation rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
                   {tempUnit === 'F' 
                     ? `${(results.Q_rad * 3.41214).toFixed(1)} Btu/h`
@@ -1319,7 +1319,7 @@ export function CalculatorTab() {
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center border-t border-stone-600 pt-2 mt-2">
-                <p className="text-stone-400">Q total</p>
+                <p className="text-stone-400">Total rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
                   {tempUnit === 'F' 
                     ? `${(results.Q_total * 3.41214).toFixed(1)} Btu/h`
