@@ -23,7 +23,6 @@
  */
 
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "wouter";
 import { AlertCircle, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -679,10 +678,6 @@ function exportToPDF(results: ReturnType<typeof runCalculation>, shape: string, 
 // ============================================================
 
 export function CalculatorTab() {
-  const [searchParams] = useSearchParams();
-  const kilnTempParam = searchParams.get('kilnTemp');
-  const roomTempParam = searchParams.get('roomTemp');
-  
   const [shape,     setShape]     = useState<string>('cylinder');
   // Defaults: 4 mm (0.157 in), 25 mm diameter (0.984 in), 25 mm length (0.984 in), 25 mm width (0.984 in)
   // For F inputs: 0.125 in thickness, 1 in diameter, 1 in length
@@ -690,8 +685,8 @@ export function CalculatorTab() {
   const [radius,    setRadius]    = useState<string>('12.7');  // 1 in diameter = 25.4 mm, so 12.7 mm radius
   const [length,    setLength]    = useState<string>('25.4');  // 1 in = 25.4 mm
   const [width,     setWidth]     = useState<string>('25.4');  // 1 in = 25.4 mm
-  const [kilnTemp,  setKilnTemp]  = useState<string>(kilnTempParam || '565');
-  const [roomTemp,  setRoomTemp]  = useState<string>(roomTempParam || '25');
+  const [kilnTemp,  setKilnTemp]  = useState<string>('565');
+  const [roomTemp,  setRoomTemp]  = useState<string>('25');
   const [results,   setResults]   = useState<ReturnType<typeof runCalculation> | null>(null);
   const [error,     setError]     = useState<string>('');
   const [hasCalc,   setHasCalc]   = useState<boolean>(false);
