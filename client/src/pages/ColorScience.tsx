@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Accordion } from '@/components/Accordion';
+import { ColorSwatch, ColorSwatchRow, InlineColorSwatch } from '@/components/ColorSwatch';
 
 
 export default function ColorScienceTab() {
@@ -78,15 +79,26 @@ export default function ColorScienceTab() {
                 className="w-full h-auto object-contain"
               />
             </div>
-            <div className="bg-stone-800/30 rounded-lg p-6 space-y-3 text-sm text-stone-300">
-              <div>
-                <span className="text-purple-300 font-semibold">[4]Ni (Four-coordinate):</span> Maximum energy transitions (~15,000–21,000 cm⁻¹). Generates indigo coloration in large-alkali-containing glasses.
-              </div>
-              <div>
-                <span className="text-amber-500 font-semibold">[5]Ni (Five-coordinate):</span> Intermediate energy transitions (~19,000–25,000 cm⁻¹). Generates brown coloration via broad, displaced absorption feature.
-              </div>
-              <div>
-                <span className="text-green-400 font-semibold">[6]Ni (Six-coordinate):</span> Minimum energy transitions ({'>'}23,000 cm⁻¹). Generates green coloration with attenuated visible-region absorption.
+            <div className="bg-stone-800/30 rounded-lg p-6 space-y-6 text-sm text-stone-300">
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <ColorSwatch color="#4B5563" name="Indigo" size="md" showLabel={false} />
+                  <div>
+                    <span className="text-purple-300 font-semibold">[4]Ni (Four-coordinate):</span> Maximum energy transitions (~15,000–21,000 cm⁻¹). Generates indigo coloration in large-alkali-containing glasses.
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <ColorSwatch color="#8B6F47" name="Brown" size="md" showLabel={false} />
+                  <div>
+                    <span className="text-amber-500 font-semibold">[5]Ni (Five-coordinate):</span> Intermediate energy transitions (~19,000–25,000 cm⁻¹). Generates brown coloration via broad, displaced absorption feature.
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <ColorSwatch color="#5FA87C" name="Green" size="md" showLabel={false} />
+                  <div>
+                    <span className="text-green-400 font-semibold">[6]Ni (Six-coordinate):</span> Minimum energy transitions ({'>'}23,000 cm⁻¹). Generates green coloration with attenuated visible-region absorption.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -172,8 +184,18 @@ export default function ColorScienceTab() {
                   className="w-full h-auto object-contain"
                 />
               </div>
-              <div className="bg-stone-800/30 rounded-lg p-4 text-sm text-stone-300 space-y-3">
+              <div className="bg-stone-800/30 rounded-lg p-4 text-sm text-stone-300 space-y-4">
                 <p className="font-semibold text-amber-300">Comparative Absorbance Profiles: Chromium Oxidation State Differentiation</p>
+                <div className="flex gap-6 justify-center py-4">
+                  <div className="flex flex-col items-center gap-2">
+                    <ColorSwatch color="#7030A0" name="Cr(III)" size="md" showLabel={false} />
+                    <p className="text-xs text-stone-400">Purple (Cr³⁺)</p>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <ColorSwatch color="#FFD700" name="Cr(VI)" size="md" showLabel={false} />
+                    <p className="text-xs text-stone-400">Yellow (Cr⁶⁺)</p>
+                  </div>
+                </div>
                 <p>
                   This dataset presents linear absorbance characteristics of Cr(III) and Cr(VI) species across soda-lime-silica (SLS) and sodium borosilicate (NBS) glass matrices. The <span className="text-purple-300 font-semibold">Cr(III) absorption maximum</span> manifests near 15,000 cm⁻¹ (purple spectral region), whereas the <span className="text-yellow-300 font-semibold">Cr(VI) oxygen-transfer band</span> emerges approximately 28,000 cm⁻¹ (near-ultraviolet boundary). The substantial differential in peak magnitudes demonstrates Cr(VI) spectroscopic dominance, effectively suppressing Cr(III) detection in optical analysis despite spatially-separated absorption features.
                 </p>
@@ -215,7 +237,21 @@ export default function ColorScienceTab() {
 
           <div className="space-y-6 text-stone-200 leading-relaxed">
             <p>
-              Thermal energy induces <span className="font-semibold text-amber-300">dramatic chromatic transformations</span> in glass matrices. Representative examples include <span className="text-blue-300 font-semibold">tan-colored nickel-doped glasses</span> transitioning to <span className="text-green-300 font-semibold">cyan or emerald</span>, and <span className="text-yellow-300 font-semibold">chromium-doped glasses exhibiting yellow coloration</span>. This reversible phenomenon, designated <span className="font-semibold">thermochromic behavior</span>, originates from thermally-activated modifications in metal ion coordination geometry and relative site occupancy distributions.
+              Thermal energy induces <span className="font-semibold text-amber-300">dramatic chromatic transformations</span> in glass matrices. Representative examples include:
+            </p>
+            <div className="flex gap-6 justify-center py-4 flex-wrap">
+              <div className="flex flex-col items-center gap-2">
+                <ColorSwatch color="#D4A574" name="Tan" size="md" showLabel={false} />
+                <p className="text-xs text-stone-400">Tan (Cool)</p>
+              </div>
+              <div className="text-stone-400 flex items-center">→</div>
+              <div className="flex flex-col items-center gap-2">
+                <ColorSwatch color="#00CED1" name="Cyan" size="md" showLabel={false} />
+                <p className="text-xs text-stone-400">Cyan (Hot)</p>
+              </div>
+            </div>
+            <p>
+              This reversible phenomenon, designated <span className="font-semibold">thermochromic behavior</span>, originates from thermally-activated modifications in metal ion coordination geometry and relative site occupancy distributions.
             </p>
 
             <p>
