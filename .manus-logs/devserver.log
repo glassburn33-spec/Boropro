@@ -1160,3 +1160,8 @@
 [2026-05-15T20:53:26.017Z] [Auth] Missing session cookie
 [2026-05-15T20:54:19.154Z] 4:54:19 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-15T20:54:49.932Z] 4:54:49 PM [vite] (client) hmr update /src/index.css
+[2026-05-15T20:55:15.525Z] [Auth] Missing session cookie
+[2026-05-15T20:55:36.206Z] [Auth] Missing session cookie
+[2026-05-15T20:57:26.399Z] 4:57:26 PM [vite] (client) hmr update /src/pages/Calculator.tsx, /src/index.css
+[2026-05-15T20:57:50.850Z] [Auth] Missing session cookie
+[2026-05-15T20:57:55.732Z] 4:57:55 PM [vite] (client) hmr update /src/index.css
