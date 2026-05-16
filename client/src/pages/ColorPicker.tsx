@@ -646,53 +646,7 @@ ${combinedSchedule.rationale}`;
           ))}
         </div>
 
-        {/* Combined Schedule Display */}
-        {combinedSchedule && (
-          <div className="border border-amber-500 bg-stone-900 p-6 rounded-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-6 h-6 text-amber-400" />
-              <h2 className="text-2xl font-bold text-white">Combined Schedule</h2>
-            </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div>
-                <p className="text-stone-400 text-sm mb-1">Anneal Temperature</p>
-                <p className="text-3xl font-bold text-amber-400">{combinedSchedule.annealTemp}°F</p>
-              </div>
-              <div>
-                <p className="text-stone-400 text-sm mb-1">Strain Temperature</p>
-                <p className="text-3xl font-bold text-amber-400">{combinedSchedule.strainTemp}°F</p>
-              </div>
-            </div>
-
-            <p className="text-stone-300 mb-6">{combinedSchedule.rationale}</p>
-
-            {combinedSchedule.warnings.length > 0 && (
-              <div className="mb-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className="w-5 h-5 text-amber-400" />
-                  <h3 className="font-bold text-amber-400">Warnings & Considerations</h3>
-                </div>
-                <ul className="space-y-2">
-                  {combinedSchedule.warnings.map((warning, idx) => (
-                    <li key={idx} className="text-sm text-stone-300 flex gap-2">
-                      <span className="text-amber-400 flex-shrink-0">•</span>
-                      <span>{warning}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <button
-              onClick={handleExport}
-              className="flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-sm transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              Export Schedule
-            </button>
-          </div>
-        )}
 
         {selectedColors.length === 0 && !searchQuery && (
           <div className="text-center py-12 text-stone-500">

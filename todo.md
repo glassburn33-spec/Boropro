@@ -802,3 +802,10 @@
   - [x] Removed colorhistorytable_72ac83b4.png image reference
   - [x] Removed elemental chromophore findings section
   - [x] Verified ColorScience component renders without errors
+- [x] Remove Combined Schedule section from ColorPicker tab
+  - [x] Removed entire Combined Schedule Display block (47 lines)
+  - [x] Removed Anneal Temperature and Strain Temperature display
+  - [x] Removed rationale paragraph rendering
+  - [x] Removed Warnings & Considerations section
+  - [x] Removed Export Schedule button and handler
+  - [x] Verified ColorPicker component renders without errors
