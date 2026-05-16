@@ -3178,3 +3178,28 @@
 [2026-05-16T20:17:22.364Z] {"timestamp":1778962640369,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T20:17:22.364Z] {"timestamp":1778962640598,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T20:17:26.364Z] {"timestamp":1778962645199,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:17:44.436Z] {"timestamp":1778962664102,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:17:44.759Z] {"timestamp":1778962662748,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:18:18.309Z] {"timestamp":1778962696301,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:18:18.309Z] {"timestamp":1778962696314,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:18:18.309Z] {"timestamp":1778962696536,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:18:22.307Z] {"timestamp":1778962701382,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:19:33.448Z] {"timestamp":1778962771149,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:19:33.448Z] {"timestamp":1778962771279,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:19:33.448Z] {"timestamp":1778962771823,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:20:12.766Z] {"timestamp":1778962811369,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:12.766Z] {"timestamp":1778962811369,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:13.471Z] {"timestamp":1778962812434,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:13.471Z] {"timestamp":1778962812435,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:14.437Z] {"timestamp":1778962812661,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:14.437Z] {"timestamp":1778962812661,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:22.762Z] {"timestamp":1778962821162,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:22.762Z] {"timestamp":1778962821162,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:23.478Z] {"timestamp":1778962822315,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:23.478Z] {"timestamp":1778962822316,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:24.437Z] {"timestamp":1778962822522,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:20:24.437Z] {"timestamp":1778962822522,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
+[2026-05-16T20:20:31.740Z] {"timestamp":1778962829734,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:20:31.740Z] {"timestamp":1778962829744,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:20:31.740Z] {"timestamp":1778962829980,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:20:33.740Z] {"timestamp":1778962833684,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

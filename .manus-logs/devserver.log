@@ -3215,3 +3215,6 @@
 [2026-05-16T20:17:06.367Z] 4:17:06 PM [vite] (client) hmr update /src/index.css, /src/components/ColorFamilyList.tsx
 [2026-05-16T20:17:13.266Z] 4:17:13 PM [vite] (client) hmr update /src/index.css, /src/components/ColorFamilyList.tsx
 [2026-05-16T20:17:43.982Z] 4:17:43 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T20:20:12.476Z] 4:20:12 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
+[2026-05-16T20:20:22.351Z] 4:20:22 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
+[2026-05-16T20:20:51.679Z] 4:20:51 PM [vite] (client) hmr update /src/index.css
