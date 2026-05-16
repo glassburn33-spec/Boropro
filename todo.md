@@ -854,3 +854,14 @@
   - [x] Removed "4." from Temperature Dependence section
   - [x] Removed "5." from Phase Separation section
   - [x] Removed "6." from Iron and Sulfur section
+- [ ] Add full-screen image expansion to Equipment Science tab sections
+  - [ ] Identify all images in Flame Structure section
+  - [ ] Identify all images in Flame Types section
+  - [ ] Identify all images in Flame Annealing section
+  - [ ] Identify all images in Spectroscopy section
+  - [ ] Identify all images in Temperature Measurement section
+  - [ ] Identify all images in Flame Stability section
+  - [ ] Identify all images in Safety section
+  - [ ] Identify all images in Flashback section
+  - [ ] Apply click handlers and modal functionality to all images
+  - [ ] Test full-screen expansion on mobile and desktop

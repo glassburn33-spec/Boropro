@@ -6,7 +6,7 @@ Dark theme for studio environment, large touch targets for gloved hands
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "wouter";
-import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X } from "lucide-react";
+import { Home as HomeIcon, Zap, Calculator, Palette, ChevronDown, Menu, X, ZoomIn } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { StudioScienceIcon } from "@/components/icons/StudioScienceIcon";
 import { GlassRodsIcon } from "@/components/icons/GlassRodsIcon";
@@ -44,6 +44,7 @@ export default function Home() {
   const [showSearchResults, setShowSearchResults] = useState(false);
 
   const [showDrawer, setShowDrawer] = useState(false);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   // Update active tab when URL parameter changes
   useEffect(() => {
@@ -942,6 +943,7 @@ function QuickActionCard({
 }
 
 function ScieEquipTab() {
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const accordionItems = [
     {
       id: 'flame-structure',
@@ -953,11 +955,16 @@ function ScieEquipTab() {
           </p>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/flamediagram_78aea61e.png" 
-              alt="Flame structure showing primary combustion zone, interzonal region, and secondary combustion zone with optical path"
-              className="w-full max-w-2xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-2xl" onClick={() => setExpandedImage('/manus-storage/flamediagram_78aea61e.png')}>
+              <img 
+                src="/manus-storage/flamediagram_78aea61e.png" 
+                alt="Flame structure showing primary combustion zone, interzonal region, and secondary combustion zone with optical path"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <p className="text-stone-300 leading-relaxed">
@@ -965,11 +972,16 @@ function ScieEquipTab() {
           </p>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/gastables_c580dfb1.png" 
-              alt="Table showing fuels and oxidants used for flame combustion with temperature ranges"
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/gastables_c580dfb1.png')}>
+              <img 
+                src="/manus-storage/gastables_c580dfb1.png" 
+                alt="Table showing fuels and oxidants used for flame combustion with temperature ranges"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -999,11 +1011,16 @@ function ScieEquipTab() {
               Carburizing flame characteristics arise from acetylene surplus conditions, identifiable by an intermediate thermal zone positioned between the central cone and outer envelope. This intermediate zone exhibits diminished luminosity and pale coloration relative to the central cone, yet maintains considerably greater brightness than the peripheral envelope. This gentle flame configuration (alternatively termed a reducing flame) proves advantageous for aluminum and aluminum-based alloy joining and for low-temperature soldering operations.
             </p>
             <div className="flex justify-center my-4">
-              <img 
-                src="/manus-storage/reductinonflame_e88e8e04.webp" 
-                alt="Carburizing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
-                className="w-full max-w-3xl rounded-lg border border-stone-600"
-              />
+              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/reductinonflame_e88e8e04.webp')}>
+                <img 
+                  src="/manus-storage/reductinonflame_e88e8e04.webp" 
+                  alt="Carburizing flame showing torch nozzle with bright blue-white inner core transitioning to multicolored flame with magenta, purple, yellow, orange, and rainbow-colored feather extending outward"
+                  className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                  <ZoomIn className="w-8 h-8 text-white" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1013,11 +1030,16 @@ function ScieEquipTab() {
               Neutral flame morphology reveals two distinct thermal stratifications. The central luminous zone emits brilliant white-cyan radiation and occupies minimal distance from the torch aperture. The surrounding thermal mantle displays subdued coloration and reduced radiance intensity. This equilibrium flame configuration enables metallurgically neutral operations, facilitating steel joining, thermal processing, and sectioning without chemical modification. A subtle reducing microzone precedes the central luminous region. Though visually elusive and perceptually challenging, this zone establishes the reducing chemical environment essential for flux-free steel joining operations.
             </p>
             <div className="flex justify-center my-4">
-              <img 
-                src="/manus-storage/neutralizingflame_37453d37.webp" 
-                alt="Neutral flame showing torch nozzle with bright cyan-white inner core transitioning to multicolored flame with blue, purple, magenta, and rainbow-colored feather extending outward"
-                className="w-full max-w-3xl rounded-lg border border-stone-600"
-              />
+              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/neutralizingflame_37453d37.webp')}>
+                <img 
+                  src="/manus-storage/neutralizingflame_37453d37.webp" 
+                  alt="Neutral flame showing torch nozzle with bright cyan-white inner core transitioning to multicolored flame with blue, purple, magenta, and rainbow-colored feather extending outward"
+                  className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                  <ZoomIn className="w-8 h-8 text-white" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1027,11 +1049,16 @@ function ScieEquipTab() {
               Oxidizing flame manifestation occurs through incremental oxygen augmentation beyond the secondary zone elimination threshold. This flame exhibits abbreviated overall extent and intensified sharpness relative to neutral configurations, featuring a diminished and acutely tapered central cone. Thermal intensity marginally surpasses neutral flame output, establishing applicability for ferrous casting joining, copper-based alloy fabrication, zinc-containing alloy operations, and specialized brazing procedures.
             </p>
             <div className="flex justify-center my-4">
-              <img 
-                src="/manus-storage/oxydizingflame_8b8072d2.webp" 
-                alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
-                className="w-full max-w-3xl rounded-lg border border-stone-600"
-              />
+              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/oxydizingflame_8b8072d2.webp')}>
+                <img 
+                  src="/manus-storage/oxydizingflame_8b8072d2.webp" 
+                  alt="Oxidizing flame showing torch nozzle with sharp white-bluish inner core transitioning to multicolored flame with blue, cyan, magenta, orange, and rainbow-colored feather extending outward"
+                  className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                  <ZoomIn className="w-8 h-8 text-white" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1047,11 +1074,16 @@ function ScieEquipTab() {
           </p>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/glassflameanealing_ac208885.png" 
-              alt="Glass flame annealing technique showing borosilicate glass piece being heated in a flame with soot coating distribution visible"
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/glassflameanealing_ac208885.png')}>
+              <img 
+                src="/manus-storage/glassflameanealing_ac208885.png" 
+                alt="Glass flame annealing technique showing borosilicate glass piece being heated in a flame with soot coating distribution visible"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1062,11 +1094,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/sootplot_e2efdeba.png" 
-              alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
-              className="w-full max-w-2xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-2xl" onClick={() => setExpandedImage('/manus-storage/sootplot_e2efdeba.png')}>
+              <img 
+                src="/manus-storage/sootplot_e2efdeba.png" 
+                alt="Soot volume fraction vs O2 in oxidant percentage showing logarithmic relationship with data points ranging from 10^-2 to 10^3 ppb at 25-45% O2 concentrations"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1399,6 +1436,31 @@ function ScieEquipTab() {
         <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Equipment Science</h1>
       </div>
       <CustomAccordion items={accordionItems} allowMultiple={true} />
+
+      {/* Full-screen image modal */}
+      {expandedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setExpandedImage(null)}
+          onKeyDown={(e) => e.key === 'Escape' && setExpandedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            <img 
+              src={expandedImage} 
+              alt="Expanded view"
+              className="w-full h-full object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 bg-stone-900/80 hover:bg-stone-900 text-white p-2 rounded-full transition-colors"
+              aria-label="Close image"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
