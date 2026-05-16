@@ -576,30 +576,38 @@ ${combinedSchedule.rationale}`;
             <div key={color.name}>
               {/* Color Item - Slender Row */}
               <div
-                onClick={() => toggleColor(color.name)}
                 className={`p-3 border cursor-pointer transition-all rounded-sm flex items-center justify-between ${
                   selectedColors.includes(color.name)
                     ? "border-amber-400 bg-amber-400 bg-opacity-10"
                     : "border-stone-700 hover:border-amber-500 bg-stone-900 hover:bg-stone-800"
                 }`}
               >
-                <div className="flex-1 flex items-center gap-3">
+                {/* Left section: Color name and family - clickable for expansion */}
+                <div
+                  onClick={() => setExpandedColor(expandedColor === color.name ? null : color.name)}
+                  className="flex-1 flex items-center gap-3 cursor-pointer"
+                >
                   <h3 className="text-sm font-bold text-white">{color.name}</h3>
                   <span className="text-xs text-amber-400">{color.family}</span>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedColor(expandedColor === color.name ? null : color.name);
-                  }}
-                  className="text-stone-400 hover:text-amber-400 transition-colors ml-2"
-                >
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${expandedColor === color.name ? "rotate-180" : ""}`}
+                    className={`transition-transform text-stone-400 ml-auto mr-2 ${
+                      expandedColor === color.name ? "rotate-180" : ""
+                    }`}
                   />
+                </div>
+                {/* Right section: Checkbox for selection */}
+                <button
+                  onClick={() => toggleColor(color.name)}
+                  className="text-stone-400 hover:text-amber-400 transition-colors flex-shrink-0"
+                  aria-label={`${selectedColors.includes(color.name) ? "Deselect" : "Select"} ${color.name}`}
+                >
+                  {selectedColors.includes(color.name) ? (
+                    <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                  ) : (
+                    <div className="w-5 h-5 border-2 border-stone-400 rounded-full" />
+                  )}
                 </button>
-                {selectedColors.includes(color.name) && <CheckCircle2 className="w-4 h-4 text-amber-400 ml-2" />}
               </div>
 
               {/* Expanded Description */}
