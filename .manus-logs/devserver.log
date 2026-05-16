@@ -1214,3 +1214,6 @@
 [2026-05-16T18:27:08.247Z] [Auth] Missing session cookie
 [2026-05-16T18:27:26.038Z] [Auth] Missing session cookie
 [2026-05-16T18:27:26.353Z] 2:27:26 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T18:29:09.620Z] 2:29:09 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-16T18:29:22.616Z] 2:29:22 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-16T18:29:59.316Z] 2:29:59 PM [vite] (client) hmr update /src/index.css
