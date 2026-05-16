@@ -894,3 +894,11 @@
   - [x] Updated all 6 accordion triggers with responsive classes and break-words
   - [x] Verified mobile responsiveness matches Color-Science tab pattern
 - [x] Remove References nav button from ColorScience hamburger menu
+- [x] Update hamburger dropdown menu text to yellow across all tabs
+  - [x] Applied yellow text color (text-yellow-400) to ColorScience tab dropdown menu
+  - [x] Applied yellow text color (text-yellow-400) to GlassScience tab dropdown menu (both StudioTab and ScieEquipTab share same menu)
+  - [x] Equipment Science tab uses same hamburger menu as GlassScience - styling applied
+- [x] Change hamburger button icon color to yellow across all tabs
+  - [x] Changed Menu icon color to yellow (text-yellow-400) in ColorScience tab
+  - [x] Changed Menu icon color to yellow (text-yellow-400) in GlassScience tab
+  - [x] Hamburger button styling is now consistent across all tabs with yellow icons and yellow dropdown text

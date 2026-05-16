@@ -549,7 +549,7 @@ export default function ColorScienceTab() {
               className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
               aria-label="Toggle navigation menu"
             >
-              <Menu className="w-6 h-6 text-stone-300" />
+              <Menu className="w-6 h-6 text-yellow-400" />
             </button>
             
             {/* Dropdown Menu */}
@@ -558,28 +558,28 @@ export default function ColorScienceTab() {
                 <a
                   href="/explore?tab=studio"
                   onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Glass-Science
                 </a>
                 <a
                   href="/explore?tab=scieequip"
                   onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Scie-Equip
                 </a>
                 <a
                   href="/explore?tab=colorscience"
                   onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Color-Scie
                 </a>
                 <a
                   href="/tools"
                   onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-stone-300 hover:bg-stone-700 hover:text-amber-400 transition block"
+                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
                 >
                   Tools
                 </a>
