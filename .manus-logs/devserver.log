@@ -3173,3 +3173,5 @@
 [2026-05-16T19:43:00.438Z] 1130 |                                tempSvgContainer.style.left = '-9999px';
 [2026-05-16T19:43:23.617Z] 3:43:23 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-16T19:43:57.638Z] 3:43:57 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T19:44:43.452Z] 3:44:43 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
+[2026-05-16T19:45:11.165Z] 3:45:11 PM [vite] (client) hmr update /src/index.css

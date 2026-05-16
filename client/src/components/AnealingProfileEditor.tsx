@@ -1019,11 +1019,15 @@ export default function AnealingProfileEditor() {
 
 
       {/* Plot */}
-      <div className="flex justify-center">
+      <div className="w-full flex justify-center">
         <div 
           onClick={() => setExpandedPlot(true)}
-          className="cursor-pointer hover:opacity-80 transition-opacity max-w-full overflow-x-auto"
+          className="cursor-pointer hover:opacity-80 transition-opacity w-full overflow-x-auto overflow-y-hidden"
           title="Click to expand"
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }}
         >
           {plotSvg}
         </div>
@@ -1031,10 +1035,10 @@ export default function AnealingProfileEditor() {
 
       {/* Expanded Plot Modal */}
       {expandedPlot && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-          <div className="bg-stone-900 border border-stone-700 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
-            <div className="sticky top-0 bg-stone-800 border-b border-stone-700 p-4 flex justify-between items-center">
-              <h3 className="text-lg font-bold text-amber-400">Heat Treatment Profile</h3>
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg w-full h-full sm:max-w-4xl sm:max-h-[90vh] overflow-hidden flex flex-col">
+            <div className="sticky top-0 bg-stone-800 border-b border-stone-700 p-3 sm:p-4 flex justify-between items-center flex-shrink-0">
+              <h3 className="text-base sm:text-lg font-bold text-amber-400">Heat Treatment Profile</h3>
               <button
                 onClick={() => setExpandedPlot(false)}
                 className="text-stone-400 hover:text-white transition-colors text-2xl leading-none"
@@ -1042,8 +1046,10 @@ export default function AnealingProfileEditor() {
                 ×
               </button>
             </div>
-            <div className="p-4 flex justify-center overflow-x-auto">
-              {plotSvg}
+            <div className="flex-1 p-2 sm:p-4 flex justify-center overflow-auto w-full" style={{ overscrollBehavior: 'contain' }}>
+              <div style={{ minWidth: 'min-content', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {plotSvg}
+              </div>
             </div>
           </div>
         </div>
