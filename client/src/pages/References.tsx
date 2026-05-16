@@ -3,8 +3,8 @@ References Page - Comprehensive bibliography and scientific sources
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
+import React, { useState } from "react";
 import { ExternalLink, ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -333,9 +333,9 @@ export default function References() {
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
-        <div className="container flex items-center justify-between py-4">
+        <div className="container flex items-center justify-between py-3 md:py-4 px-3 md:px-0">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-16 md:h-24 w-16 md:w-24 object-contain" />
           </a>
           
           {/* Desktop Navigation */}
@@ -425,53 +425,53 @@ export default function References() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="border-b border-white/10 py-16">
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
           <div className="container">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">References</h1>
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">References</h1>
           </div>
         </section>
 
         {/* References by Category - Accordion */}
-        <section className="py-12">
-          <div className="container max-w-4xl">
-            <Accordion type="single" collapsible className="space-y-3">
+        <section className="py-8 md:py-12 px-4 md:px-0">
+          <div className="container max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-2 md:space-y-3">
               {(Object.keys(groupedReferences) as Reference["category"][]).map((category) => (
                 <AccordionItem key={category} value={category} className="border border-stone-700/50 rounded-lg overflow-hidden">
-                  <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                    <div className="flex items-center gap-3 w-full">
-                      <span className="w-1 h-6 bg-amber-500 rounded-full" />
-                      <h2 className="text-xl font-bold text-amber-400">
+                  <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0 flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-3">
+                    <div className="flex items-center gap-2 md:gap-3 w-full min-w-0">
+                      <span className="w-1 h-6 bg-amber-500 rounded-full flex-shrink-0" />
+                      <h2 className="text-base md:text-xl font-bold text-amber-400 truncate">
                         {categoryLabels[category]}
                       </h2>
-                      <span className="ml-auto text-sm text-stone-400">
-                        ({groupedReferences[category]?.length || 0} references)
-                      </span>
                     </div>
+                    <span className="text-xs md:text-sm text-stone-400 flex-shrink-0">
+                      ({groupedReferences[category]?.length || 0})
+                    </span>
                   </AccordionTrigger>
-                  <AccordionContent className="bg-stone-800 border-t border-stone-700/50 px-6 py-4 rounded-b-lg">
-                    <div className="space-y-4">
+                  <AccordionContent className="bg-stone-800 border-t border-stone-700/50 px-3 md:px-6 py-3 md:py-4 rounded-b-lg">
+                    <div className="space-y-3 md:space-y-4">
                       {groupedReferences[category]?.map((ref) => (
                         <div
                           key={ref.id}
-                          className="border border-stone-700/50 rounded-lg p-4 hover:border-amber-700/50 transition-colors bg-stone-900/30"
+                          className="border border-stone-700/50 rounded-lg p-3 md:p-4 hover:border-amber-700/50 transition-colors bg-stone-900/30"
                         >
-                          <div className="flex items-start justify-between gap-4 mb-3">
-                            <div className="flex-1">
-                              <p className="text-sm text-stone-400 mb-2">
-                                <span className="font-semibold text-stone-300">{ref.authors}</span>
-                                <span className="text-stone-500"> ({ref.year})</span>
-                              </p>
-                              <h3 className="text-base font-semibold text-white mb-2">{ref.title}</h3>
-                              <p className="text-stone-400 text-sm italic">{ref.publication}</p>
+                          <div className="flex flex-col gap-2 md:gap-3">
+                            <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-4">
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs md:text-sm text-stone-400 mb-1 md:mb-2 break-words">
+                                  <span className="font-semibold text-stone-300">{ref.authors}</span>
+                                  <span className="text-stone-500"> ({ref.year})</span>
+                                </p>
+                                <h3 className="text-sm md:text-base font-semibold text-white mb-1 md:mb-2 break-words">{ref.title}</h3>
+                                <p className="text-stone-400 text-xs md:text-sm italic break-words">{ref.publication}</p>
+                              </div>
+                              <span
+                                className={`px-2 md:px-3 py-1 rounded text-xs font-semibold whitespace-nowrap border flex-shrink-0 mt-2 md:mt-0 ${categoryColors[category]}`}
+                              >
+                                {categoryLabels[category]}
+                              </span>
                             </div>
-                            <span
-                              className={`px-3 py-1 rounded text-xs font-semibold whitespace-nowrap border ${categoryColors[category]}`}
-                            >
-                              {categoryLabels[category]}
-                            </span>
                           </div>
-
-
                         </div>
                       ))}
                     </div>
@@ -483,9 +483,9 @@ export default function References() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-white/10 mt-16 py-8 bg-stone-950/50">
-          <div className="container text-center text-stone-500 text-sm">
-            <p>
+        <footer className="border-t border-white/10 mt-8 md:mt-16 py-6 md:py-8 bg-stone-950/50 px-4 md:px-0">
+          <div className="container text-center text-stone-500 text-xs md:text-sm">
+            <p className="break-words">
               BoroPro Research Platform • References compiled from peer-reviewed journals, archaeological studies, and technical publications
             </p>
             <p className="mt-2 text-xs text-stone-600">

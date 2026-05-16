@@ -3246,3 +3246,5 @@
 [2026-05-16T20:26:32.945Z] 
 [2026-05-16T20:26:35.091Z] [OAuth] Initialized with baseURL: https://api.manus.im
 [2026-05-16T20:26:35.394Z] Server running on http://localhost:3000/
+[2026-05-16T20:34:43.373Z] 4:34:43 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-16T20:35:46.914Z] 4:35:46 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css

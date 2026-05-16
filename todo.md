@@ -783,3 +783,10 @@
   - [x] Verify all touch targets are at least 44x44px (buttons have p-2 md:p-3 padding)
   - [x] Test hamburger menu scrolling in landscape orientation (max-h-[calc(100vh-120px)] overflow-y-auto applied)
   - [x] Verify text is readable against background colors (break-words and responsive text sizes applied)
+- [x] Reformat References tab for mobile display
+  - [x] Reduce header logo size (h-16 mobile, md:h-24)
+  - [x] Add responsive padding to hero section (py-8 mobile, md:py-16)
+  - [x] Implement responsive accordion layout (flex-col mobile, md:flex-row)
+  - [x] Add break-words to all text for proper wrapping
+  - [x] Create 20 Vitest tests for References responsive layout
+  - [x] Verify References renders correctly on mobile without text scrambling
