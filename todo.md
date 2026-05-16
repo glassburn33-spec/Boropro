@@ -893,3 +893,4 @@
   - [x] Applied responsive padding (px-3 md:px-6) and text sizing (text-base md:text-lg) to Glass-Science
   - [x] Updated all 6 accordion triggers with responsive classes and break-words
   - [x] Verified mobile responsiveness matches Color-Science tab pattern
+- [x] Remove References nav button from ColorScience hamburger menu

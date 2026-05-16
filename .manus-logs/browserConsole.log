@@ -3917,3 +3917,39 @@
 [2026-05-16T21:32:37.530Z] {"timestamp":1778967155582,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T21:32:37.530Z] {"timestamp":1778967155700,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T21:32:37.530Z] {"timestamp":1778967155727,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:32:44.355Z] {"timestamp":1778967162344,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:32:44.355Z] {"timestamp":1778967162366,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:32:44.355Z] {"timestamp":1778967162655,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:32:44.355Z] {"timestamp":1778967162768,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:32:44.404Z] {"timestamp":1778967162360,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:32:44.404Z] {"timestamp":1778967162456,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:32:44.404Z] {"timestamp":1778967162572,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:32:44.404Z] {"timestamp":1778967162603,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:32:49.513Z] {"timestamp":1778967167473,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:32:49.513Z] {"timestamp":1778967167570,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:32:49.513Z] {"timestamp":1778967167678,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:32:49.513Z] {"timestamp":1778967167718,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:33:02.375Z] {"timestamp":1778967180370,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:33:02.375Z] {"timestamp":1778967180382,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:33:02.375Z] {"timestamp":1778967180588,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:33:04.375Z] {"timestamp":1778967182753,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:33:21.928Z] {"timestamp":1778967199875,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:33:21.928Z] {"timestamp":1778967199973,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:33:21.928Z] {"timestamp":1778967200074,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:33:21.928Z] {"timestamp":1778967200094,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:33:32.291Z] {"timestamp":1778967210246,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:33:32.291Z] {"timestamp":1778967210344,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:33:32.291Z] {"timestamp":1778967210445,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:33:32.291Z] {"timestamp":1778967210488,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:34:08.297Z] {"timestamp":1778967246760,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/ColorScience.tsx"],"stack":null}
+[2026-05-16T21:34:08.297Z] {"timestamp":1778967246760,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:34:08.354Z] {"timestamp":1778967246769,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/ColorScience.tsx"],"stack":null}
+[2026-05-16T21:34:08.354Z] {"timestamp":1778967246769,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:34:24.346Z] {"timestamp":1778967262341,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:34:24.346Z] {"timestamp":1778967262350,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:34:24.346Z] {"timestamp":1778967262569,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:34:34.346Z] {"timestamp":1778967273518,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:35:13.555Z] {"timestamp":1778967311506,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:35:13.555Z] {"timestamp":1778967311605,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:35:13.555Z] {"timestamp":1778967311700,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:35:13.555Z] {"timestamp":1778967311730,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
