@@ -2949,3 +2949,6 @@
 [2026-05-16T19:35:13.167Z] 3:35:13 PM [vite] (client) hmr update /src/index.css
 [2026-05-16T19:35:55.488Z] 3:35:55 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-16T19:36:23.450Z] 3:36:23 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T19:39:03.877Z] 3:39:03 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-16T19:40:31.912Z] 3:40:31 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-16T19:40:59.305Z] 3:40:59 PM [vite] (client) hmr update /src/index.css

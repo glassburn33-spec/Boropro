@@ -3,12 +3,48 @@ Kiln Log Page - Test-firing log with historical comparison and pattern detection
 Scientific neo-brutalist design with furnace-lab aesthetics.
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BookOpenCheck, Menu, X } from "lucide-react";
 import AnealingProfileEditor from "@/components/AnealingProfileEditor";
 
 export default function KilnLog() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
+
+  // Handle unsaved changes warning when navigating away
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasUnsavedChanges]);
+
+  const handleNavigationClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (hasUnsavedChanges) {
+      e.preventDefault();
+      setPendingNavigation(href);
+      setShowConfirmDialog(true);
+    }
+  };
+
+  const handleConfirmLeave = () => {
+    setShowConfirmDialog(false);
+    if (pendingNavigation) {
+      window.location.href = pendingNavigation;
+    }
+  };
+
+  const handleStayOnPage = () => {
+    setShowConfirmDialog(false);
+    setPendingNavigation(null);
+  };
   return (
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
       {/* Header */}
@@ -20,22 +56,22 @@ export default function KilnLog() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/color-picker" onClick={(e) => handleNavigationClick(e, '/color-picker')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Color
             </a>
-            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/flame-simulator" onClick={(e) => handleNavigationClick(e, '/flame-simulator')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Char
             </a>
-            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25" onClick={(e) => handleNavigationClick(e, '/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
               Kiln Log
             </a>
-            <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/logs" onClick={(e) => handleNavigationClick(e, '/logs')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
             </a>
-            <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/references" onClick={(e) => handleNavigationClick(e, '/references')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
             </a>
           </nav>
@@ -59,21 +95,21 @@ export default function KilnLog() {
           <nav className="md:hidden flex flex-col gap-2 px-4 py-3 bg-stone-800 border-t border-amber-700/30">
             <a
               href="/color-picker"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavigationClick(e, '/color-picker'); setMobileMenuOpen(false); }}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
               Color
             </a>
             <a
               href="/flame-simulator"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavigationClick(e, '/flame-simulator'); setMobileMenuOpen(false); }}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
               Flame Char
             </a>
             <a
               href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavigationClick(e, '/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25'); setMobileMenuOpen(false); }}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
               Reheat Calc
@@ -87,14 +123,14 @@ export default function KilnLog() {
             </a>
             <a
               href="/logs"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavigationClick(e, '/logs'); setMobileMenuOpen(false); }}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
               Log
             </a>
             <a
               href="/references"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavigationClick(e, '/references'); setMobileMenuOpen(false); }}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
               References
@@ -130,6 +166,32 @@ export default function KilnLog() {
           </p>
         </div>
       </footer>
+
+      {/* Unsaved Changes Confirmation Dialog */}
+      {showConfirmDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-stone-800 border border-amber-700/50 rounded-lg shadow-xl max-w-md w-full mx-4 p-6 space-y-6">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Unsaved Changes</h3>
+              <p className="text-stone-300">You have unsaved changes to your annealing schedule. Do you want to save your schedules before leaving the page?</p>
+            </div>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={handleStayOnPage}
+                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-stone-200 rounded transition font-medium"
+              >
+                Stay on Page
+              </button>
+              <button
+                onClick={handleConfirmLeave}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition font-medium"
+              >
+                Leave Without Saving
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
