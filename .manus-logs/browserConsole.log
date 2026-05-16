@@ -2365,3 +2365,44 @@
 [2026-05-16T18:48:21.713Z] {"timestamp":1778957299718,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T18:48:21.713Z] {"timestamp":1778957299923,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T18:48:23.715Z] {"timestamp":1778957301721,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:48:38.388Z] {"timestamp":1778957318319,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:48:39.083Z] {"timestamp":1778957316967,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:48:39.126Z] {"timestamp":1778957318224,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:48:46.038Z] {"timestamp":1778957324006,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:48:46.038Z] {"timestamp":1778957324502,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:48:46.038Z] {"timestamp":1778957324502,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:48:48.853Z] {"timestamp":1778957326818,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:48:48.853Z] {"timestamp":1778957326931,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:48:48.853Z] {"timestamp":1778957327145,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:48:54.725Z] {"timestamp":1778957332688,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:48:54.725Z] {"timestamp":1778957332800,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:48:54.725Z] {"timestamp":1778957332983,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:48:58.028Z] {"timestamp":1778957335997,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:48:58.028Z] {"timestamp":1778957336132,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:48:58.028Z] {"timestamp":1778957336293,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:49:01.054Z] {"timestamp":1778957339020,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:49:01.054Z] {"timestamp":1778957339132,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:49:01.054Z] {"timestamp":1778957339338,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:49:03.348Z] {"timestamp":1778957341318,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:49:03.348Z] {"timestamp":1778957341449,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:49:03.348Z] {"timestamp":1778957341616,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:49:11.256Z] {"timestamp":1778957349250,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:49:11.256Z] {"timestamp":1778957349256,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:49:11.256Z] {"timestamp":1778957349470,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T18:49:11.256Z] {"timestamp":1778957351182,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T18:50:05.076Z] {"timestamp":1778957402217,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:05.076Z] {"timestamp":1778957402217,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:05.127Z] {"timestamp":1778957403479,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:05.127Z] {"timestamp":1778957403479,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:05.384Z] {"timestamp":1778957403500,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:05.384Z] {"timestamp":1778957403501,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:13.086Z] {"timestamp":1778957410702,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:13.086Z] {"timestamp":1778957410702,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:13.126Z] {"timestamp":1778957411945,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:13.126Z] {"timestamp":1778957411945,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:13.398Z] {"timestamp":1778957411996,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T18:50:13.398Z] {"timestamp":1778957411996,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/CalculatorTab.tsx"],"stack":null}
+[2026-05-16T18:50:21.734Z] {"timestamp":1778957419729,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T18:50:21.734Z] {"timestamp":1778957419738,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T18:50:21.734Z] {"timestamp":1778957419952,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T18:50:21.734Z] {"timestamp":1778957421219,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
