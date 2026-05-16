@@ -43,10 +43,10 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
           {/* Header - Always Visible */}
           <button
             onClick={() => toggleFamily(effect.colorFamily)}
-            className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
+            className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
           >
-            <div className="text-left flex-1">
-              <h3 className="font-bold text-white text-lg">{effect.colorFamily}</h3>
+            <div className="text-left flex-1 min-w-0">
+              <h3 className="font-bold text-white text-base md:text-lg break-words">{effect.colorFamily}</h3>
             </div>
             <ChevronDown
               className={`w-5 h-5 text-amber-500 transition-transform flex-shrink-0 ml-4 ${
@@ -57,7 +57,7 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
 
           {/* Expanded Content */}
           {expandedFamily === effect.colorFamily && (
-            <div className="px-6 py-6 border-t border-white/10 space-y-6 bg-white/2">
+            <div className="px-4 md:px-6 py-4 md:py-6 border-t border-white/10 space-y-4 md:space-y-6 bg-white/2">
               {/* Chemical Composition */}
               <div>
                 <span className="font-bold text-white block mb-2">Chemical Composition:</span>
@@ -71,9 +71,9 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
               </div>
 
               {/* Flame Effects Grid */}
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                 {/* Reducing Flame */}
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 md:p-4">
                   <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-blue-400/20 to-blue-600/20 border border-blue-500/30">
                     <span className="font-mono text-xs font-bold uppercase text-blue-400">Reducing Flame</span>
                     <p className="text-xs text-blue-200 mt-1">🔥 Excess fuel</p>
@@ -102,7 +102,7 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
                 </div>
 
                 {/* Neutral Flame */}
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 md:p-4">
                   <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-orange-400/20 to-orange-600/20 border border-orange-500/30">
                     <span className="font-mono text-xs font-bold uppercase text-orange-400">Neutral Flame</span>
                     <p className="text-xs text-orange-200 mt-1">🔥 Balanced fuel & oxygen</p>
@@ -131,7 +131,7 @@ export function ColorFamilyList({ colorFamilies }: ColorFamilyListProps) {
                 </div>
 
                 {/* Oxidizing Flame */}
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 md:p-4">
                   <div className="mb-3 p-3 rounded-lg bg-gradient-to-b from-red-400/20 to-red-600/20 border border-red-500/30">
                     <span className="font-mono text-xs font-bold uppercase text-red-400">Oxidizing Flame</span>
                     <p className="text-xs text-red-200 mt-1">🔥 Excess oxygen</p>
