@@ -495,7 +495,7 @@ export default function Logs() {
     xLabel.setAttribute('y', (height - 20).toString());
     xLabel.setAttribute('text-anchor', 'middle');
     xLabel.setAttribute('fill', '#fbbf24');
-    xLabel.setAttribute('font-size', '42');
+    xLabel.setAttribute('font-size', '28');
     xLabel.textContent = 'Time →';
     svg.appendChild(xLabel);
 
@@ -504,7 +504,7 @@ export default function Logs() {
     yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
     yLabel.setAttribute('text-anchor', 'middle');
     yLabel.setAttribute('fill', '#fbbf24');
-    yLabel.setAttribute('font-size', '39');
+    yLabel.setAttribute('font-size', '26');
     yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
     yLabel.textContent = `Temp (°${unit})`;
     svg.appendChild(yLabel);
