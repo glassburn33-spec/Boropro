@@ -847,3 +847,10 @@
   - [x] Beer-Lambert Curve (beerlambertcurve_fac44eaf.png)
   - [x] All images now clickable with full-screen modal expansion
   - [x] Tested full-screen expansion on mobile and desktop
+- [x] Remove numbering notation from ColorScience section titles
+  - [x] Removed "1." from Metal Ion Color Reference
+  - [x] Removed "2." from Peculiar Sites section
+  - [x] Removed "3." from Redox Equilibria section
+  - [x] Removed "4." from Temperature Dependence section
+  - [x] Removed "5." from Phase Separation section
+  - [x] Removed "6." from Iron and Sulfur section

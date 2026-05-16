@@ -11,7 +11,7 @@ export default function ColorScienceTab() {
   const accordionItems = [
     {
       id: 'metal-ion-reference',
-      title: '1. Metal Ion Color Reference',
+      title: 'Metal Ion Color Reference',
       content: (
         <div className="space-y-4">
             <p className="text-stone-300 text-sm md:text-base break-words">
@@ -37,7 +37,7 @@ export default function ColorScienceTab() {
     },
     {
       id: 'peculiar-nickel',
-      title: '2. Peculiar Sites, Peculiar Colors: Nickel (Ni²⁺)',
+      title: 'Peculiar Sites, Peculiar Colors: Nickel (Ni²⁺)',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 text-xs md:text-sm text-stone-300 mb-4">
@@ -169,7 +169,7 @@ export default function ColorScienceTab() {
     },
     {
       id: 'redox-equilibria',
-      title: '3. Redox Equilibria and Glass Coloration',
+      title: 'Redox Equilibria and Glass Coloration',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
@@ -241,7 +241,7 @@ export default function ColorScienceTab() {
     },
     {
       id: 'thermochromism',
-      title: '4. Temperature Dependence of Optical Absorption: Thermochromism',
+      title: 'Temperature Dependence of Optical Absorption: Thermochromism',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
@@ -293,7 +293,7 @@ export default function ColorScienceTab() {
     },
     {
       id: 'phase-separation',
-      title: '5. Phase Separation in Glass Melts: Controlling Immiscibility',
+      title: 'Phase Separation in Glass Melts: Controlling Immiscibility',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
@@ -413,7 +413,7 @@ export default function ColorScienceTab() {
     },
     {
       id: 'amber-glass',
-      title: '6. Iron and Sulfur Coloration: The Amber Glass Series',
+      title: 'Iron and Sulfur Coloration: The Amber Glass Series',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">

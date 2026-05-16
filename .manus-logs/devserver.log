@@ -3270,3 +3270,7 @@
 [2026-05-16T20:59:34.295Z] 4:59:34 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
 [2026-05-16T20:59:49.443Z] 4:59:49 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
 [2026-05-16T21:00:09.416Z] 5:00:09 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-16T21:01:06.087Z] [Auth] Missing session cookie
+[2026-05-16T21:01:16.184Z] [Auth] Missing session cookie
+[2026-05-16T21:01:46.272Z] [Auth] Missing session cookie
+[2026-05-16T21:02:21.516Z] 5:02:21 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
