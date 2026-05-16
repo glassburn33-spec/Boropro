@@ -919,13 +919,13 @@ export default function Logs() {
                       </h3>
                     </div>
 
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex flex-wrap gap-2 ml-0 sm:ml-4 mt-3 sm:mt-0">
                       <button
                         onClick={() => handlePreviewPDF(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
                         title="View log"
                       >
-                        <span className="text-sm">View</span>
+                        <span>View</span>
                       </button>
 
                       {/* Upload PDF button - Temperature Unit Toggle */}
@@ -991,10 +991,10 @@ export default function Logs() {
                           backgroundColor: log.lineColor || '#15803d',
                           borderColor: log.lineColor || '#15803d',
                         }}
-                        className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80"
+                        className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80 text-xs sm:text-sm"
                         title="Download log as PDF"
                       >
-                        <span className="text-sm">Upload PDF</span>
+                        <span>PDF</span>
                       </button>
 
                       <button
@@ -1002,18 +1002,18 @@ export default function Logs() {
                           setColorWheelLog(log);
                           setShowColorWheelModal(true);
                         }}
-                        className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
                         title="View glass colors used"
                       >
-                        <span className="text-sm">Colors</span>
+                        <span>Colors</span>
                       </button>
 
                       <button
                         onClick={() => handleOpenComments(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-xs sm:text-sm"
                         title="View and edit comments"
                       >
-                        <span className="text-sm">Comments</span>
+                        <span>Notes</span>
                       </button>
 
                       <button
@@ -1029,10 +1029,10 @@ export default function Logs() {
                             toast.success('Log renamed successfully!');
                           }
                         }}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
                         title="Rename log"
                       >
-                        <span className="text-sm">Rename</span>
+                        <span>Rename</span>
                       </button>
 
                       <button
