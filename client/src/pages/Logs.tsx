@@ -551,7 +551,7 @@ export default function Logs() {
             <div class="container">
               <h1>Kiln Log: ${log.name}</h1>
               <div class="metadata">
-                <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleString()}</p>
+                <p><strong>Created:</strong> ${new Date(log.createdAt).toLocaleDateString()}</p>
                 <p><strong>Max Temperature:</strong> ${Math.max(...convertedTemps)}°${unit}</p>
                 <p><strong>Duration:</strong> ${Math.max(...log.times)} minutes</p>
                 <p><strong>Data Points:</strong> ${log.temperatures.length}</p>
