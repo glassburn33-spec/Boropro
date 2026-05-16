@@ -837,11 +837,11 @@ export default function AnealingProfileEditor() {
 
 
   return (
-    <div className="space-y-8 bg-stone-900/50 p-8 rounded-lg border border-stone-700">
+    <div className="space-y-6 sm:space-y-8 bg-stone-900/50 p-4 sm:p-8 rounded-lg border border-stone-700">
 
       {/* Temperature Unit Toggle */}
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-sm text-stone-400">Temperature Unit:</span>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-4">
+        <span className="text-xs sm:text-sm text-stone-400">Temperature Unit:</span>
         <button
           onClick={handleTempUnitToggle}
           className={`px-4 py-2 rounded font-semibold transition-all ${
@@ -855,34 +855,34 @@ export default function AnealingProfileEditor() {
       </div>
 
       {/* Stage 1: Rapid Reheating */}
-      <div className="bg-red-900/20 border border-red-700/50 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-red-400 mb-4">Stage 1: Rapid Reheating to T {'>'}  T_anneal</h3>
-        <div className="grid grid-cols-3 gap-4">
+      <div className="bg-red-900/20 border border-red-700/50 p-4 sm:p-6 rounded-lg">
+        <h3 className="text-base sm:text-lg font-bold text-red-400 mb-4">Stage 1: Rapid Reheating to T {'>'}  T_anneal</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage1.startTemp}
               onChange={(e) => setInputs(prev => ({ ...prev, stage1: { ...prev.stage1, startTemp: Number(e.target.value) } }))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-red-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-red-500 text-base"
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Target Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Target Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage1.targetTemp}
               onChange={(e) => setInputs(prev => ({ ...prev, stage1: { ...prev.stage1, targetTemp: Number(e.target.value) } }))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-red-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-red-500 text-base"
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Duration (minutes)</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Duration (minutes)</label>
             <input
               type="number"
               value={inputs.stage1.duration}
               onChange={(e) => setInputs(prev => ({ ...prev, stage1: { ...prev.stage1, duration: Number(e.target.value) } }))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-red-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-red-500 text-base"
             />
           </div>
         </div>
@@ -895,108 +895,108 @@ export default function AnealingProfileEditor() {
       </div>
 
       {/* Stage 2: Dwell */}
-      <div className="bg-orange-900/20 border border-orange-700/50 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-orange-400 mb-4">Stage 2: Dwell – Equalization of Temperature</h3>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="bg-orange-900/20 border border-orange-700/50 p-4 sm:p-6 rounded-lg">
+        <h3 className="text-base sm:text-lg font-bold text-orange-400 mb-4">Stage 2: Dwell – Equalization of Temperature</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Hold Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Hold Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage2.holdTemp}
               onChange={(e) => handleStage2Change('holdTemp', Number(e.target.value))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-orange-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-orange-500 text-base"
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Duration (minutes)</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Duration (minutes)</label>
             <input
               type="number"
               value={inputs.stage2.duration}
               onChange={(e) => handleStage2Change('duration', Number(e.target.value))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-orange-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-orange-500 text-base"
             />
           </div>
         </div>
       </div>
 
       {/* Stage 3: Slow Cooling */}
-      <div className="bg-green-900/20 border border-green-700/50 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-green-400 mb-4">Stage 3: Slow Cooling</h3>
-        <div className="grid grid-cols-3 gap-4">
+      <div className="bg-green-900/20 border border-green-700/50 p-4 sm:p-6 rounded-lg">
+        <h3 className="text-base sm:text-lg font-bold text-green-400 mb-4">Stage 3: Slow Cooling</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage3.startTemp}
               disabled
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-stone-500 cursor-not-allowed"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-stone-500 cursor-not-allowed text-base"
               title="Auto-populated from Stage 2 hold temperature"
             />
             <p className="text-xs text-stone-500 mt-1">Auto-populated</p>
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage3.endTemp}
               onChange={(e) => handleStage3Change('endTemp', Number(e.target.value))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-green-500 text-base"
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Duration (minutes)</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Duration (minutes)</label>
             <input
               type="number"
               value={inputs.stage3.duration}
               onChange={(e) => handleStage3Change('duration', Number(e.target.value))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-green-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-green-500 text-base"
             />
           </div>
         </div>
       </div>
 
       {/* Stage 4: More Rapid Cooling */}
-      <div className="bg-blue-900/20 border border-blue-700/50 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-blue-400 mb-4">Stage 4: More Rapid Cooling</h3>
-        <div className="grid grid-cols-3 gap-4">
+      <div className="bg-blue-900/20 border border-blue-700/50 p-4 sm:p-6 rounded-lg">
+        <h3 className="text-base sm:text-lg font-bold text-blue-400 mb-4">Stage 4: More Rapid Cooling</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Start Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage4.startTemp}
               disabled
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-stone-500 cursor-not-allowed"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-stone-500 cursor-not-allowed text-base"
               title="Auto-populated from Stage 3 end temperature"
             />
             <p className="text-xs text-stone-500 mt-1">Auto-populated</p>
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">End Temperature (°{tempUnit})</label>
             <input
               type="number"
               value={inputs.stage4.endTemp}
               onChange={(e) => setInputs(prev => ({ ...prev, stage4: { ...prev.stage4, endTemp: Number(e.target.value) } }))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-blue-500 text-base"
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Duration (minutes)</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Duration (minutes)</label>
             <input
               type="number"
               value={inputs.stage4.duration}
               onChange={(e) => setInputs(prev => ({ ...prev, stage4: { ...prev.stage4, duration: Number(e.target.value) } }))}
-              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-3 sm:py-2 text-white focus:outline-none focus:border-blue-500 text-base"
             />
           </div>
         </div>
       </div>
 
       {/* Reference Lines */}
-      <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-blue-400 mb-4">Reference Lines</h3>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="bg-stone-800/50 border border-stone-600 p-4 sm:p-6 rounded-lg">
+        <h3 className="text-base sm:text-lg font-bold text-blue-400 mb-4">Reference Lines</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Annealing Point (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Annealing Point (°{tempUnit})</label>
             <input
               type="number"
               value={referenceLines.annealingPoint}
@@ -1005,7 +1005,7 @@ export default function AnealingProfileEditor() {
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-300 mb-2">Strain Point (°{tempUnit})</label>
+            <label className="block text-xs sm:text-sm text-stone-300 mb-2">Strain Point (°{tempUnit})</label>
             <input
               type="number"
               value={referenceLines.strainPoint}
