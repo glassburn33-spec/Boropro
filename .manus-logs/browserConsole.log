@@ -2681,3 +2681,20 @@
 [2026-05-16T19:33:35.504Z] {"timestamp":1778960013510,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T19:33:35.504Z] {"timestamp":1778960013716,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T19:33:37.505Z] {"timestamp":1778960016091,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:33:54.420Z] {"timestamp":1778960033694,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:33:54.532Z] {"timestamp":1778960031826,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:33:54.941Z] {"timestamp":1778960032965,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:34:25.912Z] {"timestamp":1778960063907,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:34:25.912Z] {"timestamp":1778960063932,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:34:25.912Z] {"timestamp":1778960064130,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:34:27.912Z] {"timestamp":1778960067525,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:34:44.432Z] {"timestamp":1778960084174,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:34:44.432Z] {"timestamp":1778960084174,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:34:44.524Z] {"timestamp":1778960082849,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:34:44.524Z] {"timestamp":1778960082849,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:34:44.939Z] {"timestamp":1778960084153,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:34:44.940Z] {"timestamp":1778960084153,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:34:53.926Z] {"timestamp":1778960091921,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:34:53.926Z] {"timestamp":1778960091929,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:34:53.926Z] {"timestamp":1778960092144,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:34:57.926Z] {"timestamp":1778960096324,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

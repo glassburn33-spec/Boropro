@@ -715,10 +715,10 @@ export default function AnealingProfileEditor() {
         <line x1={margin.left} y1={margin.top} x2={margin.left} y2={margin.top + plotHeight} stroke="#999" strokeWidth="2" />
 
         {/* Axis labels */}
-        <text x={margin.left + plotWidth / 2} y={height - 20} textAnchor="middle" fill="#fbbf24" fontSize={labelFontSize}>
+        <text x={margin.left + plotWidth / 2} y={height - 20} textAnchor="middle" fill="#fbbf24" fontSize={labelFontSize * 2}>
           Time →
         </text>
-        <text x={15} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#fbbf24" fontSize={Math.max(9, labelFontSize - 1)} transform={`rotate(-90 15 ${margin.top + plotHeight / 2})`}>
+        <text x={15} y={margin.top + plotHeight / 2} textAnchor="middle" fill="#fbbf24" fontSize={Math.max(18, (labelFontSize - 1) * 2)} transform={`rotate(-90 15 ${margin.top + plotHeight / 2})`}>
           Temp (°{tempUnit})
         </text>
 
