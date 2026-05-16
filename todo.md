@@ -873,11 +873,11 @@
   - [x] Removed 🛡️ from Safety section title
   - [x] Removed 🛡️ from Flashback Arresters section title
   - [x] Verified GlassScience component renders without errors
-- [ ] Add full-screen image expansion to Glass-Science tab sections
-  - [ ] Identify and wrap images in Chemical Composition section
-  - [ ] Identify and wrap images in Thermal Properties section
-  - [ ] Identify and wrap images in Structure of Glass section
-  - [ ] Identify and wrap images in Science of Glass section
-  - [ ] Identify and wrap images in Glass Heat Treatment section
-  - [ ] Identify and wrap images in Devitrification section
-  - [ ] Test full-screen expansion on mobile and desktop
+- [x] Add full-screen image expansion to Glass-Science tab sections
+  - [x] Chemical Composition image (chemcompboro_fdd7eb5c.png)
+  - [x] Thermal Properties image (thermpropboro_81841fb8.png)
+  - [x] Crystal Structure image (CRYSTALINSTRUCTUR_b19e4d65.png)
+  - [x] Viscosity Plot image (viscosityplot_99c24e57.png)
+  - [x] Devitrified Tube image (devitrifiedtube_b150dc7c.png)
+  - [x] Applied click handlers and modal functionality to all 5 images
+  - [x] Tested full-screen expansion on mobile and desktop

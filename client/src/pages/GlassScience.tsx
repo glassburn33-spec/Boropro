@@ -264,11 +264,18 @@ function StudioTab() {
                     A typical borosilicate composition contains: Silicon dioxide (SiO<sub>2</sub>): 70-80%, Boron trioxide (B<sub>2</sub>O<sub>3</sub>): 10-15%, Alkali oxides (Na<sub>2</sub>O, K<sub>2</sub>O): 3-5%, Aluminum oxide (Al<sub>2</sub>O<sub>3</sub>): 1-3%. These proportions can vary slightly between manufacturers, but the high silica and boric oxide content remains the defining characteristic that provides borosilicate glass with its superior performance in thermal and chemical environments.
                   </p>
                   <div className="w-full flex justify-center my-6">
-                    <button onClick={() => setExpandedImage("/manus-storage/chemcompboro_fdd7eb5c.png")} className="cursor-pointer hover:opacity-80 transition group relative" aria-label="Expand image"><img
-                      src="/manus-storage/chemcompboro_fdd7eb5c.png"
-                      alt="Chemical composition of borosilicate glass showing SiO2 81%, B2O3 13%, Na2O/K2O 4%, Al2O3 2%"
-                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/chemcompboro_fdd7eb5c.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/chemcompboro_fdd7eb5c.png"
+                        alt="Chemical composition of borosilicate glass showing SiO2 81%, B2O3 13%, Na2O/K2O 4%, Al2O3 2%"
+                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                   </div>
                   <p className="text-stone-500 text-xs italic text-center">
                     DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
@@ -296,11 +303,18 @@ function StudioTab() {
                     Manufacturing processes employ precision annealing cycles in specialized kilns to systematically relieve internal stresses and achieve uniform material properties throughout each piece of glassware.
                   </p>
                   <div className="w-full flex justify-center my-6">
-                    <img
-                      src="/manus-storage/thermpropboro_81841fb8.png"
-                      alt="Thermal properties of borosilicate glassware including strain point, annealing point, softening point, and thermal conductivity"
-                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/thermpropboro_81841fb8.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/thermpropboro_81841fb8.png"
+                        alt="Thermal properties of borosilicate glassware including strain point, annealing point, softening point, and thermal conductivity"
+                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                   </div>
                   <p className="text-stone-500 text-xs italic text-center">
                     Typical thermal properties of borosilicate glassware. The low coefficient of linear expansion (32.5 × 10⁻⁷/° C) enables excellent thermal shock resistance.
@@ -320,11 +334,18 @@ function StudioTab() {
                 <div className="space-y-4">
                   {/* CRYSTAL STRUCTURE IMAGE */}
                   <div className="w-full flex flex-col items-center mb-6">
-                    <img
-                      src="/manus-storage/CRYSTALINSTRUCTUR_b19e4d65.png"
-                      alt="Crystal vs Glass structure comparison: ordered quartz lattice vs disordered silica glass network"
-                      className="w-full max-w-2xl rounded-xl border border-stone-700 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/CRYSTALINSTRUCTUR_b19e4d65.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/CRYSTALINSTRUCTUR_b19e4d65.png"
+                        alt="Crystal vs Glass structure comparison: ordered quartz lattice vs disordered silica glass network"
+                        className="w-full max-w-2xl rounded-xl border border-stone-700 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                     <p className="text-stone-500 text-xs italic text-center mt-3 max-w-xl">
                       Atomic structure comparison: crystalline quartz (ordered, periodic lattice) vs. silica glass (disordered, amorphous network). The absence of long-range order in glass is the origin of its unique thermal behavior.
                     </p>
@@ -425,11 +446,18 @@ function StudioTab() {
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
                   <div className="w-full flex justify-center my-6">
-                    <img
-                      src="/manus-storage/viscosityplot_99c24e57.png"
-                      alt="Viscosity-Temperature profile for common glass types showing critical annealing range"
-                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/viscosityplot_99c24e57.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/viscosityplot_99c24e57.png"
+                        alt="Viscosity-Temperature profile for common glass types showing critical annealing range"
+                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                   </div>
                   <p className="text-stone-300 text-sm leading-relaxed">
                     Annealing represents a carefully orchestrated thermal treatment where glass transitions gradually from elevated temperature back to ambient conditions. This controlled descent eliminates residual stresses accumulated during fabrication and shaping. Rapid cooling creates a mechanical mismatch: surface regions contract before interior zones, producing permanent tensile stresses at the surface and compressive stresses at the core. These locked-in stresses manifest as spontaneous failure, optical aberrations, or time-delayed fracture that may emerge months or years post-manufacture.
@@ -492,11 +520,18 @@ function StudioTab() {
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
                   <div className="w-full flex justify-center my-6">
-                    <img
-                      src="/manus-storage/devitrifiedtube_b150dc7c.png"
-                      alt="Devitrified glass tube showing crystalline formation and hazy appearance"
-                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/devitrifiedtube_b150dc7c.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/devitrifiedtube_b150dc7c.png"
+                        alt="Devitrified glass tube showing crystalline formation and hazy appearance"
+                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                   </div>
                   <p className="text-stone-300 text-sm leading-relaxed">
                     Crystallization phenomena manifest as diminished optical clarity, with affected glass displaying pale, grey, or opaque surface characteristics often termed "frosted," "dusty," "powdery," or "clouded" by practitioners. This phenomenon emerges on exterior surfaces or within interior matrices, though surface manifestation predominates. Crystalline growth induces volumetric contraction, frequently producing wrinkled topography or fracture patterns; this crystallization-driven fracturing differs from surface degradation from inadequate annealing, thermal stress, or environmental weathering. Crystallization typically occurs unintentionally, though deliberate induction for aesthetic purposes remains possible; surface cleaning cannot eliminate established crystallization.
