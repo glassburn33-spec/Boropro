@@ -3711,3 +3711,53 @@
 [2026-05-16T21:13:34.921Z] {"timestamp":1778966012937,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T21:13:34.921Z] {"timestamp":1778966013126,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T21:13:38.922Z] {"timestamp":1778966017952,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:14:11.078Z] {"timestamp":1778966049063,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:14:11.078Z] {"timestamp":1778966049102,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:14:11.078Z] {"timestamp":1778966049380,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:14:11.078Z] {"timestamp":1778966049469,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:14:11.153Z] {"timestamp":1778966047708,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:14:11.153Z] {"timestamp":1778966047805,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:14:11.153Z] {"timestamp":1778966047928,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:14:11.153Z] {"timestamp":1778966047954,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:14:31.649Z] {"timestamp":1778966069644,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:14:31.649Z] {"timestamp":1778966069654,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:14:31.649Z] {"timestamp":1778966069847,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:14:35.650Z] {"timestamp":1778966074630,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:16:29.073Z] {"timestamp":1778966188485,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:16:29.073Z] {"timestamp":1778966188486,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:16:29.159Z] {"timestamp":1778966187052,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:16:29.159Z] {"timestamp":1778966187052,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:16:55.074Z] {"timestamp":1778966213689,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:16:55.074Z] {"timestamp":1778966213689,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:16:55.155Z] {"timestamp":1778966212263,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:16:55.155Z] {"timestamp":1778966212264,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:17:29.077Z] {"timestamp":1778966248092,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:17:29.077Z] {"timestamp":1778966248092,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:17:29.153Z] {"timestamp":1778966246682,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:17:29.153Z] {"timestamp":1778966246682,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:17:43.074Z] {"timestamp":1778966261888,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:17:43.074Z] {"timestamp":1778966261888,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:17:43.155Z] {"timestamp":1778966261866,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:17:43.155Z] {"timestamp":1778966261866,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:18:27.073Z] {"timestamp":1778966306961,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:18:27.073Z] {"timestamp":1778966306961,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:18:27.159Z] {"timestamp":1778966306966,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:18:27.159Z] {"timestamp":1778966306966,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:19:19.073Z] {"timestamp":1778966358944,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:19:19.073Z] {"timestamp":1778966358945,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:19:19.162Z] {"timestamp":1778966358990,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:19:19.162Z] {"timestamp":1778966358990,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:19:39.073Z] {"timestamp":1778966377598,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:19:39.073Z] {"timestamp":1778966377598,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:19:39.155Z] {"timestamp":1778966377604,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:19:39.155Z] {"timestamp":1778966377604,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:19:47.367Z] {"timestamp":1778966385363,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T21:19:47.367Z] {"timestamp":1778966385368,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T21:19:47.367Z] {"timestamp":1778966385567,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T21:19:51.367Z] {"timestamp":1778966390419,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T21:20:21.074Z] {"timestamp":1778966419327,"level":"ERROR","args":["[vite]","Failed to reload /src/pages/GlassScience.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 0)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-16T21:20:21.074Z] {"timestamp":1778966419349,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:20:21.074Z] {"timestamp":1778966419349,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T21:20:21.163Z] {"timestamp":1778966419389,"level":"ERROR","args":["[vite]","Failed to reload /src/pages/GlassScience.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 0)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-16T21:20:21.163Z] {"timestamp":1778966419390,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-16T21:20:21.163Z] {"timestamp":1778966419390,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}

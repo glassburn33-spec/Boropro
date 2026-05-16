@@ -873,3 +873,11 @@
   - [x] Removed 🛡️ from Safety section title
   - [x] Removed 🛡️ from Flashback Arresters section title
   - [x] Verified GlassScience component renders without errors
+- [ ] Add full-screen image expansion to Glass-Science tab sections
+  - [ ] Identify and wrap images in Chemical Composition section
+  - [ ] Identify and wrap images in Thermal Properties section
+  - [ ] Identify and wrap images in Structure of Glass section
+  - [ ] Identify and wrap images in Science of Glass section
+  - [ ] Identify and wrap images in Glass Heat Treatment section
+  - [ ] Identify and wrap images in Devitrification section
+  - [ ] Test full-screen expansion on mobile and desktop

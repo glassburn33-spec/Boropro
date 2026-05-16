@@ -3299,3 +3299,170 @@
 [2026-05-16T21:11:30.937Z] [Auth] Missing session cookie
 [2026-05-16T21:13:16.674Z] 5:13:16 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
 [2026-05-16T21:13:17.084Z] [Auth] Missing session cookie
+[2026-05-16T21:14:09.385Z] [Auth] Missing session cookie
+[2026-05-16T21:16:28.100Z] 5:16:28 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:16:28.513Z] [Auth] Missing session cookie
+[2026-05-16T21:16:53.221Z] 5:16:53 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:16:53.723Z] [Auth] Missing session cookie
+[2026-05-16T21:17:27.637Z] 5:17:27 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:17:28.142Z] [Auth] Missing session cookie
+[2026-05-16T21:17:41.549Z] 5:17:41 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:17:41.911Z] [Auth] Missing session cookie
+[2026-05-16T21:18:26.546Z] 5:18:26 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:18:27.009Z] [Auth] Missing session cookie
+[2026-05-16T21:19:18.526Z] 5:19:18 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:19:19.038Z] [Auth] Missing session cookie
+[2026-05-16T21:19:37.190Z] 5:19:37 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:19:37.654Z] [Auth] Missing session cookie
+[2026-05-16T21:20:19.064Z] 5:20:19 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:20:19.156Z] 5:20:19 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx: Expected corresponding JSX closing tag for <button>. (272:18)
+[2026-05-16T21:20:19.156Z] 
+[2026-05-16T21:20:19.157Z] 270 |                       className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.157Z] 271 |                     />
+[2026-05-16T21:20:19.157Z] > 272 |                   </div>
+[2026-05-16T21:20:19.158Z] |                   ^
+[2026-05-16T21:20:19.158Z] 273 |                   <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.158Z] 274 |                     DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
+[2026-05-16T21:20:19.159Z] 275 |                   </p>
+[2026-05-16T21:20:19.159Z] Plugin: vite:react-babel
+[2026-05-16T21:20:19.159Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:272:18
+[2026-05-16T21:20:19.160Z] 270 |                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.160Z] 271 |                      />
+[2026-05-16T21:20:19.160Z] 272 |                    </div>
+[2026-05-16T21:20:19.161Z] |                    ^
+[2026-05-16T21:20:19.161Z] 273 |                    <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.161Z] 274 |                      DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content...
+[2026-05-16T21:20:19.162Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-16T21:20:19.162Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-16T21:20:19.162Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:527:18)
+[2026-05-16T21:20:19.163Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.163Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.164Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.164Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.164Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.165Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.165Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.166Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.166Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-16T21:20:19.167Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-16T21:20:19.167Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-16T21:20:19.167Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-16T21:20:19.168Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-16T21:20:19.168Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-16T21:20:19.168Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-16T21:20:19.169Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-16T21:20:19.169Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-16T21:20:19.170Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-16T21:20:19.170Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-16T21:20:19.171Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-16T21:20:19.171Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-16T21:20:19.172Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-16T21:20:19.172Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-16T21:20:19.173Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-16T21:20:19.173Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-16T21:20:19.174Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-16T21:20:19.174Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-16T21:20:19.175Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-16T21:20:19.175Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-16T21:20:19.176Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-16T21:20:19.176Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-16T21:20:19.177Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-16T21:20:19.177Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-16T21:20:19.178Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-16T21:20:19.178Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-16T21:20:19.178Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-16T21:20:19.179Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-16T21:20:19.180Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-16T21:20:19.180Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-16T21:20:19.180Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-16T21:20:19.181Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-16T21:20:19.181Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-16T21:20:19.182Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-16T21:20:19.182Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-16T21:20:19.183Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-16T21:20:19.183Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:431:17)
+[2026-05-16T21:20:19.185Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+[2026-05-16T21:20:19.300Z] 5:20:19 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx: Expected corresponding JSX closing tag for <button>. (272:18)
+[2026-05-16T21:20:19.301Z] 
+[2026-05-16T21:20:19.301Z] 270 |                       className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.302Z] 271 |                     />
+[2026-05-16T21:20:19.302Z] > 272 |                   </div>
+[2026-05-16T21:20:19.302Z] |                   ^
+[2026-05-16T21:20:19.303Z] 273 |                   <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.303Z] 274 |                     DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
+[2026-05-16T21:20:19.303Z] 275 |                   </p>
+[2026-05-16T21:20:19.304Z] Plugin: vite:react-babel
+[2026-05-16T21:20:19.304Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:272:18
+[2026-05-16T21:20:19.304Z] 270 |                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.305Z] 271 |                      />
+[2026-05-16T21:20:19.305Z] 272 |                    </div>
+[2026-05-16T21:20:19.306Z] |                    ^
+[2026-05-16T21:20:19.306Z] 273 |                    <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.307Z] 274 |                      DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content...
+[2026-05-16T21:20:19.307Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-16T21:20:19.308Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-16T21:20:19.308Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:527:18)
+[2026-05-16T21:20:19.309Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.309Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.310Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.311Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.311Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.312Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.312Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.333Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-16T21:20:19.333Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-16T21:20:19.333Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-16T21:20:19.336Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-16T21:20:19.336Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-16T21:20:19.343Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-16T21:20:19.344Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-16T21:20:19.344Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-16T21:20:19.345Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-16T21:20:19.345Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-16T21:20:19.346Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-16T21:20:19.346Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-16T21:20:19.347Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-16T21:20:19.347Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-16T21:20:19.348Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-16T21:20:19.348Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-16T21:20:19.348Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-16T21:20:19.349Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-16T21:20:19.349Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-16T21:20:19.351Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-16T21:20:19.351Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-16T21:20:19.359Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-16T21:20:19.360Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-16T21:20:19.360Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-16T21:20:19.360Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-16T21:20:19.361Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-16T21:20:19.361Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-16T21:20:19.362Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-16T21:20:19.362Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-16T21:20:19.363Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-16T21:20:19.363Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-16T21:20:19.364Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-16T21:20:19.366Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-16T21:20:19.366Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-16T21:20:19.367Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-16T21:20:19.367Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-16T21:20:19.368Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-16T21:20:19.368Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-16T21:20:19.368Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:431:17)
+[2026-05-16T21:20:19.369Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+[2026-05-16T21:20:19.373Z] 5:20:19 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx: Expected corresponding JSX closing tag for <button>. (272:18)
+[2026-05-16T21:20:19.374Z] 
+[2026-05-16T21:20:19.374Z] 270 |                       className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.375Z] 271 |                     />
+[2026-05-16T21:20:19.375Z] > 272 |                   </div>
+[2026-05-16T21:20:19.376Z] |                   ^
+[2026-05-16T21:20:19.376Z] 273 |                   <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.377Z] 274 |                     DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content provides exceptional thermal and chemical resistance.
+[2026-05-16T21:20:19.377Z] 275 |                   </p>
+[2026-05-16T21:20:19.378Z] Plugin: vite:react-babel
+[2026-05-16T21:20:19.378Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:272:18
+[2026-05-16T21:20:19.378Z] 270 |                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+[2026-05-16T21:20:19.379Z] 271 |                      />
+[2026-05-16T21:20:19.379Z] 272 |                    </div>
+[2026-05-16T21:20:19.379Z] |                    ^
+[2026-05-16T21:20:19.380Z] 273 |                    <p className="text-stone-500 text-xs italic text-center">
+[2026-05-16T21:20:19.380Z] 274 |                      DURAN® borosilicate glass 3.3 chemical composition table. The high silica and boric oxide content...
