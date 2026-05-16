@@ -881,3 +881,6 @@
   - [x] Devitrified Tube image (devitrifiedtube_b150dc7c.png)
   - [x] Applied click handlers and modal functionality to all 5 images
   - [x] Tested full-screen expansion on mobile and desktop
+- [x] Remove emoji icons from specific Equipment Science section titles
+  - [x] Removed 💨 from Flame Annealing Technique section title
+  - [x] Removed 📊 from Temperature Measurement section title

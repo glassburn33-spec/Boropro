@@ -1124,7 +1124,7 @@ function ScieEquipTab() {
     },
     {
       id: 'flame-annealing',
-      title: '💨 Flame Annealing Technique: Soot Coating Distribution',
+      title: 'Flame Annealing Technique: Soot Coating Distribution',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
@@ -1216,7 +1216,7 @@ function ScieEquipTab() {
     },
     {
       id: 'temperature',
-      title: '📊 Temperature Measurement: Thermocouples and Pyrometers',
+      title: 'Temperature Measurement: Thermocouples and Pyrometers',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
