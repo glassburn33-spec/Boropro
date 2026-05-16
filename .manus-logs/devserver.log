@@ -1209,3 +1209,8 @@
 [2026-05-16T01:12:44.869Z] [Auth] Missing session cookie
 [2026-05-16T18:23:14.733Z] [Auth] Missing session cookie
 [2026-05-16T18:24:27.485Z] 2:24:27 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T18:25:55.470Z] [Auth] Missing session cookie
+[2026-05-16T18:26:57.785Z] 2:26:57 PM [vite] (client) hmr update /src/pages/LogoHome.tsx, /src/index.css
+[2026-05-16T18:27:08.247Z] [Auth] Missing session cookie
+[2026-05-16T18:27:26.038Z] [Auth] Missing session cookie
+[2026-05-16T18:27:26.353Z] 2:27:26 PM [vite] (client) hmr update /src/index.css

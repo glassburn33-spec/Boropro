@@ -5,10 +5,12 @@
 
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { Menu, X } from "lucide-react";
 
 export default function LogoHome() {
   const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");
   const [, setLocation] = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleHeaderImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -60,33 +62,82 @@ export default function LogoHome() {
           </div>
         </div>
         
-        {/* ROW 2: Navigation Buttons */}
-        <div className="flex justify-center gap-4 px-4 py-4 border-t border-amber-700/30">
+        {/* ROW 2: Navigation Buttons - Desktop */}
+        <nav className="hidden sm:flex justify-center gap-2 md:gap-4 px-4 py-4 border-t border-amber-700/30 flex-wrap">
           <a
             href="/explore?tab=studio"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
+            className="px-3 md:px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-sm md:text-base"
           >
             Glass-Science
           </a>
           <a
             href="/explore?tab=scieequip"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
+            className="px-3 md:px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-sm md:text-base"
           >
             Scie-Equip
           </a>
           <a
             href="/explore?tab=colorscience"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
+            className="px-3 md:px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-sm md:text-base"
           >
             Color-Scie
           </a>
           <a
             href="/tools"
-            className="px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition"
+            className="px-3 md:px-6 py-2 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-sm md:text-base"
           >
             Tools
           </a>
+        </nav>
+        
+        {/* ROW 2: Mobile Hamburger Menu */}
+        <div className="sm:hidden flex items-center justify-center px-4 py-4 border-t border-amber-700/30">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 hover:bg-stone-800 rounded transition"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6 text-amber-400" />
+            ) : (
+              <Menu className="w-6 h-6 text-amber-400" />
+            )}
+          </button>
         </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {mobileMenuOpen && (
+          <nav className="sm:hidden flex flex-col gap-2 px-4 py-3 bg-stone-800 border-t border-amber-700/30">
+            <a
+              href="/explore?tab=studio"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium"
+            >
+              Glass-Science
+            </a>
+            <a
+              href="/explore?tab=scieequip"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium"
+            >
+              Scie-Equip
+            </a>
+            <a
+              href="/explore?tab=colorscience"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium"
+            >
+              Color-Scie
+            </a>
+            <a
+              href="/tools"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium"
+            >
+              Tools
+            </a>
+          </nav>
+        )}
       </header>
       
 
