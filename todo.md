@@ -835,3 +835,15 @@
   - [x] Add keyboard support (ESC to close via onKeyDown handler)
   - [x] Test on mobile and desktop (responsive modal with max-w-4xl max-h-[90vh])
   - [x] Write Vitest tests for image expansion (18 tests created)
+- [x] Add full-screen image expansion to remaining ColorScience sections
+  - [x] Nickel Coordination Geometry image (colorspectrumplot_34c8ce0a.png)
+  - [x] Chromium Absorption Spectra image (Gemini_Generated_Image_4idm924idm924idm_16acde46.png)
+  - [x] Phase Diagram image (phasediagram_0401fabd.png)
+  - [x] Phase Separation Morphologies image (phaseseperatrion_4f039bd5.png)
+  - [x] Amber Glass Composition Table (ambertable_15f1d048.png)
+  - [x] Amber Glass Spectrum image (amberspectrum_2b59b923.png)
+  - [x] Amber Wavelength Plot (amberwavelengthplot_91469176.png)
+  - [x] Amber Temperature Dependence (amber8lwavelenght_d9db5741.png)
+  - [x] Beer-Lambert Curve (beerlambertcurve_fac44eaf.png)
+  - [x] All images now clickable with full-screen modal expansion
+  - [x] Tested full-screen expansion on mobile and desktop

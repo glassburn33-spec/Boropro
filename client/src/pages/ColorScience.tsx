@@ -116,12 +116,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               This schematic depicts the three-step sequence of Ni(II) coordination evolution within borosilicate matrices, demonstrating the correlation between atomic arrangement geometry surrounding the central Ni(II) species and corresponding light absorption wavenumber positions:
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/colorspectrumplot_34c8ce0a.png')}>
               <img 
                 src="/manus-storage/colorspectrumplot_34c8ce0a.png" 
                 alt="Nickel Coordination Geometry" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
             </div>
             <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
               <div>
@@ -184,12 +187,15 @@ export default function ColorScienceTab() {
 
             {/* Chromium Absorption Spectra Image */}
             <div className="my-8 space-y-4">
-              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+              <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/Gemini_Generated_Image_4idm924idm924idm_16acde46.png')}>
                 <img 
                   src="/manus-storage/Gemini_Generated_Image_4idm924idm924idm_16acde46.png" 
                   alt="Chromium Absorption Spectra" 
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
                 />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                  <ZoomIn className="w-8 h-8 text-white" />
+                </div>
               </div>
               <div className="bg-stone-800/30 rounded-lg p-4 text-sm text-stone-300 space-y-4">
                 <p className="font-semibold text-amber-300">Comparative Absorbance Profiles: Chromium Oxidation State Differentiation</p>
@@ -326,12 +332,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               This ternary phase diagram shows the immiscibility region (green boundary) where phase separation will occur in the Na₂O–B₂O₃–SiO₂ glass system. Pyrex and Vycor compositions are marked, showing how they sit relative to the immiscibility boundary. Compositions within the immiscibility region undergo phase separation; those outside remain homogeneous.
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/phasediagram_0401fabd.png')}>
               <img 
                 src="/manus-storage/phasediagram_0401fabd.png" 
                 alt="Ternary Phase Diagram Na2O-B2O3-SiO2" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
             </div>
             <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
               <div>
@@ -351,12 +360,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               Two distinct mechanisms produce different phase morphologies in glass melts. Understanding these mechanisms helps explain how cooling rates and composition affect the final glass structure and properties.
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/phaseseperatrion_4f039bd5.png')}>
               <img 
                 src="/manus-storage/phaseseperatrion_4f039bd5.png" 
                 alt="Phase Separation Morphologies" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
             </div>
             <div className="bg-stone-800/30 rounded-lg p-6 space-y-4 text-sm text-stone-300">
               <div>
@@ -415,24 +427,30 @@ export default function ColorScienceTab() {
           </div>
 
           {/* Composition Table Image */}
-          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/ambertable_15f1d048.png')}>
             <img 
               src="/manus-storage/ambertable_15f1d048.png" 
               alt="Chemical compositions of amber glass samples" 
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
             />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+              <ZoomIn className="w-8 h-8 text-white" />
+            </div>
             <p className="text-stone-400 text-sm mt-4 text-center italic">
               Chemical compositions of the glasses, as measured by electron microprobe and averaged over 10 measurement points. Note the increasing sulfur content (SO₃) correlating with darker coloration.
             </p>
           </div>
 
           {/* Spectrum Image */}
-          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4 mt-4">
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 mt-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/amberspectrum_2b59b923.png')}>
             <img 
               src="/manus-storage/amberspectrum_2b59b923.png" 
               alt="Macroscopic picture of amber glass samples" 
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
             />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+              <ZoomIn className="w-8 h-8 text-white" />
+            </div>
             <p className="text-stone-400 text-sm mt-4 text-center italic">
               Macroscopic picture of amber glass samples. Amber1, the lightest amber glass, appears pale yellow, and Amber8, the darkest, is brown. The progression demonstrates how iron and sulfur content creates a continuous color spectrum from nearly colorless to deep brown.
             </p>
@@ -444,12 +462,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               Spectrophotometric absorption measurements characterizing the iron-sulfur chromophoric system across the amber glass series (Amber1–Amber8), performed at ambient temperature following ultraviolet-edge background subtraction. Successive spectra display 2 cm<sup>−1</sup> absorbance offset increments, progressing from lowest-concentration (Amber1, baseline) through highest-concentration (Amber8, apex) formulations for visual discrimination.
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/amberwavelengthplot_91469176.png')}>
               <img 
                 src="/manus-storage/amberwavelengthplot_91469176.png" 
                 alt="Optical absorption spectra of amber glasses Amber1 to Amber8" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
               <p className="text-stone-400 text-sm mt-4 text-center italic">
                 Linear absorbance (cm<sup>−1</sup>) plotted against wavenumber (cm<sup>−1</sup>) and wavelength (nm), showing the systematic increase in absorption intensity with increasing sulfur content from Amber1 (lightest) to Amber8 (darkest).
               </p>
@@ -462,12 +483,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               Spectroscopic evolution of Amber8 formulation across thermal gradient (293 K ambient through 40 K cryogenic conditions), with color-coded temperature progression (red=warm, blue=cold). Magnified inset examination of the 34,000 cm<sup>−1</sup> absorption maximum demonstrates band-sharpening and hypsochromic (higher-wavenumber) shifting upon thermal contraction. Temperature-dependent spectroscopic behavior illuminates the chromophore's electronic-state dynamics and matrix-mediated thermal responsiveness.
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/amber8lwavelenght_d9db5741.png')}>
               <img 
                 src="/manus-storage/amber8lwavelenght_d9db5741.png" 
                 alt="Temperature-dependent optical absorption spectra of Amber8 glass" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
               <p className="text-stone-400 text-sm mt-4 text-center italic">
                 Linear absorbance (cm<sup>−1</sup>) plotted against wavenumber (cm<sup>−1</sup>) and wavelength (nm) at multiple temperatures from 40 K to 293 K. The color gradient from blue (cold) to red (warm) illustrates how thermal energy affects the optical absorption characteristics of the amber chromophore, with the inset highlighting the 34,000 cm<sup>−1</sup> band narrowing at lower temperatures.
               </p>
@@ -480,12 +504,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300">
               Colorimetric coordinate mapping of all eight amber formulations derived from spectroscopic data, computed using D65 standard illuminant and 2° observer geometry. Experimental chromaticity values for the complete amber series demonstrate exceptional concordance with Beer-Lambert-law predictions extrapolated from Amber8 measurements. This alignment substantiates monochromatic origin (single chromophoric species) with concentration-dependent absorption intensity governing perceived coloration magnitude.
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/beerlambertcurve_fac44eaf.png')}>
               <img 
                 src="/manus-storage/beerlambertcurve_fac44eaf.png" 
                 alt="CIE chromaticity diagram showing Beer-Lambert curve for amber glasses" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
               <p className="text-stone-400 text-sm mt-4 text-center italic">
                 CIE chromaticity diagram with D65 illuminant and 2° standard observer showing the Beer-Lambert trend line (dotted curve) and the positions of all eight amber glass samples. The linear relationship between chromophore concentration and color shift demonstrates the Beer-Lambert law's applicability to glass coloration.
               </p>
