@@ -424,6 +424,7 @@ export default function AnealingProfileEditor() {
   const [editingColors, setEditingColors] = useState<string[]>([]);
   const [colorWheelHue, setColorWheelHue] = useState(0);
   const [tempUnit, setTempUnit] = useState<'C' | 'F'>('C');
+  const [expandedPlot, setExpandedPlot] = useState(false);
   const title = 'Heat Treatment Profile';
 
   // Convert all temperatures when unit changes
@@ -1019,8 +1020,34 @@ export default function AnealingProfileEditor() {
 
       {/* Plot */}
       <div className="flex justify-center">
-        {plotSvg}
+        <div 
+          onClick={() => setExpandedPlot(true)}
+          className="cursor-pointer hover:opacity-80 transition-opacity max-w-full overflow-x-auto"
+          title="Click to expand"
+        >
+          {plotSvg}
+        </div>
       </div>
+
+      {/* Expanded Plot Modal */}
+      {expandedPlot && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="bg-stone-900 border border-stone-700 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div className="sticky top-0 bg-stone-800 border-b border-stone-700 p-4 flex justify-between items-center">
+              <h3 className="text-lg font-bold text-amber-400">Heat Treatment Profile</h3>
+              <button
+                onClick={() => setExpandedPlot(false)}
+                className="text-stone-400 hover:text-white transition-colors text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-4 flex justify-center overflow-x-auto">
+              {plotSvg}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Action Buttons */}
       <div className="flex gap-4">
