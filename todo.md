@@ -888,3 +888,8 @@
   - [x] Wrapped Borosilicate Glass Heat Treatment Profile image (boroanealprofile_20331f22.png)
   - [x] Added click handler and ZoomIn hover indicator
   - [x] Verified full-screen modal expansion works correctly
+- [x] Reformat Glass-Science tab accordion sections to match Color-Science styling
+  - [x] Analyzed Color-Science accordion styling and layout (custom Accordion component)
+  - [x] Applied responsive padding (px-3 md:px-6) and text sizing (text-base md:text-lg) to Glass-Science
+  - [x] Updated all 6 accordion triggers with responsive classes and break-words
+  - [x] Verified mobile responsiveness matches Color-Science tab pattern

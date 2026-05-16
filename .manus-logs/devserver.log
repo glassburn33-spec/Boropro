@@ -3687,3 +3687,189 @@
 [2026-05-16T21:26:08.359Z] [Auth] Missing session cookie
 [2026-05-16T21:27:39.989Z] 5:27:39 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
 [2026-05-16T21:27:40.379Z] [Auth] Missing session cookie
+[2026-05-16T21:28:24.949Z] [Auth] Missing session cookie
+[2026-05-16T21:29:42.586Z] [Auth] Missing session cookie
+[2026-05-16T21:30:51.331Z] 5:30:51 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:30:51.771Z] [Auth] Missing session cookie
+[2026-05-16T21:31:03.116Z] 5:31:03 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:03.555Z] 5:31:03 PM [vite] Internal server error: Transform failed with 1 error:
+[2026-05-16T21:31:03.555Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:143: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.556Z] Plugin: vite:esbuild
+[2026-05-16T21:31:03.556Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:94
+[2026-05-16T21:31:03.556Z] 
+[2026-05-16T21:31:03.557Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.557Z] 327 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:327" value="structure">
+[2026-05-16T21:31:03.557Z] 328 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:328" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:03.558Z] 329 |  ...t-base md:text-lg font-semibold text-amber-400 break-words">>
+[2026-05-16T21:31:03.558Z] |                                                                 ^
+[2026-05-16T21:31:03.558Z] 330 |                    The Structure of Glass: Why It Behaves the Way It Does
+[2026-05-16T21:31:03.559Z] 331 |                  </h2>
+[2026-05-16T21:31:03.559Z] 
+[2026-05-16T21:31:03.560Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-16T21:31:03.560Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-16T21:31:03.561Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-16T21:31:03.561Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-16T21:31:03.562Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-16T21:31:03.562Z] at Socket.emit (node:events:524:28)
+[2026-05-16T21:31:03.562Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-16T21:31:03.563Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-16T21:31:03.563Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-16T21:31:03.564Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-16T21:31:03.564Z] 5:31:03 PM [vite] Internal server error: Transform failed with 1 error:
+[2026-05-16T21:31:03.565Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:143: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.565Z] Plugin: vite:esbuild
+[2026-05-16T21:31:03.566Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:94
+[2026-05-16T21:31:03.566Z] 
+[2026-05-16T21:31:03.567Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.567Z] 327 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:327" value="structure">
+[2026-05-16T21:31:03.568Z] 328 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:328" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:03.568Z] 329 |  ...t-base md:text-lg font-semibold text-amber-400 break-words">>
+[2026-05-16T21:31:03.569Z] |                                                                 ^
+[2026-05-16T21:31:03.570Z] 330 |                    The Structure of Glass: Why It Behaves the Way It Does
+[2026-05-16T21:31:03.570Z] 331 |                  </h2>
+[2026-05-16T21:31:03.570Z] 
+[2026-05-16T21:31:03.571Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-16T21:31:03.572Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-16T21:31:03.572Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-16T21:31:03.572Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-16T21:31:03.573Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-16T21:31:03.573Z] at Socket.emit (node:events:524:28)
+[2026-05-16T21:31:03.573Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-16T21:31:03.574Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-16T21:31:03.574Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-16T21:31:03.574Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-16T21:31:03.763Z] 5:31:03 PM [vite] (client) Pre-transform error: Transform failed with 1 error:
+[2026-05-16T21:31:03.764Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:143: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.764Z] Plugin: vite:esbuild
+[2026-05-16T21:31:03.765Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:94
+[2026-05-16T21:31:03.765Z] 
+[2026-05-16T21:31:03.765Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:03.766Z] 327 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:327" value="structure">
+[2026-05-16T21:31:03.766Z] 328 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:328" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:03.767Z] 329 |  ...t-base md:text-lg font-semibold text-amber-400 break-words">>
+[2026-05-16T21:31:03.767Z] |                                                                 ^
+[2026-05-16T21:31:03.768Z] 330 |                    The Structure of Glass: Why It Behaves the Way It Does
+[2026-05-16T21:31:03.768Z] 331 |                  </h2>
+[2026-05-16T21:31:03.768Z] 
+[2026-05-16T21:31:07.031Z] 5:31:07 PM [vite] Internal server error: Transform failed with 1 error:
+[2026-05-16T21:31:07.032Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:143: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:07.032Z] Plugin: vite:esbuild
+[2026-05-16T21:31:07.033Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:329:94
+[2026-05-16T21:31:07.034Z] 
+[2026-05-16T21:31:07.034Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:07.034Z] 327 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:327" value="structure">
+[2026-05-16T21:31:07.035Z] 328 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:328" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:07.035Z] 329 |  ...t-base md:text-lg font-semibold text-amber-400 break-words">>
+[2026-05-16T21:31:07.036Z] |                                                                 ^
+[2026-05-16T21:31:07.036Z] 330 |                    The Structure of Glass: Why It Behaves the Way It Does
+[2026-05-16T21:31:07.036Z] 331 |                  </h2>
+[2026-05-16T21:31:07.037Z] 
+[2026-05-16T21:31:07.037Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-16T21:31:07.037Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-16T21:31:07.038Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-16T21:31:07.038Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-16T21:31:07.039Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-16T21:31:07.039Z] at Socket.emit (node:events:524:28)
+[2026-05-16T21:31:07.040Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-16T21:31:07.040Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-16T21:31:07.041Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-16T21:31:07.042Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-16T21:31:09.198Z] 5:31:09 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:09.753Z] [Auth] Missing session cookie
+[2026-05-16T21:31:19.725Z] 5:31:19 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:20.064Z] [Auth] Missing session cookie
+[2026-05-16T21:31:32.022Z] 5:31:32 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:32.375Z] 5:31:32 PM [vite] Internal server error: Transform failed with 2 errors:
+[2026-05-16T21:31:32.376Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:155: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.376Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:481:146: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.376Z] Plugin: vite:esbuild
+[2026-05-16T21:31:32.377Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:94
+[2026-05-16T21:31:32.377Z] 
+[2026-05-16T21:31:32.377Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.378Z] 440 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:440" value="annealing">
+[2026-05-16T21:31:32.378Z] 441 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:441" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.378Z] 442 |  ...xt-lg font-semibold text-amber-400 break-words">t-amber-400">
+[2026-05-16T21:31:32.379Z] |                                                                 ^
+[2026-05-16T21:31:32.379Z] 443 |                    The Science of Glass Annealing
+[2026-05-16T21:31:32.380Z] 444 |                  </h2>
+[2026-05-16T21:31:32.380Z] 
+[2026-05-16T21:31:32.380Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.382Z] 479 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:479" value="heattreatment">
+[2026-05-16T21:31:32.382Z] 480 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:480" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.383Z] 481 |  ...ase md:text-lg font-semibold text-amber-400 break-words">00">
+[2026-05-16T21:31:32.383Z] |                                                                 ^
+[2026-05-16T21:31:32.383Z] 482 |                    Glass Heat Treatment Profile
+[2026-05-16T21:31:32.384Z] 483 |                  </h2>
+[2026-05-16T21:31:32.384Z] 
+[2026-05-16T21:31:32.385Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-16T21:31:32.385Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-16T21:31:32.386Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-16T21:31:32.386Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-16T21:31:32.387Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-16T21:31:32.387Z] at Socket.emit (node:events:524:28)
+[2026-05-16T21:31:32.387Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-16T21:31:32.388Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-16T21:31:32.388Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-16T21:31:32.389Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-16T21:31:32.389Z] 5:31:32 PM [vite] Internal server error: Transform failed with 2 errors:
+[2026-05-16T21:31:32.390Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:155: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.391Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:481:146: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.391Z] Plugin: vite:esbuild
+[2026-05-16T21:31:32.392Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:94
+[2026-05-16T21:31:32.392Z] 
+[2026-05-16T21:31:32.392Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.393Z] 440 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:440" value="annealing">
+[2026-05-16T21:31:32.393Z] 441 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:441" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.394Z] 442 |  ...xt-lg font-semibold text-amber-400 break-words">t-amber-400">
+[2026-05-16T21:31:32.394Z] |                                                                 ^
+[2026-05-16T21:31:32.395Z] 443 |                    The Science of Glass Annealing
+[2026-05-16T21:31:32.395Z] 444 |                  </h2>
+[2026-05-16T21:31:32.395Z] 
+[2026-05-16T21:31:32.396Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.396Z] 479 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:479" value="heattreatment">
+[2026-05-16T21:31:32.397Z] 480 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:480" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.397Z] 481 |  ...ase md:text-lg font-semibold text-amber-400 break-words">00">
+[2026-05-16T21:31:32.398Z] |                                                                 ^
+[2026-05-16T21:31:32.398Z] 482 |                    Glass Heat Treatment Profile
+[2026-05-16T21:31:32.398Z] 483 |                  </h2>
+[2026-05-16T21:31:32.399Z] 
+[2026-05-16T21:31:32.400Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-16T21:31:32.400Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-16T21:31:32.400Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-16T21:31:32.401Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-16T21:31:32.401Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-16T21:31:32.402Z] at Socket.emit (node:events:524:28)
+[2026-05-16T21:31:32.402Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-16T21:31:32.403Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-16T21:31:32.403Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-16T21:31:32.404Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-16T21:31:32.596Z] 5:31:32 PM [vite] (client) Pre-transform error: Transform failed with 2 errors:
+[2026-05-16T21:31:32.596Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:155: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.597Z] /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:481:146: ERROR: The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.597Z] Plugin: vite:esbuild
+[2026-05-16T21:31:32.597Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/GlassScience.tsx:442:94
+[2026-05-16T21:31:32.598Z] 
+[2026-05-16T21:31:32.598Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.598Z] 440 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:440" value="annealing">
+[2026-05-16T21:31:32.599Z] 441 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:441" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.599Z] 442 |  ...xt-lg font-semibold text-amber-400 break-words">t-amber-400">
+[2026-05-16T21:31:32.599Z] |                                                                 ^
+[2026-05-16T21:31:32.600Z] 443 |                    The Science of Glass Annealing
+[2026-05-16T21:31:32.600Z] 444 |                  </h2>
+[2026-05-16T21:31:32.600Z] 
+[2026-05-16T21:31:32.600Z] The character ">" is not valid inside a JSX element
+[2026-05-16T21:31:32.601Z] 479 |              <AccordionItem data-loc="client/src/pages/GlassScience.tsx:479" value="heattreatment">
+[2026-05-16T21:31:32.601Z] 480 |                <AccordionTrigger data-loc="client/src/pages/GlassScience.tsx:480" className="bg-stone-800 hover:bg-sto...
+[2026-05-16T21:31:32.602Z] 481 |  ...ase md:text-lg font-semibold text-amber-400 break-words">00">
+[2026-05-16T21:31:32.602Z] |                                                                 ^
+[2026-05-16T21:31:32.602Z] 482 |                    Glass Heat Treatment Profile
+[2026-05-16T21:31:32.603Z] 483 |                  </h2>
+[2026-05-16T21:31:32.603Z] 
+[2026-05-16T21:31:38.279Z] 5:31:38 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:38.564Z] [Auth] Missing session cookie
+[2026-05-16T21:31:46.916Z] 5:31:46 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:47.202Z] [Auth] Missing session cookie
+[2026-05-16T21:31:59.014Z] 5:31:59 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:31:59.462Z] [Auth] Missing session cookie
+[2026-05-16T21:32:27.134Z] [Auth] Missing session cookie
+[2026-05-16T21:32:35.779Z] [Auth] Missing session cookie

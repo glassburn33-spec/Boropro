@@ -246,16 +246,16 @@ function StudioTab() {
       {/* GLASS SCIENCE HEADER */}
       <div className="border-t border-stone-700 pt-8 mt-8">
 
-        <div className="max-w-2xl mx-auto space-y-4 pb-10 px-2">
+        <div className="max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4">
           <Accordion type="single" collapsible>
             {/* SECTION 1: CHEMICAL COMPOSITION */}
             <AccordionItem value="composition">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   Chemical Composition of Borosilicate Glass
                 </h2>
               </AccordionTrigger>
-              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-3 md:px-6 py-3 md:py-4">
                 <div className="space-y-4">
                   <p className="text-stone-300 text-sm leading-relaxed">
                     Borosilicate glass is formulated with significant amounts of silicon dioxide (SiO<sub>2</sub>) as the primary network former and boron trioxide (B<sub>2</sub>O<sub>3</sub>) as a secondary network former. The combination of approximately 80%+ silica with ~13% boric oxide creates a glass matrix with exceptional thermal shock resistance, chemical durability, and low thermal expansion—making it ideal for laboratory glassware and high-temperature applications.
@@ -286,14 +286,14 @@ function StudioTab() {
 
             {/* SECTION 2: THERMAL PROPERTIES */}
             <AccordionItem value="thermal">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   Thermal Properties
                 </h2>
               </AccordionTrigger>
-              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-3 md:px-6 py-3 md:py-4">
                 <div className="space-y-4">
-                  <p className="text-stone-300 text-sm leading-relaxed">
+                  <p className="text-stone-300 text-xs md:text-sm leading-relaxed break-words">
                     Borosilicate glass exhibits a remarkably low thermal expansion coefficient, which minimizes internal stress development during temperature fluctuations. This property allows the material to endure steep temperature gradients and rapid thermal cycling without fracturing. However, surface defects such as scratches or chips can compromise this thermal resilience by creating stress concentration points.
                   </p>
                   <p className="text-stone-300 text-sm leading-relaxed">
@@ -323,14 +323,14 @@ function StudioTab() {
               </AccordionContent>
             </AccordionItem>
 
-            {/* SECTION 3: STRUCTURE OF GLASS */}
+            {/* SECTION 3: CRYSTAL STRUCTURE */}
             <AccordionItem value="structure">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   The Structure of Glass: Why It Behaves the Way It Does
                 </h2>
               </AccordionTrigger>
-              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-3 md:px-6 py-3 md:py-4">
                 <div className="space-y-4">
                   {/* CRYSTAL STRUCTURE IMAGE */}
                   <div className="w-full flex flex-col items-center mb-6">
@@ -436,10 +436,10 @@ function StudioTab() {
               </AccordionContent>
             </AccordionItem>
 
-            {/* SECTION 4: SCIENCE OF GLASS ANNEALING */}
+            {/* SECTION 4: GLASS SCIENCE */}
             <AccordionItem value="annealing">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   The Science of Glass Annealing
                 </h2>
               </AccordionTrigger>
@@ -475,14 +475,14 @@ function StudioTab() {
               </AccordionContent>
             </AccordionItem>
 
-            {/* SECTION 5: GLASS HEAT TREATMENT PROFILE */}
+                {/* SECTION 5: GLASS HEAT TREATMENT */}
             <AccordionItem value="heattreatment">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   Glass Heat Treatment Profile
                 </h2>
               </AccordionTrigger>
-              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-3 md:px-6 py-3 md:py-4">
                 <div className="space-y-4">
                   <div className="w-full flex justify-center my-6">
                     <button
@@ -519,12 +519,12 @@ function StudioTab() {
 
             {/* SECTION 6: DEVITRIFICATION */}
             <AccordionItem value="devitrification">
-              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-6 py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
-                <h2 className="text-lg font-semibold text-amber-400">
+              <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
+                <h2 className="text-base md:text-lg font-semibold text-amber-400 break-words">
                   Devitrification
                 </h2>
               </AccordionTrigger>
-              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
+              <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-3 md:px-6 py-3 md:py-4">
                 <div className="space-y-4">
                   <div className="w-full flex justify-center my-6">
                     <button
