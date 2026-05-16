@@ -487,64 +487,6 @@ export default function ColorScienceTab() {
         </div>
       ),
     },
-    {
-      id: 'history-color',
-      title: '7. History of Color',
-      content: (
-        <div className="space-y-6">
-          <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
-            <p className="font-semibold text-amber-300">Temporal documentation of chromatic glass production: compositional analysis of ancient vitreous artifacts spanning the Roman-Byzantine transition</p>
-          </div>
-
-          <div className="space-y-6 text-stone-300 leading-relaxed">
-            <p>
-              The archaeological assemblage examined originates from Roman-era and Protobyzantine-period strata (1st–5th centuries CE), recovered through systematic excavation at Ancient Messene (Peloponnesian region, Hellenic Republic). Ancient Messene represents a significant archaeological site, distinguished by substantial urban scale, architectural complexity, and exceptional preservation status, constituting a major conservation initiative within contemporary Greece. During Pausanias's documented visitation in the 2nd century CE, Ancient Messene functioned as a prosperous administrative and intellectual hub. The interval AD 212–394 exhibits sparse archaeological documentation, reflecting urban contraction and socioeconomic decline. Stratigraphic layers recording destruction events and structural abandonment correspond to Roman-imperial collapse, dated approximately AD 360/70. Subsequently, during the late 4th century CE, a vigorous Protobyzantine urban center emerged within the Asklepeion precinct, maintaining continuous occupation through the 6th century CE terminus.
-            </p>
-
-            <p>
-              The assemblage encompasses diverse vitreous artifacts: vessel shards, fenestration fragments, stirring implements, and experimental glass specimens. Polychromatic translucent and opaque mosaic-tile elements recovered from the Isis-Serapis sanctuary likely constituted mural-decoration components. The subsequent table catalogs analyzed Roman-period glass fragments, specifying chromatic classification and elemental oxide quantification (mass percentage) via scanning-electron-microscopy spectroscopy. Compositional analysis substantiates Roman artisans' sophisticated chromatic-production knowledge, encompassing deliberate transition-metal incorporation (Cu, Fe, Mn, Sb) generating extensive color-space coverage: deep-blue and green tonalities through yellow, orange, brown, and purple hues.
-            </p>
-
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
-              <img 
-                src="/manus-storage/colorhistorytable_72ac83b4.png" 
-                alt="Roman glass fragments composition and color analysis" 
-                className="w-full h-auto object-contain"
-              />
-              <p className="text-stone-400 text-sm mt-4 text-center italic">
-                List of studied Roman glass fragments including their colour and oxide composition (wt%) as determined by SEM measurements (op. – opaque, tr. – transparent). The data spans multiple color categories: Blue, Green to Yellow, Brown, and Purple, demonstrating the diverse palette of colors Roman glassmakers could achieve through controlled use of transition metal oxides and opacifying agents.
-              </p>
-            </div>
-
-            <div className="bg-stone-800/30 rounded-lg p-6 border border-stone-700/30">
-              <h4 className="text-lg font-semibold text-amber-300 mb-3">Salient Findings: Elemental Chromophore Distribution in Roman Vitreous Specimens</h4>
-              <ul className="space-y-2 text-stone-300 text-sm">
-                <li className="flex items-start">
-                  <span className="text-amber-400 mr-3">•</span>
-                  <span><strong>Cupric oxide (CuO):</strong> Dominant chromophore for blue-green tonalities, exhibiting concentration range 0.18–3.93 mass%</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-400 mr-3">•</span>
-                  <span><strong>Ferric oxide (Fe₂O₃):</strong> Yellow-brown chromophore system, wherein oxidation-state modulation governs chromatic output</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-400 mr-3">•</span>
-                  <span><strong>Manganese oxide (MnO):</strong> Bifunctional chromophore and decolorizing agent, maximum concentration 3.52 mass%</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-400 mr-3">•</span>
-                  <span><strong>Antimony trioxide (Sb₂O₃):</strong> Opacification agent, particularly prevalent in blue-purple formulations</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-400 mr-3">•</span>
-                  <span><strong>Lead oxide (PbO):</strong> Selective-sample constituent, presumably enhancing refractive brilliance and rheological properties</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      ),
-    },
   ];
 
   const [headerImage, setHeaderImage] = useState<string>("/manus-storage/Gemini_Generated_Image_xdojvrxdojvrxdoj_491ab419.png");

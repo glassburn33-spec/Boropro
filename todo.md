@@ -796,3 +796,9 @@
   - [x] Integrated chevron rotation animation into color section
   - [x] Created 20 Vitest tests for clickable color section behavior
   - [x] Verified dropdown expansion works on entire color section click
+- [x] Remove History of Color section from ColorScience tab
+  - [x] Removed entire "7. History of Color" accordion item (58 lines)
+  - [x] Removed Roman glass artifacts analysis content
+  - [x] Removed colorhistorytable_72ac83b4.png image reference
+  - [x] Removed elemental chromophore findings section
+  - [x] Verified ColorScience component renders without errors
