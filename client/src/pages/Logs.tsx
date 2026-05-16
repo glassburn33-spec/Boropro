@@ -461,9 +461,9 @@ export default function Logs() {
       label.setAttribute('x', (margin.left - 15).toString());
       label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
       label.setAttribute('text-anchor', 'end');
-      label.setAttribute('fill', '#999');
-      label.setAttribute('font-size', '11');
-      label.textContent = `${i}°C`;
+      label.setAttribute('fill', '#fbbf24');
+      label.setAttribute('font-size', '33');
+      label.textContent = `${i}°${unit}`;
       svg.appendChild(label);
     }
 
@@ -483,8 +483,8 @@ export default function Logs() {
       label.setAttribute('x', (margin.left + scaleX(time)).toString());
       label.setAttribute('y', (margin.top + plotHeight + 20).toString());
       label.setAttribute('text-anchor', 'middle');
-      label.setAttribute('fill', '#999');
-      label.setAttribute('font-size', '11');
+      label.setAttribute('fill', '#fbbf24');
+      label.setAttribute('font-size', '33');
       label.textContent = `${time} min`;
       svg.appendChild(label);
     }
@@ -494,8 +494,8 @@ export default function Logs() {
     xLabel.setAttribute('x', (margin.left + plotWidth / 2).toString());
     xLabel.setAttribute('y', (height - 20).toString());
     xLabel.setAttribute('text-anchor', 'middle');
-    xLabel.setAttribute('fill', '#999');
-    xLabel.setAttribute('font-size', '14');
+    xLabel.setAttribute('fill', '#fbbf24');
+    xLabel.setAttribute('font-size', '42');
     xLabel.textContent = 'Time →';
     svg.appendChild(xLabel);
 
@@ -503,8 +503,8 @@ export default function Logs() {
     yLabel.setAttribute('x', '15');
     yLabel.setAttribute('y', (margin.top + plotHeight / 2).toString());
     yLabel.setAttribute('text-anchor', 'middle');
-    yLabel.setAttribute('fill', '#999');
-    yLabel.setAttribute('font-size', '13');
+    yLabel.setAttribute('fill', '#fbbf24');
+    yLabel.setAttribute('font-size', '39');
     yLabel.setAttribute('transform', `rotate(-90 15 ${margin.top + plotHeight / 2})`);
     yLabel.textContent = `Temp (°${unit})`;
     svg.appendChild(yLabel);
@@ -515,7 +515,7 @@ export default function Logs() {
     title.setAttribute('y', '40');
     title.setAttribute('text-anchor', 'middle');
     title.setAttribute('fill', '#fbbf24');
-    title.setAttribute('font-size', '20');
+    title.setAttribute('font-size', '60');
     title.setAttribute('font-weight', 'bold');
     title.textContent = log.name;
     svg.appendChild(title);
