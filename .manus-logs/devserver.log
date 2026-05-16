@@ -3199,3 +3199,5 @@
 [2026-05-16T20:02:16.779Z] 4:02:16 PM [vite] (client) hmr update /src/index.css
 [2026-05-16T20:04:43.166Z] 4:04:43 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-16T20:05:15.017Z] 4:05:15 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T20:07:42.752Z] 4:07:42 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-16T20:08:18.758Z] 4:08:18 PM [vite] (client) hmr update /src/index.css
