@@ -947,7 +947,7 @@ function ScieEquipTab() {
   const accordionItems = [
     {
       id: 'flame-structure',
-      title: '🔥 Flame Structure and Combustion Zones',
+      title: 'Flame Structure and Combustion Zones',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
@@ -998,7 +998,7 @@ function ScieEquipTab() {
     },
     {
       id: 'flame-types',
-      title: '🌡️ Flame Types: Reducing, Neutral, Oxidizing, and Carburizing',
+      title: 'Flame Types: Reducing, Neutral, Oxidizing, and Carburizing',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
@@ -1124,7 +1124,7 @@ function ScieEquipTab() {
     },
     {
       id: 'spectroscopy',
-      title: '🔬 Spectroscopy Instrumentation for Glass Analysis',
+      title: 'Spectroscopy Instrumentation for Glass Analysis',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
@@ -1199,7 +1199,7 @@ function ScieEquipTab() {
     },
     {
       id: 'flame-stability',
-      title: '🌡️ Flame Stability and Blow-off Analysis',
+      title: 'Flame Stability and Blow-off Analysis',
       content: (
         <div className="space-y-6">
           <p className="text-stone-300 leading-relaxed">
@@ -1284,7 +1284,7 @@ function ScieEquipTab() {
     },
     {
       id: 'safety',
-      title: '🛡️ Safety',
+      title: 'Safety',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1389,7 +1389,7 @@ function ScieEquipTab() {
     },
     {
       id: 'flashback-arresters',
-      title: '🛡️ Flashback Arresters',
+      title: 'Flashback Arresters',
       content: (
         <div className="space-y-6">
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">

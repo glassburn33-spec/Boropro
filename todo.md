@@ -865,3 +865,11 @@
   - [x] Flashback images (Cross-section, Flashback Plot)
   - [x] Applied click handlers and modal functionality to all 12 images
   - [x] Tested full-screen expansion on mobile and desktop
+- [x] Remove all emoji icons from Equipment Science tab section titles
+  - [x] Removed 🔥 from Flame Structure section title
+  - [x] Removed 🌡️ from Flame Types section title
+  - [x] Removed 🔬 from Spectroscopy section title
+  - [x] Removed 🌡️ from Flame Stability section title
+  - [x] Removed 🛡️ from Safety section title
+  - [x] Removed 🛡️ from Flashback Arresters section title
+  - [x] Verified GlassScience component renders without errors

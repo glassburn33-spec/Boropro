@@ -3296,3 +3296,6 @@
 [2026-05-16T21:10:04.721Z] [Auth] Missing session cookie
 [2026-05-16T21:10:37.798Z] 5:10:37 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
 [2026-05-16T21:10:38.314Z] [Auth] Missing session cookie
+[2026-05-16T21:11:30.937Z] [Auth] Missing session cookie
+[2026-05-16T21:13:16.674Z] 5:13:16 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-16T21:13:17.084Z] [Auth] Missing session cookie
