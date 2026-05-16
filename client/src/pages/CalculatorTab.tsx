@@ -919,7 +919,12 @@ export function CalculatorTab() {
 
   return (
     <div className="space-y-4 pb-8">
-      <div className="container max-w-6xl">
+        {/* Header Image */}
+        <section className="border-b border-white/10">
+          <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
+        </section>
+
+        <div className="container max-w-6xl">
           {/* TEMPERATURE UNIT TOGGLE */}
           <div className="flex items-center gap-2 mb-4">
         <span className="text-sm text-stone-400">Temperature Unit:</span>
@@ -1333,7 +1338,7 @@ export function CalculatorTab() {
 
         </div>
       )}
-      </div>
+        </div>
     </div>
   );
 }
