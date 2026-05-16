@@ -3218,3 +3218,31 @@
 [2026-05-16T20:20:12.476Z] 4:20:12 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
 [2026-05-16T20:20:22.351Z] 4:20:22 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
 [2026-05-16T20:20:51.679Z] 4:20:51 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T20:23:06.043Z] 4:23:06 PM [vite] (client) hmr update /src/index.css, /src/components/DragonTearsBar.tsx
+[2026-05-16T20:23:35.745Z] 4:23:35 PM [vite] (client) hmr update /src/index.css, /src/components/FeaturedColorBar.tsx
+[2026-05-16T20:24:11.067Z] 4:24:11 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-16T20:24:24.749Z] 4:24:24 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-16T20:24:30.650Z] 4:24:30 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-16T20:24:51.311Z] Dev server process group stopped
+[2026-05-16T20:24:51.314Z] ELIFECYCLE  Command failed.
+[2026-05-16T20:24:51.366Z] Dev server exited with code -15
+[2026-05-16T20:24:54.365Z] Starting dev server with command: pnpm run dev
+[2026-05-16T20:24:55.250Z] 
+[2026-05-16T20:24:55.251Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-16T20:24:55.252Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-16T20:24:55.252Z] 
+[2026-05-16T20:24:57.091Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-16T20:24:57.444Z] 4:24:57 PM [vite] (client) Re-optimizing dependencies because lockfile has changed
+[2026-05-16T20:24:57.467Z] Server running on http://localhost:3000/
+[2026-05-16T20:24:58.645Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-05-16T20:25:09.350Z] 4:25:09 PM [vite] (client) hmr update /src/components/AnealingProfileEditor.tsx, /src/index.css
+[2026-05-16T20:26:28.901Z] Dev server process group stopped
+[2026-05-16T20:26:28.905Z] ELIFECYCLE  Command failed.
+[2026-05-16T20:26:28.948Z] Dev server exited with code -15
+[2026-05-16T20:26:31.946Z] Starting dev server with command: pnpm run dev
+[2026-05-16T20:26:32.943Z] 
+[2026-05-16T20:26:32.944Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-16T20:26:32.944Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-16T20:26:32.945Z] 
+[2026-05-16T20:26:35.091Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-16T20:26:35.394Z] Server running on http://localhost:3000/

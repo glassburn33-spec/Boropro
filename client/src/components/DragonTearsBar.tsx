@@ -52,18 +52,18 @@ export const DragonTearsBar: React.FC<DragonTearsBarProps> = ({ temperatureC, on
   }
 
   return (
-    <div className="bg-gray-900 rounded-lg p-6 border border-amber-900/30">
+    <div className="bg-gray-900 rounded-lg p-3 md:p-6 border border-amber-900/30">
       {/* Header with name and info button */}
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-semibold text-amber-400">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+        <div className="min-w-0">
+          <h3 className="text-base md:text-lg font-semibold text-amber-400 break-words">
             {dragonTearsV2.name} — {dragonTearsV2.manufacturer}
           </h3>
-          <p className="text-sm text-gray-400 mt-1">{dragonTearsV2.shortDescription}</p>
+          <p className="text-xs md:text-sm text-gray-400 mt-1 break-words">{dragonTearsV2.shortDescription}</p>
         </div>
         <button
           onClick={onInfoClick}
-          className="p-2 hover:bg-amber-900/20 rounded-full transition-colors"
+          className="p-2 hover:bg-amber-900/20 rounded-full transition-colors flex-shrink-0"
           title="View detailed information"
         >
           <Info size={20} className="text-amber-400" />
@@ -71,20 +71,20 @@ export const DragonTearsBar: React.FC<DragonTearsBarProps> = ({ temperatureC, on
       </div>
 
       {/* Atmosphere selector */}
-      <div className="mb-4 flex gap-2">
-        <span className="text-xs text-gray-400 font-semibold self-center">Flame:</span>
+      <div className="mb-4 flex flex-wrap gap-2 items-center">
+        <span className="text-xs text-gray-400 font-semibold">Flame:</span>
         {(['neutral', 'slightly-reducing', 'reducing'] as const).map((atm) => (
           <button
             key={atm}
             onClick={() => setAtmosphere(atm)}
-            className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+            className={`px-2 md:px-3 py-1 text-xs font-medium rounded transition-all whitespace-nowrap ${
               atmosphere === atm
                 ? 'bg-amber-500 text-gray-900'
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
             {atm === 'neutral' && 'Neutral'}
-            {atm === 'slightly-reducing' && 'Slightly Reducing'}
+            {atm === 'slightly-reducing' && 'Slightly Red'}
             {atm === 'reducing' && 'Reducing'}
           </button>
         ))}
@@ -94,7 +94,7 @@ export const DragonTearsBar: React.FC<DragonTearsBarProps> = ({ temperatureC, on
       <div className="relative mb-3">
         {/* Gradient background */}
         <div
-          className="w-full h-12 rounded border border-gray-700"
+          className="w-full h-10 md:h-12 rounded border border-gray-700"
           style={{ background: gradientStyle }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -135,36 +135,36 @@ export const DragonTearsBar: React.FC<DragonTearsBarProps> = ({ temperatureC, on
       </div>
 
       {/* Temperature scale labels */}
-      <div className="flex justify-between text-xs text-gray-500 mb-4">
-        <span>{minTemp}°C</span>
-        <span>620°C</span>
-        <span>{maxTemp}°C</span>
+      <div className="flex justify-between text-xs text-gray-500 mb-4 gap-1">
+        <span className="truncate">{minTemp}°C</span>
+        <span className="truncate">620°C</span>
+        <span className="truncate">{maxTemp}°C</span>
       </div>
 
       {/* Current state display */}
-      <div className="bg-gray-800/50 rounded p-3 border border-gray-700">
-        <div className="grid grid-cols-2 gap-4">
+      <div className="bg-gray-800/50 rounded p-2 md:p-3 border border-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wider">Current Hue</p>
-            <p className="text-sm font-semibold text-amber-300 mt-1">{currentPhase.baseHue}</p>
+            <p className="text-xs md:text-sm font-semibold text-amber-300 mt-1 break-words">{currentPhase.baseHue}</p>
           </div>
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wider">Silver Effect</p>
-            <p className="text-sm font-semibold text-amber-300 mt-1">{currentPhase.silverEffect}</p>
+            <p className="text-xs md:text-sm font-semibold text-amber-300 mt-1 break-words">{currentPhase.silverEffect}</p>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Atmosphere</p>
-            <p className="text-sm font-semibold text-amber-300 mt-1">{atmosphereData.displayName}</p>
+            <p className="text-xs md:text-sm font-semibold text-amber-300 mt-1 break-words">{atmosphereData.displayName}</p>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Notes</p>
-            <p className="text-xs text-gray-300 mt-1 italic">{currentPhase.notes}</p>
+            <p className="text-xs text-gray-300 mt-1 italic break-words">{currentPhase.notes}</p>
           </div>
         </div>
       </div>
 
       {/* Behavior note */}
-      <p className="text-xs text-gray-400 mt-3 italic">
+      <p className="text-xs text-gray-400 mt-3 italic break-words">
         {atmosphereData.description}
       </p>
     </div>

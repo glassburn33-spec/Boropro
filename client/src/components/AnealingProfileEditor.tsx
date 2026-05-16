@@ -601,7 +601,7 @@ export default function AnealingProfileEditor() {
         {/* Gridlines - dynamically scaled */}
         {(() => {
           const tempStep = maxTemp > 600 ? 100 : 50;
-          const gridTemps = [];
+          const gridTemps: number[] = [];
           for (let i = 0; i <= maxTemp; i += tempStep) {
             gridTemps.push(i);
           }

@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+*.dist
+.vite/
+
+# Generated files
+*.tsbuildinfo
+coverage/
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+drizzle/*.sql
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.tmp/
+temp/
+
+# Test coverage
+.nyc_output/

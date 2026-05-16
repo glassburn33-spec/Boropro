@@ -738,3 +738,48 @@
 - [x] Updated comment to clarify D_cyl = twice the radius
 - [x] Maintains correct Churchill-Chu correlation for horizontal cylinders
 - [x] Tests passing (109/112, 3 pre-existing failures)
+
+
+## Mobile UI Optimization Phase 2
+- [x] Optimize DragonTearsBar component for mobile display
+  - [x] Responsive header layout (flex-col on mobile, flex-row on md+)
+  - [x] Reduced padding (p-3 on mobile, md:p-6 on desktop)
+  - [x] Responsive text sizes (text-base md:text-lg for headers)
+  - [x] Shortened button labels ("Slightly Red" instead of "Slightly Reducing")
+  - [x] Reduced color bar height (h-10 md:h-12)
+  - [x] Added truncate and gap-1 to temperature scale labels
+  - [x] Responsive grid for current state display (grid-cols-1 md:grid-cols-2)
+  - [x] Added break-words to all text content
+- [x] Optimize FeaturedColorBar component for mobile display
+  - [x] Responsive header layout (flex-col on mobile, flex-row on md+)
+  - [x] Reduced padding (p-3 on mobile, md:p-6 on desktop)
+  - [x] Responsive text sizes (text-lg md:text-xl for headers)
+  - [x] Shortened button labels ("Slightly Red" instead of "Slightly Reducing")
+  - [x] Reduced color bar height (h-10 md:h-12)
+  - [x] Added truncate and gap-1 to temperature scale labels
+  - [x] Responsive grid for current color info (grid-cols-1 md:grid-cols-2)
+  - [x] Shortened caution indicator text ("Kiln darkening" instead of "Kiln darkening zone")
+  - [x] Added break-words to all text content
+- [x] Fix TypeScript errors in CalculatorTab.tsx
+  - [x] Fixed arithmetic operations on potentially non-number types (radius state)
+  - [x] Used parseFloat() and String() conversions for proper type handling
+- [x] Resolve missing @testing-library/react dependency
+  - [x] Installed @testing-library/react package
+  - [x] Fixed ColorSwatch.test.tsx import errors
+- [x] Fix AnealingProfileEditor.tsx TypeScript error
+  - [x] Added explicit type annotation to gridTemps array (number[])
+- [x] Clean up project dependencies and .gitignore
+  - [x] Removed problematic wouter patch configuration
+  - [x] Reinstalled all dependencies cleanly
+  - [x] Created comprehensive .gitignore file
+  - [x] Excluded node_modules from git tracking
+- [ ] Write and run Vitest tests for mobile-optimized components
+  - [ ] Create tests for DragonTearsBar responsive layout
+  - [ ] Create tests for FeaturedColorBar responsive layout
+  - [ ] Verify all existing tests still pass
+  - [ ] Add tests for mobile breakpoint behavior
+- [ ] Fine-tune remaining mobile UI elements
+  - [ ] Test ThermochromismSimulator on various mobile screen sizes
+  - [ ] Verify all touch targets are at least 44x44px
+  - [ ] Test hamburger menu scrolling in landscape orientation
+  - [ ] Verify text is readable against background colors

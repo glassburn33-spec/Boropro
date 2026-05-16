@@ -1206,13 +1206,13 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="number" 
-                value={tempUnit === 'F' ? ((radius * 2) / 25.4).toFixed(3) : (radius * 2)} 
+                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
                 min={tempUnit === 'F' ? '0.79' : '20'} 
                 max={tempUnit === 'F' ? '1.97' : '50'} 
                 step="0.01"
                 onChange={(e) => {
                   const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
-                  setRadius(val || 0);
+                  setRadius(String(val || 0));
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
