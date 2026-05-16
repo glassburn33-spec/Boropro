@@ -749,7 +749,7 @@ export default function AnealingProfileEditor() {
           return filteredMarkers.map((temp) => (
             <g key={`tick-${temp}`}>
               <line x1={margin.left - 5} y1={margin.top + scaleY(temp)} x2={margin.left} y2={margin.top + scaleY(temp)} stroke="#999" strokeWidth="1" />
-              <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#fbbf24" fontSize={Math.max(8, tickFontSize - 1)}>
+              <text x={margin.left - 15} y={margin.top + scaleY(temp) + 4} textAnchor="end" fill="#fbbf24" fontSize={Math.max(16, (tickFontSize - 1) * 2)}>
                 {temp}°{tempUnit}
               </text>
             </g>
@@ -760,7 +760,7 @@ export default function AnealingProfileEditor() {
         {cumulativeTimes.map((time, idx) => (
           <g key={`time-marker-${idx}`}>
             <line x1={margin.left + scaleX(time)} y1={margin.top + plotHeight} x2={margin.left + scaleX(time)} y2={margin.top + plotHeight + 5} stroke="#999" strokeWidth="1" />
-            <text x={margin.left + scaleX(time)} y={margin.top + plotHeight + 20} textAnchor="middle" fill="#fbbf24" fontSize={tickFontSize}>
+            <text x={margin.left + scaleX(time)} y={margin.top + plotHeight + 20} textAnchor="middle" fill="#fbbf24" fontSize={tickFontSize * 2}>
               {time} min
             </text>
           </g>
@@ -781,7 +781,7 @@ export default function AnealingProfileEditor() {
             return (
               <g key={`legend-${idx}`}>
                 <rect x={legendStartX} y={legendStartY + idx * legendItemHeight} width={legendBoxSize} height={legendBoxSize} fill={stageColors[idx]} opacity="0.7" />
-                <text x={legendStartX + 15} y={legendStartY + 9 + idx * legendItemHeight} fill="#fbbf24" fontSize={labelFontSize}>
+                <text x={legendStartX + 15} y={legendStartY + 9 + idx * legendItemHeight} fill="#fbbf24" fontSize={labelFontSize * 2}>
                   {idx + 1} = {name}
                 </text>
               </g>
