@@ -364,9 +364,9 @@ export default function Logs() {
     const maxTime = Math.max(...log.times);
     
     // SVG dimensions and margins matching Firing Tracker
-    const width = 1000;
+    const width = 1200;
     const height = 600;
-    const margin = { top: 80, right: 80, bottom: 120, left: 70 };
+    const margin = { top: 80, right: 80, bottom: 120, left: 150 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
 
@@ -458,8 +458,8 @@ export default function Logs() {
       svg.appendChild(tick);
 
       const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', (margin.left - 15).toString());
-      label.setAttribute('y', (margin.top + scaleY(i) + 4).toString());
+      label.setAttribute('x', (margin.left - 40).toString());
+      label.setAttribute('y', (margin.top + scaleY(i) + 12).toString());
       label.setAttribute('text-anchor', 'end');
       label.setAttribute('fill', '#fbbf24');
       label.setAttribute('font-size', '33');
