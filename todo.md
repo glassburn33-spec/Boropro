@@ -884,3 +884,7 @@
 - [x] Remove emoji icons from specific Equipment Science section titles
   - [x] Removed 💨 from Flame Annealing Technique section title
   - [x] Removed 📊 from Temperature Measurement section title
+- [x] Add full-screen image expansion to Glass Heat Treatment Profile section
+  - [x] Wrapped Borosilicate Glass Heat Treatment Profile image (boroanealprofile_20331f22.png)
+  - [x] Added click handler and ZoomIn hover indicator
+  - [x] Verified full-screen modal expansion works correctly

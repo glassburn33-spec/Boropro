@@ -485,11 +485,18 @@ function StudioTab() {
               <AccordionContent className="bg-stone-800 border border-stone-700 border-t-0 rounded-b-lg px-6 py-4">
                 <div className="space-y-4">
                   <div className="w-full flex justify-center my-6">
-                    <img
-                      src="/manus-storage/boroanealprofile_20331f22.png"
-                      alt="Borosilicate Glass Heat Treatment Profile showing four phases of annealing"
-                      className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
-                    />
+                    <button
+                      onClick={() => setExpandedImage("/manus-storage/boroanealprofile_20331f22.png")}
+                      className="cursor-pointer hover:opacity-80 transition group relative"
+                      aria-label="Expand image"
+                    >
+                      <img
+                        src="/manus-storage/boroanealprofile_20331f22.png"
+                        alt="Borosilicate Glass Heat Treatment Profile showing four phases of annealing"
+                        className="w-full max-w-2xl rounded-lg border border-stone-600 shadow-lg"
+                      />
+                      <ZoomIn className="absolute top-2 right-2 w-6 h-6 text-amber-400 opacity-0 group-hover:opacity-100 transition" />
+                    </button>
                   </div>
                   <p className="text-stone-300 text-sm leading-relaxed">
                     A thermal treatment schedule, commonly termed a firing protocol or kiln regimen, represents a meticulously engineered temperature-time trajectory that orchestrates glass heating and cooling through stress mitigation. This schedule comprises four sequential stages, each addressing distinct thermal requirements. Schedule design depends on material composition, component dimensions and shape, and permissible residual stress thresholds. Effective thermal protocols circumvent thermal shock damage, crystallization phenomena, and permanent stress entrapment that could precipitate catastrophic failure.
