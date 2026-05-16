@@ -2937,3 +2937,5 @@
 [2026-05-16T19:26:10.295Z] 3:26:10 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-16T19:26:33.529Z] 3:26:33 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
 [2026-05-16T19:27:00.987Z] 3:27:00 PM [vite] (client) hmr update /src/index.css
+[2026-05-16T19:29:21.425Z] 3:29:21 PM [vite] (client) hmr update /src/index.css, /src/components/AnealingProfileEditor.tsx
+[2026-05-16T19:29:50.872Z] 3:29:50 PM [vite] (client) hmr update /src/index.css
