@@ -3257,3 +3257,6 @@
 [2026-05-16T20:44:46.571Z] 4:44:46 PM [vite] (client) hmr update /src/pages/ColorPicker.tsx, /src/index.css
 [2026-05-16T20:44:58.204Z] [Auth] Missing session cookie
 [2026-05-16T20:46:43.227Z] 4:46:43 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-16T20:48:29.465Z] [Auth] Missing session cookie
+[2026-05-16T20:50:37.844Z] 4:50:37 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-16T20:52:40.992Z] [Auth] Missing session cookie

@@ -13,17 +13,17 @@ export default function ColorScienceTab() {
       title: '1. Metal Ion Color Reference',
       content: (
         <div className="space-y-4">
-          <p className="text-stone-300">
-            A systematic catalog correlating transition metal cations, their electronic configurations, and the chromatic manifestations they generate within borosilicate glass matrices:
-          </p>
-          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <p className="text-stone-300 text-sm md:text-base break-words">
+              A systematic catalog correlating transition metal cations, their electronic configurations, and the chromatic manifestations they generate within borosilicate glass matrices:
+            </p>
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4">
             <img 
               src="/manus-storage/colorcompoundstaBLE_dca7207b.png" 
               alt="Metal Ion Color Reference" 
               className="w-full h-auto object-contain"
             />
           </div>
-          <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300">
+          <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 text-xs md:text-sm text-stone-300 break-words">
             <p>
               This reference catalog presents the correlation between transition metal cations (left), their coordination environments and valence states, and the corresponding chromatic properties within borosilicate glass systems (right). Utilize this reference to anticipate color manifestations based on metal ion speciation and local coordination geometry.
             </p>
@@ -36,12 +36,12 @@ export default function ColorScienceTab() {
       title: '2. Peculiar Sites, Peculiar Colors: Nickel (Ni²⁺)',
       content: (
         <div className="space-y-6">
-          <div className="bg-stone-800/30 rounded-lg p-6 text-sm text-stone-300 mb-4">
-            <p className="font-semibold text-amber-300 mb-2">Coordination Geometry as the Primary Determinant of Chromatic Response</p>
+          <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 text-xs md:text-sm text-stone-300 mb-4">
+            <p className="font-semibold text-amber-300 mb-2 break-words">Coordination Geometry as the Primary Determinant of Chromatic Response</p>
           </div>
 
-          <div className="space-y-6 text-stone-200 leading-relaxed">
-            <p>
+          <div className="space-y-4 md:space-y-6 text-stone-200 leading-relaxed text-xs md:text-sm">
+            <p className="break-words">
               Nickel(II) species demonstrates remarkable polychromatic behavior spanning <span className="text-amber-300 font-semibold">tan and golden hues</span> in sodium-, lithium-, and calcium-rich glass matrices, transitioning to <span className="text-purple-300 font-semibold">mauve and deep blue</span> in potassium-, rubidium-, and cesium-dominant systems, or alternatively <span className="text-green-300 font-semibold">jade and rust-orange</span> in alkali-deficient borate and borosilicate compositions. This extensive polychromatic manifestation within silicate networks originates from <span className="font-semibold">polymorphic coordination environments surrounding Ni(II)</span>.
             </p>
 
@@ -67,36 +67,36 @@ export default function ColorScienceTab() {
           </div>
 
           {/* Nickel Coordination Spectra */}
-          <div className="space-y-4 mt-6 pt-6 border-t border-stone-700/30">
-            <h4 className="text-xl font-bold text-amber-400">Nickel Coordination Spectra in Borosilicate Glass</h4>
-            <p className="text-stone-300">
+          <div className="space-y-3 md:space-y-4 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-stone-700/30">
+            <h4 className="text-lg md:text-xl font-bold text-amber-400 break-words">Nickel Coordination Spectra in Borosilicate Glass</h4>
+            <p className="text-stone-300 text-xs md:text-sm break-words">
               This spectroscopic dataset presents optical absorption profiles corresponding to three distinct Ni(II) coordination configurations. Each geometric arrangement generates characteristic absorption features at specific wavenumber positions, directly controlling the resulting chromatic manifestation:
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4">
               <img 
                 src="/manus-storage/nickelsprectra_2ffd56de.png" 
                 alt="Nickel Coordination Spectra" 
                 className="w-full h-auto object-contain"
               />
             </div>
-            <div className="bg-stone-800/30 rounded-lg p-6 space-y-6 text-sm text-stone-300">
+            <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 space-y-3 md:space-y-6 text-xs md:text-sm text-stone-300">
               <div className="space-y-3">
-                <div className="flex items-center gap-4">
-                  <ColorSwatch color="#4B5563" name="Indigo" size="md" showLabel={false} />
-                  <div>
-                    <span className="text-purple-300 font-semibold">[4]Ni (Four-coordinate):</span> Maximum energy transitions (~15,000–21,000 cm⁻¹). Generates indigo coloration in large-alkali-containing glasses.
+                <div className="flex items-start gap-2 md:gap-4">
+                  <ColorSwatch color="#4B5563" name="Indigo" size="sm" showLabel={false} />
+                  <div className="break-words">
+                    <span className="text-purple-300 font-semibold text-xs md:text-sm">[4]Ni (Four-coordinate):</span> <span className="text-xs md:text-sm">Maximum energy transitions (~15,000–21,000 cm⁻¹). Generates indigo coloration in large-alkali-containing glasses.</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <ColorSwatch color="#8B6F47" name="Brown" size="md" showLabel={false} />
-                  <div>
-                    <span className="text-amber-500 font-semibold">[5]Ni (Five-coordinate):</span> Intermediate energy transitions (~19,000–25,000 cm⁻¹). Generates brown coloration via broad, displaced absorption feature.
+                <div className="flex items-start gap-2 md:gap-4">
+                  <ColorSwatch color="#8B6F47" name="Brown" size="sm" showLabel={false} />
+                  <div className="break-words">
+                    <span className="text-amber-500 font-semibold text-xs md:text-sm">[5]Ni (Five-coordinate):</span> <span className="text-xs md:text-sm">Intermediate energy transitions (~19,000–25,000 cm⁻¹). Generates brown coloration via broad, displaced absorption feature.</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <ColorSwatch color="#5FA87C" name="Green" size="md" showLabel={false} />
-                  <div>
-                    <span className="text-green-400 font-semibold">[6]Ni (Six-coordinate):</span> Minimum energy transitions ({'>'}23,000 cm⁻¹). Generates green coloration with attenuated visible-region absorption.
+                <div className="flex items-start gap-2 md:gap-4">
+                  <ColorSwatch color="#5FA87C" name="Green" size="sm" showLabel={false} />
+                  <div className="break-words">
+                    <span className="text-green-400 font-semibold text-xs md:text-sm">[6]Ni (Six-coordinate):</span> <span className="text-xs md:text-sm">Minimum energy transitions ({'>'}23,000 cm⁻¹). Generates green coloration with attenuated visible-region absorption.</span>
                   </div>
                 </div>
               </div>
@@ -599,10 +599,10 @@ export default function ColorScienceTab() {
       )}
 
       {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '120px' }}>
+      <main className="w-full px-3 md:px-4 py-4 md:py-6" style={{ marginTop: '120px' }}>
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
+        <div className="mb-8 md:mb-12">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-amber-400 mb-2 md:mb-4 break-words">Color Science</h1>
         </div>
 
         {/* Accordion Sections */}
