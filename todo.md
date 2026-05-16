@@ -809,3 +809,10 @@
   - [x] Removed Warnings & Considerations section
   - [x] Removed Export Schedule button and handler
   - [x] Verified ColorPicker component renders without errors
+- [x] Remove Archaeological Studies section from References tab
+  - [x] Removed 4 archaeological references (ref-009 through ref-012)
+  - [x] Removed "Archaeological Studies" category label
+  - [x] Removed archaeology category color styling (purple)
+  - [x] Updated Reference type to exclude "archaeology" category
+  - [x] Updated footer text to remove archaeological studies mention
+  - [x] Verified References component renders without errors

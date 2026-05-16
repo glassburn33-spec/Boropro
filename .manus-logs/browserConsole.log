@@ -3430,3 +3430,27 @@
 [2026-05-16T20:45:32.555Z] {"timestamp":1778964329230,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T20:45:32.555Z] {"timestamp":1778964329343,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T20:45:32.555Z] {"timestamp":1778964329368,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:45:36.777Z] {"timestamp":1778964334767,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:45:36.777Z] {"timestamp":1778964334796,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:45:36.777Z] {"timestamp":1778964335094,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:45:36.777Z] {"timestamp":1778964335156,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:45:36.863Z] {"timestamp":1778964333442,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:45:36.863Z] {"timestamp":1778964333538,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:45:36.863Z] {"timestamp":1778964333646,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:45:36.863Z] {"timestamp":1778964333681,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:45:53.989Z] {"timestamp":1778964351983,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:45:53.989Z] {"timestamp":1778964351992,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:45:53.989Z] {"timestamp":1778964352158,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:45:55.990Z] {"timestamp":1778964354115,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:46:36.916Z] {"timestamp":1778964393503,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:46:36.916Z] {"timestamp":1778964393602,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:46:36.916Z] {"timestamp":1778964393781,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:46:36.916Z] {"timestamp":1778964393814,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T20:46:44.778Z] {"timestamp":1778964403386,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/References.tsx"],"stack":null}
+[2026-05-16T20:46:44.778Z] {"timestamp":1778964403386,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:46:44.913Z] {"timestamp":1778964402014,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/References.tsx"],"stack":null}
+[2026-05-16T20:46:44.913Z] {"timestamp":1778964402014,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T20:46:56.818Z] {"timestamp":1778964414814,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T20:46:56.818Z] {"timestamp":1778964414824,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T20:46:56.818Z] {"timestamp":1778964415015,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T20:46:56.818Z] {"timestamp":1778964416315,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

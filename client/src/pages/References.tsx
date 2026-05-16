@@ -20,7 +20,7 @@ interface Reference {
   publication: string;
   doi?: string;
   url?: string;
-  category: "glass-science" | "color-science" | "thermal-properties" | "archaeology" | "instrumentation";
+  category: "glass-science" | "color-science" | "thermal-properties" | "instrumentation";
 }
 
 const references: Reference[] = [
@@ -91,39 +91,7 @@ const references: Reference[] = [
     publication: "Geophysical Research Letters",
     category: "instrumentation",
   },
-  {
-    id: "ref-009",
-    authors: "Papageorgiou, I., & Zacharias, N.",
-    year: 2012,
-    title: "Roman glass from Ancient Messene: Technological and compositional characterization",
-    publication: "Archaeometry",
-    doi: "10.1111/j.1475-4754.2012.00671.x",
-    category: "archaeology",
-  },
-  {
-    id: "ref-010",
-    authors: "Themelis, P. G.",
-    year: 2002,
-    title: "Ancient Messene: Excavations and Studies",
-    publication: "Archaeological Reports",
-    category: "archaeology",
-  },
-  {
-    id: "ref-011",
-    authors: "Freestone, I., & Gowland, R. L.",
-    year: 2005,
-    title: "Ceramic petrology, clay geochemistry and ceramic production: tracking provenance and technology",
-    publication: "British Museum Press",
-    category: "archaeology",
-  },
-  {
-    id: "ref-012",
-    authors: "Kingery, W. D., & Vandiver, P. B.",
-    year: 1986,
-    title: "Ceramic Masterpieces: Art, Structure, and Technology",
-    publication: "The Free Press",
-    category: "archaeology",
-  },
+
   {
     id: "ref-013",
     authors: "Bamford, C. R.",
@@ -302,7 +270,7 @@ const categoryLabels: Record<Reference["category"], string> = {
   "glass-science": "Glass Science",
   "color-science": "Color Science",
   "thermal-properties": "Thermal Properties",
-  "archaeology": "Archaeological Studies",
+
   "instrumentation": "Instrumentation & Methods",
 };
 
@@ -310,7 +278,7 @@ const categoryColors: Record<Reference["category"], string> = {
   "glass-science": "bg-blue-900/20 border-blue-700/50 text-blue-300",
   "color-science": "bg-amber-900/20 border-amber-700/50 text-amber-300",
   "thermal-properties": "bg-red-900/20 border-red-700/50 text-red-300",
-  "archaeology": "bg-purple-900/20 border-purple-700/50 text-purple-300",
+
   "instrumentation": "bg-cyan-900/20 border-cyan-700/50 text-cyan-300",
 };
 
@@ -486,7 +454,7 @@ export default function References() {
         <footer className="border-t border-white/10 mt-8 md:mt-16 py-6 md:py-8 bg-stone-950/50 px-4 md:px-0">
           <div className="container text-center text-stone-500 text-xs md:text-sm">
             <p className="break-words">
-              BoroPro Research Platform • References compiled from peer-reviewed journals, archaeological studies, and technical publications
+              BoroPro Research Platform • References compiled from peer-reviewed journals and technical publications
             </p>
             <p className="mt-2 text-xs text-stone-600">
               Click any section to expand and view references
