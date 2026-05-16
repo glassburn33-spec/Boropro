@@ -2761,3 +2761,45 @@
 [2026-05-16T19:40:58.074Z] {"timestamp":1778960454834,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T19:40:58.074Z] {"timestamp":1778960454919,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T19:40:58.074Z] {"timestamp":1778960454944,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:41:00.082Z] {"timestamp":1778960458128,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:41:00.626Z] {"timestamp":1778960459311,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:41:00.939Z] {"timestamp":1778960459433,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:41:04.333Z] {"timestamp":1778960460991,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:41:04.333Z] {"timestamp":1778960461094,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:41:04.333Z] {"timestamp":1778960461191,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:41:04.333Z] {"timestamp":1778960461211,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:41:07.636Z] {"timestamp":1778960464286,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:41:07.636Z] {"timestamp":1778960464386,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:41:07.636Z] {"timestamp":1778960464477,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:41:07.636Z] {"timestamp":1778960464498,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:41:32.979Z] {"timestamp":1778960490974,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:41:32.979Z] {"timestamp":1778960490983,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:41:32.979Z] {"timestamp":1778960491177,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:41:34.979Z] {"timestamp":1778960493498,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:41:38.294Z] {"timestamp":1778960494951,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:41:38.294Z] {"timestamp":1778960495050,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:41:38.294Z] {"timestamp":1778960495139,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:41:38.294Z] {"timestamp":1778960495165,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:42:32.478Z] {"timestamp":1778960550276,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:42:32.478Z] {"timestamp":1778960550404,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:42:32.478Z] {"timestamp":1778960551044,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:43:00.940Z] {"timestamp":1778960580369,"level":"ERROR","args":["[vite]","Failed to reload /src/components/AnealingProfileEditor.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 1)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-16T19:43:00.940Z] {"timestamp":1778960580371,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:00.940Z] {"timestamp":1778960580372,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:01.943Z] {"timestamp":1778960580312,"level":"ERROR","args":["[vite]",{"type":"Error","message":"'text/html' is not a valid JavaScript MIME type."}],"stack":"@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:46\nwarnFailedUpdate@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:180:83\n@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:26"}
+[2026-05-16T19:43:01.943Z] {"timestamp":1778960580315,"level":"ERROR","args":["[vite]","Failed to reload /src/components/AnealingProfileEditor.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:46\nwarnFailedUpdate@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:20\n@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:26"}
+[2026-05-16T19:43:01.943Z] {"timestamp":1778960580316,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:01.943Z] {"timestamp":1778960580316,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:02.307Z] {"timestamp":1778960579142,"level":"ERROR","args":["[vite]","Failed to reload /src/components/AnealingProfileEditor.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 1)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-16T19:43:02.307Z] {"timestamp":1778960579143,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:02.307Z] {"timestamp":1778960579143,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:24.299Z] {"timestamp":1778960602728,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:24.299Z] {"timestamp":1778960602729,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:24.940Z] {"timestamp":1778960604043,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:24.940Z] {"timestamp":1778960604043,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:25.951Z] {"timestamp":1778960603973,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:43:25.951Z] {"timestamp":1778960603974,"level":"DEBUG","args":["[vite]","hot updated: /src/components/AnealingProfileEditor.tsx"],"stack":null}
+[2026-05-16T19:43:38.342Z] {"timestamp":1778960616337,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:43:38.342Z] {"timestamp":1778960616347,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:43:38.342Z] {"timestamp":1778960616562,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:43:40.342Z] {"timestamp":1778960619395,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
