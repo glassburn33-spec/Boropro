@@ -364,9 +364,9 @@ export default function Logs() {
     const maxTime = Math.max(...log.times);
     
     // SVG dimensions and margins matching Firing Tracker
-    const width = 1200;
-    const height = 600;
-    const margin = { top: 80, right: 80, bottom: 120, left: 150 };
+    const width = 1400;
+    const height = 700;
+    const margin = { top: 100, right: 100, bottom: 140, left: 180 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
 
