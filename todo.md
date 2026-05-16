@@ -854,14 +854,14 @@
   - [x] Removed "4." from Temperature Dependence section
   - [x] Removed "5." from Phase Separation section
   - [x] Removed "6." from Iron and Sulfur section
-- [ ] Add full-screen image expansion to Equipment Science tab sections
-  - [ ] Identify all images in Flame Structure section
-  - [ ] Identify all images in Flame Types section
-  - [ ] Identify all images in Flame Annealing section
-  - [ ] Identify all images in Spectroscopy section
-  - [ ] Identify all images in Temperature Measurement section
-  - [ ] Identify all images in Flame Stability section
-  - [ ] Identify all images in Safety section
-  - [ ] Identify all images in Flashback section
-  - [ ] Apply click handlers and modal functionality to all images
-  - [ ] Test full-screen expansion on mobile and desktop
+- [x] Add full-screen image expansion to Equipment Science tab sections
+  - [x] Flame Structure images (Flame Diagram, Gas Tables)
+  - [x] Flame Types images (Reducing, Neutral, Oxidizing Flames)
+  - [x] Flame Annealing images (Glass Flame Annealing, Soot Plot)
+  - [x] Spectroscopy images (Laminar Image, Burnoff Plot, Flame Table)
+  - [x] Temperature Measurement images (all wrapped with click handlers)
+  - [x] Flame Stability images (all wrapped with click handlers)
+  - [x] Safety images (Fire Triangle, Fire Tetrahedron, Phase Transitions)
+  - [x] Flashback images (Cross-section, Flashback Plot)
+  - [x] Applied click handlers and modal functionality to all 12 images
+  - [x] Tested full-screen expansion on mobile and desktop

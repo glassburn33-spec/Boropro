@@ -1214,11 +1214,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/laminarimage_eba8787a.png" 
-              alt="Structure of a laminar premixed oxy-methane flame at φG = 1.1, showing line-of-sight and Abel-inverted CH* measurements with preheat zone, reaction zone, and downstream burned gas region"
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/laminarimage_eba8787a.png')}>
+              <img 
+                src="/manus-storage/laminarimage_eba8787a.png" 
+                alt="Structure of a laminar premixed oxy-methane flame at φG = 1.1, showing line-of-sight and Abel-inverted CH* measurements with preheat zone, reaction zone, and downstream burned gas region"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1232,11 +1237,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/burnoffplot_58acdceb.png" 
-              alt="Flame stabilization curve dividing the attached flame region and blow-off region as a function of reactant velocity and global equivalence ratio"
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/burnoffplot_58acdceb.png')}>
+              <img 
+                src="/manus-storage/burnoffplot_58acdceb.png" 
+                alt="Flame stabilization curve dividing the attached flame region and blow-off region as a function of reactant velocity and global equivalence ratio"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1247,11 +1257,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/flametable_332f1ae6.png" 
-              alt="Experimental conditions table showing variables and ranges: uR (8-20 m/s), ReR (962-2506), FrR (57-142), φG (0.5-2.0), and initial conditions (TR = 300 K, P∞ = 1 atm)"
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/flametable_332f1ae6.png')}>
+              <img 
+                src="/manus-storage/flametable_332f1ae6.png" 
+                alt="Experimental conditions table showing variables and ranges: uR (8-20 m/s), ReR (962-2506), FrR (57-142), φG (0.5-2.0), and initial conditions (TR = 300 K, P∞ = 1 atm)"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1288,11 +1303,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/triangleflame_6a0855e5.png" 
-              alt="Fire Triangle showing the three essential components: Heat (ignition source), Fuel (combustible material), and Oxygen (oxidizing agent). Removing any one element prevents or extinguishes fire."
-              className="w-full max-w-2xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-2xl" onClick={() => setExpandedImage('/manus-storage/triangleflame_6a0855e5.png')}>
+              <img 
+                src="/manus-storage/triangleflame_6a0855e5.png" 
+                alt="Fire Triangle showing the three essential components: Heat (ignition source), Fuel (combustible material), and Oxygen (oxidizing agent). Removing any one element prevents or extinguishes fire."
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1303,11 +1323,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/firetetrahedron_d4f4e5e5.png" 
-              alt="Fire Tetrahedron showing four essential components: Heat (ignition source), Fuel, Oxidising Agent (oxygen), and Chemical Chain Reaction. All four elements must be present for combustion to occur."
-              className="w-full max-w-2xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-2xl" onClick={() => setExpandedImage('/manus-storage/firetetrahedron_d4f4e5e5.png')}>
+              <img 
+                src="/manus-storage/firetetrahedron_d4f4e5e5.png" 
+                alt="Fire Tetrahedron showing four essential components: Heat (ignition source), Fuel, Oxidising Agent (oxygen), and Chemical Chain Reaction. All four elements must be present for combustion to occur."
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1341,11 +1366,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/phasetransitions_d4a8bb1b.png" 
-              alt="Phase transitions showing solid, liquid, and gas states with processes of sublimation, evaporation, and decomposition. Includes melting and decomposition pathways for different fuel types."
-              className="w-full max-w-2xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-2xl" onClick={() => setExpandedImage('/manus-storage/phasetransitions_d4a8bb1b.png')}>
+              <img 
+                src="/manus-storage/phasetransitions_d4a8bb1b.png" 
+                alt="Phase transitions showing solid, liquid, and gas states with processes of sublimation, evaporation, and decomposition. Includes melting and decomposition pathways for different fuel types."
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1373,11 +1403,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/flashbackcrosssection_d8a17dcd.png" 
-              alt="Experimental flame arrester cross-section showing stressing of the sintered metal element by the incoming reaction front: (a) from outside; (b) from inside. Shows the housing, sintered metal element (orange), ignition vector, and cross-drilled bores for gas stream direction."
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/flashbackcrosssection_d8a17dcd.png')}>
+              <img 
+                src="/manus-storage/flashbackcrosssection_d8a17dcd.png" 
+                alt="Experimental flame arrester cross-section showing stressing of the sintered metal element by the incoming reaction front: (a) from outside; (b) from inside. Shows the housing, sintered metal element (orange), ignition vector, and cross-drilled bores for gas stream direction."
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
@@ -1398,11 +1433,16 @@ function ScieEquipTab() {
           </div>
           
           <div className="flex justify-center my-6">
-            <img 
-              src="/manus-storage/flashbackplot_53ebe88b.png" 
-              alt="Limiting pressure for safety against flame transmission for experimental flame arrester with sintered metal elements of quality SIKA-R3, R10 and R30 with flashback in acetylene/oxygen mixtures. Shows pressure (bar) vs. content by volume of acetylene. Pipeline length L = 5000 mm. Includes notes on sintered metal element cracks and stressing from outside and inside."
-              className="w-full max-w-3xl rounded-lg border border-stone-600"
-            />
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer max-w-3xl" onClick={() => setExpandedImage('/manus-storage/flashbackplot_53ebe88b.png')}>
+              <img 
+                src="/manus-storage/flashbackplot_53ebe88b.png" 
+                alt="Limiting pressure for safety against flame transmission for experimental flame arrester with sintered metal elements of quality SIKA-R3, R10 and R30 with flashback in acetylene/oxygen mixtures. Shows pressure (bar) vs. content by volume of acetylene. Pipeline length L = 5000 mm. Includes notes on sintered metal element cracks and stressing from outside and inside."
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
+            </div>
           </div>
           
           <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
