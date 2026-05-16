@@ -119,9 +119,9 @@ function generatePlotSVG(scheduleData: StageInputs, scheduleName: string, refLin
   const maxTemp = Math.max(scheduleData.stage1.targetTemp, scheduleData.stage2.holdTemp) + 50;
   const maxTime = cumulativeTimes[4];
 
-  const titleFontSize = Math.max(18, Math.min(24, width / 40));
-  const labelFontSize = Math.max(14, Math.min(18, width / 60));
-  const tickFontSize = Math.max(12, Math.min(16, width / 80));
+  const titleFontSize = Math.max(36, Math.min(48, width / 20));
+  const labelFontSize = Math.max(28, Math.min(36, width / 30));
+  const tickFontSize = Math.max(24, Math.min(32, width / 40));
 
   const scaleX = (time: number) => (time / maxTime) * plotWidth;
   const scaleY = (temp: number) => plotHeight - (temp / maxTemp) * plotHeight;
