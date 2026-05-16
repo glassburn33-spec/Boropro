@@ -896,30 +896,32 @@ export default function Logs() {
                   key={log.id}
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
                 >
-                  <div className="flex items-start justify-between">
-                    {showCheckboxes && (
-                      <input
-                        type="checkbox"
-                        checked={selectedLogIds.has(log.id)}
-                        onChange={(e) => {
-                          const newSelected = new Set(selectedLogIds);
-                          if (e.target.checked) {
-                            newSelected.add(log.id);
-                          } else {
-                            newSelected.delete(log.id);
-                          }
-                          setSelectedLogIds(newSelected);
-                        }}
-                        className="mr-4 w-5 h-5 cursor-pointer"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white mb-1">
-                        {log.name}
-                      </h3>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-start gap-3">
+                      {showCheckboxes && (
+                        <input
+                          type="checkbox"
+                          checked={selectedLogIds.has(log.id)}
+                          onChange={(e) => {
+                            const newSelected = new Set(selectedLogIds);
+                            if (e.target.checked) {
+                              newSelected.add(log.id);
+                            } else {
+                              newSelected.delete(log.id);
+                            }
+                            setSelectedLogIds(newSelected);
+                          }}
+                          className="w-5 h-5 cursor-pointer flex-shrink-0 mt-1"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg font-semibold text-white break-words">
+                          {log.name}
+                        </h3>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 ml-0 sm:ml-4 mt-3 sm:mt-0">
+                    <div className="flex flex-wrap gap-2">
                       <button
                         onClick={() => handlePreviewPDF(log)}
                         className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
