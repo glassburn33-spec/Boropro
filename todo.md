@@ -828,3 +828,10 @@
   - [x] Responsive color swatch sizing (size-sm on mobile)
   - [x] Created 18 Vitest tests for mobile layout validation
   - [x] Verified ColorScience component renders without TypeScript errors
+- [x] Add full-screen image expansion to ColorScience tab
+  - [x] Implement image modal state management (expandedImage state)
+  - [x] Add click handlers to all images for expansion (onClick handlers on image containers)
+  - [x] Create full-screen modal overlay with close button (fixed overlay with Z-50)
+  - [x] Add keyboard support (ESC to close via onKeyDown handler)
+  - [x] Test on mobile and desktop (responsive modal with max-w-4xl max-h-[90vh])
+  - [x] Write Vitest tests for image expansion (18 tests created)

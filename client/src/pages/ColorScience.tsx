@@ -1,12 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, ZoomIn } from 'lucide-react';
 import { Accordion } from '@/components/Accordion';
 import { ColorSwatch, ColorSwatchRow, InlineColorSwatch } from '@/components/ColorSwatch';
 
 
 export default function ColorScienceTab() {
   const [showDrawer, setShowDrawer] = useState(false);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const accordionItems = [
     {
       id: 'metal-ion-reference',
@@ -16,12 +17,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300 text-sm md:text-base break-words">
               A systematic catalog correlating transition metal cations, their electronic configurations, and the chromatic manifestations they generate within borosilicate glass matrices:
             </p>
-          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4">
+          <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/colorcompoundstaBLE_dca7207b.png')}>
             <img 
               src="/manus-storage/colorcompoundstaBLE_dca7207b.png" 
               alt="Metal Ion Color Reference" 
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
             />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+              <ZoomIn className="w-8 h-8 text-white" />
+            </div>
           </div>
           <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 text-xs md:text-sm text-stone-300 break-words">
             <p>
@@ -72,12 +76,15 @@ export default function ColorScienceTab() {
             <p className="text-stone-300 text-xs md:text-sm break-words">
               This spectroscopic dataset presents optical absorption profiles corresponding to three distinct Ni(II) coordination configurations. Each geometric arrangement generates characteristic absorption features at specific wavenumber positions, directly controlling the resulting chromatic manifestation:
             </p>
-            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4">
+            <div className="bg-stone-900 rounded-lg overflow-hidden border border-stone-700/50 p-2 md:p-4 relative group cursor-pointer" onClick={() => setExpandedImage('/manus-storage/nickelsprectra_2ffd56de.png')}>
               <img 
                 src="/manus-storage/nickelsprectra_2ffd56de.png" 
                 alt="Nickel Coordination Spectra" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain group-hover:opacity-75 transition-opacity"
               />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-lg">
+                <ZoomIn className="w-8 h-8 text-white" />
+              </div>
             </div>
             <div className="bg-stone-800/30 rounded-lg p-3 md:p-6 space-y-3 md:space-y-6 text-xs md:text-sm text-stone-300">
               <div className="space-y-3">
@@ -610,6 +617,30 @@ export default function ColorScienceTab() {
           <Accordion items={accordionItems} allowMultiple={true} />
         </div>
       </main>
+
+      {/* Full-screen Image Modal */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setExpandedImage(null)}
+          onKeyDown={(e) => e.key === 'Escape' && setExpandedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={expandedImage}
+              alt="Expanded view"
+              className="w-full h-full object-contain"
+            />
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 bg-stone-900/80 hover:bg-stone-900 text-white p-2 rounded-lg transition-colors"
+              aria-label="Close image"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
