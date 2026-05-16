@@ -173,7 +173,7 @@ export default function KilnLog() {
           <div className="bg-stone-800 border border-amber-700/50 rounded-lg shadow-xl max-w-md w-full mx-4 p-6 space-y-6">
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Unsaved Changes</h3>
-              <p className="text-stone-300">You have unsaved changes to your annealing schedule. Save your schedules by selecting logs button before leaving the page?</p>
+              <p className="text-stone-300">You have unsaved changes to your annealing schedule. Log your schedules by selecting logs button before leaving the page?</p>
             </div>
             <div className="flex gap-3 justify-end">
               <button
