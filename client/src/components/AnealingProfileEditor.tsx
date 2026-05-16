@@ -1016,16 +1016,6 @@ export default function AnealingProfileEditor() {
         </div>
       </div>
 
-      {/* Notes Section */}
-      <div className="bg-stone-800/50 border border-stone-600 p-6 rounded-lg">
-        <h3 className="text-lg font-bold text-amber-300 mb-4">📝 Materials & Cycle Notes</h3>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Record materials used, glass type, thickness, color, kiln model, observations, or any other relevant details for this annealing cycle..."
-          className="w-full bg-stone-700 border border-stone-600 rounded px-4 py-3 text-white focus:outline-none focus:border-amber-500 resize-none h-24"
-        />
-      </div>
 
       {/* Plot */}
       <div className="flex justify-center">
@@ -1059,14 +1049,6 @@ export default function AnealingProfileEditor() {
                 {editingScheduleId === schedule.id ? (
                   // Edit Mode
                   <div className="space-y-3">
-                    <div>
-                      <label className="block text-sm font-semibold text-amber-300 mb-2">Materials & Notes</label>
-                      <textarea
-                        value={editingNotes}
-                        onChange={(e) => setEditingNotes(e.target.value)}
-                        className="w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 resize-none h-20"
-                      />
-                    </div>
                     <div>
                       <label className="block text-sm font-semibold text-amber-300 mb-2">Results & Observations</label>
                       <textarea
@@ -1405,12 +1387,7 @@ export default function AnealingProfileEditor() {
                         </button>
                       </div>
                     </div>
-                    {schedule.notes && (
-                      <div className="mb-2">
-                        <p className="text-xs font-semibold text-stone-300">Materials & Notes:</p>
-                        <p className="text-sm text-stone-300 bg-stone-800/50 p-2 rounded">{schedule.notes}</p>
-                      </div>
-                    )}
+
                     {schedule.results && (
                       <div>
                         <p className="text-xs font-semibold text-stone-300">Results:</p>
