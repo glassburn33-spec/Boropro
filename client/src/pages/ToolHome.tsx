@@ -55,7 +55,7 @@ export default function ToolHome() {
         
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <nav className="md:hidden flex flex-col gap-2 px-4 py-3 bg-stone-800 border-t border-amber-700/30">
+          <nav className="md:hidden flex flex-col gap-2 px-4 py-3 bg-stone-800 border-t border-amber-700/30 max-h-[calc(100vh-120px)] overflow-y-auto">
             <a
               href="/color-picker"
               onClick={() => setMobileMenuOpen(false)}
