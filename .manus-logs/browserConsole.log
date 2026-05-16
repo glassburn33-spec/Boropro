@@ -2481,3 +2481,29 @@
 [2026-05-16T19:15:49.750Z] {"timestamp":1778958947751,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-16T19:15:49.750Z] {"timestamp":1778958947976,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-16T19:15:53.750Z] {"timestamp":1778958952797,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:16:10.939Z] {"timestamp":1778958970139,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:16:11.191Z] {"timestamp":1778958970143,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:16:11.533Z] {"timestamp":1778958968856,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:16:43.228Z] {"timestamp":1778959001222,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:16:43.228Z] {"timestamp":1778959001228,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:16:43.228Z] {"timestamp":1778959001444,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:16:43.228Z] {"timestamp":1778959001909,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:18:42.939Z] {"timestamp":1778959121850,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Calculator.tsx"],"stack":null}
+[2026-05-16T19:18:42.939Z] {"timestamp":1778959121850,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:18:43.273Z] {"timestamp":1778959121850,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Calculator.tsx"],"stack":null}
+[2026-05-16T19:18:43.273Z] {"timestamp":1778959121850,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:18:43.544Z] {"timestamp":1778959120559,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Calculator.tsx"],"stack":null}
+[2026-05-16T19:18:43.544Z] {"timestamp":1778959120559,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-16T19:18:51.384Z] {"timestamp":1778959129380,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:18:51.384Z] {"timestamp":1778959129384,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:18:51.384Z] {"timestamp":1778959129579,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-16T19:18:51.384Z] {"timestamp":1778959130649,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:18:52.226Z] {"timestamp":1778959130128,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:18:52.226Z] {"timestamp":1778959130292,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:18:52.226Z] {"timestamp":1778959130468,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:18:54.585Z] {"timestamp":1778959132489,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:18:54.585Z] {"timestamp":1778959132604,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:18:54.585Z] {"timestamp":1778959132802,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-16T19:19:00.316Z] {"timestamp":1778959138215,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-16T19:19:00.316Z] {"timestamp":1778959138358,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-16T19:19:00.316Z] {"timestamp":1778959138497,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
