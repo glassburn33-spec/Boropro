@@ -550,24 +550,24 @@ function StudioTab() {
       {/* FULL-SCREEN IMAGE MODAL */}
       {expandedImage && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => setExpandedImage(null)}
           onKeyDown={(e) => e.key === 'Escape' && setExpandedImage(null)}
-          tabIndex={0}
         >
-          <button
-            onClick={() => setExpandedImage(null)}
-            className="absolute top-4 right-4 text-white hover:text-amber-400 transition z-51"
-            aria-label="Close"
-          >
-            <X className="w-8 h-8" />
-          </button>
-          <img
-            src={expandedImage}
-            alt="Expanded view"
-            className="max-w-4xl max-h-[90vh] object-contain rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          />
+          <div className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={expandedImage}
+              alt="Expanded view"
+              className="w-full h-full object-contain"
+            />
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 bg-stone-900/80 hover:bg-stone-900 text-white p-2 rounded-lg transition-colors"
+              aria-label="Close image"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       )}
     </div>

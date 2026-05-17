@@ -935,3 +935,12 @@
   - [x] All images now use bg-stone-900 container with hover effects and centered zoom icon
   - [x] All images use w-full h-auto object-contain for responsive scaling
   - [x] Responsive layout verified on mobile and desktop viewports
+
+- [x] Fix Glass Science image modal to match Color Science responsive display
+  - [x] Updated StudioTab image modal with proper responsive container structure
+  - [x] Changed from max-w-4xl max-h-[90vh] direct img to w-full h-full object-contain
+  - [x] Wrapped image in relative div container for proper scaling on all viewports
+  - [x] Repositioned close button inside relative container for better mobile accessibility
+  - [x] Updated close button styling to bg-stone-900/80 hover:bg-stone-900
+  - [x] Images now fit proportionally on mobile and desktop viewports
+  - [x] Modal layout verified: images scale to fill available space while maintaining aspect ratio
