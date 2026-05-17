@@ -1077,6 +1077,7 @@ export function CalculatorTab() {
               stopTimer();
               setTimeRemaining(null);
               originalTimeRef.current = 0;
+              setHasCalc(false);
             }}
             className={`px-4 py-2 rounded font-semibold transition-all ${
               tempUnit === 'C'

@@ -5531,3 +5531,4 @@
 [2026-05-17T22:43:30.745Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
 [2026-05-17T22:43:30.745Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:431:17)
 [2026-05-17T22:43:39.394Z] 6:43:39 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
+[2026-05-17T22:45:01.259Z] 6:45:01 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
