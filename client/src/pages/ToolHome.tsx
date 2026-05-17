@@ -25,14 +25,14 @@ export default function ToolHome() {
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Char
             </a>
-            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=25&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Kiln Editor
             </a>
-            <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Log
+            <a href="/tools" className="text-xs uppercase tracking-wider text-amber-500">
+              Tools
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
@@ -71,7 +71,7 @@ export default function ToolHome() {
               Flame Char
             </a>
             <a
-              href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25"
+              href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=25&length=25&width=25"
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
@@ -85,11 +85,11 @@ export default function ToolHome() {
               Kiln Editor
             </a>
             <a
-              href="/logs"
+              href="/tools"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+              className="px-4 py-3 bg-amber-500/40 hover:bg-amber-500/50 text-amber-300 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Log
+              Tools
             </a>
             <a
               href="/references"
