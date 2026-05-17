@@ -1194,9 +1194,16 @@ export function CalculatorTab() {
                     defaultValue=""
                   >
                     <option value="">Select</option>
-                    {[1, 2, 3, 4, 5, 6].map((n) => (
-                      <option key={n} value={(n / 16).toFixed(4)}>
-                        {n}/16"
+                    {[
+                      { n: 1, label: '1/16' },
+                      { n: 2, label: '1/8' },
+                      { n: 3, label: '3/16' },
+                      { n: 4, label: '1/4' },
+                      { n: 5, label: '5/16' },
+                      { n: 6, label: '3/8' }
+                    ].map((item) => (
+                      <option key={item.n} value={(item.n / 16).toFixed(4)}>
+                        {item.label}"
                       </option>
                     ))}
                   </select>
@@ -1235,9 +1242,23 @@ export function CalculatorTab() {
                     defaultValue=""
                   >
                     <option value="">Select</option>
-                    {[12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36].map((n) => (
-                      <option key={n} value={(n / 16).toFixed(4)}>
-                        {n}/16"
+                    {[
+                      { n: 12, label: '3/4' },
+                      { n: 14, label: '7/8' },
+                      { n: 16, label: '1' },
+                      { n: 18, label: '1 1/8' },
+                      { n: 20, label: '1 1/4' },
+                      { n: 22, label: '1 3/8' },
+                      { n: 24, label: '1 1/2' },
+                      { n: 26, label: '1 5/8' },
+                      { n: 28, label: '1 3/4' },
+                      { n: 30, label: '1 7/8' },
+                      { n: 32, label: '2' },
+                      { n: 34, label: '2 1/8' },
+                      { n: 36, label: '2 1/4' }
+                    ].map((item) => (
+                      <option key={item.n} value={(item.n / 16).toFixed(4)}>
+                        {item.label}"
                       </option>
                     ))}
                   </select>
@@ -1276,9 +1297,25 @@ export function CalculatorTab() {
                     defaultValue=""
                   >
                     <option value="">Select</option>
-                    {[8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64].map((n) => (
-                      <option key={n} value={(n / 16).toFixed(4)}>
-                        {n}/16"
+                    {[
+                      { n: 8, label: '1/2' },
+                      { n: 10, label: '5/8' },
+                      { n: 12, label: '3/4' },
+                      { n: 14, label: '7/8' },
+                      { n: 16, label: '1' },
+                      { n: 18, label: '1 1/8' },
+                      { n: 20, label: '1 1/4' },
+                      { n: 24, label: '1 1/2' },
+                      { n: 28, label: '1 3/4' },
+                      { n: 32, label: '2' },
+                      { n: 36, label: '2 1/4' },
+                      { n: 40, label: '2 1/2' },
+                      { n: 48, label: '3' },
+                      { n: 56, label: '3 1/2' },
+                      { n: 64, label: '4' }
+                    ].map((item) => (
+                      <option key={item.n} value={(item.n / 16).toFixed(4)}>
+                        {item.label}"
                       </option>
                     ))}
                   </select>
@@ -1317,9 +1354,23 @@ export function CalculatorTab() {
                     defaultValue=""
                   >
                     <option value="">Select</option>
-                    {[8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48].map((n) => (
-                      <option key={n} value={(n / 16).toFixed(4)}>
-                        {n}/16"
+                    {[
+                      { n: 8, label: '1/2' },
+                      { n: 10, label: '5/8' },
+                      { n: 12, label: '3/4' },
+                      { n: 14, label: '7/8' },
+                      { n: 16, label: '1' },
+                      { n: 18, label: '1 1/8' },
+                      { n: 20, label: '1 1/4' },
+                      { n: 24, label: '1 1/2' },
+                      { n: 28, label: '1 3/4' },
+                      { n: 32, label: '2' },
+                      { n: 36, label: '2 1/4' },
+                      { n: 40, label: '2 1/2' },
+                      { n: 48, label: '3' }
+                    ].map((item) => (
+                      <option key={item.n} value={(item.n / 16).toFixed(4)}>
+                        {item.label}"
                       </option>
                     ))}
                   </select>
