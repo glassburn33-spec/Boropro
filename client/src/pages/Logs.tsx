@@ -773,9 +773,9 @@ export default function Logs() {
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Title */}
-        <div className="flex flex-col items-center justify-center gap-0 mb-2">
+        <div className="mb-8 flex flex-col items-center justify-center gap-4">
+          <h1 className="text-4xl font-bold text-amber-400">Logs</h1>
           <img src="/manus-storage/glasslogicon_44f4be74.png" alt="Glassmaker's Log" className="h-160 w-160 object-contain" />
-          <h1 className="text-4xl font-bold text-amber-400 -mt-8">Logs</h1>
         </div>
 
         {/* Date Range Filter Removed */}
@@ -797,7 +797,7 @@ export default function Logs() {
         ) : filteredLogs.length > 0 ? (
           <div className="space-y-4">
             {/* Temperature Unit Toggle */}
-            <div className="flex items-center justify-center mb-2">
+            <div className="flex items-center justify-center mb-6">
               <button
                 onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
                 className="px-6 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded-lg transition-colors font-medium text-sm"
