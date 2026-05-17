@@ -66,7 +66,7 @@ export default function KilnLog() {
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-amber-500">
-              Kiln Log
+              Kiln Editor
             </a>
             <a href="/logs" onClick={(e) => handleNavigationClick(e, '/logs')} className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
@@ -119,7 +119,7 @@ export default function KilnLog() {
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-500/40 hover:bg-amber-500/50 text-amber-300 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Kiln Log
+              Kiln Editor
             </a>
             <a
               href="/logs"

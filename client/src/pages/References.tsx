@@ -318,7 +318,7 @@ export default function References() {
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Kiln Log
+              Kiln Editor
             </a>
             <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
@@ -371,7 +371,7 @@ export default function References() {
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Kiln Log
+              Kiln Editor
             </a>
             <a
               href="/logs"

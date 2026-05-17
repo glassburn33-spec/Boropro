@@ -4857,3 +4857,9 @@
 [2026-05-17T21:27:27.929Z] 5:27:27 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:29:50.398Z] 5:29:50 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:30:52.579Z] 5:30:52 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T21:34:04.207Z] 5:34:04 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-17T21:34:27.704Z] 5:34:27 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-17T21:34:57.383Z] 5:34:57 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T21:35:19.402Z] 5:35:19 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T21:35:50.958Z] 5:35:50 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T21:36:09.381Z] 5:36:09 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
