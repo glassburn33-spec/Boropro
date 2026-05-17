@@ -1012,18 +1012,11 @@ export function CalculatorTab() {
         )}
       </header>
 
-      <div className="space-y-6">
-        {/* Page Title */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Reheat Calculator</h1>
-        </div>
-
-        {/* Header Image */}
-        <div className="w-full flex flex-col items-center mb-6">
-          <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="Reheat Calculator" className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg" />
-        </div>
-
       <main className="flex-1 space-y-4 pb-8">
+        {/* Header Image */}
+        <section className="border-b border-white/10">
+          <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
+        </section>
 
         <div className="container max-w-6xl space-y-4">
           {/* TEMPERATURE UNIT TOGGLE */}
@@ -1033,7 +1026,7 @@ export function CalculatorTab() {
           onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
           className={`px-4 py-2 rounded font-semibold transition-all ${
             tempUnit === 'C'
-              ? 'bg-amber-700 border-amber-500 text-yellow-400'
+              ? 'bg-amber-700 border-amber-500 text-white'
               : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
           }`}
         >
@@ -1106,7 +1099,7 @@ export function CalculatorTab() {
                   onClick={() => setKilnTemp('565')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                     kilnTemp === '565'
-                      ? 'bg-amber-700 border-amber-500 text-yellow-400'
+                      ? 'bg-amber-700 border-amber-500 text-white'
                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                   }`}
                 >
@@ -1117,7 +1110,7 @@ export function CalculatorTab() {
                    onClick={() => setKilnTemp('700')}
                    className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                      kilnTemp === '700'
-                       ? 'bg-amber-700 border-amber-500 text-yellow-400'
+                       ? 'bg-amber-700 border-amber-500 text-white'
                        : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                    }`}
                  >
@@ -1130,7 +1123,7 @@ export function CalculatorTab() {
                   onClick={() => setKilnTemp('1049')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                     kilnTemp === '1049'
-                      ? 'bg-amber-700 border-amber-500 text-yellow-400'
+                      ? 'bg-amber-700 border-amber-500 text-white'
                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                   }`}
                 >
@@ -1141,7 +1134,7 @@ export function CalculatorTab() {
                    onClick={() => setKilnTemp('1292')}
                    className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                      kilnTemp === '1292'
-                       ? 'bg-amber-700 border-amber-500 text-yellow-400'
+                       ? 'bg-amber-700 border-amber-500 text-white'
                        : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                    }`}
                  >
@@ -1164,7 +1157,7 @@ export function CalculatorTab() {
                 onClick={() => setShape(s)}
                 className={`flex-1 py-2 px-3 rounded text-sm font-semibold capitalize transition-all border
                   ${shape === s
-                    ? 'bg-amber-700 border-amber-500 text-yellow-400'
+                    ? 'bg-amber-700 border-amber-500 text-white'
                     : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'}`}
               >
                 {s}
@@ -1185,20 +1178,12 @@ export function CalculatorTab() {
               <Input
                 type="number" 
                 value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
-                min={tempUnit === 'F' ? '0.01' : '0.1'} 
-                max={tempUnit === 'F' ? '10' : '250'} 
-                step="any"
+                min={tempUnit === 'F' ? '0.08' : '2'} 
+                max={tempUnit === 'F' ? '0.39' : '10'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // Allow free editing of decimal values in Fahrenheit
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed) || val === '' || val === '-') {
-                      setThickness((parsed * 25.4).toString());
-                    }
-                  } else {
-                    setThickness(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setThickness(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
@@ -1222,20 +1207,12 @@ export function CalculatorTab() {
               <Input
                 type="number" 
                 value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
-                min={tempUnit === 'F' ? '0.01' : '0.1'} 
-                max={tempUnit === 'F' ? '10' : '250'} 
-                step="any"
+                min={tempUnit === 'F' ? '0.79' : '20'} 
+                max={tempUnit === 'F' ? '1.97' : '50'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // Allow free editing of decimal values in Fahrenheit
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed) || val === '' || val === '-') {
-                      setRadius(String((parsed * 25.4) / 2 || 0));
-                    }
-                  } else {
-                    setRadius(String(parseFloat(val) / 2 || 0));
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
+                  setRadius(String(val || 0));
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1252,20 +1229,12 @@ export function CalculatorTab() {
               <Input
                 type="number" 
                 value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
-                min={tempUnit === 'F' ? '0.01' : '0.1'} 
-                max={tempUnit === 'F' ? '10' : '250'} 
-                step="any"
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // Allow free editing of decimal values in Fahrenheit
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed) || val === '' || val === '-') {
-                      setLength((parsed * 25.4).toString());
-                    }
-                  } else {
-                    setLength(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setLength(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1282,20 +1251,12 @@ export function CalculatorTab() {
               <Input
                 type="number" 
                 value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
-                min={tempUnit === 'F' ? '0.01' : '0.1'} 
-                max={tempUnit === 'F' ? '10' : '250'} 
-                step="any"
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // Allow free editing of decimal values in Fahrenheit
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed) || val === '' || val === '-') {
-                      setWidth((parsed * 25.4).toString());
-                    }
-                  } else {
-                    setWidth(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setWidth(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1318,7 +1279,7 @@ export function CalculatorTab() {
           <Button
             onClick={handleCalculate}
             disabled={calcBlocked}
-            className={`flex-1 text-yellow-400 font-bold transition-opacity ${
+            className={`flex-1 text-white font-bold transition-opacity ${
               calcBlocked
                 ? 'bg-amber-900 opacity-40 cursor-not-allowed'
                 : 'bg-amber-700 hover:bg-amber-600'
@@ -1379,7 +1340,7 @@ export function CalculatorTab() {
               <div className="flex gap-2 mb-2">
                 <Button
                   onClick={handleStartStop}
-                  className={`flex-1 font-bold text-yellow-400 ${
+                  className={`flex-1 font-bold text-white ${
                     timerRunning
                       ? 'bg-red-700 hover:bg-red-600'
                       : 'bg-green-700 hover:bg-green-600'
@@ -1406,7 +1367,7 @@ export function CalculatorTab() {
                     stopTimer();
                   }
                 }}
-                className={`w-full font-bold text-yellow-400 ${
+                className={`w-full font-bold text-white ${
                   timerLoop
                     ? 'bg-amber-700 hover:bg-amber-600'
                     : 'bg-stone-700 hover:bg-stone-600'
@@ -1468,11 +1429,11 @@ export function CalculatorTab() {
 
 
 
+
         </div>
       )}
         </div>
       </main>
-      </div>
     </div>
   );
 }
