@@ -1177,13 +1177,22 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
+                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toString() : thickness} 
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
                     if (val === '') {
                       setThickness('0');
                     } else {
+                      // Allow free typing, but cap at 3 decimal places
+                      const decimalIndex = val.indexOf('.');
+                      if (decimalIndex !== -1) {
+                        const decimalPart = val.substring(decimalIndex + 1);
+                        if (decimalPart.length > 3) {
+                          // Reject input with more than 3 decimals
+                          return;
+                        }
+                      }
                       const parsed = parseFloat(val);
                       if (!isNaN(parsed) && parsed > 0) {
                         setThickness((parsed * 25.4).toString());
@@ -1214,13 +1223,22 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
+                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toString() : (parseFloat(radius) * 2)} 
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
                     if (val === '') {
                       setRadius('0');
                     } else {
+                      // Allow free typing, but cap at 3 decimal places
+                      const decimalIndex = val.indexOf('.');
+                      if (decimalIndex !== -1) {
+                        const decimalPart = val.substring(decimalIndex + 1);
+                        if (decimalPart.length > 3) {
+                          // Reject input with more than 3 decimals
+                          return;
+                        }
+                      }
                       const parsed = parseFloat(val);
                       if (!isNaN(parsed) && parsed > 0) {
                         setRadius(String((parsed * 25.4) / 2));
@@ -1244,13 +1262,22 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
+                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toString() : length} 
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
                     if (val === '') {
                       setLength('0');
                     } else {
+                      // Allow free typing, but cap at 3 decimal places
+                      const decimalIndex = val.indexOf('.');
+                      if (decimalIndex !== -1) {
+                        const decimalPart = val.substring(decimalIndex + 1);
+                        if (decimalPart.length > 3) {
+                          // Reject input with more than 3 decimals
+                          return;
+                        }
+                      }
                       const parsed = parseFloat(val);
                       if (!isNaN(parsed) && parsed > 0) {
                         setLength((parsed * 25.4).toString());
@@ -1274,13 +1301,22 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
+                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toString() : width} 
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
                     if (val === '') {
                       setWidth('0');
                     } else {
+                      // Allow free typing, but cap at 3 decimal places
+                      const decimalIndex = val.indexOf('.');
+                      if (decimalIndex !== -1) {
+                        const decimalPart = val.substring(decimalIndex + 1);
+                        if (decimalPart.length > 3) {
+                          // Reject input with more than 3 decimals
+                          return;
+                        }
+                      }
                       const parsed = parseFloat(val);
                       if (!isNaN(parsed) && parsed > 0) {
                         setWidth((parsed * 25.4).toString());
