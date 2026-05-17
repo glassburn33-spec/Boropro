@@ -159,7 +159,7 @@ export default function KilnLog() {
         </section>
 
         {/* Annealing Profile Editor */}
-        <section className="border-b border-white/10 py-16">
+        <section className="py-16">
           <div className="container max-w-6xl">
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle</h2>
