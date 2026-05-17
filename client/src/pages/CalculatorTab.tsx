@@ -1181,11 +1181,13 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed)) {
-                      setThickness((parsed * 25.4).toString());
-                    } else if (val === '' || val === '-' || val === '.') {
+                    if (val === '') {
                       setThickness('0');
+                    } else {
+                      const parsed = parseFloat(val);
+                      if (!isNaN(parsed) && parsed > 0) {
+                        setThickness((parsed * 25.4).toString());
+                      }
                     }
                   } else {
                     setThickness(val);
@@ -1216,11 +1218,13 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed)) {
-                      setRadius(String((parsed * 25.4) / 2));
-                    } else if (val === '' || val === '-' || val === '.') {
+                    if (val === '') {
                       setRadius('0');
+                    } else {
+                      const parsed = parseFloat(val);
+                      if (!isNaN(parsed) && parsed > 0) {
+                        setRadius(String((parsed * 25.4) / 2));
+                      }
                     }
                   } else {
                     setRadius(String(parseFloat(val) / 2 || 0));
@@ -1244,11 +1248,13 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed)) {
-                      setLength((parsed * 25.4).toString());
-                    } else if (val === '' || val === '-' || val === '.') {
+                    if (val === '') {
                       setLength('0');
+                    } else {
+                      const parsed = parseFloat(val);
+                      if (!isNaN(parsed) && parsed > 0) {
+                        setLength((parsed * 25.4).toString());
+                      }
                     }
                   } else {
                     setLength(val);
@@ -1272,11 +1278,13 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
-                    const parsed = parseFloat(val);
-                    if (!isNaN(parsed)) {
-                      setWidth((parsed * 25.4).toString());
-                    } else if (val === '' || val === '-' || val === '.') {
+                    if (val === '') {
                       setWidth('0');
+                    } else {
+                      const parsed = parseFloat(val);
+                      if (!isNaN(parsed) && parsed > 0) {
+                        setWidth((parsed * 25.4).toString());
+                      }
                     }
                   } else {
                     setWidth(val);
