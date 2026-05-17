@@ -107,7 +107,7 @@ export default function ToolHome() {
         {/* Hero */}
         <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
           <div className="container">
-            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Tools</h1>
+            <h1 className="text-2xl md:text-5xl font-bold text-yellow-400 mb-2 break-words">Tools</h1>
           </div>
         </section>
 
