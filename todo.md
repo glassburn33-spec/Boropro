@@ -944,3 +944,11 @@
   - [x] Updated close button styling to bg-stone-900/80 hover:bg-stone-900
   - [x] Images now fit proportionally on mobile and desktop viewports
   - [x] Modal layout verified: images scale to fill available space while maintaining aspect ratio
+
+- [x] Update Color Science tab layout to match Glass Science spacing
+  - [x] Changed main container from w-full px-3 md:px-4 py-4 md:py-6 to space-y-6
+  - [x] Updated title styling from text-2xl md:text-4xl lg:text-5xl to text-4xl md:text-5xl
+  - [x] Added border-t border-stone-700 pt-8 mt-8 section wrapper
+  - [x] Wrapped accordion in max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4 container
+  - [x] Removed extra spacing between title and header content
+  - [x] Layout now matches Glass Science tab structure consistently
