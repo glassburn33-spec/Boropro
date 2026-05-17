@@ -1148,27 +1148,7 @@ export function CalculatorTab() {
             </div>
           )}
 
-          {/* Radius — cylinder and sphere */}
-          {(shape === 'cylinder' || shape === 'sphere') && (
-            <div>
-              <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
-              </label>
-              <Input
-                type="text" 
-                value={tempUnit === 'F' ? (parseFloat(radius) * 2 / 25.4).toFixed(3) : parseFloat(radius) * 2} 
-                onChange={(e) => {
-                  if (tempUnit === 'F') {
-                    setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
-                  } else {
-                    setRadius((parseFloat(e.target.value) / 2).toString());
-                  }
-                }}
-                placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
-              />
-            </div>
-          )}
+
 
           {/* Length — plate and cylinder */}
           {(shape === 'plate' || shape === 'cylinder') && (
