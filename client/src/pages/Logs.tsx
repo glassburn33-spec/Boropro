@@ -1639,15 +1639,15 @@ export default function Logs() {
               </div>
             )}
 
-            {/* Save Color Combination Button - Outside comparison section */}
-            {selectedGlassColor && (tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color) && (
+            {/* Save Color Combination Button - Show with any annealed color selection */}
+            {(tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color || selectedAnnealedResultForComparison?.blendColors) && (
               <button
                 onClick={() => {
                   if (!colorWheelLog) return;
                   
                   const combination = {
                     id: `combo-${Date.now()}`,
-                    glassColor: selectedGlassColor,
+                    glassColor: selectedGlassColor || '',
                     annealedResult: selectedAnnealedResultForComparison || { id: '', color: tempAnnealedColor || colorWheelLog?.annealedColor || '#ffffff', mode: 'solid' as const },
                     savedAt: new Date()
                   };
