@@ -1158,18 +1158,10 @@ export function CalculatorTab() {
                 type="text" 
                 value={tempUnit === 'F' ? (parseFloat(radius) * 2 / 25.4).toFixed(3) : parseFloat(radius) * 2} 
                 onChange={(e) => {
-                  const diameterInput = e.target.value;
-                  if (diameterInput === '' || diameterInput === '.') {
-                    setRadius('');
+                  if (tempUnit === 'F') {
+                    setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
                   } else {
-                    const parsed = parseFloat(diameterInput);
-                    if (!isNaN(parsed)) {
-                      if (tempUnit === 'F') {
-                        setRadius(((parsed * 25.4) / 2).toString());
-                      } else {
-                        setRadius((parsed / 2).toString());
-                      }
-                    }
+                    setRadius((parseFloat(e.target.value) / 2).toString());
                   }
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
