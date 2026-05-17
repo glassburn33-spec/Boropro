@@ -843,10 +843,10 @@ export function CalculatorTab() {
 
       const res = runCalculation({
         shape,
-        thickness: parseFloat(thickness) || 0,
-        radius:    parseFloat(radius)    || 0,
-        length:    parseFloat(length)    || 0,
-        width:     parseFloat(width)     || 0,
+        thickness: tempUnit === 'F' ? (parseFloat(thickness) * 25.4) || 0 : parseFloat(thickness) || 0,
+        radius:    tempUnit === 'F' ? (parseFloat(radius) * 25.4) || 0 : parseFloat(radius) || 0,
+        length:    tempUnit === 'F' ? (parseFloat(length) * 25.4) || 0 : parseFloat(length) || 0,
+        width:     tempUnit === 'F' ? (parseFloat(width) * 25.4) || 0 : parseFloat(width) || 0,
         T_work:    kilnTempC,
         T_room:    roomTempC,
       });
@@ -1176,14 +1176,10 @@ export function CalculatorTab() {
                 Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
-                min={tempUnit === 'F' ? '0.08' : '2'} 
-                max={tempUnit === 'F' ? '0.39' : '10'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toString() : thickness} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setThickness(val);
+                  setThickness(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
@@ -1205,14 +1201,10 @@ export function CalculatorTab() {
                 Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
-                min={tempUnit === 'F' ? '0.79' : '20'} 
-                max={tempUnit === 'F' ? '1.97' : '50'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toString() : (parseFloat(radius) * 2)} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
-                  setRadius(String(val || 0));
+                  setRadius(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1227,14 +1219,10 @@ export function CalculatorTab() {
                 Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
-                min={tempUnit === 'F' ? '0.59' : '15'} 
-                max={tempUnit === 'F' ? '3.94' : '100'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toString() : length} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setLength(val);
+                  setLength(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1249,14 +1237,10 @@ export function CalculatorTab() {
                 Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
-                min={tempUnit === 'F' ? '0.59' : '15'} 
-                max={tempUnit === 'F' ? '3.94' : '100'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toString() : width} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setWidth(val);
+                  setWidth(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
