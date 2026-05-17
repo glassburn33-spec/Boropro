@@ -315,9 +315,15 @@ export default function Logs() {
     if (!colorWheelLog) return;
     
     const newColor = newColorHex;
+    const newNames = { ...customColorNames };
+    if (newColorName.trim()) {
+      newNames[newColor] = newColorName;
+    }
+    
     const updatedLog = {
       ...colorWheelLog,
-      selectedColors: [...(colorWheelLog.selectedColors || []), newColor]
+      selectedColors: [...(colorWheelLog.selectedColors || []), newColor],
+      colorNames: newNames
     };
     
     const updatedLogs = logs.map((log) =>
@@ -326,6 +332,7 @@ export default function Logs() {
     setLogs(updatedLogs);
     localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
     setColorWheelLog(updatedLog);
+    setCustomColorNames(newNames);
     
     setShowAddColorModal(false);
     setNewColorName('');
