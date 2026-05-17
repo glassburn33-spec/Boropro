@@ -1127,13 +1127,9 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
+                value={thickness} 
                 onChange={(e) => {
-                  if (tempUnit === 'F') {
-                    setThickness((parseFloat(e.target.value) * 25.4).toString());
-                  } else {
-                    setThickness(e.target.value);
-                  }
+                  setThickness(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.157' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
@@ -1174,13 +1170,9 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
+                value={length} 
                 onChange={(e) => {
-                  if (tempUnit === 'F') {
-                    setLength((parseFloat(e.target.value) * 25.4).toString());
-                  } else {
-                    setLength(e.target.value);
-                  }
+                  setLength(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1196,13 +1188,9 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
+                value={width} 
                 onChange={(e) => {
-                  if (tempUnit === 'F') {
-                    setWidth((parseFloat(e.target.value) * 25.4).toString());
-                  } else {
-                    setWidth(e.target.value);
-                  }
+                  setWidth(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
