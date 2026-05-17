@@ -470,11 +470,11 @@ ${combinedSchedule.rationale}`;
             <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Flame Char
             </a>
-            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=25&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Kiln Log
+              Kiln Editor
             </a>
             <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
@@ -516,7 +516,7 @@ ${combinedSchedule.rationale}`;
               Flame Char
             </a>
             <a
-              href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25"
+              href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=25&length=25&width=25"
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
@@ -527,7 +527,7 @@ ${combinedSchedule.rationale}`;
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Kiln Log
+              Kiln Editor
             </a>
             <a
               href="/logs"
@@ -547,9 +547,16 @@ ${combinedSchedule.rationale}`;
         )}
       </header>
 
-      {/* Main Content */}
-      <div className="container py-12">
-        <h1 className="text-5xl font-bold text-yellow-400 mb-2">Color Database</h1>
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-yellow-400 mb-2 break-words">Color Database</h1>
+          </div>
+        </section>
+
+        {/* Main Content */}
+        <div className="container py-12">
 
         {/* Search Bar */}
         <div className="mb-8">
@@ -660,6 +667,7 @@ ${combinedSchedule.rationale}`;
           </div>
         )}
       </div>
+      </main>
     </div>
   );
 }
