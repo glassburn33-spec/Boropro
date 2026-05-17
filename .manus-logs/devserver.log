@@ -4427,3 +4427,4 @@
 [2026-05-17T18:26:21.129Z] 1063 |
 [2026-05-17T18:26:21.130Z] 1064 |        {/* Preview Modal */}
 [2026-05-17T18:26:31.982Z] 2:26:31 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T18:28:52.526Z] 2:28:52 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
