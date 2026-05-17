@@ -1328,6 +1328,7 @@ export function CalculatorTab() {
                       { n: 28, label: '1 3/4' },
                       { n: 30, label: '1 7/8' },
                       { n: 32, label: '2' },
+                      { n: 34, label: '2 1/8' },
                       { n: 36, label: '2 1/4' },
                       { n: 38, label: '2 3/8' },
                       { n: 40, label: '2 1/2' },
