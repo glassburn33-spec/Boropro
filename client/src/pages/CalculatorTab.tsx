@@ -891,7 +891,7 @@ export function CalculatorTab() {
       setKilnTemp('565');
       setRoomTemp('25');
       setThickness('4');
-      setRadius('12.5');
+      setRadius('25');
       setLength('25');
       setWidth('25');
     }

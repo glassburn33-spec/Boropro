@@ -5211,3 +5211,4 @@
 [2026-05-17T22:20:53.846Z] 6:20:53 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
 [2026-05-17T22:22:05.506Z] 6:22:05 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
 [2026-05-17T22:23:00.048Z] 6:23:00 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-17T22:27:16.007Z] 6:27:15 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
