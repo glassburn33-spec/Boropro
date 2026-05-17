@@ -805,10 +805,10 @@ export function CalculatorTab() {
     try {
       const res = runCalculation({
         shape,
-        thickness: parseFloat(thickness) || 0,
-        radius:    (parseFloat(radius) / 2) || 0,
-        length:    parseFloat(length) || 0,
-        width:     parseFloat(width) || 0,
+        thickness: tempUnit === 'F' ? (parseFloat(thickness) * 25.4) || 0 : parseFloat(thickness) || 0,
+        radius:    tempUnit === 'F' ? ((parseFloat(radius) * 25.4) / 2) || 0 : (parseFloat(radius) / 2) || 0,
+        length:    tempUnit === 'F' ? (parseFloat(length) * 25.4) || 0 : parseFloat(length) || 0,
+        width:     tempUnit === 'F' ? (parseFloat(width) * 25.4) || 0 : parseFloat(width) || 0,
         T_work:    parseFloat(kilnTemp) || 565,
         T_room:    parseFloat(roomTemp) || 25,
       });
@@ -1156,13 +1156,9 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(3) : radius} 
+                value={radius} 
                 onChange={(e) => {
-                  if (tempUnit === 'F') {
-                    setRadius((parseFloat(e.target.value) * 25.4).toString());
-                  } else {
-                    setRadius(e.target.value);
-                  }
+                  setRadius(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
