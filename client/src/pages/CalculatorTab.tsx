@@ -877,13 +877,30 @@ export function CalculatorTab() {
     setTimeRemaining(null);
     originalTimeRef.current = 0;
     
-    // Reset to Celsius defaults
-    setKilnTemp('565');
-    setRoomTemp('25');
-    setThickness('4');
-    setRadius('12.5');
-    setLength('25');
-    setWidth('25');
+    // Reset to appropriate defaults based on current unit
+    if (tempUnit === 'F') {
+      // Reset to Fahrenheit defaults in inches
+      setKilnTemp('565'); // Will be converted to F on display
+      setRoomTemp('25'); // Will be converted to F on display
+      setThickness('0.125');
+      setRadius('1');
+      setLength('1');
+      setWidth('1');
+    } else {
+      // Reset to Celsius defaults in mm
+      setKilnTemp('565');
+      setRoomTemp('25');
+      setThickness('4');
+      setRadius('12.5');
+      setLength('25');
+      setWidth('25');
+    }
+    
+    // Reset all dropdown menus by clearing their values
+    const dropdowns = document.querySelectorAll('select');
+    dropdowns.forEach((dropdown) => {
+      dropdown.value = '';
+    });
   }
 
   // F-mode range validation
