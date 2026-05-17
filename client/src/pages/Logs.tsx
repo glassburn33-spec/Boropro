@@ -1639,8 +1639,8 @@ export default function Logs() {
               </div>
             )}
 
-            {/* Save Color Combination Button - Show with any annealed color selection */}
-            {(tempAnnealedColor || colorWheelLog?.annealedColor || selectedAnnealedResultForComparison?.color || selectedAnnealedResultForComparison?.blendColors) && (
+            {/* Save Color Combination Button - Requires both glass color and saved annealed result */}
+            {selectedGlassColor && selectedAnnealedResultForComparison && (
               <button
                 onClick={() => {
                   if (!colorWheelLog) return;
