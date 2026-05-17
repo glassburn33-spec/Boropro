@@ -1072,7 +1072,12 @@ export function CalculatorTab() {
         <div className="flex items-center gap-3 mb-4">
           <span className="text-sm font-semibold text-stone-300">Temperature Unit:</span>
           <button
-            onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
+            onClick={() => {
+              setTempUnit(tempUnit === 'C' ? 'F' : 'C');
+              stopTimer();
+              setTimeRemaining(null);
+              originalTimeRef.current = 0;
+            }}
             className={`px-4 py-2 rounded font-semibold transition-all ${
               tempUnit === 'C'
                 ? 'bg-amber-700 border border-amber-500 text-white'
