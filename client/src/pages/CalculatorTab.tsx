@@ -741,8 +741,6 @@ export function CalculatorTab() {
   const [timerLoop,     setTimerLoop]     = useState<boolean>(false);
   const [tempUnit,      setTempUnit]      = useState<'C' | 'F'>('C'); // Temperature unit toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Focus tracking for dimension inputs to toggle between decimal and fractional display
-  const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -1222,27 +1220,18 @@ export function CalculatorTab() {
                 Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={focusedInput === 'thickness' && tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : (tempUnit === 'F' ? decimalToFraction(parseFloat(thickness) / 25.4) : thickness)} 
-                step="0.001"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(thickness) / 25.4) : thickness} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
-                    const mmValue = (parseFloat(e.target.value) * 25.4).toString();
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
                     setThickness(mmValue);
                   } else {
                     setThickness(e.target.value);
                   }
                 }}
-                onFocus={() => setFocusedInput('thickness')}
-                onBlur={() => {
-                  if (tempUnit === 'F') {
-                    const inchValue = parseFloat(thickness) / 25.4;
-                    const rounded = Math.round(inchValue * 16) / 16;
-                    setThickness((rounded * 25.4).toString());
-                  }
-                  setFocusedInput(null);
-                }}
-                placeholder={tempUnit === 'F' ? '0.063' : '4'}
+                placeholder={tempUnit === 'F' ? '1/16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
                   thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
                 }`}
@@ -1262,27 +1251,18 @@ export function CalculatorTab() {
                 Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={focusedInput === 'radius' && tempUnit === 'F' ? ((parseFloat(radius) * 2) / 25.4).toFixed(3) : (tempUnit === 'F' ? decimalToFraction((parseFloat(radius) * 2) / 25.4) : (parseFloat(radius) * 2))} 
-                step="0.001"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction((parseFloat(radius) * 2) / 25.4) : (parseFloat(radius) * 2)} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
-                    const mmValue = (parseFloat(e.target.value) * 25.4) / 2;
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4) / 2;
                     setRadius(String(mmValue || 0));
                   } else {
                     setRadius(String(parseFloat(e.target.value) / 2 || 0));
                   }
                 }}
-                onFocus={() => setFocusedInput('radius')}
-                onBlur={() => {
-                  if (tempUnit === 'F') {
-                    const inchValue = (parseFloat(radius) * 2) / 25.4;
-                    const rounded = Math.round(inchValue * 16) / 16;
-                    setRadius(String((rounded * 25.4) / 2 || 0));
-                  }
-                  setFocusedInput(null);
-                }}
-                placeholder={tempUnit === 'F' ? '0.5' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1295,27 +1275,18 @@ export function CalculatorTab() {
                 Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={focusedInput === 'length' && tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : (tempUnit === 'F' ? decimalToFraction(parseFloat(length) / 25.4) : length)} 
-                step="0.001"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(length) / 25.4) : length} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
-                    const mmValue = (parseFloat(e.target.value) * 25.4).toString();
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
                     setLength(mmValue);
                   } else {
                     setLength(e.target.value);
                   }
                 }}
-                onFocus={() => setFocusedInput('length')}
-                onBlur={() => {
-                  if (tempUnit === 'F') {
-                    const inchValue = parseFloat(length) / 25.4;
-                    const rounded = Math.round(inchValue * 16) / 16;
-                    setLength((rounded * 25.4).toString());
-                  }
-                  setFocusedInput(null);
-                }}
-                placeholder={tempUnit === 'F' ? '0.5' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1328,27 +1299,18 @@ export function CalculatorTab() {
                 Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={focusedInput === 'width' && tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : (tempUnit === 'F' ? decimalToFraction(parseFloat(width) / 25.4) : width)} 
-                step="0.001"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(width) / 25.4) : width} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
-                    const mmValue = (parseFloat(e.target.value) * 25.4).toString();
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
                     setWidth(mmValue);
                   } else {
                     setWidth(e.target.value);
                   }
                 }}
-                onFocus={() => setFocusedInput('width')}
-                onBlur={() => {
-                  if (tempUnit === 'F') {
-                    const inchValue = parseFloat(width) / 25.4;
-                    const rounded = Math.round(inchValue * 16) / 16;
-                    setWidth((rounded * 25.4).toString());
-                  }
-                  setFocusedInput(null);
-                }}
-                placeholder={tempUnit === 'F' ? '0.5' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
