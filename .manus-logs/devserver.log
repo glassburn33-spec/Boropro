@@ -5551,3 +5551,16 @@
 [2026-05-17T23:05:29.042Z] 7:05:29 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T23:11:15.952Z] 7:11:15 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T23:14:56.557Z] 7:14:56 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:27:14.472Z] 7:27:14 PM [vite] (client) hmr update /src/index.css, /src/components/Accordion.tsx
+[2026-05-17T23:27:14.486Z] 7:27:14 PM [vite] (client) hmr update /src/components/AnealingProfileEditor.tsx, /src/index.css
+[2026-05-17T23:27:14.487Z] 7:27:14 PM [vite] (client) hmr update /src/index.css, /src/components/ui/accordion.tsx
+[2026-05-17T23:27:14.492Z] 7:27:14 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T23:27:14.494Z] 7:27:14 PM [vite] (client) hmr update /src/pages/ColorPicker.tsx, /src/index.css
+[2026-05-17T23:27:14.497Z] 7:27:14 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-17T23:27:14.499Z] 7:27:14 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T23:27:14.501Z] 7:27:14 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-17T23:27:14.502Z] 7:27:14 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T23:27:14.504Z] 7:27:14 PM [vite] (client) hmr update /src/pages/LogoHome.tsx, /src/index.css
+[2026-05-17T23:27:14.506Z] 7:27:14 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:27:14.508Z] 7:27:14 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
+[2026-05-17T23:27:14.509Z] 7:27:14 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
