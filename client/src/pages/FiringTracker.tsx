@@ -140,12 +140,23 @@ export default function KilnLog() {
       </header>
 
       <main className="flex-1">
-        {/* Header Image */}
-        <section className="border-b border-white/10">
-          <img src="/manus-storage/kilnlogoage_74b1e98f.png" alt="Kiln" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
+        {/* Page Title */}
+        <section className="py-8">
+          <div className="container max-w-6xl">
+            <div className="mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Firing Tracker</h1>
+            </div>
+
+            {/* Header Image */}
+            <div className="w-full flex flex-col items-center mb-6">
+              <img
+                src="/manus-storage/kilnlogoage_74b1e98f.png"
+                alt="Kiln"
+                className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
+              />
+            </div>
+          </div>
         </section>
-
-
 
         {/* Annealing Profile Editor */}
         <section className="border-b border-white/10 py-16">
