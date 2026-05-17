@@ -1012,11 +1012,18 @@ export function CalculatorTab() {
         )}
       </header>
 
-      <main className="flex-1 space-y-4 pb-8">
+      <div className="space-y-6">
+        {/* Page Title */}
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Reheat Calculator</h1>
+        </div>
+
         {/* Header Image */}
-        <section className="border-b border-white/10">
-          <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />
-        </section>
+        <div className="w-full flex flex-col items-center mb-6">
+          <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="Reheat Calculator" className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg" />
+        </div>
+
+      <main className="flex-1 space-y-4 pb-8">
 
         <div className="container max-w-6xl space-y-4">
           {/* TEMPERATURE UNIT TOGGLE */}
@@ -1429,11 +1436,11 @@ export function CalculatorTab() {
 
 
 
-
         </div>
       )}
         </div>
       </main>
+      </div>
     </div>
   );
 }
