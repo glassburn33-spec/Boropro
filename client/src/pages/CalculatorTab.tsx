@@ -1024,53 +1024,27 @@ export function CalculatorTab() {
           
           {/* QUICK-SELECT TEMPERATURE BUTTONS */}
           <div className="flex gap-2 mt-3">
-            <>
-                <button
-                  onClick={() => setKilnTemp('565')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '565'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  565°C
-                </button>
+            <button
+              onClick={() => setKilnTemp('565')}
+              className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                kilnTemp === '565'
+                  ? 'bg-amber-700 border-amber-500 text-white'
+                  : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+              }`}
+            >
+              565°C
+            </button>
 
-                <button
-                   onClick={() => setKilnTemp('700')}
-                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                     kilnTemp === '700'
-                       ? 'bg-amber-700 border-amber-500 text-white'
-                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                   }`}
-                 >
-                   700°C
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => setKilnTemp('1049')}
-                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                    kilnTemp === '1049'
-                      ? 'bg-amber-700 border-amber-500 text-white'
-                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                  }`}
-                >
-                  1049°F
-                </button>
-
-                <button
-                   onClick={() => setKilnTemp('1292')}
-                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                     kilnTemp === '1292'
-                       ? 'bg-amber-700 border-amber-500 text-white'
-                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-                   }`}
-                 >
-                   1292°F
-                </button>
-            </>
+            <button
+              onClick={() => setKilnTemp('700')}
+              className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                kilnTemp === '700'
+                  ? 'bg-amber-700 border-amber-500 text-white'
+                  : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+              }`}
+            >
+              700°C
+            </button>
           </div>
         </div>
 
