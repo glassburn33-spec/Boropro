@@ -242,8 +242,16 @@ export default function Logs() {
 
   const handleSaveAnnealedColor = () => {
     try {
-      if (!colorWheelLog || !tempAnnealedColor) {
+      if (!colorWheelLog) {
+        toast.error('No log selected');
+        return;
+      }
+      if (!tempAnnealedColor && blendMode !== 'blend') {
         toast.error('Please select an annealed color');
+        return;
+      }
+      if (blendMode === 'blend' && (!blendColors || blendColors.length < 3)) {
+        toast.error('Please select all three colors for blend mode');
         return;
       }
       const newAnnealedResult = {
