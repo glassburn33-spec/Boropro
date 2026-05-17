@@ -1123,22 +1123,26 @@ export function CalculatorTab() {
           {shape !== 'sphere' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Wall Thickness (mm)
+                Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
                 type="text" 
-                value={thickness} 
+                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
                 onChange={(e) => {
-                  setThickness(e.target.value);
+                  if (tempUnit === 'F') {
+                    setThickness((parseFloat(e.target.value) * 25.4).toString());
+                  } else {
+                    setThickness(e.target.value);
+                  }
                 }}
-                placeholder="4"
+                placeholder={tempUnit === 'F' ? '0.157' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
                   thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
                 }`}
               />
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({radius} mm)
+                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(3) : radius} {tempUnit === 'F' ? 'in' : 'mm'})
                 </p>
               )}
             </div>
@@ -1148,15 +1152,19 @@ export function CalculatorTab() {
           {(shape === 'cylinder' || shape === 'sphere') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Diameter (mm)
+                Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
                 type="text" 
-                value={parseFloat(radius) * 2} 
+                value={tempUnit === 'F' ? ((parseFloat(radius) * 2) / 25.4).toFixed(3) : parseFloat(radius) * 2} 
                 onChange={(e) => {
-                  setRadius((parseFloat(e.target.value) / 2).toString());
+                  if (tempUnit === 'F') {
+                    setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
+                  } else {
+                    setRadius((parseFloat(e.target.value) / 2).toString());
+                  }
                 }}
-                placeholder="25"
+                placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1166,15 +1174,19 @@ export function CalculatorTab() {
           {(shape === 'plate' || shape === 'cylinder') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Length (mm)
+                Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
                 type="text" 
-                value={length} 
+                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
                 onChange={(e) => {
-                  setLength(e.target.value);
+                  if (tempUnit === 'F') {
+                    setLength((parseFloat(e.target.value) * 25.4).toString());
+                  } else {
+                    setLength(e.target.value);
+                  }
                 }}
-                placeholder="25"
+                placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1184,15 +1196,19 @@ export function CalculatorTab() {
           {shape === 'plate' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Width (mm)
+                Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
                 type="text" 
-                value={width} 
+                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
                 onChange={(e) => {
-                  setWidth(e.target.value);
+                  if (tempUnit === 'F') {
+                    setWidth((parseFloat(e.target.value) * 25.4).toString());
+                  } else {
+                    setWidth(e.target.value);
+                  }
                 }}
-                placeholder="25"
+                placeholder={tempUnit === 'F' ? '0.984' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
