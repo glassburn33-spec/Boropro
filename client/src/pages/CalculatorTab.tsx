@@ -691,7 +691,7 @@ export function CalculatorTab() {
   const [shape,     setShape]     = useState<string>(shapeParam || 'cylinder');
   // Defaults: 4 mm thickness, 25 mm diameter (12.5 mm radius), 25 mm length, 25 mm width (Celsius)
   const [thickness, setThickness] = useState<string>(thicknessParam || '4');  // 4 mm
-  const [radius,    setRadius]    = useState<string>(radiusParam || '12.5');  // 25 mm diameter = 12.5 mm radius
+  const [radius,    setRadius]    = useState<string>(radiusParam || '25');  // Store diameter directly (25 mm diameter)
   const [length,    setLength]    = useState<string>(lengthParam || '25');  // 25 mm
   const [width,     setWidth]     = useState<string>(widthParam || '25');  // 25 mm
   const [kilnTemp,  setKilnTemp]  = useState<string>(kilnTempParam || '565');
@@ -806,7 +806,7 @@ export function CalculatorTab() {
       const res = runCalculation({
         shape,
         thickness: parseFloat(thickness) || 0,
-        radius:    parseFloat(radius) || 0,
+        radius:    (parseFloat(radius) / 2) || 0,
         length:    parseFloat(length) || 0,
         width:     parseFloat(width) || 0,
         T_work:    parseFloat(kilnTemp) || 565,
@@ -1142,7 +1142,7 @@ export function CalculatorTab() {
               />
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(3) : radius} {tempUnit === 'F' ? 'in' : 'mm'})
+                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 2 / 25.4).toFixed(3) : parseFloat(radius) / 2} {tempUnit === 'F' ? 'in' : 'mm'})
                 </p>
               )}
             </div>
@@ -1156,12 +1156,12 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(radius) * 2 / 25.4).toFixed(3) : parseFloat(radius) * 2} 
+                value={tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(3) : radius} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
-                    setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
+                    setRadius((parseFloat(e.target.value) * 25.4).toString());
                   } else {
-                    setRadius((parseFloat(e.target.value) / 2).toString());
+                    setRadius(e.target.value);
                   }
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
