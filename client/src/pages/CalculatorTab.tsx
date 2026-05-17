@@ -1156,7 +1156,7 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? ((parseFloat(radius) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2).toString()} 
+                value={tempUnit === 'F' ? ((parseFloat(radius) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
                 onChange={(e) => {
                   if (tempUnit === 'F') {
                     setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
