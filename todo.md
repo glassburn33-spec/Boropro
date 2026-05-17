@@ -952,3 +952,10 @@
   - [x] Wrapped accordion in max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4 container
   - [x] Removed extra spacing between title and header content
   - [x] Layout now matches Glass Science tab structure consistently
+
+- [x] Add equipment science header image to Equipment Science tab
+  - [x] Uploaded equipment science header image to storage: /manus-storage/Gemini_Generated_Image_jjn8znjjn8znjjn8_db02925e.png
+  - [x] Added image to ScieEquipTab with w-full max-w-4xl sizing for responsive display
+  - [x] Added descriptive caption below image explaining flame spectroscopy equipment
+  - [x] Image displays correctly on mobile and desktop viewports
+  - [x] Border and shadow styling matches other header images in the app

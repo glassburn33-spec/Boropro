@@ -1528,6 +1528,19 @@ function ScieEquipTab() {
       <div className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Equipment Science</h1>
       </div>
+
+      {/* EQUIPMENT SCIENCE HEADER IMAGE */}
+      <div className="w-full flex flex-col items-center mb-6">
+        <img
+          src="/manus-storage/Gemini_Generated_Image_jjn8znjjn8znjjn8_db02925e.png"
+          alt="Equipment Science setup showing flame spectroscopy apparatus with burner and optical system"
+          className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
+        />
+        <p className="text-stone-500 text-xs italic text-center mt-3 max-w-2xl">
+          Flame spectroscopy equipment showing the analytical burner system with optical path alignment for glass material analysis and elemental detection.
+        </p>
+      </div>
+
       <CustomAccordion items={accordionItems} allowMultiple={true} />
 
       {/* Full-screen image modal */}
