@@ -4263,3 +4263,6 @@
 [2026-05-17T18:06:22.205Z] 556 |          </div>
 [2026-05-17T18:06:22.206Z] 557 |        </div>
 [2026-05-17T18:06:37.424Z] 2:06:37 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T18:07:37.209Z] [Auth] Missing session cookie
+[2026-05-17T18:08:47.585Z] 2:08:47 PM [vite] (client) hmr update /src/components/ui/accordion.tsx, /src/index.css
+[2026-05-17T18:09:15.551Z] [Auth] Missing session cookie
