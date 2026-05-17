@@ -1,217 +1,253 @@
 import { describe, it, expect } from 'vitest';
 
 /**
- * Unit tests for Calculator Tab Fahrenheit dimension input validation
- * Tests the 3 decimal place cap and delete/backspace functionality
+ * Unit tests for Calculator Tab Dimension Input Logic
+ * Tests simplified F-mode (inches) and C-mode (mm) input handling
+ * 
+ * Key principle: Both modes accept any numeric input directly.
+ * F-mode converts inches to mm for internal storage.
+ * C-mode stores mm directly.
  */
 
-describe('Calculator Fahrenheit Dimension Input Validation', () => {
+describe('Calculator Dimension Input Logic', () => {
   /**
-   * Helper function to simulate the decimal place validation logic
-   * from the onChange handlers in CalculatorTab.tsx
+   * Simulate F-mode onChange: convert inches to mm
    */
-  function validateDecimalPlaces(input: string): boolean {
-    if (input === '') return true; // Allow empty string for deletion
-    
-    const decimalIndex = input.indexOf('.');
-    if (decimalIndex !== -1) {
-      const decimalPart = input.substring(decimalIndex + 1);
-      if (decimalPart.length > 3) {
-        return false; // Reject input with more than 3 decimals
-      }
+  function handleFModeInput(inchInput: string): string {
+    if (inchInput === '') return '0';
+    const parsed = parseFloat(inchInput);
+    if (!isNaN(parsed)) {
+      return (parsed * 25.4).toString();
     }
-    return true;
+    return ''; // Invalid input, no update
   }
 
   /**
-   * Helper function to simulate inch-to-millimeter conversion
+   * Simulate C-mode onChange: store directly
    */
-  function inchesToMillimeters(inches: number): number {
+  function handleCModeInput(mmInput: string): string {
+    return mmInput;
+  }
+
+  /**
+   * Convert mm to inches for display
+   */
+  function mmToInches(mm: string): string {
+    return (parseFloat(mm) / 25.4).toString();
+  }
+
+  /**
+   * Convert inches to mm
+   */
+  function inchesToMm(inches: number): number {
     return inches * 25.4;
   }
 
-  /**
-   * Helper function to simulate millimeter-to-inch conversion
-   */
-  function millimetersToInches(mm: number): number {
-    return mm / 25.4;
-  }
-
-  describe('Decimal Place Validation', () => {
-    it('should accept input with 0 decimal places', () => {
-      expect(validateDecimalPlaces('1')).toBe(true);
-      expect(validateDecimalPlaces('5')).toBe(true);
+  describe('F-Mode Input (Inches → MM Storage)', () => {
+    it('should accept simple numeric input', () => {
+      const result = handleFModeInput('0.5');
+      expect(result).toBe('12.7');
     });
 
-    it('should accept input with 1 decimal place', () => {
-      expect(validateDecimalPlaces('0.1')).toBe(true);
-      expect(validateDecimalPlaces('1.5')).toBe(true);
+    it('should accept input with decimal point', () => {
+      const result = handleFModeInput('0.125');
+      expect(result).toBe('3.175');
     });
 
-    it('should accept input with 2 decimal places', () => {
-      expect(validateDecimalPlaces('0.12')).toBe(true);
-      expect(validateDecimalPlaces('1.25')).toBe(true);
+    it('should accept integer input', () => {
+      const result = handleFModeInput('1');
+      expect(result).toBe('25.4');
     });
 
-    it('should accept input with 3 decimal places', () => {
-      expect(validateDecimalPlaces('0.125')).toBe(true);
-      expect(validateDecimalPlaces('1.125')).toBe(true);
+    it('should handle empty string as zero', () => {
+      const result = handleFModeInput('');
+      expect(result).toBe('0');
     });
 
-    it('should reject input with more than 3 decimal places', () => {
-      expect(validateDecimalPlaces('0.1234')).toBe(false);
-      expect(validateDecimalPlaces('1.12345')).toBe(false);
+    it('should reject non-numeric input', () => {
+      const result = handleFModeInput('abc');
+      expect(result).toBe('');
     });
 
-    it('should allow empty string (for deletion)', () => {
-      expect(validateDecimalPlaces('')).toBe(true);
+    it('should accept decimal point without leading digit', () => {
+      const result = handleFModeInput('.5');
+      expect(result).toBe('12.7');
     });
 
-    it('should allow decimal point without digits after it', () => {
-      expect(validateDecimalPlaces('1.')).toBe(true);
+    it('should accept large decimal values', () => {
+      const result = handleFModeInput('5.5');
+      expect(result).toBe('139.7');
     });
   });
 
-  describe('Delete and Backspace Simulation', () => {
-    it('should allow deleting from 0.125 to 0.12', () => {
-      const original = '0.125';
-      const afterDelete = original.slice(0, -1); // '0.12'
-      expect(validateDecimalPlaces(afterDelete)).toBe(true);
-      expect(afterDelete).toBe('0.12');
+  describe('C-Mode Input (MM Direct Storage)', () => {
+    it('should accept numeric input directly', () => {
+      const result = handleCModeInput('12.7');
+      expect(result).toBe('12.7');
     });
 
-    it('should allow deleting from 0.12 to 0.1', () => {
-      const original = '0.12';
-      const afterDelete = original.slice(0, -1); // '0.1'
-      expect(validateDecimalPlaces(afterDelete)).toBe(true);
-      expect(afterDelete).toBe('0.1');
+    it('should accept any string input', () => {
+      const result = handleCModeInput('25');
+      expect(result).toBe('25');
     });
 
-    it('should allow deleting from 0.1 to 0.', () => {
-      const original = '0.1';
-      const afterDelete = original.slice(0, -1); // '0.'
-      expect(validateDecimalPlaces(afterDelete)).toBe(true);
-      expect(afterDelete).toBe('0.');
+    it('should preserve empty string', () => {
+      const result = handleCModeInput('');
+      expect(result).toBe('');
     });
 
-    it('should allow deleting from 0. to 0', () => {
-      const original = '0.';
-      const afterDelete = original.slice(0, -1); // '0'
-      expect(validateDecimalPlaces(afterDelete)).toBe(true);
-      expect(afterDelete).toBe('0');
-    });
-
-    it('should allow deleting from 0 to empty string', () => {
-      const original = '0';
-      const afterDelete = original.slice(0, -1); // ''
-      expect(validateDecimalPlaces(afterDelete)).toBe(true);
-      expect(afterDelete).toBe('');
+    it('should preserve decimal input', () => {
+      const result = handleCModeInput('3.175');
+      expect(result).toBe('3.175');
     });
   });
 
-  describe('Inch-to-Millimeter Conversion', () => {
-    it('should convert 0.125 inches to ~3.175 mm', () => {
-      const inches = 0.125;
-      const mm = inchesToMillimeters(inches);
-      expect(mm).toBeCloseTo(3.175, 2);
+  describe('Display Conversion (MM → Inches)', () => {
+    it('should convert 12.7 mm to 0.5 inches', () => {
+      const result = mmToInches('12.7');
+      expect(parseFloat(result)).toBeCloseTo(0.5, 5);
     });
 
-    it('should convert 0.5 inches to ~12.7 mm', () => {
-      const inches = 0.5;
-      const mm = inchesToMillimeters(inches);
-      expect(mm).toBeCloseTo(12.7, 1);
-    });
-
-    it('should convert 1 inch to 25.4 mm', () => {
-      const inches = 1;
-      const mm = inchesToMillimeters(inches);
-      expect(mm).toBe(25.4);
-    });
-  });
-
-  describe('Millimeter-to-Inch Conversion', () => {
-    it('should convert 3.175 mm to ~0.125 inches', () => {
-      const mm = 3.175;
-      const inches = millimetersToInches(mm);
-      expect(inches).toBeCloseTo(0.125, 3);
-    });
-
-    it('should convert 12.7 mm to ~0.5 inches', () => {
-      const mm = 12.7;
-      const inches = millimetersToInches(mm);
-      expect(inches).toBeCloseTo(0.5, 2);
+    it('should convert 3.175 mm to 0.125 inches', () => {
+      const result = mmToInches('3.175');
+      expect(parseFloat(result)).toBeCloseTo(0.125, 5);
     });
 
     it('should convert 25.4 mm to 1 inch', () => {
-      const mm = 25.4;
-      const inches = millimetersToInches(mm);
-      expect(inches).toBeCloseTo(1, 5);
+      const result = mmToInches('25.4');
+      expect(parseFloat(result)).toBeCloseTo(1, 5);
+    });
+
+    it('should convert 0 mm to 0 inches', () => {
+      const result = mmToInches('0');
+      expect(parseFloat(result)).toBe(0);
     });
   });
 
-  describe('Full Input Workflow', () => {
-    it('should handle user typing 0.125 and deleting to 0.12', () => {
-      let input = '0.125';
-      expect(validateDecimalPlaces(input)).toBe(true);
-      
-      input = input.slice(0, -1); // Delete last char
-      expect(validateDecimalPlaces(input)).toBe(true);
-      expect(input).toBe('0.12');
+  describe('Full Input Workflows', () => {
+    it('F-mode: user types 0.5 inches, stored as 12.7 mm, displays as 0.5 inches', () => {
+      // User types 0.5 in F-mode
+      const stored = handleFModeInput('0.5');
+      expect(stored).toBe('12.7');
+
+      // Display converts back to inches
+      const displayed = mmToInches(stored);
+      expect(parseFloat(displayed)).toBeCloseTo(0.5, 5);
     });
 
-    it('should allow typing just a decimal point', () => {
-      const input = '.';
-      expect(validateDecimalPlaces(input)).toBe(true);
+    it('F-mode: user types 0.125 inches, stored as 3.175 mm, displays as 0.125 inches', () => {
+      const stored = handleFModeInput('0.125');
+      expect(stored).toBe('3.175');
+
+      const displayed = mmToInches(stored);
+      expect(parseFloat(displayed)).toBeCloseTo(0.125, 5);
     });
 
-    it('should allow typing decimal point after a number', () => {
-      const input = '5.';
-      expect(validateDecimalPlaces(input)).toBe(true);
+    it('C-mode: user types 25 mm, stored as 25 mm, displays as 25 mm', () => {
+      const stored = handleCModeInput('25');
+      expect(stored).toBe('25');
     });
 
-    it('should allow deleting first decimal digit (0.1 to 0.)', () => {
-      let input = '0.1';
-      expect(validateDecimalPlaces(input)).toBe(true);
-      
-      input = input.slice(0, -1); // Delete the 1
-      expect(validateDecimalPlaces(input)).toBe(true);
-      expect(input).toBe('0.');
+    it('F-mode: user clears field, defaults to 0', () => {
+      const stored = handleFModeInput('');
+      expect(stored).toBe('0');
+
+      const displayed = mmToInches(stored);
+      expect(parseFloat(displayed)).toBe(0);
     });
 
-    it('should allow deleting decimal point (0. to 0)', () => {
-      let input = '0.';
-      expect(validateDecimalPlaces(input)).toBe(true);
-      
-      input = input.slice(0, -1); // Delete the dot
-      expect(validateDecimalPlaces(input)).toBe(true);
-      expect(input).toBe('0');
+    it('F-mode: user types decimal point alone (edge case)', () => {
+      const result = handleFModeInput('.');
+      // parseFloat('.') returns NaN, so no update occurs
+      expect(result).toBe('');
     });
 
-    it('should reject user trying to type 0.1234', () => {
-      const input = '0.1234';
-      expect(validateDecimalPlaces(input)).toBe(false);
+    it('F-mode: user types very small value', () => {
+      const result = handleFModeInput('0.01');
+      expect(parseFloat(result)).toBeCloseTo(0.254, 3);
     });
 
-    it('should handle user clearing field and typing new value', () => {
-      let input = '';
-      expect(validateDecimalPlaces(input)).toBe(true);
-      
-      input = '0.5';
-      expect(validateDecimalPlaces(input)).toBe(true);
-      
-      const mm = inchesToMillimeters(parseFloat(input));
-      expect(mm).toBeCloseTo(12.7, 1);
+    it('F-mode: user types large value', () => {
+      const result = handleFModeInput('10');
+      expect(result).toBe('254');
+    });
+  });
+
+  describe('Dimension-Specific Conversions', () => {
+    it('Thickness: 0.125 inches (1/8") → 3.175 mm', () => {
+      const mm = inchesToMm(0.125);
+      expect(mm).toBeCloseTo(3.175, 2);
     });
 
-    it('should handle user typing decimal point to add decimals to integer', () => {
-      let input = '5';
-      expect(validateDecimalPlaces(input)).toBe(true);
+    it('Diameter: 0.5 inches → 12.7 mm radius', () => {
+      const diameterInches = 0.5;
+      const diameterMm = inchesToMm(diameterInches);
+      const radiusMm = diameterMm / 2;
+      expect(radiusMm).toBeCloseTo(6.35, 2);
+    });
+
+    it('Length: 1 inch → 25.4 mm', () => {
+      const mm = inchesToMm(1);
+      expect(mm).toBe(25.4);
+    });
+
+    it('Width: 2.5 inches → 63.5 mm', () => {
+      const mm = inchesToMm(2.5);
+      expect(mm).toBe(63.5);
+    });
+  });
+
+  describe('Edge Cases and Error Handling', () => {
+    it('should handle negative input gracefully', () => {
+      const result = handleFModeInput('-0.5');
+      expect(result).toBe('-12.7');
+    });
+
+    it('should handle very long decimal input', () => {
+      const result = handleFModeInput('0.123456789');
+      expect(parseFloat(result)).toBeCloseTo(3.1358, 3);
+    });
+
+    it('should handle scientific notation', () => {
+      const result = handleFModeInput('1e-1'); // 0.1
+      expect(parseFloat(result)).toBeCloseTo(2.54, 2);
+    });
+
+    it('should handle input with leading zeros', () => {
+      const result = handleFModeInput('00.5');
+      expect(result).toBe('12.7');
+    });
+
+    it('should handle input with trailing zeros', () => {
+      const result = handleFModeInput('0.500');
+      expect(result).toBe('12.7');
+    });
+  });
+
+  describe('Consistency Between Modes', () => {
+    it('should produce same internal value when converting between modes', () => {
+      // User enters 0.5 inches in F-mode
+      const fModeResult = handleFModeInput('0.5');
       
-      input = '5.'; // User types decimal point
-      expect(validateDecimalPlaces(input)).toBe(true);
+      // User enters 12.7 mm in C-mode
+      const cModeResult = handleCModeInput('12.7');
       
-      input = '5.1'; // User types first decimal digit
-      expect(validateDecimalPlaces(input)).toBe(true);
+      // Both should be approximately equal
+      expect(parseFloat(fModeResult)).toBeCloseTo(parseFloat(cModeResult), 1);
+    });
+
+    it('should allow switching between modes without data loss', () => {
+      // Start in F-mode with 0.5 inches
+      const mmValue = handleFModeInput('0.5');
+      expect(mmValue).toBe('12.7');
+
+      // Switch to C-mode display
+      const displayed = mmToInches(mmValue);
+      expect(parseFloat(displayed)).toBeCloseTo(0.5, 5);
+
+      // Switch back to F-mode
+      const backToMm = handleFModeInput(displayed);
+      expect(parseFloat(backToMm)).toBeCloseTo(12.7, 1);
     });
   });
 });

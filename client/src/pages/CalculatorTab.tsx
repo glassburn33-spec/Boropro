@@ -1181,28 +1181,17 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
+                    // F-mode: convert inches to mm for storage
                     if (val === '') {
                       setThickness('0');
                     } else {
-                      // Allow free typing, but cap at 3 decimal places
-                      const decimalIndex = val.indexOf('.');
-                      if (decimalIndex !== -1) {
-                        const decimalPart = val.substring(decimalIndex + 1);
-                        if (decimalPart.length > 3) {
-                          // Reject input with more than 3 decimals
-                          return;
-                        }
-                      }
                       const parsed = parseFloat(val);
-                      // Allow intermediate states (0., ., etc.) and only validate when complete
                       if (!isNaN(parsed)) {
                         setThickness((parsed * 25.4).toString());
-                      } else if (val === '.' || val.endsWith('.')) {
-                        // Allow typing just a dot or ending with dot for decimal input
-                        setThickness((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {
+                    // C-mode: store directly
                     setThickness(val);
                   }
                 }}
@@ -1231,28 +1220,17 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
+                    // F-mode: convert inches (diameter) to mm (radius) for storage
                     if (val === '') {
                       setRadius('0');
                     } else {
-                      // Allow free typing, but cap at 3 decimal places
-                      const decimalIndex = val.indexOf('.');
-                      if (decimalIndex !== -1) {
-                        const decimalPart = val.substring(decimalIndex + 1);
-                        if (decimalPart.length > 3) {
-                          // Reject input with more than 3 decimals
-                          return;
-                        }
-                      }
                       const parsed = parseFloat(val);
-                      // Allow intermediate states (0., ., etc.) and only validate when complete
                       if (!isNaN(parsed)) {
                         setRadius(String((parsed * 25.4) / 2));
-                      } else if (val === '.' || val.endsWith('.')) {
-                        // Allow typing just a dot or ending with dot for decimal input
-                        setRadius(String((parseFloat(val.replace('.', '') || '0') * 25.4) / 2));
                       }
                     }
                   } else {
+                    // C-mode: convert mm (diameter) to mm (radius)
                     setRadius(String(parseFloat(val) / 2 || 0));
                   }
                 }}
@@ -1274,28 +1252,17 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
+                    // F-mode: convert inches to mm for storage
                     if (val === '') {
                       setLength('0');
                     } else {
-                      // Allow free typing, but cap at 3 decimal places
-                      const decimalIndex = val.indexOf('.');
-                      if (decimalIndex !== -1) {
-                        const decimalPart = val.substring(decimalIndex + 1);
-                        if (decimalPart.length > 3) {
-                          // Reject input with more than 3 decimals
-                          return;
-                        }
-                      }
                       const parsed = parseFloat(val);
-                      // Allow intermediate states (0., ., etc.) and only validate when complete
                       if (!isNaN(parsed)) {
                         setLength((parsed * 25.4).toString());
-                      } else if (val === '.' || val.endsWith('.')) {
-                        // Allow typing just a dot or ending with dot for decimal input
-                        setLength((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {
+                    // C-mode: store directly
                     setLength(val);
                   }
                 }}
@@ -1317,28 +1284,17 @@ export function CalculatorTab() {
                 onChange={(e) => {
                   const val = e.target.value;
                   if (tempUnit === 'F') {
+                    // F-mode: convert inches to mm for storage
                     if (val === '') {
                       setWidth('0');
                     } else {
-                      // Allow free typing, but cap at 3 decimal places
-                      const decimalIndex = val.indexOf('.');
-                      if (decimalIndex !== -1) {
-                        const decimalPart = val.substring(decimalIndex + 1);
-                        if (decimalPart.length > 3) {
-                          // Reject input with more than 3 decimals
-                          return;
-                        }
-                      }
                       const parsed = parseFloat(val);
-                      // Allow intermediate states (0., ., etc.) and only validate when complete
                       if (!isNaN(parsed)) {
                         setWidth((parsed * 25.4).toString());
-                      } else if (val === '.' || val.endsWith('.')) {
-                        // Allow typing just a dot or ending with dot for decimal input
-                        setWidth((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {
+                    // C-mode: store directly
                     setWidth(val);
                   }
                 }}
