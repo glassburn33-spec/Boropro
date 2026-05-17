@@ -243,11 +243,20 @@ function StudioTab() {
         <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Glass Science</h1>
       </div>
 
+      {/* GLASS SCIENCE HEADER IMAGE */}
+      <div className="w-full flex flex-col items-center mb-6">
+        <img
+          src="/manus-storage/Gemini_Generated_Image_i657vfi657vfi657_70af8fcb.png"
+          alt="Borosilicate glass structure showing glass tube with molecular composition of silicon, boron, and oxygen atoms"
+          className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
+        />
+      </div>
+
       {/* GLASS SCIENCE HEADER */}
       <div className="border-t border-stone-700 pt-8 mt-8">
 
-        <div className="max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4">
-          <Accordion type="single" collapsible>
+        <div className="max-w-2xl mx-auto pb-10 px-2 md:px-4">
+          <Accordion type="single" collapsible className="space-y-4">
             {/* SECTION 1: CHEMICAL COMPOSITION */}
             <AccordionItem value="composition">
               <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
@@ -1536,9 +1545,6 @@ function ScieEquipTab() {
           alt="Equipment Science setup showing flame spectroscopy apparatus with burner and optical system"
           className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
         />
-        <p className="text-stone-500 text-xs italic text-center mt-3 max-w-2xl">
-          Flame spectroscopy equipment showing the analytical burner system with optical path alignment for glass material analysis and elemental detection.
-        </p>
       </div>
 
       <CustomAccordion items={accordionItems} allowMultiple={true} />

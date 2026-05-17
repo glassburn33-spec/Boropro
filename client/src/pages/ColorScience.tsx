@@ -626,21 +626,24 @@ export default function ColorScienceTab() {
         />
       )}
 
-      {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="space-y-6" style={{ marginTop: '88px' }}>
+      <div className="space-y-6">
         {/* Color Science Title */}
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
         </div>
 
-        {/* Color Science Header */}
-        <div className="border-t border-stone-700 pt-8 mt-8">
-          <div className="max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4">
-            {/* Accordion Sections */}
-            <Accordion items={accordionItems} allowMultiple={true} />
-          </div>
+        {/* Color Science Header Image */}
+        <div className="w-full flex flex-col items-center mb-6">
+          <img
+            src="/manus-storage/Gemini_Generated_Image_4tshef4tshef4tsh_f34202a3.png"
+            alt="Color spectrum glass tube visualization"
+            className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
+          />
         </div>
-      </main>
+
+        {/* Accordion Sections */}
+        <Accordion items={accordionItems} allowMultiple={true} />
+      </div>
 
       {/* Full-screen Image Modal */}
       {expandedImage && (
