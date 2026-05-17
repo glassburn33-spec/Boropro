@@ -983,74 +983,7 @@ export default function Logs() {
                             <span>View</span>
                           </button>
 
-                          {/* Upload PDF button - Temperature Unit Toggle */}
-                          <button
-                            onClick={() => {
-                              try {
-                                // Generate the same HTML content as preview with selected temperature unit
-                                const htmlContent = generatePDFContent(log, tempUnit);
-                                
-                                // Create a temporary iframe to render the HTML
-                                const iframe = document.createElement('iframe');
-                                iframe.style.display = 'none';
-                                document.body.appendChild(iframe);
-                                
-                                iframe.onload = () => {
-                                  try {
-                                    // Write HTML to iframe
-                                    iframe.contentDocument?.write(htmlContent);
-                                    iframe.contentDocument?.close();
-                                    
-                                    // Use html2pdf library if available, otherwise use print to PDF
-                                    setTimeout(() => {
-                                      const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
-                                      
-                                      // Try using html2pdf if available
-                                      if (typeof (window as any).html2pdf !== 'undefined') {
-                                        const element = iframe.contentDocument?.body;
-                                        if (element) {
-                                          (window as any).html2pdf().set({
-                                            margin: 10,
-                                            filename: filename,
-                                            image: { type: 'jpeg', quality: 0.98 },
-                                            html2canvas: { scale: 2 },
-                                            jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-                                          }).from(element).save();
-                                          toast.success('PDF downloaded successfully!');
-                                        }
-                                      } else {
-                                        // Fallback: Use print dialog
-                                        iframe.contentWindow?.print();
-                                        toast.success('PDF ready to print');
-                                      }
-                                      
-                                      // Clean up
-                                      setTimeout(() => {
-                                        document.body.removeChild(iframe);
-                                      }, 1000);
-                                    }, 500);
-                                  } catch (error) {
-                                    console.error('Failed to process PDF:', error);
-                                    toast.error('Failed to generate PDF');
-                                    document.body.removeChild(iframe);
-                                  }
-                                };
-                                
-                                iframe.src = 'about:blank';
-                              } catch (error) {
-                                console.error('Failed to generate PDF:', error);
-                                toast.error('Failed to generate PDF');
-                              }
-                            }}
-                            style={{
-                              backgroundColor: log.lineColor || '#15803d',
-                              borderColor: log.lineColor || '#15803d',
-                            }}
-                            className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80 text-xs sm:text-sm"
-                            title="Download log as PDF"
-                          >
-                            <span>PDF</span>
-                          </button>
+
 
                           <button
                             onClick={() => {
@@ -1808,8 +1741,8 @@ export default function Logs() {
               </div>
             )}
 
-            {/* Close Button */}
-            <div className="flex justify-end gap-2">
+            {/* Done and Close Buttons */}
+            <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-stone-700">
               <button
                 onClick={() => {
                   // Save all color comparisons from the Saved Color Comparisons section
@@ -1838,13 +1771,13 @@ export default function Logs() {
                   }
                   setShowColorWheelModal(false);
                 }}
-                className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold"
+                className="px-6 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors font-semibold whitespace-nowrap"
               >
                 Done
               </button>
               <button
                 onClick={() => setShowColorWheelModal(false)}
-                className="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors"
+                className="px-6 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors whitespace-nowrap"
               >
                 Close
               </button>
