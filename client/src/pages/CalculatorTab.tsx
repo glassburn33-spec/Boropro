@@ -702,6 +702,7 @@ export function CalculatorTab() {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
   const [timerLoop,     setTimerLoop]     = useState<boolean>(false);
+  const [tempUnit,      setTempUnit]      = useState<'C' | 'F'>('C');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
@@ -993,22 +994,42 @@ export function CalculatorTab() {
           )}
         </div> */}
 
+        {/* TEMPERATURE UNIT TOGGLE */}
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-sm font-semibold text-stone-300">Temperature Unit:</span>
+          <button
+            onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
+            className={`px-4 py-2 rounded font-semibold transition-all ${
+              tempUnit === 'C'
+                ? 'bg-amber-700 border border-amber-500 text-white'
+                : 'bg-stone-700 border border-stone-600 text-stone-300 hover:bg-stone-600'
+            }`}
+          >
+            {tempUnit === 'C' ? '°C' : '°F'}
+          </button>
+        </div>
+
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
           <label className="block text-sm font-semibold text-stone-300 mb-1">
-            Kiln Temperature (°C)
+            Kiln Temperature ({tempUnit})
           </label>
           <Input
             type="number"
-            value={kilnTemp}
-            min="565"
-            max="700"
+            value={tempUnit === 'F' ? Math.round((parseFloat(kilnTemp) * 9/5) + 32) : kilnTemp}
+            min={tempUnit === 'F' ? '1049' : '565'}
+            max={tempUnit === 'F' ? '1292' : '700'}
             step="1"
             onChange={(e) => {
               const raw = e.target.value;
-              setKilnTemp(raw);
+              if (tempUnit === 'F') {
+                const celsius = ((parseFloat(raw) - 32) * 5/9).toString();
+                setKilnTemp(celsius);
+              } else {
+                setKilnTemp(raw);
+              }
             }}
-            placeholder="565"
+            placeholder={tempUnit === 'F' ? '1049' : '565'}
             className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
               kilnTempInvalid
                 ? 'border-red-500 ring-1 ring-red-500'
@@ -1018,33 +1039,59 @@ export function CalculatorTab() {
 
           {kilnTempInvalid && (
             <p className="text-xs text-red-400 mt-1">
-              ⚠ Kiln temperature must be between 565 °C and 700 °C.
+              ⚠ Kiln temperature must be between {tempUnit === 'F' ? '1049 °F and 1292 °F' : '565 °C and 700 °C'}.
             </p>
           )}
           
           {/* QUICK-SELECT TEMPERATURE BUTTONS */}
           <div className="flex gap-2 mt-3">
-            <button
-              onClick={() => setKilnTemp('565')}
-              className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                kilnTemp === '565'
-                  ? 'bg-amber-700 border-amber-500 text-white'
-                  : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-              }`}
-            >
-              565°C
-            </button>
-
-            <button
-              onClick={() => setKilnTemp('700')}
-              className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
-                kilnTemp === '700'
-                  ? 'bg-amber-700 border-amber-500 text-white'
-                  : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-              }`}
-            >
-              700°C
-            </button>
+            {tempUnit === 'C' ? (
+              <>
+                <button
+                  onClick={() => setKilnTemp('565')}
+                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                    kilnTemp === '565'
+                      ? 'bg-amber-700 border-amber-500 text-white'
+                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                  }`}
+                >
+                  565°C
+                </button>
+                <button
+                  onClick={() => setKilnTemp('700')}
+                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                    kilnTemp === '700'
+                      ? 'bg-amber-700 border-amber-500 text-white'
+                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                  }`}
+                >
+                  700°C
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setKilnTemp(((1049 - 32) * 5/9).toString())}
+                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                    Math.round((parseFloat(kilnTemp) * 9/5) + 32) === 1049
+                      ? 'bg-amber-700 border-amber-500 text-white'
+                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                  }`}
+                >
+                  1049°F
+                </button>
+                <button
+                  onClick={() => setKilnTemp(((1292 - 32) * 5/9).toString())}
+                  className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
+                    Math.round((parseFloat(kilnTemp) * 9/5) + 32) === 1292
+                      ? 'bg-amber-700 border-amber-500 text-white'
+                      : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
+                  }`}
+                >
+                  1292°F
+                </button>
+              </>
+            )}
           </div>
         </div>
 
