@@ -315,6 +315,18 @@ export default function Logs() {
     if (!colorWheelLog) return;
     
     const newColor = newColorHex;
+    
+    // Check for duplicates in selectedColors (glass colors)
+    if (colorWheelLog.selectedColors?.includes(newColor)) {
+      toast.error('This color is already in the glass color list');
+      return;
+    }
+    
+    // Check for duplicates in saved annealed results
+    if (colorWheelLog.annealedColors?.some(result => result.color === newColor)) {
+      toast.error('This color is already in the annealed results list');
+      return;
+    }
     const newNames = { ...customColorNames };
     if (newColorName.trim()) {
       newNames[newColor] = newColorName;
