@@ -4749,3 +4749,11 @@
 [2026-05-17T18:32:05.569Z] at async.call.result.err.err (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/gensync@1.0.0-beta.2/node_modules/gensync/index.js:223:11)
 [2026-05-17T18:32:12.017Z] 2:32:12 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
 [2026-05-17T18:33:29.887Z] 2:33:29 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T19:00:36.018Z] Starting dev server with command: pnpm run dev
+[2026-05-17T19:00:36.882Z] 
+[2026-05-17T19:00:36.883Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-17T19:00:36.883Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-17T19:00:36.884Z] 
+[2026-05-17T19:00:38.580Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-17T19:00:38.856Z] Server running on http://localhost:3000/
+[2026-05-17T19:04:49.742Z] 3:04:49 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
