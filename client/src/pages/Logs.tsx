@@ -771,24 +771,30 @@ export default function Logs() {
         )}
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        {/* Page Title */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Logs</h1>
-        </div>
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Logs</h1>
+          </div>
+        </section>
 
-        {/* Logs Header Image */}
-        <div className="w-full flex flex-col items-center mb-6">
-          <img
-            src="/manus-storage/glasslogicon_44f4be74.png"
-            alt="Glassmaker's Log"
-            className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
-          />
-        </div>
+        {/* Header Image */}
+        <section className="border-b border-white/10 py-8 px-4 md:px-0">
+          <div className="container">
+            <img
+              src="/manus-storage/glasslogicon_44f4be74.png"
+              alt="Glassmaker's Log"
+              className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg mx-auto"
+            />
+          </div>
+        </section>
 
-        {/* Date Range Filter Removed */}
+        <div className="max-w-6xl mx-auto px-4 py-8">
 
-        {filteredLogs.length === 0 && logs.length > 0 ? (
+          {/* Date Range Filter Removed */}
+
+          {filteredLogs.length === 0 && logs.length > 0 ? (
           <div className="text-center py-12 border border-stone-700 rounded-lg bg-stone-900/50">
             <p className="text-stone-400 mb-2">No logs found in date range</p>
             <p className="text-stone-500 text-sm">
@@ -1061,6 +1067,7 @@ export default function Logs() {
 
           </div>
         ) : null}
+        </div>
       </main>
 
       {/* Preview Modal */}

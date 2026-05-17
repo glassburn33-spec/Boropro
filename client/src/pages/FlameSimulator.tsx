@@ -219,7 +219,7 @@ export default function FlameChemistryCharacterization() {
               Reheat Calc
             </a>
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
-              Kiln Log
+              Kiln Editor
             </a>
             <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Log
@@ -272,7 +272,7 @@ export default function FlameChemistryCharacterization() {
               onClick={() => setMobileMenuOpen(false)}
               className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Kiln Log
+              Kiln Editor
             </a>
             <a
               href="/logs"
@@ -293,6 +293,13 @@ export default function FlameChemistryCharacterization() {
       </header>
 
       <main className="flex-1">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Flame Characterization</h1>
+          </div>
+        </section>
+
         {/* Header Image */}
         <section className="border-b border-white/10">
           <img src="/manus-storage/flamecharheader_b78de537.webp" alt="Flame Characterization Header" className="w-full h-auto object-cover" />

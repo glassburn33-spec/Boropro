@@ -1025,6 +1025,13 @@ export function CalculatorTab() {
       </header>
 
       <main className="flex-1 space-y-4 pb-8">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Reheat Calculator</h1>
+          </div>
+        </section>
+
         {/* Header Image */}
         <section className="border-b border-white/10">
           <img src="/manus-storage/reheatcalculater_6e4e3f5d.png" alt="" className="w-full h-auto object-cover" style={{ maxHeight: '648px' }} />

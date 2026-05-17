@@ -140,21 +140,21 @@ export default function KilnLog() {
       </header>
 
       <main className="flex-1">
-        {/* Page Title */}
-        <section className="py-8">
-          <div className="container max-w-6xl">
-            <div className="mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Firing Tracker</h1>
-            </div>
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Firing Tracker</h1>
+          </div>
+        </section>
 
-            {/* Header Image */}
-            <div className="w-full flex flex-col items-center mb-6">
-              <img
-                src="/manus-storage/kilnlogoage_74b1e98f.png"
-                alt="Kiln"
-                className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
-              />
-            </div>
+        {/* Header Image */}
+        <section className="border-b border-white/10 py-8 px-4 md:px-0">
+          <div className="container">
+            <img
+              src="/manus-storage/kilnlogoage_74b1e98f.png"
+              alt="Kiln"
+              className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg mx-auto"
+            />
           </div>
         </section>
 

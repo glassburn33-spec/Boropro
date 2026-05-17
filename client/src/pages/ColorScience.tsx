@@ -537,113 +537,114 @@ export default function ColorScienceTab() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
-      {/* UNIFIED FIXED HEADER BLOCK */}
-      <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
-        {/* Header Row: Hamburger Menu, Logo, and Header Image */}
-        <div className="flex items-center h-20 px-4 gap-2 relative">
-          {/* Hamburger Menu Button with Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setShowDrawer(!showDrawer)}
-              className="p-2 hover:bg-stone-800 rounded transition flex-shrink-0 w-12 h-12 flex items-center justify-center"
-              aria-label="Toggle navigation menu"
-            >
-              <Menu className="w-6 h-6 text-yellow-400" />
-            </button>
-            
-            {/* Dropdown Menu */}
-            {showDrawer && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-stone-800 border border-amber-700/50 rounded shadow-lg z-1000">
-                <a
-                  href="/explore?tab=studio"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Glass-Science
-                </a>
-                <a
-                  href="/explore?tab=scieequip"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Scie-Equip
-                </a>
-                <a
-                  href="/explore?tab=colorscience"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Color-Scie
-                </a>
-                <a
-                  href="/tools"
-                  onClick={() => setShowDrawer(false)}
-                  className="w-full text-left px-4 py-2 text-yellow-400 hover:bg-stone-700 hover:text-amber-400 transition block"
-                >
-                  Tools
-                </a>
-
-              </div>
-            )}
-          </div>
+    <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
+        <div className="container flex items-center justify-between py-3 md:py-4 px-3 md:px-0">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-16 md:h-24 w-16 md:w-24 object-contain" />
+          </a>
           
-          {/* Logo on left */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-20 w-20 flex-shrink-0 object-contain" />
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Color
+            </a>
+            <a href="/flame-simulator" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Flame Char
+            </a>
+            <a href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Reheat Calc
+            </a>
+            <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Kiln Editor
+            </a>
+            <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Log
+            </a>
+            <a href="/color-picker" className="text-xs uppercase tracking-wider text-amber-500">
+              Color
+            </a>
+          </nav>
           
-          {/* Header image placeholder on right */}
-          <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
-            {headerImage ? (
-              <img src={headerImage} alt="Header" className="w-full h-full object-cover" />
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setShowDrawer(!showDrawer)}
+            className="md:hidden p-2 hover:bg-stone-800 rounded transition"
+            aria-label="Toggle navigation menu"
+          >
+            {showDrawer ? (
+              <X className="w-6 h-6 text-amber-400" />
             ) : (
-              <label className="cursor-pointer flex flex-col items-center justify-center w-full h-full hover:bg-stone-700/50 transition">
-                <span className="text-stone-400 text-sm">Click to add header image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleHeaderImageUpload}
-                  className="hidden"
-                />
-              </label>
+              <Menu className="w-6 h-6 text-amber-400" />
             )}
-            {headerImage && (
-              <button
-                onClick={() => setHeaderImage("")}
-                className="absolute top-2 right-2 bg-stone-900/80 hover:bg-stone-900 text-stone-300 px-2 py-1 text-xs rounded"
-              >
-                Remove
-              </button>
-            )}
-          </div>
+          </button>
         </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {showDrawer && (
+          <nav className="md:hidden flex flex-col gap-2 px-4 py-3 bg-stone-800 border-t border-amber-700/30 max-h-[calc(100vh-120px)] overflow-y-auto">
+            <a
+              href="/color-picker"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Color
+            </a>
+            <a
+              href="/flame-simulator"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Flame Char
+            </a>
+            <a
+              href="/calculator?kilnTemp=565&roomTemp=25&shape=cylinder&thickness=4&radius=12.5&length=25&width=25"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Reheat Calc
+            </a>
+            <a
+              href="/firing-tracker"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Kiln Editor
+            </a>
+            <a
+              href="/logs"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Log
+            </a>
+            <a
+              href="/color-picker"
+              onClick={() => setShowDrawer(false)}
+              className="px-4 py-3 bg-amber-500/40 hover:bg-amber-500/50 text-amber-300 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+            >
+              Color
+            </a>
+          </nav>
+        )}
       </header>
 
-      {/* Close dropdown when clicking outside */}
-      {showDrawer && (
-        <div
-          className="fixed inset-0 z-20"
-          onClick={() => setShowDrawer(false)}
-        />
-      )}
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="border-b border-white/10 py-8 md:py-16 px-4 md:px-0">
+          <div className="container">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-2 break-words">Color Science</h1>
+          </div>
+        </section>
 
-      <div className="space-y-6">
-        {/* Color Science Title */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
-        </div>
-
-        {/* Color Science Header Image */}
-        <div className="w-full flex flex-col items-center mb-6">
-          <img
-            src="/manus-storage/Gemini_Generated_Image_4tshef4tshef4tsh_f34202a3.png"
-            alt="Color spectrum glass tube visualization"
-            className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
-          />
-        </div>
-
-        {/* Accordion Sections */}
-        <Accordion items={accordionItems} allowMultiple={true} />
-      </div>
+        <section className="px-4 md:px-0 py-8 md:py-12">
+          <div className="container space-y-6">
+            {/* Accordion Sections */}
+            <Accordion items={accordionItems} allowMultiple={true} />
+          </div>
+        </section>
+      </main>
 
       {/* Full-screen Image Modal */}
       {expandedImage && (

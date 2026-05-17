@@ -4864,3 +4864,330 @@
 [2026-05-17T21:35:50.958Z] 5:35:50 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:36:09.381Z] 5:36:09 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:38:29.000Z] 5:38:29 PM [vite] (client) hmr update /src/components/AnealingProfileEditor.tsx, /src/index.css
+[2026-05-17T21:43:07.843Z] 5:43:07 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-17T21:43:07.965Z] 5:43:07 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx: Unterminated JSX contents. (684:10)
+[2026-05-17T21:43:07.966Z] 
+[2026-05-17T21:43:07.966Z] 682 |         </div>
+[2026-05-17T21:43:07.966Z] 683 |       )}
+[2026-05-17T21:43:07.967Z] > 684 |     </div>
+[2026-05-17T21:43:07.967Z] |           ^
+[2026-05-17T21:43:07.968Z] 685 |   );
+[2026-05-17T21:43:07.968Z] 686 | }
+[2026-05-17T21:43:07.969Z] 687 |
+[2026-05-17T21:43:07.969Z] Plugin: vite:react-babel
+[2026-05-17T21:43:07.970Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx:684:10
+[2026-05-17T21:43:07.970Z] 682 |          </div>
+[2026-05-17T21:43:07.971Z] 683 |        )}
+[2026-05-17T21:43:07.971Z] 684 |      </div>
+[2026-05-17T21:43:07.972Z] |            ^
+[2026-05-17T21:43:07.972Z] 685 |    );
+[2026-05-17T21:43:07.973Z] 686 |  }
+[2026-05-17T21:43:07.973Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-17T21:43:07.974Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-17T21:43:07.974Z] at jsxReadToken (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:104:22)
+[2026-05-17T21:43:07.975Z] at getTokenFromCode (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:596:14)
+[2026-05-17T21:43:07.975Z] at getTokenFromCode (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:4138:13)
+[2026-05-17T21:43:07.976Z] at nextToken (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:279:10)
+[2026-05-17T21:43:07.976Z] at next (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:122:10)
+[2026-05-17T21:43:07.976Z] at eat (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:127:12)
+[2026-05-17T21:43:07.977Z] at expect (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:156:15)
+[2026-05-17T21:43:07.977Z] at jsxParseClosingElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:460:12)
+[2026-05-17T21:43:07.978Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:480:39)
+[2026-05-17T21:43:07.978Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:43:07.978Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:43:07.979Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-17T21:43:07.979Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-17T21:43:07.980Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:43:07.981Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:43:07.981Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:43:07.982Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:43:07.983Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:43:07.983Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:43:07.984Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:43:07.985Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:43:07.985Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-17T21:43:07.985Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-17T21:43:07.986Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-17T21:43:07.986Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-17T21:43:07.987Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-17T21:43:07.987Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-17T21:43:07.988Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-17T21:43:07.988Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-17T21:43:07.989Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-17T21:43:07.989Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-17T21:43:07.990Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:43:07.990Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:43:07.990Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:43:07.991Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:43:07.991Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:43:07.992Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:43:07.992Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:43:07.992Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:43:07.993Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-17T21:43:07.993Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-17T21:43:07.994Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-17T21:43:07.994Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-17T21:43:07.994Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-17T21:43:07.995Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-17T21:43:07.995Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-17T21:43:07.996Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-17T21:43:07.996Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-17T21:43:08.130Z] 5:43:08 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx: Unterminated JSX contents. (684:10)
+[2026-05-17T21:43:08.131Z] 
+[2026-05-17T21:43:08.131Z] 682 |         </div>
+[2026-05-17T21:43:08.132Z] 683 |       )}
+[2026-05-17T21:43:08.132Z] > 684 |     </div>
+[2026-05-17T21:43:08.133Z] |           ^
+[2026-05-17T21:43:08.133Z] 685 |   );
+[2026-05-17T21:43:08.133Z] 686 | }
+[2026-05-17T21:43:08.134Z] 687 |
+[2026-05-17T21:43:08.134Z] Plugin: vite:react-babel
+[2026-05-17T21:43:08.134Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx:684:10
+[2026-05-17T21:43:08.135Z] 682 |          </div>
+[2026-05-17T21:43:08.135Z] 683 |        )}
+[2026-05-17T21:43:08.136Z] 684 |      </div>
+[2026-05-17T21:43:08.136Z] |            ^
+[2026-05-17T21:43:08.137Z] 685 |    );
+[2026-05-17T21:43:08.137Z] 686 |  }
+[2026-05-17T21:43:08.137Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-17T21:43:08.138Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-17T21:43:08.138Z] at jsxReadToken (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:104:22)
+[2026-05-17T21:43:08.139Z] at getTokenFromCode (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:596:14)
+[2026-05-17T21:43:08.139Z] at getTokenFromCode (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:4138:13)
+[2026-05-17T21:43:08.140Z] at nextToken (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:279:10)
+[2026-05-17T21:43:08.140Z] at next (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:122:10)
+[2026-05-17T21:43:08.141Z] at eat (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:127:12)
+[2026-05-17T21:43:08.142Z] at expect (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:156:15)
+[2026-05-17T21:43:08.143Z] at jsxParseClosingElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:460:12)
+[2026-05-17T21:43:08.143Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:480:39)
+[2026-05-17T21:43:08.144Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:43:08.144Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:43:08.145Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-17T21:43:08.152Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-17T21:43:08.153Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:43:08.154Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:43:08.155Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:43:08.155Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:43:08.156Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:43:08.159Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:43:08.161Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:43:08.162Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:43:08.162Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-17T21:43:08.163Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-17T21:43:08.163Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-17T21:43:08.164Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-17T21:43:08.164Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-17T21:43:08.164Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-17T21:43:08.165Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-17T21:43:08.165Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-17T21:43:08.166Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-17T21:43:08.166Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-17T21:43:08.166Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:43:08.167Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:43:08.167Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:43:08.168Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:43:08.168Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:43:08.169Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:43:08.169Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:43:08.170Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:43:08.170Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-17T21:43:08.170Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-17T21:43:08.171Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-17T21:43:08.171Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-17T21:43:08.171Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-17T21:43:08.172Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-17T21:43:08.172Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-17T21:43:08.173Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-17T21:43:08.173Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-17T21:43:08.173Z] 5:43:08 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx: Unterminated JSX contents. (684:10)
+[2026-05-17T21:43:08.174Z] 
+[2026-05-17T21:43:08.174Z] 682 |         </div>
+[2026-05-17T21:43:08.174Z] 683 |       )}
+[2026-05-17T21:43:08.175Z] > 684 |     </div>
+[2026-05-17T21:43:08.175Z] |           ^
+[2026-05-17T21:43:08.175Z] 685 |   );
+[2026-05-17T21:43:08.176Z] 686 | }
+[2026-05-17T21:43:08.176Z] 687 |
+[2026-05-17T21:43:08.176Z] Plugin: vite:react-babel
+[2026-05-17T21:43:08.177Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx:684:10
+[2026-05-17T21:43:08.177Z] 682 |          </div>
+[2026-05-17T21:43:08.177Z] 683 |        )}
+[2026-05-17T21:43:08.178Z] 684 |      </div>
+[2026-05-17T21:43:08.178Z] |            ^
+[2026-05-17T21:43:08.179Z] 685 |    );
+[2026-05-17T21:43:08.179Z] 686 |  }
+[2026-05-17T21:43:08.179Z] 5:43:08 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx: Unterminated JSX contents. (684:10)
+[2026-05-17T21:43:08.180Z] 
+[2026-05-17T21:43:08.180Z] 682 |         </div>
+[2026-05-17T21:43:08.180Z] 683 |       )}
+[2026-05-17T21:43:08.181Z] > 684 |     </div>
+[2026-05-17T21:43:08.181Z] |           ^
+[2026-05-17T21:43:08.182Z] 685 |   );
+[2026-05-17T21:43:08.182Z] 686 | }
+[2026-05-17T21:43:08.182Z] 687 |
+[2026-05-17T21:43:08.183Z] Plugin: vite:react-babel
+[2026-05-17T21:43:08.183Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/ColorScience.tsx:684:10
+[2026-05-17T21:43:08.184Z] 682 |          </div>
+[2026-05-17T21:43:08.184Z] 683 |        )}
+[2026-05-17T21:43:08.184Z] 684 |      </div>
+[2026-05-17T21:43:08.185Z] |            ^
+[2026-05-17T21:43:08.185Z] 685 |    );
+[2026-05-17T21:43:08.185Z] 686 |  }
+[2026-05-17T21:43:15.903Z] 5:43:15 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-17T21:43:40.750Z] 5:43:40 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-17T21:44:08.585Z] 5:44:08 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T21:44:39.508Z] 5:44:39 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T21:45:03.887Z] 5:45:03 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T21:45:03.944Z] 5:45:03 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx: Expected corresponding JSX closing tag for <div>. (1070:6)
+[2026-05-17T21:45:03.945Z] 
+[2026-05-17T21:45:03.945Z] 1068 |           </div>
+[2026-05-17T21:45:03.946Z] 1069 |         ) : null}
+[2026-05-17T21:45:03.946Z] > 1070 |       </main>
+[2026-05-17T21:45:03.946Z] |       ^
+[2026-05-17T21:45:03.947Z] 1071 |
+[2026-05-17T21:45:03.947Z] 1072 |       {/* Preview Modal */}
+[2026-05-17T21:45:03.947Z] 1073 |       {showPreview && selectedLog && (
+[2026-05-17T21:45:03.948Z] Plugin: vite:react-babel
+[2026-05-17T21:45:03.948Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx:1070:6
+[2026-05-17T21:45:03.948Z] 1068 |            </div>
+[2026-05-17T21:45:03.949Z] 1069 |          ) : null}
+[2026-05-17T21:45:03.949Z] 1070 |        </main>
+[2026-05-17T21:45:03.950Z] |        ^
+[2026-05-17T21:45:03.950Z] 1071 |
+[2026-05-17T21:45:03.950Z] 1072 |        {/* Preview Modal */}
+[2026-05-17T21:45:03.951Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-17T21:45:03.951Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-17T21:45:03.951Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:527:18)
+[2026-05-17T21:45:03.952Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:45:03.953Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:45:03.953Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-17T21:45:03.954Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-17T21:45:03.954Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:45:03.954Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:45:03.955Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:45:03.955Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:45:03.955Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:45:03.956Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:45:03.956Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:45:03.956Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:45:03.957Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-17T21:45:03.957Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-17T21:45:03.958Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-17T21:45:03.958Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-17T21:45:03.958Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-17T21:45:03.959Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-17T21:45:03.959Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-17T21:45:03.959Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-17T21:45:03.960Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-17T21:45:03.960Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-17T21:45:03.960Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:45:03.961Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:45:03.961Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:45:03.961Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:45:03.962Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:45:03.962Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:45:03.962Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:45:03.963Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:45:03.963Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-17T21:45:03.963Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-17T21:45:03.964Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-17T21:45:03.964Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-17T21:45:03.964Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-17T21:45:03.965Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-17T21:45:03.965Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-17T21:45:03.965Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-17T21:45:03.966Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-17T21:45:03.966Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:431:17)
+[2026-05-17T21:45:03.967Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+[2026-05-17T21:45:03.967Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+[2026-05-17T21:45:03.967Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+[2026-05-17T21:45:03.968Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:2621:24)
+[2026-05-17T21:45:03.968Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:2590:10)
+[2026-05-17T21:45:03.969Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:2609:20)
+[2026-05-17T21:45:03.969Z] at <anonymous> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1695:12)
+[2026-05-17T21:45:04.106Z] 5:45:04 PM [vite] (client) Pre-transform error: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx: Expected corresponding JSX closing tag for <div>. (1070:6)
+[2026-05-17T21:45:04.109Z] 
+[2026-05-17T21:45:04.110Z] 1068 |           </div>
+[2026-05-17T21:45:04.110Z] 1069 |         ) : null}
+[2026-05-17T21:45:04.110Z] > 1070 |       </main>
+[2026-05-17T21:45:04.111Z] |       ^
+[2026-05-17T21:45:04.111Z] 1071 |
+[2026-05-17T21:45:04.111Z] 1072 |       {/* Preview Modal */}
+[2026-05-17T21:45:04.111Z] 1073 |       {showPreview && selectedLog && (
+[2026-05-17T21:45:04.112Z] Plugin: vite:react-babel
+[2026-05-17T21:45:04.112Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx:1070:6
+[2026-05-17T21:45:04.112Z] 1068 |            </div>
+[2026-05-17T21:45:04.113Z] 1069 |          ) : null}
+[2026-05-17T21:45:04.113Z] 1070 |        </main>
+[2026-05-17T21:45:04.113Z] |        ^
+[2026-05-17T21:45:04.114Z] 1071 |
+[2026-05-17T21:45:04.114Z] 1072 |        {/* Preview Modal */}
+[2026-05-17T21:45:04.559Z] 5:45:04 PM [vite] Internal server error: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx: Expected corresponding JSX closing tag for <div>. (1070:6)
+[2026-05-17T21:45:04.560Z] 
+[2026-05-17T21:45:04.561Z] 1068 |           </div>
+[2026-05-17T21:45:04.561Z] 1069 |         ) : null}
+[2026-05-17T21:45:04.561Z] > 1070 |       </main>
+[2026-05-17T21:45:04.562Z] |       ^
+[2026-05-17T21:45:04.562Z] 1071 |
+[2026-05-17T21:45:04.562Z] 1072 |       {/* Preview Modal */}
+[2026-05-17T21:45:04.563Z] 1073 |       {showPreview && selectedLog && (
+[2026-05-17T21:45:04.563Z] Plugin: vite:react-babel
+[2026-05-17T21:45:04.563Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx:1070:6
+[2026-05-17T21:45:04.564Z] 1068 |            </div>
+[2026-05-17T21:45:04.564Z] 1069 |          ) : null}
+[2026-05-17T21:45:04.564Z] 1070 |        </main>
+[2026-05-17T21:45:04.565Z] |        ^
+[2026-05-17T21:45:04.565Z] 1071 |
+[2026-05-17T21:45:04.566Z] 1072 |        {/* Preview Modal */}
+[2026-05-17T21:45:04.567Z] at toParseError (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parse-error.ts:95:45)
+[2026-05-17T21:45:04.567Z] at raise (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/tokenizer/index.ts:1504:19)
+[2026-05-17T21:45:04.567Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:527:18)
+[2026-05-17T21:45:04.568Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:45:04.568Z] at jsxParseElementAt (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:483:34)
+[2026-05-17T21:45:04.568Z] at jsxParseElement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:559:19)
+[2026-05-17T21:45:04.569Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:573:21)
+[2026-05-17T21:45:04.569Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:45:04.570Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:45:04.570Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:45:04.571Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:45:04.571Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:45:04.571Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:45:04.572Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:45:04.572Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:45:04.572Z] at fn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3745:23)
+[2026-05-17T21:45:04.573Z] at tryParse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/util.ts:174:20)
+[2026-05-17T21:45:04.573Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3744:20)
+[2026-05-17T21:45:04.574Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:257:12)
+[2026-05-17T21:45:04.574Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3197:12)
+[2026-05-17T21:45:04.574Z] at parseMaybeAssignAllowIn (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:256:17)
+[2026-05-17T21:45:04.575Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
+[2026-05-17T21:45:04.576Z] at parseParenAndDistinguishExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1825:16)
+[2026-05-17T21:45:04.577Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:1170:21)
+[2026-05-17T21:45:04.577Z] at parseExprAtom (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/jsx/index.ts:583:22)
+[2026-05-17T21:45:04.578Z] at parseExprSubscripts (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:742:23)
+[2026-05-17T21:45:04.578Z] at parseUpdate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:721:21)
+[2026-05-17T21:45:04.579Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:683:23)
+[2026-05-17T21:45:04.579Z] at parseMaybeUnary (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3893:20)
+[2026-05-17T21:45:04.580Z] at parseMaybeUnaryOrPrivate (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:417:14)
+[2026-05-17T21:45:04.580Z] at parseExprOps (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:429:23)
+[2026-05-17T21:45:04.581Z] at parseMaybeConditional (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:384:23)
+[2026-05-17T21:45:04.581Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:301:21)
+[2026-05-17T21:45:04.582Z] at parseMaybeAssign (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3764:22)
+[2026-05-17T21:45:04.582Z] at parseExpressionBase (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:226:23)
+[2026-05-17T21:45:04.582Z] at callback (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:39)
+[2026-05-17T21:45:04.583Z] at allowInAnd (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3192:16)
+[2026-05-17T21:45:04.583Z] at parseExpression (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:217:17)
+[2026-05-17T21:45:04.583Z] at parseReturnStatement (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1115:28)
+[2026-05-17T21:45:04.584Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:543:21)
+[2026-05-17T21:45:04.584Z] at parseStatementContent (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:3220:20)
+[2026-05-17T21:45:04.585Z] at parseStatementLike (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:482:17)
+[2026-05-17T21:45:04.585Z] at parseStatementListItem (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:431:17)
+[2026-05-17T21:45:04.586Z] at parseBlockOrModuleBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1444:16)
+[2026-05-17T21:45:04.586Z] at parseBlockBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+[2026-05-17T21:45:04.587Z] at parseBlock (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1385:10)
+[2026-05-17T21:45:04.588Z] at parseFunctionBody (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:2621:24)
+[2026-05-17T21:45:04.588Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:2590:10)
+[2026-05-17T21:45:04.589Z] at parseFunctionBodyAndFinish (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/plugins/typescript/index.ts:2609:20)
+[2026-05-17T21:45:04.589Z] at <anonymous> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1695:12)
+[2026-05-17T21:45:21.186Z] 5:45:21 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T21:45:46.447Z] 5:45:46 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
