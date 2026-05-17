@@ -7,6 +7,12 @@ import { Download, Trash2, Eye, FileText, Eye as EyeIcon, MessageCircle, Palette
 import { toast } from "sonner";
 import { ColoredGlassJar } from "@/components/ColoredGlassJar";
 import jsPDF from 'jspdf';
+import html2pdf from 'html2pdf.js';
+
+// Load html2pdf globally
+if (typeof window !== 'undefined') {
+  (window as any).html2pdf = html2pdf;
+}
 
 function getColorNameFromHex(hex: string): string {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -1159,18 +1165,29 @@ export default function Logs() {
             {/* Footer with Actions */}
             <div className="flex gap-2 p-4 border-t border-stone-700 bg-stone-900">
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (selectedLog && pdfPreviewContent) {
-                    const blob = new Blob([pdfPreviewContent], { type: 'text/html' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = `${selectedLog.name}-${new Date().toISOString().split('T')[0]}.html`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                    toast.success('PDF downloaded successfully');
+                    try {
+                      const html2pdf = (window as any).html2pdf;
+                      if (html2pdf) {
+                        const element = document.createElement('div');
+                        element.innerHTML = pdfPreviewContent;
+                        const opt = {
+                          margin: 10,
+                          filename: `${selectedLog.name}-${new Date().toISOString().split('T')[0]}.pdf`,
+                          image: { type: 'jpeg', quality: 0.98 },
+                          html2canvas: { scale: 2 },
+                          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                        };
+                        html2pdf().set(opt).from(element).save();
+                        toast.success('PDF downloaded successfully');
+                      } else {
+                        throw new Error('PDF library not loaded');
+                      }
+                    } catch (error) {
+                      console.error('PDF generation error:', error);
+                      toast.error('Failed to generate PDF');
+                    }
                   }
                 }}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors flex-1 justify-center"
