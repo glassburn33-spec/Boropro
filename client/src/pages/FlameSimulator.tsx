@@ -305,14 +305,7 @@ export default function FlameChemistryCharacterization() {
           <img src="/manus-storage/flamecharheader_b78de537.webp" alt="Flame Characterization Header" className="w-full h-auto object-cover" />
         </section>
 
-        {/* Hero */}
-        <section className="border-b border-white/10 py-16">
-          <div className="container max-w-6xl">
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white mb-4">
-              Flame Characterization
-            </h1>
-          </div>
-        </section>
+
 
         {/* Collapsible Sections */}
         <section className="border-b border-white/10 py-8">
