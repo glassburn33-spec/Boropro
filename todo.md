@@ -910,3 +910,10 @@
   - [x] Adjusted main content height calculation from calc(100vh - 120px) to calc(100vh - 88px)
   - [x] Header layout verified on preview - navigation elements fit properly in thinner header
   - [x] Logo and header image display correctly at new dimensions
+
+- [x] Reduce sticky header height on Glass-Science tab by one-third
+  - [x] Calculated new header dimensions (current: h-28 = 112px, new: h-20 = 80px, ~29% reduction)
+  - [x] Updated logo height from h-28 w-28 to h-20 w-20 proportionally
+  - [x] Adjusted main content margin from marginTop: '120px' to marginTop: '88px'
+  - [x] Header layout verified on preview - navigation elements fit properly in thinner header
+  - [x] Logo and header image display correctly at new dimensions

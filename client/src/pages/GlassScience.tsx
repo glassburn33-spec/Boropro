@@ -127,7 +127,7 @@ export default function Home() {
       {/* UNIFIED FIXED HEADER BLOCK */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
         {/* ROW 1: Hamburger Menu, Logo and Header Image */}
-        <div className="flex items-center h-28 px-4 gap-2 relative">
+        <div className="flex items-center h-20 px-4 gap-2 relative">
           {/* Hamburger Menu Button with Dropdown */}
           <div className="relative">
             <button
@@ -172,7 +172,7 @@ export default function Home() {
           </div>
           
           {/* Logo on left */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-20 w-20 flex-shrink-0 object-contain" />
           
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
@@ -212,7 +212,7 @@ export default function Home() {
       )}
 
       {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '120px' }}>
+      <main className="max-w-6xl mx-auto px-4 py-6" style={{ marginTop: '88px' }}>
         {/* TAB CONTENT */}
         {activeTab === "studio" && <StudioTab />}
         {activeTab === "scieequip" && <ScieEquipTab />}
