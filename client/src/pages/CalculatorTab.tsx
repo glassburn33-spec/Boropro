@@ -709,7 +709,23 @@ export function CalculatorTab() {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const isFirstRenderRef = useRef<boolean>(true);
 
-  // No unit conversion needed - using Celsius only
+  // Convert defaults when switching between C and F modes
+  useEffect(() => {
+    if (tempUnit === 'F' && isFirstRenderRef.current === false) {
+      // Convert mm to inches: divide by 25.4
+      setThickness((parseFloat(thickness) / 25.4).toFixed(3));
+      setRadius((parseFloat(radius) / 25.4).toFixed(3));
+      setLength((parseFloat(length) / 25.4).toFixed(3));
+      setWidth((parseFloat(width) / 25.4).toFixed(3));
+    } else if (tempUnit === 'C' && isFirstRenderRef.current === false) {
+      // Convert inches to mm: multiply by 25.4
+      setThickness((parseFloat(thickness) * 25.4).toFixed(1));
+      setRadius((parseFloat(radius) * 25.4).toFixed(1));
+      setLength((parseFloat(length) * 25.4).toFixed(1));
+      setWidth((parseFloat(width) * 25.4).toFixed(1));
+    }
+    isFirstRenderRef.current = false;
+  }, [tempUnit]);
 
   // Helper function to format working time as "X min Y sec"
   function formatTime(totalSeconds: number): string {
