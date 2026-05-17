@@ -626,8 +626,7 @@ export default function ColorScienceTab() {
         />
       )}
 
-      {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="space-y-6" style={{ marginTop: '88px' }}>
+      <div className="space-y-6">
         {/* Color Science Title */}
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Color Science</h1>
@@ -642,15 +641,9 @@ export default function ColorScienceTab() {
           />
         </div>
 
-        {/* Color Science Header */}
-        <div className="border-t border-stone-700 pt-8 mt-8">
-
-          <div className="max-w-2xl mx-auto pb-10 px-2 md:px-4">
-            {/* Accordion Sections */}
-            <Accordion items={accordionItems} allowMultiple={true} />
-          </div>
-        </div>
-      </main>
+        {/* Accordion Sections */}
+        <Accordion items={accordionItems} allowMultiple={true} />
+      </div>
 
       {/* Full-screen Image Modal */}
       {expandedImage && (
