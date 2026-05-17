@@ -4863,3 +4863,4 @@
 [2026-05-17T21:35:19.402Z] 5:35:19 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T21:35:50.958Z] 5:35:50 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:36:09.381Z] 5:36:09 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T21:38:29.000Z] 5:38:29 PM [vite] (client) hmr update /src/components/AnealingProfileEditor.tsx, /src/index.css
