@@ -52,13 +52,18 @@ function decimalToFraction(inches: number): string {
   return FRACTION_MAP[rounded] || inches.toFixed(3);
 }
 
-// Convert fractional notation to decimal inches
+// Convert fractional notation to decimal inches, or round numeric input to nearest 1/16
 function fractionToDecimal(input: string): number {
   const trimmed = input.trim();
   if (FRACTION_REVERSE_MAP[trimmed] !== undefined) {
     return FRACTION_REVERSE_MAP[trimmed];
   }
-  return parseFloat(trimmed) || 0;
+  const numValue = parseFloat(trimmed);
+  if (!isNaN(numValue)) {
+    // Round to nearest 1/16 (0.0625)
+    return Math.round(numValue * 16) / 16;
+  }
+  return 0;
 }
 
 // ============================================================
