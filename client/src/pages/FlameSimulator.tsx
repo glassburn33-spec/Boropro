@@ -370,7 +370,7 @@ export default function FlameChemistryCharacterization() {
                 onClick={() => toggleSection("thermochromism")}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
               >
-                <h2 className="text-2xl font-bold text-yellow-400">Interactive Thermochromism Simulator</h2>
+                <h2 className="text-2xl font-bold text-yellow-400">Thermochromism</h2>
                 <ChevronDown
                   className={`w-6 h-6 text-amber-500 transition-transform ${
                     expandedSection === "thermochromism" ? "rotate-180" : ""
