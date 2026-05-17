@@ -1536,9 +1536,6 @@ function ScieEquipTab() {
           alt="Equipment Science setup showing flame spectroscopy apparatus with burner and optical system"
           className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
         />
-        <p className="text-stone-500 text-xs italic text-center mt-3 max-w-2xl">
-          Flame spectroscopy equipment showing the analytical burner system with optical path alignment for glass material analysis and elemental detection.
-        </p>
       </div>
 
       <CustomAccordion items={accordionItems} allowMultiple={true} />
