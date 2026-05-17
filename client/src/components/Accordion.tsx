@@ -49,7 +49,7 @@ export function Accordion({ items, allowMultiple = false }: AccordionProps) {
               </h3>
               <ChevronDown
                 size={24}
-                className={`text-yellow-400 transition-transform duration-300 flex-shrink-0 ${
+                className={`text-amber-400 transition-transform duration-300 flex-shrink-0 ${
                   isExpanded ? 'rotate-180' : ''
                 }`}
               />
