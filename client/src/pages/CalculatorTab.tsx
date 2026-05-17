@@ -1189,7 +1189,7 @@ export function CalculatorTab() {
                 />
                 {tempUnit === 'F' && (
                   <select
-                    onChange={(e) => setThickness(e.target.value)}
+                    onChange={(e) => setThickness(e.target.value.replace(/\.?0+$/, ''))}
                     className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
                     defaultValue=""
                   >
@@ -1237,7 +1237,7 @@ export function CalculatorTab() {
                 />
                 {tempUnit === 'F' && (
                   <select
-                    onChange={(e) => setRadius(e.target.value)}
+                    onChange={(e) => setRadius(e.target.value.replace(/\.?0+$/, ''))}
                     className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
                     defaultValue=""
                   >
@@ -1292,7 +1292,7 @@ export function CalculatorTab() {
                 />
                 {tempUnit === 'F' && (
                   <select
-                    onChange={(e) => setLength(e.target.value)}
+                    onChange={(e) => setLength(e.target.value.replace(/\.?0+$/, ''))}
                     className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
                     defaultValue=""
                   >
@@ -1349,7 +1349,7 @@ export function CalculatorTab() {
                 />
                 {tempUnit === 'F' && (
                   <select
-                    onChange={(e) => setWidth(e.target.value)}
+                    onChange={(e) => setWidth(e.target.value.replace(/\.?0+$/, ''))}
                     className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
                     defaultValue=""
                   >
