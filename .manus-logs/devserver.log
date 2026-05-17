@@ -5198,3 +5198,6 @@
 [2026-05-17T21:51:15.670Z] 5:51:15 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
 [2026-05-17T21:51:35.429Z] 5:51:35 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T21:51:51.513Z] 5:51:51 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
+[2026-05-17T21:59:40.899Z] 5:59:40 PM [vite] (client) hmr update /src/pages/ColorPicker.tsx, /src/index.css
+[2026-05-17T21:59:54.913Z] 5:59:54 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-17T22:00:08.860Z] 6:00:08 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
