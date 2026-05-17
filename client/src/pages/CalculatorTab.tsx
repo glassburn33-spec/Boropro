@@ -709,20 +709,22 @@ export function CalculatorTab() {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const isFirstRenderRef = useRef<boolean>(true);
 
-  // Convert defaults when switching between C and F modes
+  // Set separate defaults when switching between C and F modes
   useEffect(() => {
-    if (tempUnit === 'F' && isFirstRenderRef.current === false) {
-      // Convert mm to inches: divide by 25.4
-      setThickness((parseFloat(thickness) / 25.4).toFixed(3));
-      setRadius((parseFloat(radius) / 25.4).toFixed(3));
-      setLength((parseFloat(length) / 25.4).toFixed(3));
-      setWidth((parseFloat(width) / 25.4).toFixed(3));
-    } else if (tempUnit === 'C' && isFirstRenderRef.current === false) {
-      // Convert inches to mm: multiply by 25.4
-      setThickness((parseFloat(thickness) * 25.4).toFixed(1));
-      setRadius((parseFloat(radius) * 25.4).toFixed(1));
-      setLength((parseFloat(length) * 25.4).toFixed(1));
-      setWidth((parseFloat(width) * 25.4).toFixed(1));
+    if (!isFirstRenderRef.current) {
+      if (tempUnit === 'F') {
+        // F-mode defaults: 0.125 in thickness, 1 in diameter, 1 in length, 1 in width
+        setThickness('0.125');
+        setRadius('1');
+        setLength('1');
+        setWidth('1');
+      } else {
+        // C-mode defaults: 4 mm thickness, 25 mm diameter, 25 mm length, 25 mm width
+        setThickness('4');
+        setRadius('25');
+        setLength('25');
+        setWidth('25');
+      }
     }
     isFirstRenderRef.current = false;
   }, [tempUnit]);
