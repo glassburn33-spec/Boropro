@@ -820,6 +820,27 @@ export function CalculatorTab() {
 
   function handleCalculate() {
     setError('');
+    
+    // Check F-mode range validation
+    if (tempUnit === 'F') {
+      if (thicknessOutOfRange) {
+        setError('Wall Thickness must be 0.0625-0.375 inches');
+        return;
+      }
+      if (radiusOutOfRange) {
+        setError('Outer Diameter must be 0.75-2.25 inches');
+        return;
+      }
+      if (lengthOutOfRange) {
+        setError('Length must be 0.5-4 inches');
+        return;
+      }
+      if (widthOutOfRange) {
+        setError('Width must be 0.5-3 inches');
+        return;
+      }
+    }
+    
     try {
       const res = runCalculation({
         shape,
