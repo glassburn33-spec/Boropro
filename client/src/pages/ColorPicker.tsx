@@ -549,7 +549,7 @@ ${combinedSchedule.rationale}`;
 
       {/* Main Content */}
       <div className="container py-12">
-        <h1 className="text-5xl font-bold text-white mb-2">Color Database</h1>
+        <h1 className="text-5xl font-bold text-yellow-400 mb-2">Color Database</h1>
 
         {/* Search Bar */}
         <div className="mb-8">
