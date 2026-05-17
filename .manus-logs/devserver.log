@@ -4749,3 +4749,8 @@
 [2026-05-17T18:32:05.569Z] at async.call.result.err.err (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/gensync@1.0.0-beta.2/node_modules/gensync/index.js:223:11)
 [2026-05-17T18:32:12.017Z] 2:32:12 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
 [2026-05-17T18:33:29.887Z] 2:33:29 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T18:41:15.349Z] 2:41:15 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T18:42:18.154Z] 2:42:18 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T18:42:26.678Z] 2:42:26 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T18:42:35.650Z] 2:42:35 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T18:42:43.238Z] 2:42:43 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css

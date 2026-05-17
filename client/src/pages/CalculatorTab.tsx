@@ -29,6 +29,38 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
+// Conversion functions for fractional inch notation
+const FRACTION_MAP: { [key: number]: string } = {
+  0.0625: '1/16',
+  0.125: '1/8',
+  0.25: '1/4',
+  0.5: '1/2',
+  1.0: '1',
+};
+
+const FRACTION_REVERSE_MAP: { [key: string]: number } = {
+  '1/16': 0.0625,
+  '1/8': 0.125,
+  '1/4': 0.25,
+  '1/2': 0.5,
+  '1': 1.0,
+};
+
+// Convert decimal inches to fractional notation
+function decimalToFraction(inches: number): string {
+  const rounded = Math.round(inches * 16) / 16;
+  return FRACTION_MAP[rounded] || inches.toFixed(3);
+}
+
+// Convert fractional notation to decimal inches
+function fractionToDecimal(input: string): number {
+  const trimmed = input.trim();
+  if (FRACTION_REVERSE_MAP[trimmed] !== undefined) {
+    return FRACTION_REVERSE_MAP[trimmed];
+  }
+  return parseFloat(trimmed) || 0;
+}
+
 // ============================================================
 // PART 1: GLASS MATERIAL CONSTANTS — Pyrex Borosilicate
 // EDIT THESE VALUES TO CHANGE MATERIAL PROPERTIES
@@ -1183,16 +1215,18 @@ export function CalculatorTab() {
                 Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
-                min={tempUnit === 'F' ? '0.08' : '2'} 
-                max={tempUnit === 'F' ? '0.39' : '10'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(thickness) / 25.4) : thickness} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setThickness(val);
+                  if (tempUnit === 'F') {
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
+                    setThickness(mmValue);
+                  } else {
+                    setThickness(e.target.value);
+                  }
                 }}
-                placeholder={tempUnit === 'F' ? '0.16' : '4'}
+                placeholder={tempUnit === 'F' ? '1/16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
                   thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
                 }`}
@@ -1212,16 +1246,18 @@ export function CalculatorTab() {
                 Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
-                min={tempUnit === 'F' ? '0.79' : '20'} 
-                max={tempUnit === 'F' ? '1.97' : '50'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction((parseFloat(radius) * 2) / 25.4) : (parseFloat(radius) * 2)} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
-                  setRadius(String(val || 0));
+                  if (tempUnit === 'F') {
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4) / 2;
+                    setRadius(String(mmValue || 0));
+                  } else {
+                    setRadius(String(parseFloat(e.target.value) / 2 || 0));
+                  }
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1234,16 +1270,18 @@ export function CalculatorTab() {
                 Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
-                min={tempUnit === 'F' ? '0.59' : '15'} 
-                max={tempUnit === 'F' ? '3.94' : '100'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(length) / 25.4) : length} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setLength(val);
+                  if (tempUnit === 'F') {
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
+                    setLength(mmValue);
+                  } else {
+                    setLength(e.target.value);
+                  }
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1256,16 +1294,18 @@ export function CalculatorTab() {
                 Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="number" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
-                min={tempUnit === 'F' ? '0.59' : '15'} 
-                max={tempUnit === 'F' ? '3.94' : '100'} 
-                step="0.01"
+                type="text" 
+                value={tempUnit === 'F' ? decimalToFraction(parseFloat(width) / 25.4) : width} 
                 onChange={(e) => {
-                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
-                  setWidth(val);
+                  if (tempUnit === 'F') {
+                    const decimalInches = fractionToDecimal(e.target.value);
+                    const mmValue = (decimalInches * 25.4).toString();
+                    setWidth(mmValue);
+                  } else {
+                    setWidth(e.target.value);
+                  }
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder={tempUnit === 'F' ? '1' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
