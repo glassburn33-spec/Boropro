@@ -1392,11 +1392,19 @@ export function CalculatorTab() {
                       { n: 16, label: '1' },
                       { n: 18, label: '1 1/8' },
                       { n: 20, label: '1 1/4' },
+                      { n: 22, label: '1 3/8' },
                       { n: 24, label: '1 1/2' },
+                      { n: 26, label: '1 5/8' },
                       { n: 28, label: '1 3/4' },
+                      { n: 30, label: '1 7/8' },
                       { n: 32, label: '2' },
+                      { n: 34, label: '2 1/8' },
                       { n: 36, label: '2 1/4' },
+                      { n: 38, label: '2 3/8' },
                       { n: 40, label: '2 1/2' },
+                      { n: 42, label: '2 5/8' },
+                      { n: 44, label: '2 3/4' },
+                      { n: 46, label: '2 7/8' },
                       { n: 48, label: '3' }
                     ].map((item) => (
                       <option key={item.n} value={(item.n / 16).toFixed(4)}>
