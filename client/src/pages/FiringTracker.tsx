@@ -162,7 +162,7 @@ export default function KilnLog() {
         <section className="py-16">
           <div className="container max-w-6xl">
             <div className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Annealing Cycle</h2>
+              <h2 className="text-3xl font-bold text-amber-400 mb-2">Annealing Cycle</h2>
             </div>
             <AnealingProfileEditor />
           </div>
