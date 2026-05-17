@@ -1160,17 +1160,23 @@ export default function Logs() {
             <div className="flex gap-2 p-4 border-t border-stone-700 bg-stone-900">
               <button
                 onClick={() => {
-                  const printWindow = window.open('', '', 'height=800,width=1000');
-                  if (printWindow) {
-                    printWindow.document.write(pdfPreviewContent);
-                    printWindow.document.close();
-                    printWindow.print();
+                  if (selectedLog && pdfPreviewContent) {
+                    const blob = new Blob([pdfPreviewContent], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `${selectedLog.name}-${new Date().toISOString().split('T')[0]}.html`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    toast.success('PDF downloaded successfully');
                   }
                 }}
-                className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded transition-colors flex-1 justify-center"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors flex-1 justify-center"
               >
                 <FileText className="w-4 h-4" />
-                Print PDF
+                Save PDF
               </button>
               <button
                 onClick={() => setShowPDFPreview(false)}
