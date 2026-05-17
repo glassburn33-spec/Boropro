@@ -917,3 +917,11 @@
   - [x] Adjusted main content margin from marginTop: '120px' to marginTop: '88px'
   - [x] Header layout verified on preview - navigation elements fit properly in thinner header
   - [x] Logo and header image display correctly at new dimensions
+
+- [x] Update Equipment Science and Color Science tab headers to match Glass Science tab
+  - [x] Equipment Science tab (ScieEquipTab in GlassScience.tsx) already shares same header as Glass Science tab
+  - [x] Updated Color Science tab header container from h-28 to h-20
+  - [x] Updated Color Science tab logo from h-28 w-28 to h-20 w-20
+  - [x] Updated Color Science tab main content margin from marginTop: '120px' to marginTop: '88px'
+  - [x] All tabs now use consistent thinner header (h-20 logo, 88px margin)
+  - [x] Header consistency verified across all tabs (Home, Glass-Science, Scie-Equip, Color-Scie)

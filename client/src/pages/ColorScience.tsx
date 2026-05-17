@@ -540,8 +540,8 @@ export default function ColorScienceTab() {
     <div className="min-h-screen bg-stone-950 text-stone-100 pb-24">
       {/* UNIFIED FIXED HEADER BLOCK */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
-        {/* ROW 1: Hamburger Menu, Logo and Header Image */}
-        <div className="flex items-center h-28 px-4 gap-2 relative">
+        {/* Header Row: Hamburger Menu, Logo, and Header Image */}
+        <div className="flex items-center h-20 px-4 gap-2 relative">
           {/* Hamburger Menu Button with Dropdown */}
           <div className="relative">
             <button
@@ -589,7 +589,7 @@ export default function ColorScienceTab() {
           </div>
           
           {/* Logo on left */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-20 w-20 flex-shrink-0 object-contain" />
           
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
@@ -627,7 +627,7 @@ export default function ColorScienceTab() {
       )}
 
       {/* MAIN CONTENT - Margin accounts for fixed header */}
-      <main className="w-full px-3 md:px-4 py-4 md:py-6" style={{ marginTop: '120px' }}>
+      <main className="w-full px-3 md:px-4 py-4 md:py-6" style={{ marginTop: '88px' }}>
         {/* Header */}
         <div className="mb-8 md:mb-12">
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-amber-400 mb-2 md:mb-4 break-words">Color Science</h1>
