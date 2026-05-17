@@ -4282,3 +4282,85 @@
 [2026-05-17T19:26:47.494Z] Server running on http://localhost:3000/
 [2026-05-17T19:29:25.041Z] 3:29:25 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
 [2026-05-17T19:30:08.893Z] 3:30:08 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:33:30.465Z] 3:33:30 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:33:38.779Z] 3:33:38 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:33:57.992Z] 3:33:57 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:34:12.505Z] 3:34:12 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:34:12.726Z] 3:34:12 PM [vite] Internal server error: Transform failed with 1 error:
+[2026-05-17T19:34:12.727Z] /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:13: ERROR: The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:12.728Z] Plugin: vite:esbuild
+[2026-05-17T19:34:12.728Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:0
+[2026-05-17T19:34:12.728Z] 
+[2026-05-17T19:34:12.729Z] The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:12.729Z] 1119 |                  </button>
+[2026-05-17T19:34:12.729Z] 1120 |                </>
+[2026-05-17T19:34:12.730Z] 1121 |              )}
+[2026-05-17T19:34:12.730Z] |               ^
+[2026-05-17T19:34:12.731Z] 1122 |            </div>
+[2026-05-17T19:34:12.731Z] 1123 |          </div>
+[2026-05-17T19:34:12.732Z] 
+[2026-05-17T19:34:12.732Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-17T19:34:12.733Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-17T19:34:12.733Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-17T19:34:12.734Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-17T19:34:12.735Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-17T19:34:12.735Z] at Socket.emit (node:events:524:28)
+[2026-05-17T19:34:12.736Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-17T19:34:12.737Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-17T19:34:12.737Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-17T19:34:12.738Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-17T19:34:12.884Z] 3:34:12 PM [vite] Internal server error: Transform failed with 1 error:
+[2026-05-17T19:34:12.885Z] /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:13: ERROR: The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:12.885Z] Plugin: vite:esbuild
+[2026-05-17T19:34:12.886Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:0
+[2026-05-17T19:34:12.886Z] 
+[2026-05-17T19:34:12.886Z] The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:12.887Z] 1119 |                  </button>
+[2026-05-17T19:34:12.887Z] 1120 |                </>
+[2026-05-17T19:34:12.887Z] 1121 |              )}
+[2026-05-17T19:34:12.887Z] |               ^
+[2026-05-17T19:34:12.888Z] 1122 |            </div>
+[2026-05-17T19:34:12.888Z] 1123 |          </div>
+[2026-05-17T19:34:12.888Z] 
+[2026-05-17T19:34:12.889Z] at failureErrorWithLog (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1748:15)
+[2026-05-17T19:34:12.889Z] at /home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:1017:50
+[2026-05-17T19:34:12.890Z] at responseCallbacks.<computed> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:884:9)
+[2026-05-17T19:34:12.890Z] at handleIncomingPacket (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:939:12)
+[2026-05-17T19:34:12.891Z] at Socket.readFromStdout (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/lib/main.js:862:7)
+[2026-05-17T19:34:12.891Z] at Socket.emit (node:events:524:28)
+[2026-05-17T19:34:12.892Z] at addChunk (node:internal/streams/readable:561:12)
+[2026-05-17T19:34:12.892Z] at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2026-05-17T19:34:12.892Z] at Readable.push (node:internal/streams/readable:392:5)
+[2026-05-17T19:34:12.893Z] at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[2026-05-17T19:34:13.016Z] 3:34:13 PM [vite] (client) Pre-transform error: Transform failed with 1 error:
+[2026-05-17T19:34:13.016Z] /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:13: ERROR: The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:13.017Z] Plugin: vite:esbuild
+[2026-05-17T19:34:13.017Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:0
+[2026-05-17T19:34:13.018Z] 
+[2026-05-17T19:34:13.018Z] The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:13.018Z] 1119 |                  </button>
+[2026-05-17T19:34:13.018Z] 1120 |                </>
+[2026-05-17T19:34:13.019Z] 1121 |              )}
+[2026-05-17T19:34:13.019Z] |               ^
+[2026-05-17T19:34:13.019Z] 1122 |            </div>
+[2026-05-17T19:34:13.020Z] 1123 |          </div>
+[2026-05-17T19:34:13.020Z] 
+[2026-05-17T19:34:13.020Z] 3:34:13 PM [vite] (client) Pre-transform error: Transform failed with 1 error:
+[2026-05-17T19:34:13.021Z] /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:13: ERROR: The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:13.021Z] Plugin: vite:esbuild
+[2026-05-17T19:34:13.021Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/CalculatorTab.tsx:1121:0
+[2026-05-17T19:34:13.022Z] 
+[2026-05-17T19:34:13.022Z] The character "}" is not valid inside a JSX element
+[2026-05-17T19:34:13.022Z] 1119 |                  </button>
+[2026-05-17T19:34:13.022Z] 1120 |                </>
+[2026-05-17T19:34:13.023Z] 1121 |              )}
+[2026-05-17T19:34:13.023Z] |               ^
+[2026-05-17T19:34:13.023Z] 1122 |            </div>
+[2026-05-17T19:34:13.024Z] 1123 |          </div>
+[2026-05-17T19:34:13.024Z] 
+[2026-05-17T19:34:20.999Z] 3:34:20 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:34:35.686Z] 3:34:35 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:34:48.123Z] 3:34:48 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:34:59.493Z] 3:34:59 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:35:12.398Z] 3:35:12 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T19:35:33.609Z] 3:35:33 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx

@@ -702,44 +702,13 @@ export function CalculatorTab() {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [timerRunning,  setTimerRunning]  = useState<boolean>(false);
   const [timerLoop,     setTimerLoop]     = useState<boolean>(false);
-  const [tempUnit,      setTempUnit]      = useState<'C' | 'F'>('C'); // Temperature unit toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originalTimeRef = useRef<number>(0);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const isFirstRenderRef = useRef<boolean>(true);
 
-  // Convert temperatures and dimensions when unit changes (but not on initial render)
-  useEffect(() => {
-    if (isFirstRenderRef.current) {
-      isFirstRenderRef.current = false;
-      return;
-    }
-    
-    if (tempUnit === 'F') {
-      // C to F: multiply by 9/5 and add 32
-      const kilnF = Math.round((parseFloat(kilnTemp) || 565) * (9 / 5) + 32);
-      const roomF = Math.round((parseFloat(roomTemp) || 25) * (9 / 5) + 32);
-      setKilnTemp(kilnF.toString());
-      setRoomTemp(roomF.toString());
-      // Switch to F defaults: 0.125 in thickness, 1 in diameter, 1 in length, 1 in width
-      setThickness('3.175');  // 0.125 in = 3.175 mm
-      setRadius('12.7');      // 1 in diameter = 25.4 mm, so 12.7 mm radius
-      setLength('25.4');      // 1 in = 25.4 mm
-      setWidth('25.4');       // 1 in = 25.4 mm
-    } else {
-      // F to C: subtract 32 and multiply by 5/9
-      const kilnC = Math.round(((parseFloat(kilnTemp) || 1049) - 32) * (5 / 9));
-      const roomC = Math.round(((parseFloat(roomTemp) || 77) - 32) * (5 / 9));
-      setKilnTemp(kilnC.toString());
-      setRoomTemp(roomC.toString());
-      // Switch to C defaults: 4 mm thickness, 25 mm diameter, 25 mm length, 25 mm width
-      setThickness('4');      // 4 mm
-      setRadius('12.5');      // 25 mm diameter = 12.5 mm radius
-      setLength('25');        // 25 mm
-      setWidth('25');         // 25 mm
-    }
-  }, [tempUnit])
+  // No unit conversion needed - using Celsius only
 
   // Helper function to format working time as "X min Y sec"
   function formatTime(totalSeconds: number): string {
@@ -833,22 +802,14 @@ export function CalculatorTab() {
   function handleCalculate() {
     setError('');
     try {
-      // Convert temperature from F to C if needed
-      const kilnTempC = tempUnit === 'F' 
-        ? (parseFloat(kilnTemp) - 32) * (5 / 9)
-        : parseFloat(kilnTemp) || 565;
-      const roomTempC = tempUnit === 'F'
-        ? (parseFloat(roomTemp) - 32) * (5 / 9)
-        : parseFloat(roomTemp) || 25;
-
       const res = runCalculation({
         shape,
-        thickness: tempUnit === 'F' ? (parseFloat(thickness) * 25.4) || 0 : parseFloat(thickness) || 0,
-        radius:    tempUnit === 'F' ? (parseFloat(radius) * 25.4) || 0 : parseFloat(radius) || 0,
-        length:    tempUnit === 'F' ? (parseFloat(length) * 25.4) || 0 : parseFloat(length) || 0,
-        width:     tempUnit === 'F' ? (parseFloat(width) * 25.4) || 0 : parseFloat(width) || 0,
-        T_work:    kilnTempC,
-        T_room:    roomTempC,
+        thickness: parseFloat(thickness) || 0,
+        radius:    parseFloat(radius) || 0,
+        length:    parseFloat(length) || 0,
+        width:     parseFloat(width) || 0,
+        T_work:    parseFloat(kilnTemp) || 565,
+        T_room:    parseFloat(roomTemp) || 25,
       });
       setResults(res);
       setHasCalc(true);
@@ -876,26 +837,13 @@ export function CalculatorTab() {
     setTimeRemaining(null);
     originalTimeRef.current = 0;
     
-    // Reset to defaults based on current temperature unit
-    if (tempUnit === 'C') {
-      // Celsius defaults: match temperature unit toggle settings
-      setKilnTemp('565');   // Default Celsius kiln temperature
-      setRoomTemp('25');    // Default Celsius room temperature
-      // Celsius dimension defaults: 4 mm thickness, 25 mm diameter, 25 mm length, 25 mm width
-      setThickness('4');      // 4 mm
-      setRadius('12.5');      // 25 mm diameter = 12.5 mm radius
-      setLength('25');        // 25 mm
-      setWidth('25');         // 25 mm
-    } else {
-      // Fahrenheit defaults: match temperature unit toggle settings
-      setKilnTemp('1049');  // Default Fahrenheit kiln temperature (565°C converted)
-      setRoomTemp('77');    // Default Fahrenheit room temperature (25°C converted)
-      // Fahrenheit dimension defaults: 0.125 in thickness, 1 in diameter, 1 in length, 1 in width
-      setThickness('3.175');  // 0.125 in = 3.175 mm
-      setRadius('12.7');      // 1 in diameter = 25.4 mm, so 12.7 mm radius
-      setLength('25.4');      // 1 in = 25.4 mm
-      setWidth('25.4');       // 1 in = 25.4 mm
-    }
+    // Reset to Celsius defaults
+    setKilnTemp('565');
+    setRoomTemp('25');
+    setThickness('4');
+    setRadius('12.5');
+    setLength('25');
+    setWidth('25');
   }
 
   const thicknessWarn =
@@ -903,14 +851,10 @@ export function CalculatorTab() {
     parseFloat(thickness) >= parseFloat(radius);
 
   const kilnTempValue  = parseFloat(kilnTemp);
-  const kilnTempInvalid = isNaN(kilnTempValue) ||
-                           (tempUnit === 'C' && (kilnTempValue < 565 || kilnTempValue > 700)) ||
-                           (tempUnit === 'F' && (kilnTempValue < 1049 || kilnTempValue > 1292));
+  const kilnTempInvalid = isNaN(kilnTempValue) || kilnTempValue < 565 || kilnTempValue > 700;
 
   const roomTempValue  = parseFloat(roomTemp);
-  const roomTempInvalid = isNaN(roomTempValue) ||
-                          (tempUnit === 'C' && (roomTempValue < 0 || roomTempValue > 40)) ||
-                          (tempUnit === 'F' && (roomTempValue < 32 || roomTempValue > 104));
+  const roomTempInvalid = isNaN(roomTempValue) || roomTempValue < 0 || roomTempValue > 40;
 
   const calcBlocked =
     kilnTempInvalid ||
@@ -1019,20 +963,7 @@ export function CalculatorTab() {
         </section>
 
         <div className="container max-w-6xl space-y-4">
-          {/* TEMPERATURE UNIT TOGGLE */}
-          <div className="flex items-center gap-2 mb-4">
-        <span className="text-sm text-stone-400">Temperature Unit:</span>
-        <button
-          onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
-          className={`px-4 py-2 rounded font-semibold transition-all ${
-            tempUnit === 'C'
-              ? 'bg-amber-700 border-amber-500 text-white'
-              : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
-          }`}
-        >
-          {tempUnit === 'C' ? '°C' : '°F'}
-        </button>
-      </div>
+
 
       {/* INPUT CARD */}
       <Card className="bg-stone-800 border-stone-700 p-4 space-y-4">
@@ -1065,19 +996,19 @@ export function CalculatorTab() {
         {/* KILN TEMPERATURE — global input, applies to all shapes */}
         <div>
           <label className="block text-sm font-semibold text-stone-300 mb-1">
-            Kiln Temperature ({tempUnit})
+            Kiln Temperature (°C)
           </label>
           <Input
             type="number"
             value={kilnTemp}
-            min={tempUnit === 'C' ? '565' : '1049'}
-            max={tempUnit === 'C' ? '700' : '1292'}
+            min="565"
+            max="700"
             step="1"
             onChange={(e) => {
               const raw = e.target.value;
               setKilnTemp(raw);
             }}
-            placeholder={tempUnit === 'C' ? '565' : '1049'}
+            placeholder="565"
             className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
               kilnTempInvalid
                 ? 'border-red-500 ring-1 ring-red-500'
@@ -1087,14 +1018,13 @@ export function CalculatorTab() {
 
           {kilnTempInvalid && (
             <p className="text-xs text-red-400 mt-1">
-              ⚠ Kiln temperature must be between {tempUnit === 'C' ? '565 °C and 700 °C' : '1049 °F and 1292 °F'}.
+              ⚠ Kiln temperature must be between 565 °C and 700 °C.
             </p>
           )}
           
           {/* QUICK-SELECT TEMPERATURE BUTTONS */}
           <div className="flex gap-2 mt-3">
-            {tempUnit === 'C' ? (
-              <>
+            <>
                 <button
                   onClick={() => setKilnTemp('565')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
@@ -1140,8 +1070,7 @@ export function CalculatorTab() {
                  >
                    1292°F
                 </button>
-              </>
-            )}
+            </>
           </div>
         </div>
 
@@ -1173,22 +1102,22 @@ export function CalculatorTab() {
           {shape !== 'sphere' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
+                Wall Thickness (mm)
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toString() : thickness} 
+                value={thickness} 
                 onChange={(e) => {
                   setThickness(e.target.value);
                 }}
-                placeholder={tempUnit === 'F' ? '0.16' : '4'}
+                placeholder="4"
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
                   thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
                 }`}
               />
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 25.4).toFixed(2) : radius} {tempUnit === 'F' ? 'in' : 'mm'})
+                  ⚠ Thickness must be less than radius ({radius} mm)
                 </p>
               )}
             </div>
@@ -1198,15 +1127,15 @@ export function CalculatorTab() {
           {(shape === 'cylinder' || shape === 'sphere') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
+                Outer Diameter (mm)
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toString() : (parseFloat(radius) * 2)} 
+                value={parseFloat(radius) * 2} 
                 onChange={(e) => {
-                  setRadius(e.target.value);
+                  setRadius((parseFloat(e.target.value) / 2).toString());
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder="25"
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1216,15 +1145,15 @@ export function CalculatorTab() {
           {(shape === 'plate' || shape === 'cylinder') && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Length ({tempUnit === 'F' ? 'in' : 'mm'})
+                Length (mm)
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toString() : length} 
+                value={length} 
                 onChange={(e) => {
                   setLength(e.target.value);
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder="25"
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1234,15 +1163,15 @@ export function CalculatorTab() {
           {shape === 'plate' && (
             <div>
               <label className="block text-xs font-semibold text-stone-300 mb-1">
-                Width ({tempUnit === 'F' ? 'in' : 'mm'})
+                Width (mm)
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toString() : width} 
+                value={width} 
                 onChange={(e) => {
                   setWidth(e.target.value);
                 }}
-                placeholder={tempUnit === 'F' ? '0.98' : '25'}
+                placeholder="25"
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
               />
             </div>
@@ -1374,37 +1303,25 @@ export function CalculatorTab() {
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Convective heat transfer coefficient</p>
                 <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F' 
-                    ? `${(results.h_conv * 0.176228).toFixed(2)} Btu/h·ft²·°F`
-                    : `${results.h_conv.toFixed(2)} W/m²·K`
-                  }
+                  {`${results.h_conv.toFixed(2)} W/m²·K`}
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Convection rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F' 
-                    ? `${(results.Q_conv * 3.41214).toFixed(1)} Btu/h`
-                    : `${results.Q_conv.toFixed(1)} W`
-                  }
+                  {`${results.Q_conv.toFixed(1)} W`}
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center">
                 <p className="text-stone-400">Radiation rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F' 
-                    ? `${(results.Q_rad * 3.41214).toFixed(1)} Btu/h`
-                    : `${results.Q_rad.toFixed(1)} W`
-                  }
+                  {`${results.Q_rad.toFixed(1)} W`}
                 </p>
               </div>
               <div className="bg-stone-900/60 rounded p-2 flex justify-between items-center border-t border-stone-600 pt-2 mt-2">
                 <p className="text-stone-400">Total rate of heat transfer</p>
                 <p className="text-stone-200 font-bold">
-                  {tempUnit === 'F' 
-                    ? `${(results.Q_total * 3.41214).toFixed(1)} Btu/h`
-                    : `${results.Q_total.toFixed(1)} W`
-                  }
+                  {`${results.Q_total.toFixed(1)} W`}
                 </p>
               </div>
             </div>
