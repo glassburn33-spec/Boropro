@@ -4824,3 +4824,8 @@
 [2026-05-17T20:30:54.187Z] at parse (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/index.ts:83:25)
 [2026-05-17T20:31:22.612Z] 4:31:22 PM [vite] (client) hmr update /src/index.css
 [2026-05-17T20:31:34.765Z] 4:31:34 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T20:36:14.380Z] 4:36:14 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T20:36:37.600Z] 4:36:37 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T20:36:51.970Z] 4:36:51 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T20:37:06.867Z] 4:37:06 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx
+[2026-05-17T20:37:17.733Z] 4:37:17 PM [vite] (client) hmr update /src/index.css, /src/pages/CalculatorTab.tsx

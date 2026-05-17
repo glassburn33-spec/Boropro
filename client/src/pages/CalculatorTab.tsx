@@ -865,9 +865,20 @@ export function CalculatorTab() {
     setWidth('25');
   }
 
+  // F-mode range validation
+  const thicknessValue = parseFloat(thickness);
+  const radiusValue = parseFloat(radius);
+  const lengthValue = parseFloat(length);
+  const widthValue = parseFloat(width);
+  
+  const thicknessOutOfRange = tempUnit === 'F' && (thicknessValue < 0.0625 || thicknessValue > 0.375);
+  const radiusOutOfRange = tempUnit === 'F' && (radiusValue < 0.75 || radiusValue > 2.25);
+  const lengthOutOfRange = tempUnit === 'F' && (lengthValue < 0.5 || lengthValue > 4);
+  const widthOutOfRange = tempUnit === 'F' && (widthValue < 0.5 || widthValue > 3);
+
   const thicknessWarn =
-    shape === 'cylinder' &&
-    parseFloat(thickness) >= parseFloat(radius);
+    (shape === 'cylinder' && parseFloat(thickness) >= parseFloat(radius)) ||
+    thicknessOutOfRange;
 
   const kilnTempValue  = parseFloat(kilnTemp);
   const kilnTempInvalid = isNaN(kilnTempValue) || kilnTempValue < 565 || kilnTempValue > 700;
@@ -1156,7 +1167,7 @@ export function CalculatorTab() {
               />
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
-                  ⚠ Thickness must be less than radius ({tempUnit === 'F' ? (parseFloat(radius) / 2 / 25.4).toFixed(3) : parseFloat(radius) / 2} {tempUnit === 'F' ? 'in' : 'mm'})
+                  {thicknessOutOfRange ? '⚠ Wall Thickness must be 0.0625-0.375 in' : `⚠ Thickness must be less than radius (${tempUnit === 'F' ? (parseFloat(radius) / 2 / 25.4).toFixed(3) : parseFloat(radius) / 2} ${tempUnit === 'F' ? 'in' : 'mm'})`}
                 </p>
               )}
             </div>
@@ -1175,8 +1186,15 @@ export function CalculatorTab() {
                   setRadius(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                  radiusOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                }`}
               />
+              {radiusOutOfRange && (
+                <p className="text-xs text-red-400 mt-1">
+                  ⚠ Outer Diameter must be 0.75-2.25 in
+                </p>
+              )}
             </div>
           )}
 
@@ -1193,8 +1211,15 @@ export function CalculatorTab() {
                   setLength(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                  lengthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                }`}
               />
+              {lengthOutOfRange && (
+                <p className="text-xs text-red-400 mt-1">
+                  ⚠ Length must be 0.5-4 in
+                </p>
+              )}
             </div>
           )}
 
@@ -1211,8 +1236,15 @@ export function CalculatorTab() {
                   setWidth(e.target.value);
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
+                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                  widthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                }`}
               />
+              {widthOutOfRange && (
+                <p className="text-xs text-red-400 mt-1">
+                  ⚠ Width must be 0.5-3 in
+                </p>
+              )}
             </div>
           )}
 
