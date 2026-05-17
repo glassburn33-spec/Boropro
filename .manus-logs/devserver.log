@@ -3892,3 +3892,6 @@
 [2026-05-16T21:38:42.658Z] 5:38:42 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
 [2026-05-16T21:38:53.533Z] 5:38:53 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
 [2026-05-16T21:38:54.171Z] [Auth] Missing session cookie
+[2026-05-17T02:09:35.937Z] [Auth] Missing session cookie
+[2026-05-17T17:23:47.412Z] 1:23:47 PM [vite] (client) hmr update /src/pages/LogoHome.tsx, /src/index.css
+[2026-05-17T17:24:12.303Z] [Auth] Missing session cookie

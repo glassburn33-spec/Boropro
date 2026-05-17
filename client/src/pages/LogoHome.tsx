@@ -32,9 +32,9 @@ export default function LogoHome() {
       {/* FIXED HEADER */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-stone-900 border-b border-amber-700/30 shadow-lg">
         {/* ROW 1: Logo */}
-        <div className="flex items-center h-28 px-4 gap-2 relative">
+        <div className="flex items-center h-20 px-4 gap-2 relative">
           {/* Logo */}
-          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-28 w-28 flex-shrink-0 object-contain" />
+          <img src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png" alt="BoroPro Logo" className="h-20 w-20 flex-shrink-0 object-contain" />
           
           {/* Header image placeholder on right */}
           <div className="flex-1 h-full flex items-center justify-center bg-stone-800 border border-dashed border-amber-700/50 ml-4 relative overflow-hidden">
@@ -143,7 +143,7 @@ export default function LogoHome() {
 
 
       {/* MAIN CONTENT - Centered Logo */}
-      <main className="fixed inset-0 top-[120px] flex items-center justify-center px-4 overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
+      <main className="fixed inset-0 top-[88px] flex items-center justify-center px-4 overflow-hidden" style={{ height: 'calc(100vh - 88px)' }}>
         <img
           src="/manus-storage/ChatGPTImageMay5,2026,10_33_46PM_dee2f726.png"
           alt="BoroPro Logo"

@@ -902,3 +902,11 @@
   - [x] Changed Menu icon color to yellow (text-yellow-400) in ColorScience tab
   - [x] Changed Menu icon color to yellow (text-yellow-400) in GlassScience tab
   - [x] Hamburger button styling is now consistent across all tabs with yellow icons and yellow dropdown text
+
+- [x] Reduce sticky header height on Home tab by one-third
+  - [x] Calculated new header dimensions (current: h-28 = 112px, new: h-20 = 80px, ~29% reduction)
+  - [x] Updated logo height from h-28 w-28 to h-20 w-20 proportionally
+  - [x] Adjusted main content top margin from top-[120px] to top-[88px] (header + nav row)
+  - [x] Adjusted main content height calculation from calc(100vh - 120px) to calc(100vh - 88px)
+  - [x] Header layout verified on preview - navigation elements fit properly in thinner header
+  - [x] Logo and header image display correctly at new dimensions
