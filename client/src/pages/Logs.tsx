@@ -936,10 +936,10 @@ export default function Logs() {
               {filteredLogs.map((log) => (
                 <div
                   key={log.id}
-                  className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
+                  className="border border-stone-700 rounded bg-stone-900/50 p-2 hover:bg-stone-900 transition-colors"
                 >
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center justify-between gap-2">
                       <div className="flex items-start gap-3 flex-1 min-w-0">
                         {showCheckboxes && (
                           <input
@@ -958,29 +958,29 @@ export default function Logs() {
                           />
                         )}
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-base sm:text-lg font-semibold text-white break-words">
+                          <h3 className="text-sm sm:text-base font-semibold text-white break-words">
                             {log.name}
                           </h3>
                         </div>
                       </div>
                       <button
                         onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm flex-shrink-0"
+                        className="flex items-center gap-2 px-2 py-1 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs flex-shrink-0"
                         title="Edit log"
                       >
                         <span>{expandedLogId === log.id ? 'Hide' : 'Edit'}</span>
                       </button>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                       {expandedLogId === log.id && (
                         <>
                           <button
-                            onClick={() => handlePreviewPDF(log)}
-                            className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
-                            title="View log"
+                            onClick={() => handleUploadPDF(log)}
+                            className="flex items-center gap-2 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs"
+                            title="Save log as PDF"
                           >
-                            <span>View</span>
+                            <span>Save PDF</span>
                           </button>
 
 
@@ -990,7 +990,7 @@ export default function Logs() {
                               setColorWheelLog(log);
                               setShowColorWheelModal(true);
                             }}
-                            className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            className="flex items-center gap-2 px-2 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs"
                             title="View glass colors used"
                           >
                             <span>Colors</span>
