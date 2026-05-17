@@ -912,39 +912,40 @@ export default function Logs() {
                   className="border border-stone-700 rounded-lg bg-stone-900/50 p-4 hover:bg-stone-900 transition-colors"
                 >
                   <div className="flex flex-col gap-3">
-                    <div className="flex items-start gap-3">
-                      {showCheckboxes && (
-                        <input
-                          type="checkbox"
-                          checked={selectedLogIds.has(log.id)}
-                          onChange={(e) => {
-                            const newSelected = new Set(selectedLogIds);
-                            if (e.target.checked) {
-                              newSelected.add(log.id);
-                            } else {
-                              newSelected.delete(log.id);
-                            }
-                            setSelectedLogIds(newSelected);
-                          }}
-                          className="w-5 h-5 cursor-pointer flex-shrink-0 mt-1"
-                        />
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-base sm:text-lg font-semibold text-white break-words">
-                          {log.name}
-                        </h3>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-start gap-3 flex-1 min-w-0">
+                        {showCheckboxes && (
+                          <input
+                            type="checkbox"
+                            checked={selectedLogIds.has(log.id)}
+                            onChange={(e) => {
+                              const newSelected = new Set(selectedLogIds);
+                              if (e.target.checked) {
+                                newSelected.add(log.id);
+                              } else {
+                                newSelected.delete(log.id);
+                              }
+                              setSelectedLogIds(newSelected);
+                            }}
+                            className="w-5 h-5 cursor-pointer flex-shrink-0 mt-1"
+                          />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base sm:text-lg font-semibold text-white break-words">
+                            {log.name}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
                       <button
                         onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
+                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm flex-shrink-0"
                         title="Edit log"
                       >
                         <span>{expandedLogId === log.id ? 'Hide' : 'Edit'}</span>
                       </button>
+                    </div>
 
+                    <div className="flex flex-wrap gap-2">
                       {expandedLogId === log.id && (
                         <>
                           <button
