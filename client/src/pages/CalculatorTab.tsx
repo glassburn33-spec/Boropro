@@ -1176,24 +1176,14 @@ export function CalculatorTab() {
                 Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="text" 
-                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toString() : thickness} 
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(thickness) / 25.4).toFixed(3) : thickness} 
+                min={tempUnit === 'F' ? '0.08' : '2'} 
+                max={tempUnit === 'F' ? '0.39' : '10'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // F-mode: convert inches to mm for storage
-                    if (val === '') {
-                      setThickness('0');
-                    } else {
-                      const parsed = parseFloat(val);
-                      if (!isNaN(parsed)) {
-                        setThickness((parsed * 25.4).toString());
-                      }
-                    }
-                  } else {
-                    // C-mode: store directly
-                    setThickness(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setThickness(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.16' : '4'}
                 className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
@@ -1215,24 +1205,14 @@ export function CalculatorTab() {
                 Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="text" 
-                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toString() : (parseFloat(radius) * 2)} 
+                type="number" 
+                value={tempUnit === 'F' ? (((parseFloat(radius) as unknown as number) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
+                min={tempUnit === 'F' ? '0.79' : '20'} 
+                max={tempUnit === 'F' ? '1.97' : '50'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // F-mode: convert inches (diameter) to mm (radius) for storage
-                    if (val === '') {
-                      setRadius('0');
-                    } else {
-                      const parsed = parseFloat(val);
-                      if (!isNaN(parsed)) {
-                        setRadius(String((parsed * 25.4) / 2));
-                      }
-                    }
-                  } else {
-                    // C-mode: convert mm (diameter) to mm (radius)
-                    setRadius(String(parseFloat(val) / 2 || 0));
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4) / 2 : parseFloat(e.target.value) / 2;
+                  setRadius(String(val || 0));
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1247,24 +1227,14 @@ export function CalculatorTab() {
                 Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="text" 
-                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toString() : length} 
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(length) / 25.4).toFixed(3) : length} 
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // F-mode: convert inches to mm for storage
-                    if (val === '') {
-                      setLength('0');
-                    } else {
-                      const parsed = parseFloat(val);
-                      if (!isNaN(parsed)) {
-                        setLength((parsed * 25.4).toString());
-                      }
-                    }
-                  } else {
-                    // C-mode: store directly
-                    setLength(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setLength(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
@@ -1279,24 +1249,14 @@ export function CalculatorTab() {
                 Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
               <Input
-                type="text" 
-                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toString() : width} 
+                type="number" 
+                value={tempUnit === 'F' ? (parseFloat(width) / 25.4).toFixed(3) : width} 
+                min={tempUnit === 'F' ? '0.59' : '15'} 
+                max={tempUnit === 'F' ? '3.94' : '100'} 
+                step="0.01"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  if (tempUnit === 'F') {
-                    // F-mode: convert inches to mm for storage
-                    if (val === '') {
-                      setWidth('0');
-                    } else {
-                      const parsed = parseFloat(val);
-                      if (!isNaN(parsed)) {
-                        setWidth((parsed * 25.4).toString());
-                      }
-                    }
-                  } else {
-                    // C-mode: store directly
-                    setWidth(val);
-                  }
+                  const val = tempUnit === 'F' ? (parseFloat(e.target.value) * 25.4).toString() : e.target.value;
+                  setWidth(val);
                 }}
                 placeholder={tempUnit === 'F' ? '0.98' : '25'}
                 className="bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500"
