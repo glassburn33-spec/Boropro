@@ -925,3 +925,13 @@
   - [x] Updated Color Science tab main content margin from marginTop: '120px' to marginTop: '88px'
   - [x] All tabs now use consistent thinner header (h-20 logo, 88px margin)
   - [x] Header consistency verified across all tabs (Home, Glass-Science, Scie-Equip, Color-Scie)
+
+- [x] Update Glass Science tab images to use Color Science format
+  - [x] Converted Chemical Composition image from button to div-based format
+  - [x] Converted Thermal Properties image from button to div-based format
+  - [x] Converted Structure of Glass image from button to div-based format
+  - [x] Converted Science of Glass Annealing image from button to div-based format
+  - [x] Converted Devitrification image from button to div-based format
+  - [x] All images now use bg-stone-900 container with hover effects and centered zoom icon
+  - [x] All images use w-full h-auto object-contain for responsive scaling
+  - [x] Responsive layout verified on mobile and desktop viewports

@@ -4162,3 +4162,87 @@
 [2026-05-17T17:28:42.950Z] {"timestamp":1779038920956,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-17T17:28:42.950Z] {"timestamp":1779038921179,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-17T17:28:44.950Z] {"timestamp":1779038922981,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:29:21.281Z] {"timestamp":1779038959267,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:29:21.281Z] {"timestamp":1779038959295,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:29:21.281Z] {"timestamp":1779038959659,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:29:21.281Z] {"timestamp":1779038959728,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:29:22.253Z] {"timestamp":1779038959961,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:29:22.253Z] {"timestamp":1779038960424,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:29:28.248Z] {"timestamp":1779038967530,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:29:40.096Z] {"timestamp":1779038978091,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:29:40.096Z] {"timestamp":1779038978099,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:29:40.096Z] {"timestamp":1779038978320,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:29:40.096Z] {"timestamp":1779038979213,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:34:09.277Z] {"timestamp":1779039247873,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:34:09.277Z] {"timestamp":1779039247874,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:34:10.440Z] {"timestamp":1779039248176,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:34:10.440Z] {"timestamp":1779039248176,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:34:39.276Z] {"timestamp":1779039277934,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:34:39.276Z] {"timestamp":1779039277934,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:34:40.457Z] {"timestamp":1779039278663,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:34:40.457Z] {"timestamp":1779039278663,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:34:59.277Z] {"timestamp":1779039297656,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:34:59.277Z] {"timestamp":1779039297656,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:00.472Z] {"timestamp":1779039298692,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:00.472Z] {"timestamp":1779039298692,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:13.278Z] {"timestamp":1779039311651,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:13.278Z] {"timestamp":1779039311651,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:14.487Z] {"timestamp":1779039312414,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:14.487Z] {"timestamp":1779039312414,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:27.277Z] {"timestamp":1779039325554,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:27.278Z] {"timestamp":1779039325554,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:28.478Z] {"timestamp":1779039327140,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:28.479Z] {"timestamp":1779039327140,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:43.277Z] {"timestamp":1779039342009,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:43.277Z] {"timestamp":1779039342010,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:35:44.520Z] {"timestamp":1779039342893,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:35:44.520Z] {"timestamp":1779039342893,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:36:00.492Z] {"timestamp":1779039358486,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:36:00.492Z] {"timestamp":1779039358500,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:36:00.492Z] {"timestamp":1779039358695,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:36:00.492Z] {"timestamp":1779039358928,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:36:55.511Z] {"timestamp":1779039413482,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:36:55.511Z] {"timestamp":1779039413862,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:36:55.511Z] {"timestamp":1779039414225,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:36:55.511Z] {"timestamp":1779039414329,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:36:55.676Z] {"timestamp":1779039413311,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:36:55.676Z] {"timestamp":1779039413685,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:37:03.752Z] {"timestamp":1779039421746,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:37:03.752Z] {"timestamp":1779039421765,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:37:03.752Z] {"timestamp":1779039421996,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:37:03.752Z] {"timestamp":1779039423437,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:37:11.650Z] {"timestamp":1779039430262,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:38:04.639Z] {"timestamp":1779039482319,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:38:04.639Z] {"timestamp":1779039482525,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:38:10.661Z] {"timestamp":1779039490310,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:40:15.983Z] {"timestamp":1779039613838,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:40:15.983Z] {"timestamp":1779039614223,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:40:15.983Z] {"timestamp":1779039614512,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-17T17:40:19.495Z] {"timestamp":1779039619375,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:19.495Z] {"timestamp":1779039619376,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:23.985Z] {"timestamp":1779039621935,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:23.985Z] {"timestamp":1779039621935,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:31.492Z] {"timestamp":1779039631323,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:31.492Z] {"timestamp":1779039631324,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:34.031Z] {"timestamp":1779039633305,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:34.031Z] {"timestamp":1779039633305,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:41.493Z] {"timestamp":1779039640845,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:41.494Z] {"timestamp":1779039640845,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:41.989Z] {"timestamp":1779039641483,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:41.989Z] {"timestamp":1779039641484,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:51.494Z] {"timestamp":1779039649608,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:51.494Z] {"timestamp":1779039649609,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:51.995Z] {"timestamp":1779039650194,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:51.995Z] {"timestamp":1779039650194,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:59.492Z] {"timestamp":1779039658977,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:59.493Z] {"timestamp":1779039658978,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:40:59.995Z] {"timestamp":1779039659603,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:40:59.995Z] {"timestamp":1779039659603,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:41:09.492Z] {"timestamp":1779039668370,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:41:09.492Z] {"timestamp":1779039668370,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:41:10.011Z] {"timestamp":1779039669499,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/GlassScience.tsx"],"stack":null}
+[2026-05-17T17:41:10.011Z] {"timestamp":1779039669499,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-17T17:41:24.139Z] {"timestamp":1779039682133,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-17T17:41:24.139Z] {"timestamp":1779039682139,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-17T17:41:24.139Z] {"timestamp":1779039682348,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-17T17:41:24.139Z] {"timestamp":1779039683179,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

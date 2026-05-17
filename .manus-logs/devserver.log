@@ -3901,3 +3901,41 @@
 [2026-05-17T17:26:14.357Z] [Auth] Missing session cookie
 [2026-05-17T17:27:12.783Z] [Auth] Missing session cookie
 [2026-05-17T17:28:04.070Z] 1:28:04 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-17T17:29:21.276Z] [Auth] Missing session cookie
+[2026-05-17T17:34:07.468Z] 1:34:07 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:34:08.493Z] [Auth] Missing session cookie
+[2026-05-17T17:34:37.487Z] 1:34:37 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:34:39.044Z] [Auth] Missing session cookie
+[2026-05-17T17:34:57.245Z] 1:34:57 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:34:59.022Z] [Auth] Missing session cookie
+[2026-05-17T17:35:11.188Z] 1:35:11 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:35:12.746Z] [Auth] Missing session cookie
+[2026-05-17T17:35:25.133Z] 1:35:25 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:35:27.458Z] [Auth] Missing session cookie
+[2026-05-17T17:35:41.597Z] 1:35:41 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:35:43.221Z] [Auth] Missing session cookie
+[2026-05-17T17:36:41.091Z] Dev server process group stopped
+[2026-05-17T17:36:41.098Z] ELIFECYCLE  Command failed.
+[2026-05-17T17:36:41.154Z] Dev server exited with code -15
+[2026-05-17T17:36:47.400Z] Starting dev server with command: pnpm run dev
+[2026-05-17T17:36:48.202Z] 
+[2026-05-17T17:36:48.203Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-17T17:36:48.203Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-17T17:36:48.204Z] 
+[2026-05-17T17:36:50.124Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-17T17:36:50.532Z] Server running on http://localhost:3000/
+[2026-05-17T17:37:10.564Z] [Auth] Missing session cookie
+[2026-05-17T17:38:10.642Z] [Auth] Missing session cookie
+[2026-05-17T17:40:14.645Z] [Auth] Missing session cookie
+[2026-05-17T17:40:18.949Z] 1:40:18 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:40:22.116Z] [Auth] Missing session cookie
+[2026-05-17T17:40:30.984Z] 1:40:30 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:40:33.465Z] [Auth] Missing session cookie
+[2026-05-17T17:40:40.337Z] 1:40:40 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:40:41.647Z] [Auth] Missing session cookie
+[2026-05-17T17:40:49.268Z] 1:40:49 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:40:50.353Z] [Auth] Missing session cookie
+[2026-05-17T17:40:58.471Z] 1:40:58 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:40:59.749Z] [Auth] Missing session cookie
+[2026-05-17T17:41:08.117Z] 1:41:08 PM [vite] (client) hmr update /src/pages/GlassScience.tsx, /src/index.css
+[2026-05-17T17:41:09.656Z] [Auth] Missing session cookie
