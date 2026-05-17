@@ -256,7 +256,7 @@ function StudioTab() {
       <div className="border-t border-stone-700 pt-8 mt-8">
 
         <div className="max-w-2xl mx-auto pb-10 px-2 md:px-4">
-          <div className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-4">
             {/* SECTION 1: CHEMICAL COMPOSITION */}
             <AccordionItem value="composition">
               <AccordionTrigger className="bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-lg px-3 md:px-6 py-3 md:py-4 text-left data-[state=open]:rounded-b-none data-[state=open]:border-b-0">
@@ -552,7 +552,7 @@ function StudioTab() {
                 </div>
               </AccordionContent>
             </AccordionItem>
-          </div>
+          </Accordion>
         </div>
       </div>
       
