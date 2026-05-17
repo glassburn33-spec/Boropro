@@ -1175,17 +1175,33 @@ export function CalculatorTab() {
               <label className="block text-xs font-semibold text-stone-300 mb-1">
                 Wall Thickness ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
-              <Input
-                type="text" 
-                value={thickness} 
-                onChange={(e) => {
-                  setThickness(e.target.value);
-                }}
-                placeholder={tempUnit === 'F' ? '0.157' : '4'}
-                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-                  thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
-                }`}
-              />
+              <div className="flex gap-2">
+                <Input
+                  type="text" 
+                  value={thickness} 
+                  onChange={(e) => {
+                    setThickness(e.target.value);
+                  }}
+                  placeholder={tempUnit === 'F' ? '0.0625' : '4'}
+                  className={`flex-1 bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                    thicknessWarn ? 'border-red-500 ring-1 ring-red-500' : ''
+                  }`}
+                />
+                {tempUnit === 'F' && (
+                  <select
+                    onChange={(e) => setThickness(e.target.value)}
+                    className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
+                    defaultValue=""
+                  >
+                    <option value="">Select</option>
+                    {[1, 2, 3, 4, 5, 6].map((n) => (
+                      <option key={n} value={(n / 16).toFixed(4)}>
+                        {n}/16"
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               {thicknessWarn && (
                 <p className="text-xs text-red-400 mt-1">
                   {thicknessOutOfRange ? '⚠ Wall Thickness must be 0.0625-0.375 in' : `⚠ Thickness must be less than radius (${tempUnit === 'F' ? (parseFloat(radius) / 2 / 25.4).toFixed(3) : parseFloat(radius) / 2} ${tempUnit === 'F' ? 'in' : 'mm'})`}
@@ -1200,17 +1216,33 @@ export function CalculatorTab() {
               <label className="block text-xs font-semibold text-stone-300 mb-1">
                 Outer Diameter ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
-              <Input
-                type="text" 
-                value={radius} 
-                onChange={(e) => {
-                  setRadius(e.target.value);
-                }}
-                placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-                  radiusOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
-                }`}
-              />
+              <div className="flex gap-2">
+                <Input
+                  type="text" 
+                  value={radius} 
+                  onChange={(e) => {
+                    setRadius(e.target.value);
+                  }}
+                  placeholder={tempUnit === 'F' ? '1' : '25'}
+                  className={`flex-1 bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                    radiusOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                  }`}
+                />
+                {tempUnit === 'F' && (
+                  <select
+                    onChange={(e) => setRadius(e.target.value)}
+                    className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
+                    defaultValue=""
+                  >
+                    <option value="">Select</option>
+                    {[12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36].map((n) => (
+                      <option key={n} value={(n / 16).toFixed(4)}>
+                        {n}/16"
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               {radiusOutOfRange && (
                 <p className="text-xs text-red-400 mt-1">
                   ⚠ Outer Diameter must be 0.75-2.25 in
@@ -1225,17 +1257,33 @@ export function CalculatorTab() {
               <label className="block text-xs font-semibold text-stone-300 mb-1">
                 Length ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
-              <Input
-                type="text" 
-                value={length} 
-                onChange={(e) => {
-                  setLength(e.target.value);
-                }}
-                placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-                  lengthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
-                }`}
-              />
+              <div className="flex gap-2">
+                <Input
+                  type="text" 
+                  value={length} 
+                  onChange={(e) => {
+                    setLength(e.target.value);
+                  }}
+                  placeholder={tempUnit === 'F' ? '1' : '25'}
+                  className={`flex-1 bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                    lengthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                  }`}
+                />
+                {tempUnit === 'F' && (
+                  <select
+                    onChange={(e) => setLength(e.target.value)}
+                    className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
+                    defaultValue=""
+                  >
+                    <option value="">Select</option>
+                    {[8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64].map((n) => (
+                      <option key={n} value={(n / 16).toFixed(4)}>
+                        {n}/16"
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               {lengthOutOfRange && (
                 <p className="text-xs text-red-400 mt-1">
                   ⚠ Length must be 0.5-4 in
@@ -1250,17 +1298,33 @@ export function CalculatorTab() {
               <label className="block text-xs font-semibold text-stone-300 mb-1">
                 Width ({tempUnit === 'F' ? 'in' : 'mm'})
               </label>
-              <Input
-                type="text" 
-                value={width} 
-                onChange={(e) => {
-                  setWidth(e.target.value);
-                }}
-                placeholder={tempUnit === 'F' ? '0.984' : '25'}
-                className={`bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
-                  widthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
-                }`}
-              />
+              <div className="flex gap-2">
+                <Input
+                  type="text" 
+                  value={width} 
+                  onChange={(e) => {
+                    setWidth(e.target.value);
+                  }}
+                  placeholder={tempUnit === 'F' ? '1' : '25'}
+                  className={`flex-1 bg-stone-700 border-stone-600 text-stone-100 placeholder-stone-500 ${
+                    widthOutOfRange ? 'border-red-500 ring-1 ring-red-500' : ''
+                  }`}
+                />
+                {tempUnit === 'F' && (
+                  <select
+                    onChange={(e) => setWidth(e.target.value)}
+                    className="bg-stone-700 border border-stone-600 text-stone-100 rounded px-2 py-1 text-xs"
+                    defaultValue=""
+                  >
+                    <option value="">Select</option>
+                    {[8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48].map((n) => (
+                      <option key={n} value={(n / 16).toFixed(4)}>
+                        {n}/16"
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               {widthOutOfRange && (
                 <p className="text-xs text-red-400 mt-1">
                   ⚠ Width must be 0.5-3 in
