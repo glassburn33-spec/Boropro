@@ -644,7 +644,8 @@ export default function ColorScienceTab() {
 
         {/* Color Science Header */}
         <div className="border-t border-stone-700 pt-8 mt-8">
-          <div className="max-w-2xl mx-auto space-y-3 pb-10 px-2 md:px-4">
+
+          <div className="max-w-2xl mx-auto pb-10 px-2 md:px-4">
             {/* Accordion Sections */}
             <Accordion items={accordionItems} allowMultiple={true} />
           </div>
