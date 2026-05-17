@@ -1033,7 +1033,7 @@ export function CalculatorTab() {
           onClick={() => setTempUnit(tempUnit === 'C' ? 'F' : 'C')}
           className={`px-4 py-2 rounded font-semibold transition-all ${
             tempUnit === 'C'
-              ? 'bg-amber-700 border-amber-500 text-white'
+              ? 'bg-amber-700 border-amber-500 text-yellow-400'
               : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
           }`}
         >
@@ -1106,7 +1106,7 @@ export function CalculatorTab() {
                   onClick={() => setKilnTemp('565')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                     kilnTemp === '565'
-                      ? 'bg-amber-700 border-amber-500 text-white'
+                      ? 'bg-amber-700 border-amber-500 text-yellow-400'
                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                   }`}
                 >
@@ -1117,7 +1117,7 @@ export function CalculatorTab() {
                    onClick={() => setKilnTemp('700')}
                    className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                      kilnTemp === '700'
-                       ? 'bg-amber-700 border-amber-500 text-white'
+                       ? 'bg-amber-700 border-amber-500 text-yellow-400'
                        : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                    }`}
                  >
@@ -1130,7 +1130,7 @@ export function CalculatorTab() {
                   onClick={() => setKilnTemp('1049')}
                   className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                     kilnTemp === '1049'
-                      ? 'bg-amber-700 border-amber-500 text-white'
+                      ? 'bg-amber-700 border-amber-500 text-yellow-400'
                       : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                   }`}
                 >
@@ -1141,7 +1141,7 @@ export function CalculatorTab() {
                    onClick={() => setKilnTemp('1292')}
                    className={`flex-1 py-2 px-3 rounded text-sm font-semibold transition-all border ${
                      kilnTemp === '1292'
-                       ? 'bg-amber-700 border-amber-500 text-white'
+                       ? 'bg-amber-700 border-amber-500 text-yellow-400'
                        : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'
                    }`}
                  >
@@ -1164,7 +1164,7 @@ export function CalculatorTab() {
                 onClick={() => setShape(s)}
                 className={`flex-1 py-2 px-3 rounded text-sm font-semibold capitalize transition-all border
                   ${shape === s
-                    ? 'bg-amber-700 border-amber-500 text-white'
+                    ? 'bg-amber-700 border-amber-500 text-yellow-400'
                     : 'bg-stone-700 border-stone-600 text-stone-300 hover:bg-stone-600'}`}
               >
                 {s}
@@ -1286,7 +1286,7 @@ export function CalculatorTab() {
           <Button
             onClick={handleCalculate}
             disabled={calcBlocked}
-            className={`flex-1 text-white font-bold transition-opacity ${
+            className={`flex-1 text-yellow-400 font-bold transition-opacity ${
               calcBlocked
                 ? 'bg-amber-900 opacity-40 cursor-not-allowed'
                 : 'bg-amber-700 hover:bg-amber-600'
@@ -1347,7 +1347,7 @@ export function CalculatorTab() {
               <div className="flex gap-2 mb-2">
                 <Button
                   onClick={handleStartStop}
-                  className={`flex-1 font-bold text-white ${
+                  className={`flex-1 font-bold text-yellow-400 ${
                     timerRunning
                       ? 'bg-red-700 hover:bg-red-600'
                       : 'bg-green-700 hover:bg-green-600'
@@ -1374,7 +1374,7 @@ export function CalculatorTab() {
                     stopTimer();
                   }
                 }}
-                className={`w-full font-bold text-white ${
+                className={`w-full font-bold text-yellow-400 ${
                   timerLoop
                     ? 'bg-amber-700 hover:bg-amber-600'
                     : 'bg-stone-700 hover:bg-stone-600'
