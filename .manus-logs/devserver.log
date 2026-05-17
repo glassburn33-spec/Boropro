@@ -5534,3 +5534,18 @@
 [2026-05-17T22:45:01.259Z] 6:45:01 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
 [2026-05-17T22:53:15.569Z] [Auth] Missing session cookie
 [2026-05-17T22:57:35.245Z] 6:57:35 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
+[2026-05-17T23:04:24.858Z] 7:04:24 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:04:40.913Z] 7:04:40 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:04:58.576Z] 7:04:58 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:05:14.816Z] 7:05:14 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T23:05:15.222Z] 7:05:15 PM [vite] (client) warning: Duplicate "onClick" attribute in JSX element
+[2026-05-17T23:05:15.222Z] 1015 |                            }
+[2026-05-17T23:05:15.223Z] 1016 |                          }}
+[2026-05-17T23:05:15.223Z] 1017 |                          onClick={() => {
+[2026-05-17T23:05:15.223Z] |                          ^
+[2026-05-17T23:05:15.224Z] 1018 |                            try {
+[2026-05-17T23:05:15.224Z] 1019 |                              // Generate the same HTML content as preview with selected temperature unit
+[2026-05-17T23:05:15.224Z] 
+[2026-05-17T23:05:15.225Z] Plugin: vite:esbuild
+[2026-05-17T23:05:15.225Z] File: /home/ubuntu/boro_kiln_research/client/src/pages/Logs.tsx
+[2026-05-17T23:05:29.042Z] 7:05:29 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css

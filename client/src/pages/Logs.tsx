@@ -98,6 +98,7 @@ export default function Logs() {
   const [savedComboSelectionMode, setSavedComboSelectionMode] = useState(false);
   const [selectedSavedCombos, setSelectedSavedCombos] = useState<Set<string>>(new Set());
   const [showCheckboxes, setShowCheckboxes] = useState(false);
+  const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedLogIds, setSelectedLogIds] = useState<Set<string>>(new Set());
   const [folders, setFolders] = useState<Folder[]>([]);
@@ -937,127 +938,139 @@ export default function Logs() {
 
                     <div className="flex flex-wrap gap-2">
                       <button
-                        onClick={() => handlePreviewPDF(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
-                        title="View log"
-                      >
-                        <span>View</span>
-                      </button>
-
-                      {/* Upload PDF button - Temperature Unit Toggle */}
-                      <button
-                        onClick={() => {
-                          try {
-                            // Generate the same HTML content as preview with selected temperature unit
-                            const htmlContent = generatePDFContent(log, tempUnit);
-                            
-                            // Create a temporary iframe to render the HTML
-                            const iframe = document.createElement('iframe');
-                            iframe.style.display = 'none';
-                            document.body.appendChild(iframe);
-                            
-                            iframe.onload = () => {
-                              try {
-                                // Write HTML to iframe
-                                iframe.contentDocument?.write(htmlContent);
-                                iframe.contentDocument?.close();
-                                
-                                // Use html2pdf library if available, otherwise use print to PDF
-                                setTimeout(() => {
-                                  const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
-                                  
-                                  // Try using html2pdf if available
-                                  if (typeof (window as any).html2pdf !== 'undefined') {
-                                    const element = iframe.contentDocument?.body;
-                                    if (element) {
-                                      (window as any).html2pdf().set({
-                                        margin: 10,
-                                        filename: filename,
-                                        image: { type: 'jpeg', quality: 0.98 },
-                                        html2canvas: { scale: 2 },
-                                        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-                                      }).from(element).save();
-                                      toast.success('PDF downloaded successfully!');
-                                    }
-                                  } else {
-                                    // Fallback: Use print dialog
-                                    iframe.contentWindow?.print();
-                                    toast.success('PDF ready to print');
-                                  }
-                                  
-                                  // Clean up
-                                  setTimeout(() => {
-                                    document.body.removeChild(iframe);
-                                  }, 1000);
-                                }, 500);
-                              } catch (error) {
-                                console.error('Failed to process PDF:', error);
-                                toast.error('Failed to generate PDF');
-                                document.body.removeChild(iframe);
-                              }
-                            };
-                            
-                            iframe.src = 'about:blank';
-                          } catch (error) {
-                            console.error('Failed to generate PDF:', error);
-                            toast.error('Failed to generate PDF');
-                          }
-                        }}
-                        style={{
-                          backgroundColor: log.lineColor || '#15803d',
-                          borderColor: log.lineColor || '#15803d',
-                        }}
-                        className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80 text-xs sm:text-sm"
-                        title="Download log as PDF"
-                      >
-                        <span>PDF</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setColorWheelLog(log);
-                          setShowColorWheelModal(true);
-                        }}
-                        className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
-                        title="View glass colors used"
-                      >
-                        <span>Colors</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleOpenComments(log)}
-                        className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-xs sm:text-sm"
-                        title="View and edit comments"
-                      >
-                        <span>Notes</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          const newName = prompt('Enter new log name:', log.name);
-                          if (newName && newName.trim()) {
-                            const updatedLogs = logs.map(l => 
-                              l.id === log.id ? { ...l, name: newName.trim() } : l
-                            );
-                            setLogs(updatedLogs);
-                            localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                            window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
-                            toast.success('Log renamed successfully!');
-                          }
-                        }}
+                        onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}
                         className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
-                        title="Rename log"
+                        title="Edit log"
                       >
-                        <span>Rename</span>
+                        <span>{expandedLogId === log.id ? 'Hide' : 'Edit'}</span>
                       </button>
 
-                      <button
-                        onClick={() => handleDelete(log.id)}
-                        className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
-                        title="Delete log (requires confirmation)"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      {expandedLogId === log.id && (
+                        <>
+                          <button
+                            onClick={() => handlePreviewPDF(log)}
+                            className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            title="View log"
+                          >
+                            <span>View</span>
+                          </button>
+
+                          {/* Upload PDF button - Temperature Unit Toggle */}
+                          <button
+                            onClick={() => {
+                              try {
+                                // Generate the same HTML content as preview with selected temperature unit
+                                const htmlContent = generatePDFContent(log, tempUnit);
+                                
+                                // Create a temporary iframe to render the HTML
+                                const iframe = document.createElement('iframe');
+                                iframe.style.display = 'none';
+                                document.body.appendChild(iframe);
+                                
+                                iframe.onload = () => {
+                                  try {
+                                    // Write HTML to iframe
+                                    iframe.contentDocument?.write(htmlContent);
+                                    iframe.contentDocument?.close();
+                                    
+                                    // Use html2pdf library if available, otherwise use print to PDF
+                                    setTimeout(() => {
+                                      const filename = `${log.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                                      
+                                      // Try using html2pdf if available
+                                      if (typeof (window as any).html2pdf !== 'undefined') {
+                                        const element = iframe.contentDocument?.body;
+                                        if (element) {
+                                          (window as any).html2pdf().set({
+                                            margin: 10,
+                                            filename: filename,
+                                            image: { type: 'jpeg', quality: 0.98 },
+                                            html2canvas: { scale: 2 },
+                                            jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                                          }).from(element).save();
+                                          toast.success('PDF downloaded successfully!');
+                                        }
+                                      } else {
+                                        // Fallback: Use print dialog
+                                        iframe.contentWindow?.print();
+                                        toast.success('PDF ready to print');
+                                      }
+                                      
+                                      // Clean up
+                                      setTimeout(() => {
+                                        document.body.removeChild(iframe);
+                                      }, 1000);
+                                    }, 500);
+                                  } catch (error) {
+                                    console.error('Failed to process PDF:', error);
+                                    toast.error('Failed to generate PDF');
+                                    document.body.removeChild(iframe);
+                                  }
+                                };
+                                
+                                iframe.src = 'about:blank';
+                              } catch (error) {
+                                console.error('Failed to generate PDF:', error);
+                                toast.error('Failed to generate PDF');
+                              }
+                            }}
+                            style={{
+                              backgroundColor: log.lineColor || '#15803d',
+                              borderColor: log.lineColor || '#15803d',
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 text-white rounded transition-colors hover:opacity-80 text-xs sm:text-sm"
+                            title="Download log as PDF"
+                          >
+                            <span>PDF</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setColorWheelLog(log);
+                              setShowColorWheelModal(true);
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            title="View glass colors used"
+                          >
+                            <span>Colors</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleOpenComments(log)}
+                            className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            title="View and edit comments"
+                          >
+                            <span>Notes</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              const newName = prompt('Enter new log name:', log.name);
+                              if (newName && newName.trim()) {
+                                const updatedLogs = logs.map(l => 
+                                  l.id === log.id ? { ...l, name: newName.trim() } : l
+                                );
+                                setLogs(updatedLogs);
+                                localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                                window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                                toast.success('Log renamed successfully!');
+                              }
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            title="Rename log"
+                          >
+                            <span>Rename</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleDelete(log.id)}
+                            className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
+                            title="Delete log (requires confirmation)"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
