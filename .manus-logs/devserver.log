@@ -4427,3 +4427,11 @@
 [2026-05-17T18:26:21.129Z] 1063 |
 [2026-05-17T18:26:21.130Z] 1064 |        {/* Preview Modal */}
 [2026-05-17T18:26:31.982Z] 2:26:31 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T19:06:42.985Z] Starting dev server with command: pnpm run dev
+[2026-05-17T19:06:43.804Z] 
+[2026-05-17T19:06:43.805Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-17T19:06:43.806Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-17T19:06:43.806Z] 
+[2026-05-17T19:06:45.678Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-17T19:06:45.970Z] Server running on http://localhost:3000/
+[2026-05-17T19:09:03.061Z] 3:09:03 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
