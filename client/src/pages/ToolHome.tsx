@@ -31,8 +31,8 @@ export default function ToolHome() {
             <a href="/firing-tracker" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               Kiln Editor
             </a>
-            <a href="/tools" className="text-xs uppercase tracking-wider text-amber-500">
-              Tools
+            <a href="/logs" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
+              Log
             </a>
             <a href="/references" className="text-xs uppercase tracking-wider text-stone-400 hover:text-amber-500 transition-colors">
               References
@@ -85,11 +85,11 @@ export default function ToolHome() {
               Kiln Editor
             </a>
             <a
-              href="/tools"
+              href="/logs"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-3 bg-amber-500/40 hover:bg-amber-500/50 text-amber-300 rounded transition text-center font-medium uppercase text-xs tracking-wider"
+              className="px-4 py-3 bg-amber-700/30 hover:bg-amber-700/50 text-amber-400 hover:text-orange-400 rounded transition text-center font-medium uppercase text-xs tracking-wider"
             >
-              Tools
+              Log
             </a>
             <a
               href="/references"
