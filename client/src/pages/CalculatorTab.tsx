@@ -1194,8 +1194,12 @@ export function CalculatorTab() {
                         }
                       }
                       const parsed = parseFloat(val);
-                      if (!isNaN(parsed) && parsed > 0) {
+                      // Allow intermediate states (0., ., etc.) and only validate when complete
+                      if (!isNaN(parsed)) {
                         setThickness((parsed * 25.4).toString());
+                      } else if (val === '.' || val.endsWith('.')) {
+                        // Allow typing just a dot or ending with dot for decimal input
+                        setThickness((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {
@@ -1240,8 +1244,12 @@ export function CalculatorTab() {
                         }
                       }
                       const parsed = parseFloat(val);
-                      if (!isNaN(parsed) && parsed > 0) {
+                      // Allow intermediate states (0., ., etc.) and only validate when complete
+                      if (!isNaN(parsed)) {
                         setRadius(String((parsed * 25.4) / 2));
+                      } else if (val === '.' || val.endsWith('.')) {
+                        // Allow typing just a dot or ending with dot for decimal input
+                        setRadius(String((parseFloat(val.replace('.', '') || '0') * 25.4) / 2));
                       }
                     }
                   } else {
@@ -1279,8 +1287,12 @@ export function CalculatorTab() {
                         }
                       }
                       const parsed = parseFloat(val);
-                      if (!isNaN(parsed) && parsed > 0) {
+                      // Allow intermediate states (0., ., etc.) and only validate when complete
+                      if (!isNaN(parsed)) {
                         setLength((parsed * 25.4).toString());
+                      } else if (val === '.' || val.endsWith('.')) {
+                        // Allow typing just a dot or ending with dot for decimal input
+                        setLength((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {
@@ -1318,8 +1330,12 @@ export function CalculatorTab() {
                         }
                       }
                       const parsed = parseFloat(val);
-                      if (!isNaN(parsed) && parsed > 0) {
+                      // Allow intermediate states (0., ., etc.) and only validate when complete
+                      if (!isNaN(parsed)) {
                         setWidth((parsed * 25.4).toString());
+                      } else if (val === '.' || val.endsWith('.')) {
+                        // Allow typing just a dot or ending with dot for decimal input
+                        setWidth((parseFloat(val.replace('.', '') || '0') * 25.4).toString());
                       }
                     }
                   } else {

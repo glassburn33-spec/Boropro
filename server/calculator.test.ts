@@ -159,6 +159,34 @@ describe('Calculator Fahrenheit Dimension Input Validation', () => {
       expect(input).toBe('0.12');
     });
 
+    it('should allow typing just a decimal point', () => {
+      const input = '.';
+      expect(validateDecimalPlaces(input)).toBe(true);
+    });
+
+    it('should allow typing decimal point after a number', () => {
+      const input = '5.';
+      expect(validateDecimalPlaces(input)).toBe(true);
+    });
+
+    it('should allow deleting first decimal digit (0.1 to 0.)', () => {
+      let input = '0.1';
+      expect(validateDecimalPlaces(input)).toBe(true);
+      
+      input = input.slice(0, -1); // Delete the 1
+      expect(validateDecimalPlaces(input)).toBe(true);
+      expect(input).toBe('0.');
+    });
+
+    it('should allow deleting decimal point (0. to 0)', () => {
+      let input = '0.';
+      expect(validateDecimalPlaces(input)).toBe(true);
+      
+      input = input.slice(0, -1); // Delete the dot
+      expect(validateDecimalPlaces(input)).toBe(true);
+      expect(input).toBe('0');
+    });
+
     it('should reject user trying to type 0.1234', () => {
       const input = '0.1234';
       expect(validateDecimalPlaces(input)).toBe(false);
@@ -173,6 +201,17 @@ describe('Calculator Fahrenheit Dimension Input Validation', () => {
       
       const mm = inchesToMillimeters(parseFloat(input));
       expect(mm).toBeCloseTo(12.7, 1);
+    });
+
+    it('should handle user typing decimal point to add decimals to integer', () => {
+      let input = '5';
+      expect(validateDecimalPlaces(input)).toBe(true);
+      
+      input = '5.'; // User types decimal point
+      expect(validateDecimalPlaces(input)).toBe(true);
+      
+      input = '5.1'; // User types first decimal digit
+      expect(validateDecimalPlaces(input)).toBe(true);
     });
   });
 });
