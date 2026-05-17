@@ -5191,3 +5191,10 @@
 [2026-05-17T21:45:04.589Z] at <anonymous> (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/statement.ts:1695:12)
 [2026-05-17T21:45:21.186Z] 5:45:21 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T21:45:46.447Z] 5:45:46 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css
+[2026-05-17T21:50:26.521Z] 5:50:26 PM [vite] (client) hmr update /src/pages/ColorScience.tsx, /src/index.css
+[2026-05-17T21:50:30.905Z] [Auth] Missing session cookie
+[2026-05-17T21:50:38.662Z] 5:50:38 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-17T21:50:57.558Z] 5:50:57 PM [vite] (client) hmr update /src/pages/CalculatorTab.tsx, /src/index.css
+[2026-05-17T21:51:15.670Z] 5:51:15 PM [vite] (client) hmr update /src/pages/FiringTracker.tsx, /src/index.css
+[2026-05-17T21:51:35.429Z] 5:51:35 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-17T21:51:51.513Z] 5:51:51 PM [vite] (client) hmr update /src/pages/ToolHome.tsx, /src/index.css

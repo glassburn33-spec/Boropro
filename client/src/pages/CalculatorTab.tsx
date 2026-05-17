@@ -933,7 +933,7 @@ export function CalculatorTab() {
     <div className="min-h-screen flex flex-col bg-stone-950 text-stone-100">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
-        <div className="container flex items-center justify-between py-4">
+        <div className="container flex items-center justify-between py-3 md:py-4 px-3 md:px-0">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-24 w-24 object-contain" />
