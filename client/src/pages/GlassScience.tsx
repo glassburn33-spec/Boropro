@@ -243,6 +243,15 @@ function StudioTab() {
         <h1 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Glass Science</h1>
       </div>
 
+      {/* GLASS SCIENCE HEADER IMAGE */}
+      <div className="w-full flex flex-col items-center mb-6">
+        <img
+          src="/manus-storage/Gemini_Generated_Image_i657vfi657vfi657_70af8fcb.png"
+          alt="Borosilicate glass structure showing glass tube with molecular composition of silicon, boron, and oxygen atoms"
+          className="w-full max-w-4xl rounded-xl border border-stone-700 shadow-lg"
+        />
+      </div>
+
       {/* GLASS SCIENCE HEADER */}
       <div className="border-t border-stone-700 pt-8 mt-8">
 
