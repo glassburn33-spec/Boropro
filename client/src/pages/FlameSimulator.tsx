@@ -316,7 +316,7 @@ export default function FlameChemistryCharacterization() {
                 onClick={() => toggleSection("flameTypes")}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
               >
-                <h2 className="text-2xl font-bold text-white">The Three Flame Types</h2>
+                <h2 className="text-2xl font-bold text-yellow-400">The Three Flame Types</h2>
                 <ChevronDown
                   className={`w-6 h-6 text-amber-500 transition-transform ${
                     expandedSection === "flameTypes" ? "rotate-180" : ""
@@ -350,7 +350,7 @@ export default function FlameChemistryCharacterization() {
                 onClick={() => toggleSection("colorFamily")}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
               >
-                <h2 className="text-2xl font-bold text-white">Color Families</h2>
+                <h2 className="text-2xl font-bold text-yellow-400">Color Families</h2>
                 <ChevronDown
                   className={`w-6 h-6 text-amber-500 transition-transform ${
                     expandedSection === "colorFamily" ? "rotate-180" : ""
@@ -370,7 +370,7 @@ export default function FlameChemistryCharacterization() {
                 onClick={() => toggleSection("thermochromism")}
                 className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
               >
-                <h2 className="text-2xl font-bold text-white">Interactive Thermochromism Simulator</h2>
+                <h2 className="text-2xl font-bold text-yellow-400">Interactive Thermochromism Simulator</h2>
                 <ChevronDown
                   className={`w-6 h-6 text-amber-500 transition-transform ${
                     expandedSection === "thermochromism" ? "rotate-180" : ""
