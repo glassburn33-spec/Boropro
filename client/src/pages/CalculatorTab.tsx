@@ -1156,12 +1156,13 @@ export function CalculatorTab() {
               </label>
               <Input
                 type="text" 
-                value={tempUnit === 'F' ? ((parseFloat(radius) * 2) / 25.4).toFixed(3) : (parseFloat(radius) * 2)} 
+                value={tempUnit === 'F' ? (parseFloat(radius) * 2 / 25.4).toFixed(3) : parseFloat(radius) * 2 || ''} 
                 onChange={(e) => {
+                  const diameterValue = e.target.value;
                   if (tempUnit === 'F') {
-                    setRadius(((parseFloat(e.target.value) * 25.4) / 2).toString());
+                    setRadius((parseFloat(diameterValue) * 25.4 / 2).toString());
                   } else {
-                    setRadius((parseFloat(e.target.value) / 2).toString());
+                    setRadius((parseFloat(diameterValue) / 2).toString());
                   }
                 }}
                 placeholder={tempUnit === 'F' ? '0.984' : '25'}
