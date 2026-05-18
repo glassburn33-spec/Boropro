@@ -4001,3 +4001,29 @@
 [2026-05-18T00:24:04.797Z] {"timestamp":1779063842802,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-18T00:24:04.797Z] {"timestamp":1779063843050,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-18T00:24:06.798Z] {"timestamp":1779063844992,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:24:22.789Z] {"timestamp":1779063860778,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:24:22.789Z] {"timestamp":1779063860819,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:24:22.789Z] {"timestamp":1779063861152,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:24:22.789Z] {"timestamp":1779063861294,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:24:32.413Z] {"timestamp":1779063870293,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:24:32.413Z] {"timestamp":1779063870533,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:24:38.142Z] {"timestamp":1779063876136,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:24:38.142Z] {"timestamp":1779063876143,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:24:38.142Z] {"timestamp":1779063876357,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:24:38.142Z] {"timestamp":1779063877982,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:24:44.407Z] {"timestamp":1779063883801,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:24:48.407Z] {"timestamp":1779063887620,"level":"DEBUG","args":["#1","0ms","Starting document clone with size 375x625 scrolled to 0,-555"],"stack":null}
+[2026-05-18T00:24:48.407Z] {"timestamp":1779063887727,"level":"WARN","args":["#1","107ms","Unable to restore scroll position for cloned document"],"stack":null}
+[2026-05-18T00:24:56.435Z] {"timestamp":1779063896027,"level":"DEBUG","args":["#1","8407ms","Document cloned, element located at 0,0 with size 718.109375x1360.046875 using computed rendering"],"stack":null}
+[2026-05-18T00:24:56.435Z] {"timestamp":1779063896027,"level":"DEBUG","args":["#1","8407ms","Starting DOM parsing"],"stack":null}
+[2026-05-18T00:24:56.435Z] {"timestamp":1779063896030,"level":"ERROR","args":["html2pdf error:",{"type":"Error","message":"Attempting to parse an unsupported color function \"oklch\"","stack":"parse@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:1678:30\nCSSParsedDeclaration2@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:3563:40\nElementContainer2@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:3761:51\ncreateContainer@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:4646:36\nparseTree@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:4649:40\n@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:7756:33\nstep@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:124:27\nfulfilled@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@fs/home/ubuntu/boro_kiln_research/node_modules/.vite/deps/html2pdf__js.js:48:34"}],"stack":"@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:46\n@https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/src/pages/Logs.tsx:1297:44"}
+[2026-05-18T00:24:58.774Z] {"timestamp":1779063896664,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:24:58.774Z] {"timestamp":1779063896925,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:25:12.772Z] {"timestamp":1779063911049,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:25:21.647Z] {"timestamp":1779063920494,"level":"DEBUG","args":["#1","0ms","Starting document clone with size 1194x777 scrolled to 0,-902"],"stack":null}
+[2026-05-18T00:26:08.788Z] {"timestamp":1779063968550,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-18T00:26:08.788Z] {"timestamp":1779063968554,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-18T00:26:19.621Z] {"timestamp":1779063977617,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:26:19.621Z] {"timestamp":1779063977626,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:26:19.621Z] {"timestamp":1779063977876,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:26:21.622Z] {"timestamp":1779063980509,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

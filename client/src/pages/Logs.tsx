@@ -1032,51 +1032,124 @@ export default function Logs() {
                           <button
                             onClick={() => {
                               try {
-                                // Create a clean HTML element without app styles to avoid OKLCH color parsing issues
-                                const element = document.createElement('div');
-                                element.innerHTML = generatePDFContent(log);
-                                
-                                // Remove all inherited styles and set clean inline styles
-                                element.style.cssText = `
-                                  padding: 20px;
-                                  background-color: white;
-                                  color: black;
-                                  font-family: Arial, sans-serif;
-                                  margin: 0;
-                                `;
-                                
-                                // Recursively clean styles from all child elements
-                                const cleanStyles = (el: HTMLElement) => {
-                                  el.style.cssText = el.getAttribute('style') || '';
-                                  Array.from(el.children).forEach(child => {
-                                    if (child instanceof HTMLElement) {
-                                      cleanStyles(child);
+                                // Use jsPDF directly to avoid html2pdf OKLCH color parsing freeze
+                                const doc = new (jsPDF as any)();
+                                const pageWidth = doc.internal.pageSize.getWidth();
+                                const pageHeight = doc.internal.pageSize.getHeight();
+                                let yPosition = 20;
+
+                                // Header
+                                doc.setFontSize(18);
+                                doc.setTextColor(40, 40, 40);
+                                doc.text('KILN LOG RECORD', pageWidth / 2, yPosition, { align: 'center' });
+
+                                yPosition += 15;
+
+                                // Log name
+                                doc.setFontSize(14);
+                                doc.setTextColor(60, 60, 60);
+                                doc.text(log.name, pageWidth / 2, yPosition, { align: 'center' });
+
+                                yPosition += 12;
+
+                                // Generated date
+                                doc.setFontSize(9);
+                                doc.setTextColor(100, 100, 100);
+                                doc.text(`Generated: ${new Date().toLocaleString()}`, pageWidth / 2, yPosition, { align: 'center' });
+
+                                yPosition += 15;
+
+                                // Log info box
+                                doc.setDrawColor(150, 150, 150);
+                                doc.rect(15, yPosition - 8, pageWidth - 30, 35);
+
+                                doc.setFontSize(11);
+                                doc.setTextColor(40, 40, 40);
+                                doc.text('LOG INFORMATION', 20, yPosition);
+
+                                yPosition += 8;
+
+                                doc.setFontSize(10);
+                                doc.setTextColor(60, 60, 60);
+
+                                const colWidth = (pageWidth - 30) / 2;
+                                doc.text(`Created: ${new Date(log.createdAt).toLocaleString()}`, 20, yPosition);
+                                doc.text(`Data Points: ${log.temperatures.length}`, 20 + colWidth, yPosition);
+
+                                yPosition += 15;
+
+                                // Temperature data
+                                if (log.temperatures.length > 0) {
+                                  yPosition += 5;
+
+                                  doc.setFontSize(11);
+                                  doc.setTextColor(40, 40, 40);
+                                  doc.text('TEMPERATURE SCHEDULE', 20, yPosition);
+
+                                  yPosition += 7;
+
+                                  doc.setFontSize(9);
+                                  doc.setTextColor(80, 80, 80);
+
+                                  const tempColWidth = (pageWidth - 40) / 2;
+                                  doc.text('Temperature (°C)', 20, yPosition);
+                                  doc.text('Time (min)', 20 + tempColWidth, yPosition);
+
+                                  yPosition += 5;
+
+                                  // Draw data rows
+                                  const maxRows = Math.max(log.temperatures.length, log.times.length);
+                                  for (let i = 0; i < maxRows; i++) {
+                                    if (yPosition > pageHeight - 20) {
+                                      doc.addPage();
+                                      yPosition = 20;
                                     }
-                                  });
-                                };
-                                cleanStyles(element);
-                                
-                                const opt = {
-                                  margin: 10,
-                                  filename: `${log.name}-${new Date().toISOString().split('T')[0]}.pdf`,
-                                  image: { type: 'png' as const, quality: 0.98 },
-                                  html2canvas: { 
-                                    scale: 2, 
-                                    backgroundColor: '#ffffff',
-                                    useCORS: true,
-                                    allowTaint: true
-                                  },
-                                  jsPDF: { orientation: 'portrait' as const, unit: 'mm', format: 'a4' }
-                                };
-                                
-                                (html2pdf() as any)
-                                  .set(opt)
-                                  .from(element)
-                                  .save()
-                                  .catch((err: any) => {
-                                    console.error('html2pdf error:', err);
-                                    toast.error('PDF generation failed: ' + (err?.message || 'Unknown error'));
-                                  });
+
+                                    const temp = log.temperatures[i] !== undefined ? log.temperatures[i].toString() : '';
+                                    const time = log.times[i] !== undefined ? log.times[i].toString() : '';
+
+                                    doc.text(temp, 20, yPosition);
+                                    doc.text(time, 20 + tempColWidth, yPosition);
+
+                                    yPosition += 5;
+                                  }
+
+                                  yPosition += 5;
+                                }
+
+                                // Notes
+                                if (log.notes) {
+                                  yPosition += 5;
+
+                                  if (yPosition > pageHeight - 30) {
+                                    doc.addPage();
+                                    yPosition = 20;
+                                  }
+
+                                  doc.setFontSize(11);
+                                  doc.setTextColor(40, 40, 40);
+                                  doc.text('NOTES', 20, yPosition);
+
+                                  yPosition += 7;
+
+                                  doc.setFontSize(9);
+                                  doc.setTextColor(80, 80, 80);
+                                  const noteLines = doc.splitTextToSize(log.notes, pageWidth - 40);
+                                  doc.text(noteLines, 20, yPosition);
+                                }
+
+                                // Footer
+                                doc.setFontSize(8);
+                                doc.setTextColor(150, 150, 150);
+                                doc.text(
+                                  'Generated by BoroPro - Borosilicate Kiln Research Platform',
+                                  pageWidth / 2,
+                                  pageHeight - 10,
+                                  { align: 'center' }
+                                );
+
+                                // Save the PDF
+                                doc.save(`${log.name}-${new Date().toISOString().split('T')[0]}.pdf`);
                                 toast.success('PDF downloaded successfully');
                               } catch (error) {
                                 console.error('PDF generation error:', error);
