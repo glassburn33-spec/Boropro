@@ -5740,3 +5740,6 @@
 [2026-05-17T23:59:23.860Z] 7:59:23 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-17T23:59:25.498Z] 7:59:25 PM [vite] (client) ✨ new dependencies optimized: html2pdf.js
 [2026-05-17T23:59:25.505Z] 7:59:25 PM [vite] (client) ✨ optimized dependencies changed. reloading
+[2026-05-18T00:01:55.564Z] 8:01:55 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-18T00:02:10.434Z] 8:02:10 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-18T00:02:19.855Z] 8:02:19 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css

@@ -1168,22 +1168,22 @@ export default function Logs() {
                 onClick={async () => {
                   if (selectedLog && pdfPreviewContent) {
                     try {
-                      const html2pdf = (window as any).html2pdf;
-                      if (html2pdf) {
-                        const element = document.createElement('div');
-                        element.innerHTML = pdfPreviewContent;
-                        const opt = {
-                          margin: 10,
-                          filename: `${selectedLog.name}-${new Date().toISOString().split('T')[0]}.pdf`,
-                          image: { type: 'jpeg', quality: 0.98 },
-                          html2canvas: { scale: 2 },
-                          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-                        };
-                        html2pdf().set(opt).from(element).save();
-                        toast.success('PDF downloaded successfully');
-                      } else {
-                        throw new Error('PDF library not loaded');
-                      }
+                      const element = document.createElement('div');
+                      element.innerHTML = pdfPreviewContent;
+                      element.style.padding = '20px';
+                      element.style.backgroundColor = 'white';
+                      element.style.color = 'black';
+                      
+                      const opt = {
+                        margin: 10,
+                        filename: `${selectedLog.name}-${new Date().toISOString().split('T')[0]}.pdf`,
+                        image: { type: 'png' as const, quality: 0.98 },
+                        html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+                        jsPDF: { orientation: 'portrait' as const, unit: 'mm', format: 'a4' }
+                      };
+                      
+                      await html2pdf().set(opt).from(element).save();
+                      toast.success('PDF downloaded successfully');
                     } catch (error) {
                       console.error('PDF generation error:', error);
                       toast.error('Failed to generate PDF');
