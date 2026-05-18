@@ -4352,16 +4352,3 @@
 [2026-05-18T02:22:13.576Z] {"timestamp":1779070931398,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
 [2026-05-18T02:22:13.576Z] {"timestamp":1779070931644,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-18T02:22:13.576Z] {"timestamp":1779070933198,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T02:31:36.064Z] {"timestamp":1779071493839,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T02:31:36.064Z] {"timestamp":1779071494753,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T02:31:44.142Z] {"timestamp":1779071502134,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T02:31:44.142Z] {"timestamp":1779071502143,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T02:31:44.142Z] {"timestamp":1779071502353,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-18T02:31:44.142Z] {"timestamp":1779071503862,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T02:31:58.139Z] {"timestamp":1779071517439,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T02:33:00.070Z] {"timestamp":1779071579852,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/References.tsx"],"stack":null}
-[2026-05-18T02:33:00.070Z] {"timestamp":1779071579852,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
-[2026-05-18T02:33:06.943Z] {"timestamp":1779071584939,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T02:33:06.943Z] {"timestamp":1779071584946,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T02:33:06.943Z] {"timestamp":1779071585140,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-18T02:33:06.943Z] {"timestamp":1779071586687,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
