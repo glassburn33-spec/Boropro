@@ -4072,3 +4072,51 @@
 [2026-05-18T00:30:28.575Z] {"timestamp":1779064226574,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-18T00:30:28.575Z] {"timestamp":1779064226865,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-18T00:30:28.575Z] {"timestamp":1779064228331,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:30:49.614Z] {"timestamp":1779064247600,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:30:49.614Z] {"timestamp":1779064247643,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:30:49.614Z] {"timestamp":1779064248070,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:30:49.614Z] {"timestamp":1779064248220,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:30:50.561Z] {"timestamp":1779064248455,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:30:50.561Z] {"timestamp":1779064248729,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:30:54.570Z] {"timestamp":1779064254239,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:31:05.024Z] {"timestamp":1779064263019,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:31:05.024Z] {"timestamp":1779064263026,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:31:05.024Z] {"timestamp":1779064263266,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:31:05.024Z] {"timestamp":1779064264728,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:31:51.923Z] {"timestamp":1779064309812,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:31:51.923Z] {"timestamp":1779064310035,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:31:51.923Z] {"timestamp":1779064310469,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:31:55.609Z] {"timestamp":1779064314689,"level":"ERROR","args":["[vite]","Failed to reload /src/pages/Logs.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 0)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-18T00:31:55.609Z] {"timestamp":1779064314723,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-18T00:31:55.609Z] {"timestamp":1779064314723,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-18T00:31:58.253Z] {"timestamp":1779064316048,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:31:58.253Z] {"timestamp":1779064316399,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:32:09.610Z] {"timestamp":1779064328469,"level":"ERROR","args":["[vite]","Failed to reload /src/pages/Logs.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 0)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-18T00:32:09.610Z] {"timestamp":1779064328472,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-18T00:32:09.610Z] {"timestamp":1779064328472,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-18T00:32:23.610Z] {"timestamp":1779064342063,"level":"ERROR","args":["[vite]","Failed to reload /src/pages/Logs.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)"],"stack":"Error\n    at console.<computed> [as error] (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/__manus__/debug-collector.js:391:37)\n    at Object.error (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:809:26)\n    at HMRClient.warnFailedUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:181:15)\n    at HMRClient.fetchUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:212:10)\n    at async Promise.all (index 0)\n    at async HMRClient.queueUpdate (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:196:5)\n    at async Promise.all (index 0)\n    at async handleMessage (https://3000-im6sb3rcva3sakhditx7f-597e8b0b.us2.manus.computer/@vite/client:838:4)"}
+[2026-05-18T00:32:23.610Z] {"timestamp":1779064342064,"level":"DEBUG","args":["[vite]","hot updated: /src/pages/Logs.tsx"],"stack":null}
+[2026-05-18T00:32:23.610Z] {"timestamp":1779064342064,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
+[2026-05-18T00:32:40.868Z] {"timestamp":1779064358792,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:32:40.868Z] {"timestamp":1779064358815,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:32:43.505Z] {"timestamp":1779064361402,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:32:43.505Z] {"timestamp":1779064361665,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:32:50.459Z] {"timestamp":1779064368455,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:32:50.459Z] {"timestamp":1779064368467,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:33:57.431Z] {"timestamp":1779064435407,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:33:57.431Z] {"timestamp":1779064435441,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:33:57.518Z] {"timestamp":1779064435412,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:33:57.518Z] {"timestamp":1779064435683,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:34:06.020Z] {"timestamp":1779064444016,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:34:06.020Z] {"timestamp":1779064444022,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:34:26.172Z] {"timestamp":1779064464161,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:34:26.172Z] {"timestamp":1779064464182,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:34:26.172Z] {"timestamp":1779064464923,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:34:26.172Z] {"timestamp":1779064465126,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:34:27.000Z] {"timestamp":1779064464877,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:34:27.000Z] {"timestamp":1779064465354,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:34:33.889Z] {"timestamp":1779064471884,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-05-18T00:34:33.889Z] {"timestamp":1779064471895,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-05-18T00:34:33.889Z] {"timestamp":1779064472144,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-05-18T00:34:33.889Z] {"timestamp":1779064473506,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
+[2026-05-18T00:34:38.963Z] {"timestamp":1779064477385,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}

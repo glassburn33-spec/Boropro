@@ -969,76 +969,73 @@ export default function Logs() {
                           </h3>
                         </div>
                       </div>
-                      <button
-                        onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}
-                        className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm flex-shrink-0"
-                        title="Edit log"
-                      >
-                        <span>{expandedLogId === log.id ? 'Hide' : 'Edit'}</span>
-                      </button>
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}
+                          className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm flex-shrink-0"
+                          title="Edit log"
+                        >
+                          <span>{expandedLogId === log.id ? 'Hide' : 'Edit'}</span>
+                        </button>
+                        <button
+                          onClick={() => handlePreviewPDF(log)}
+                          className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
+                          title="View log"
+                        >
+                          <span>View</span>
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
-                      {expandedLogId === log.id && (
-                        <>
-                          <button
-                            onClick={() => handlePreviewPDF(log)}
-                            className="flex items-center gap-2 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors text-xs sm:text-sm"
-                            title="View log"
-                          >
-                            <span>View</span>
-                          </button>
+                    {expandedLogId === log.id && (
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => {
+                            setColorWheelLog(log);
+                            setShowColorWheelModal(true);
+                          }}
+                          className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
+                          title="View glass colors used"
+                        >
+                          <span>Colors</span>
+                        </button>
 
+                        <button
+                          onClick={() => handleOpenComments(log)}
+                          className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-xs sm:text-sm"
+                          title="View and edit comments"
+                        >
+                          <span>Notes</span>
+                        </button>
 
+                        <button
+                          onClick={() => {
+                            const newName = prompt('Enter new log name:', log.name);
+                            if (newName && newName.trim()) {
+                              const updatedLogs = logs.map(l => 
+                                l.id === log.id ? { ...l, name: newName.trim() } : l
+                              );
+                              setLogs(updatedLogs);
+                              localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
+                              window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
+                              toast.success('Log renamed successfully!');
+                            }
+                          }}
+                          className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
+                          title="Rename log"
+                        >
+                          <span>Rename</span>
+                        </button>
 
-                          <button
-                            onClick={() => {
-                              setColorWheelLog(log);
-                              setShowColorWheelModal(true);
-                            }}
-                            className="flex items-center gap-2 px-3 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded transition-colors text-xs sm:text-sm"
-                            title="View glass colors used"
-                          >
-                            <span>Colors</span>
-                          </button>
-
-                          <button
-                            onClick={() => handleOpenComments(log)}
-                            className="flex items-center gap-2 px-3 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors text-xs sm:text-sm"
-                            title="View and edit comments"
-                          >
-                            <span>Notes</span>
-                          </button>
-
-                          <button
-                            onClick={() => {
-                              const newName = prompt('Enter new log name:', log.name);
-                              if (newName && newName.trim()) {
-                                const updatedLogs = logs.map(l => 
-                                  l.id === log.id ? { ...l, name: newName.trim() } : l
-                                );
-                                setLogs(updatedLogs);
-                                localStorage.setItem('kilnLogs', JSON.stringify(updatedLogs));
-                                window.dispatchEvent(new CustomEvent('logsUpdated', { detail: updatedLogs }));
-                                toast.success('Log renamed successfully!');
-                              }
-                            }}
-                            className="flex items-center gap-2 px-3 py-2 bg-stone-700 hover:bg-stone-600 text-white rounded transition-colors text-xs sm:text-sm"
-                            title="Rename log"
-                          >
-                            <span>Rename</span>
-                          </button>
-
-                          <button
-                            onClick={() => handleDelete(log.id)}
-                            className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
-                            title="Delete log (requires confirmation)"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </>
-                      )}
-                    </div>
+                        <button
+                          onClick={() => handleDelete(log.id)}
+                          className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
+                          title="Delete log (requires confirmation)"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
