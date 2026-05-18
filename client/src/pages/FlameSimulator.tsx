@@ -7,6 +7,7 @@ import { useState, useMemo } from "react";
 import { Flame, Info, ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
 import { ColorFamilyList } from "@/components/ColorFamilyList";
+import { ColorStrikingSimulator } from "@/components/ColorStrikingSimulator";
 
 interface FlameEffect {
   colorFamily: string;
@@ -389,6 +390,38 @@ export default function FlameChemistryCharacterization() {
                       </p>
                       <p>
                         Use the temperature slider to explore how different temperature ranges affect glass color. The working range (1149-1220°C) is where glassblowers typically work, while annealing occurs at much lower temperatures (566-700°C).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Section 4: Color Striking Simulator */}
+            <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
+              <button
+                onClick={() => toggleSection("colorStriking")}
+                className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
+              >
+                <h2 className="text-2xl font-bold text-yellow-400">Color Striking</h2>
+                <ChevronDown
+                  className={`w-6 h-6 text-amber-500 transition-transform ${
+                    expandedSection === "colorStriking" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {expandedSection === "colorStriking" && (
+                <div className="px-6 py-6 border-t border-white/10 space-y-6">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+                    <ColorStrikingSimulator />
+                  </div>
+                  <div className="rounded-2xl border border-stone-700/50 bg-stone-800/50 p-6">
+                    <div className="space-y-2 text-sm text-stone-300">
+                      <p>
+                        <span className="font-semibold text-amber-400">Color Striking</span> is the controlled development of color in sensitive glasses through precise temperature cycling and flame atmosphere control. Different crystal sizes produce different colors — smaller crystals reflect warm tones (yellow, orange), while larger crystals reflect cool tones (blue, green).
+                      </p>
+                      <p>
+                        Use the simulator to explore how heat/cool cycles, flame atmosphere, and temperature ranges affect color development. Each color family has unique striking characteristics based on its metallic colorants and nucleation behavior.
                       </p>
                     </div>
                   </div>

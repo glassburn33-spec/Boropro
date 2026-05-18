@@ -6602,3 +6602,11 @@
 [2026-05-18T00:34:04.171Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
 [2026-05-18T00:34:23.607Z] 8:34:23 PM [vite] (client) hmr update /src/index.css
 [2026-05-18T00:40:55.800Z] 8:40:55 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
+[2026-05-18T00:45:19.611Z] Starting dev server with command: pnpm run dev
+[2026-05-18T00:45:20.556Z] 
+[2026-05-18T00:45:20.557Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-18T00:45:20.557Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-18T00:45:20.558Z] 
+[2026-05-18T00:45:22.572Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-18T00:45:22.958Z] Server running on http://localhost:3000/
+[2026-05-18T00:57:45.695Z] 8:57:45 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
