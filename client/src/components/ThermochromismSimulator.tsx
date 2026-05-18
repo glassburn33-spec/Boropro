@@ -72,15 +72,6 @@ export function ThermochromismSimulator() {
               </div>
             </div>
 
-            {/* Color Bar Section - Positioned right after temperature toggle on mobile */}
-            <div className="lg:hidden border border-stone-700/50 rounded-lg overflow-hidden bg-stone-900/30 p-3">
-              {isSelectedDragonTears ? (
-                <DragonTearsBar temperatureC={temperature} />
-              ) : (
-                <FeaturedColorBar color={selectedColor as any} temperatureC={temperature} />
-              )}
-            </div>
-
             {/* Color Selector Dropdown */}
             <div className="relative">
               <button
@@ -136,8 +127,8 @@ export function ThermochromismSimulator() {
               </p>
             </div>
 
-            {/* Slider and Color Bar Container - Side by side on desktop only */}
-            <div className="hidden lg:flex gap-3 items-stretch">
+            {/* Slider and Color Bar Container - Side by side on desktop, stacked on mobile */}
+            <div className="flex flex-col lg:flex-row gap-3 items-stretch">
               {/* Slider Section */}
               <div className="flex-1 flex flex-col justify-center">
                 <input
@@ -155,30 +146,13 @@ export function ThermochromismSimulator() {
                 </div>
               </div>
 
-              {/* Color Bar Section - Desktop only */}
+              {/* Color Bar Section */}
               <div className="flex-1 border border-stone-700/50 rounded-lg overflow-hidden bg-stone-900/30 p-3">
                 {isSelectedDragonTears ? (
                   <DragonTearsBar temperatureC={temperature} />
                 ) : (
                   <FeaturedColorBar color={selectedColor as any} temperatureC={temperature} />
                 )}
-              </div>
-            </div>
-
-            {/* Mobile slider - shown below color bar on mobile */}
-            <div className="lg:hidden">
-              <input
-                type="range"
-                min="20"
-                max="1220"
-                value={temperature}
-                onChange={(e) => setTemperature(Number(e.target.value))}
-                className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer"
-              />
-              {/* Temperature Range Labels */}
-              <div className="flex justify-between text-xs text-stone-500 gap-2 mt-2">
-                <span className="truncate">20°C</span>
-                <span className="truncate">1220°C</span>
               </div>
             </div>
           </div>

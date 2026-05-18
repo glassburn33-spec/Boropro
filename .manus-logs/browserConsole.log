@@ -4158,28 +4158,3 @@
 [2026-05-18T00:41:03.774Z] {"timestamp":1779064861778,"level":"DEBUG","args":["[vite] connected."],"stack":null}
 [2026-05-18T00:41:03.774Z] {"timestamp":1779064862052,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
 [2026-05-18T00:41:03.774Z] {"timestamp":1779064863473,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:41:21.420Z] {"timestamp":1779064879404,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:41:21.420Z] {"timestamp":1779064879437,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:41:21.420Z] {"timestamp":1779064879873,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-18T00:41:21.420Z] {"timestamp":1779064880019,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:41:37.032Z] {"timestamp":1779064895020,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:41:37.032Z] {"timestamp":1779064895023,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:41:37.032Z] {"timestamp":1779064895336,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-18T00:41:37.032Z] {"timestamp":1779064896653,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:42:06.065Z] {"timestamp":1779064923981,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:42:06.065Z] {"timestamp":1779064924326,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:42:11.510Z] {"timestamp":1779064929428,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:42:11.510Z] {"timestamp":1779064929799,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:42:18.105Z] {"timestamp":1779064936426,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:42:27.205Z] {"timestamp":1779064945118,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:42:27.205Z] {"timestamp":1779064945432,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:42:27.205Z] {"timestamp":1779064945772,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:42:33.556Z] {"timestamp":1779064953303,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
-[2026-05-18T00:44:19.260Z] {"timestamp":1779065058171,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
-[2026-05-18T00:44:19.260Z] {"timestamp":1779065058172,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
-[2026-05-18T00:44:19.414Z] {"timestamp":1779065057696,"level":"DEBUG","args":["[vite]","hot updated: /src/index.css"],"stack":null}
-[2026-05-18T00:44:19.414Z] {"timestamp":1779065057697,"level":"DEBUG","args":["[vite]","hot updated: /src/components/ThermochromismSimulator.tsx"],"stack":null}
-[2026-05-18T00:44:24.932Z] {"timestamp":1779065062926,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
-[2026-05-18T00:44:24.932Z] {"timestamp":1779065062938,"level":"DEBUG","args":["[vite] connected."],"stack":null}
-[2026-05-18T00:44:24.932Z] {"timestamp":1779065063187,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
-[2026-05-18T00:44:24.932Z] {"timestamp":1779065064802,"level":"LOG","args":["Service Worker registered:",{}],"stack":null}
