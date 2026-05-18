@@ -1032,25 +1032,55 @@ export default function Logs() {
                           <button
                             onClick={() => {
                               try {
+                                // Create a clean HTML element without app styles to avoid OKLCH color parsing issues
                                 const element = document.createElement('div');
                                 element.innerHTML = generatePDFContent(log);
-                                element.style.padding = '20px';
-                                element.style.backgroundColor = 'white';
-                                element.style.color = 'black';
+                                
+                                // Remove all inherited styles and set clean inline styles
+                                element.style.cssText = `
+                                  padding: 20px;
+                                  background-color: white;
+                                  color: black;
+                                  font-family: Arial, sans-serif;
+                                  margin: 0;
+                                `;
+                                
+                                // Recursively clean styles from all child elements
+                                const cleanStyles = (el: HTMLElement) => {
+                                  el.style.cssText = el.getAttribute('style') || '';
+                                  Array.from(el.children).forEach(child => {
+                                    if (child instanceof HTMLElement) {
+                                      cleanStyles(child);
+                                    }
+                                  });
+                                };
+                                cleanStyles(element);
                                 
                                 const opt = {
                                   margin: 10,
                                   filename: `${log.name}-${new Date().toISOString().split('T')[0]}.pdf`,
                                   image: { type: 'png' as const, quality: 0.98 },
-                                  html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+                                  html2canvas: { 
+                                    scale: 2, 
+                                    backgroundColor: '#ffffff',
+                                    useCORS: true,
+                                    allowTaint: true
+                                  },
                                   jsPDF: { orientation: 'portrait' as const, unit: 'mm', format: 'a4' }
                                 };
                                 
-                                html2pdf().set(opt).from(element).save();
+                                (html2pdf() as any)
+                                  .set(opt)
+                                  .from(element)
+                                  .save()
+                                  .catch((err: any) => {
+                                    console.error('html2pdf error:', err);
+                                    toast.error('PDF generation failed: ' + (err?.message || 'Unknown error'));
+                                  });
                                 toast.success('PDF downloaded successfully');
                               } catch (error) {
                                 console.error('PDF generation error:', error);
-                                toast.error('Failed to generate PDF');
+                                toast.error('Failed to generate PDF: ' + (error instanceof Error ? error.message : 'Unknown error'));
                               }
                             }}
                             className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors text-xs sm:text-sm"
