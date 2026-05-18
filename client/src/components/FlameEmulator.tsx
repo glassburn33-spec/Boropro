@@ -224,9 +224,9 @@ export function FlameEmulator() {
               {/* Torch body */}
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-24 bg-gradient-to-b from-stone-600 to-stone-800 rounded-b-lg border border-stone-700 shadow-lg" />
 
-              {/* Flame visualization */}
-              {isLit && flameCharacteristics.intensity > 0 && (
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 400">
+          {/* Flame visualization */}
+          {isLit && flameCharacteristics.intensity > 0 && (
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 400">
                   {/* Outer flame envelope (glow effect) */}
                   <defs>
                     <radialGradient id="flameGradient" cx="50%" cy="100%">
@@ -361,8 +361,13 @@ export function FlameEmulator() {
           {/* Light/Extinguish Button */}
           <div className="flex justify-center">
             <button
-              onClick={() => setIsLit(!isLit)}
-              className={`px-8 py-3 rounded-lg font-semibold transition-colors text-sm md:text-base ${
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsLit(prev => !prev);
+              }}
+              type="button"
+              className={`px-8 py-3 rounded-lg font-semibold transition-colors text-sm md:text-base z-10 relative ${
                 isLit
                   ? 'bg-red-600 hover:bg-red-700 text-white'
                   : 'bg-amber-600 hover:bg-amber-700 text-white'
