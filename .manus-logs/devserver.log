@@ -6602,3 +6602,4 @@
 [2026-05-18T00:34:04.171Z] at parseMaybeAssignAllowInOrVoidPattern (/home/ubuntu/boro_kiln_research/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/src/parser/expression.ts:3311:17)
 [2026-05-18T00:34:23.607Z] 8:34:23 PM [vite] (client) hmr update /src/index.css
 [2026-05-18T00:40:55.800Z] 8:40:55 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
+[2026-05-18T00:44:17.452Z] 8:44:17 PM [vite] (client) hmr update /src/index.css, /src/components/ThermochromismSimulator.tsx
