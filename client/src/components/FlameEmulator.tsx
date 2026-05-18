@@ -3,21 +3,16 @@ import React, { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Flame, Info, Volume2, Wind } from 'lucide-react';
 
-interface FlameState {
-  gasFlow: number; // 0-10 PSI
-  oxygenFlow: number; // 0-15 PSI
-}
-
 interface FlameCharacteristics {
   type: 'reducing' | 'neutral' | 'oxidizing';
   color: string;
   shape: string;
-  intensity: number; // 0-100
+  intensity: number;
   temperature: string;
   description: string;
   hexColor: string;
   outerHexColor: string;
-  soundIntensity: number; // 0-100
+  soundIntensity: number;
 }
 
 export function FlameEmulator() {
@@ -41,15 +36,10 @@ export function FlameEmulator() {
       };
     }
 
-    // Safety check: minimum 2 PSI oxygen per 1 PSI gas
-    const safeOxygenRequired = Math.max(2, gasFlow * 2);
     const effectiveOxygen = Math.min(oxygenFlow, 15);
     const effectiveGas = Math.min(gasFlow, 10);
-
-    // Calculate oxygen/fuel ratio
     const ratio = effectiveOxygen / Math.max(effectiveGas, 0.1);
 
-    // Determine flame type and characteristics
     let flameType: 'reducing' | 'neutral' | 'oxidizing';
     let hexColor: string;
     let outerHexColor: string;
@@ -59,35 +49,31 @@ export function FlameEmulator() {
     let soundIntensity: number;
 
     if (ratio < 1.5) {
-      // Reducing flame (excess fuel)
       flameType = 'reducing';
-      hexColor = '#FF4500'; // Orange-red
-      outerHexColor = '#FFD700'; // Golden yellow outer envelope
+      hexColor = '#FF4500';
+      outerHexColor = '#FFD700';
       temperature = '1,100–1,200°C';
       shape = 'Bushy, soft, feathery';
       intensity = 40 + (effectiveGas * 3);
       soundIntensity = 20;
     } else if (ratio < 2.5) {
-      // Neutral flame (balanced)
       flameType = 'neutral';
-      hexColor = '#4169E1'; // Royal blue
-      outerHexColor = '#87CEEB'; // Sky blue outer envelope
+      hexColor = '#4169E1';
+      outerHexColor = '#87CEEB';
       temperature = '1,300–1,400°C';
       shape = 'Smooth cone, pointed tip';
       intensity = 70 + (effectiveGas * 2);
       soundIntensity = 50;
     } else {
-      // Oxidizing flame (excess oxygen)
       flameType = 'oxidizing';
-      hexColor = '#0047AB'; // Darker blue
-      outerHexColor = '#00D9FF'; // Bright cyan outer envelope
+      hexColor = '#0047AB';
+      outerHexColor = '#00D9FF';
       temperature = '1,400–1,500°C';
       shape = 'Jagged, sharp, pointed';
       intensity = 85 + (effectiveOxygen * 1.5);
       soundIntensity = 80;
     }
 
-    // Adjust intensity based on total flow
     intensity = Math.min(100, intensity + (effectiveGas + effectiveOxygen) * 0.5);
 
     return {
@@ -121,92 +107,6 @@ export function FlameEmulator() {
     setOxygenFlow(parseFloat(e.target.value));
   };
 
-  // Circular slider component
-  const CircularSlider = ({
-    value,
-    onChange,
-    min = 0,
-    max = 10,
-    label,
-    unit,
-    icon: Icon
-  }: {
-    value: number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    min?: number;
-    max?: number;
-    label: string;
-    unit: string;
-    icon: React.ElementType;
-  }) => {
-    const percentage = ((value - min) / (max - min)) * 100;
-    const rotation = (percentage / 100) * 270 - 135; // -135 to 135 degrees
-
-    return (
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative w-32 h-32">
-          {/* Circular background */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 120 120">
-            {/* Track background */}
-            <circle
-              cx="60"
-              cy="60"
-              r="50"
-              fill="none"
-              stroke="#374151"
-              strokeWidth="8"
-              opacity="0.3"
-            />
-            {/* Filled track */}
-            <circle
-              cx="60"
-              cy="60"
-              r="50"
-              fill="none"
-              stroke={label === 'Gas Flow' ? '#F97316' : '#3B82F6'}
-              strokeWidth="8"
-              strokeDasharray={`${(percentage / 100) * 314.159} 314.159`}
-              opacity="0.8"
-              style={{ transition: 'stroke-dasharray 0.1s ease' }}
-            />
-          </svg>
-
-          {/* Center display */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <Icon className="w-6 h-6 text-stone-400 mb-1" />
-            <p className="text-xl font-bold text-amber-400">{value.toFixed(1)}</p>
-            <p className="text-xs text-stone-400">{unit}</p>
-          </div>
-
-          {/* Input slider (hidden but functional) */}
-          <input
-            type="range"
-            min={min}
-            max={max}
-            step="0.1"
-            value={value}
-            onChange={onChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            style={{
-              WebkitAppearance: 'slider-vertical',
-              writingMode: 'vertical-rl' as any
-            }}
-          />
-        </div>
-
-        {/* Label and value display */}
-        <div className="text-center">
-          <p className="text-sm font-semibold text-stone-200">{label}</p>
-          <p className="text-xs text-stone-400 mt-1">
-            {value < min + (max - min) * 0.33 && 'Low'}
-            {value >= min + (max - min) * 0.33 && value < min + (max - min) * 0.66 && 'Medium'}
-            {value >= min + (max - min) * 0.66 && 'High'}
-          </p>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -224,10 +124,9 @@ export function FlameEmulator() {
               {/* Torch body */}
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-24 bg-gradient-to-b from-stone-600 to-stone-800 rounded-b-lg border border-stone-700 shadow-lg" />
 
-          {/* Flame visualization */}
-          {isLit && flameCharacteristics.intensity > 0 && (
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 400">
-                  {/* Outer flame envelope (glow effect) */}
+              {/* Flame visualization */}
+              {isLit && flameCharacteristics.intensity > 0 && (
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 400">
                   <defs>
                     <radialGradient id="flameGradient" cx="50%" cy="100%">
                       <stop offset="0%" stopColor={flameCharacteristics.outerHexColor} stopOpacity="0.6" />
@@ -246,7 +145,6 @@ export function FlameEmulator() {
 
                   {/* Main flame body */}
                   {flameCharacteristics.type === 'reducing' && (
-                    // Bushy, soft flame
                     <path
                       d={`M 80 200 Q 50 150 60 80 Q 70 40 100 20 Q 130 40 140 80 Q 150 150 120 200 Z`}
                       fill={flameCharacteristics.hexColor}
@@ -255,7 +153,6 @@ export function FlameEmulator() {
                   )}
 
                   {flameCharacteristics.type === 'neutral' && (
-                    // Smooth cone flame
                     <path
                       d={`M 85 200 L 60 100 L 70 50 L 100 10 L 130 50 L 140 100 L 115 200 Z`}
                       fill={flameCharacteristics.hexColor}
@@ -264,7 +161,6 @@ export function FlameEmulator() {
                   )}
 
                   {flameCharacteristics.type === 'oxidizing' && (
-                    // Jagged, sharp flame
                     <path
                       d={`M 85 200 L 65 140 L 55 100 L 50 60 L 60 30 L 100 5 L 140 30 L 150 60 L 145 100 L 135 140 L 115 200 Z`}
                       fill={flameCharacteristics.hexColor}
@@ -293,68 +189,56 @@ export function FlameEmulator() {
             </div>
           </div>
 
-          {/* Flame Information */}
-          <div className="bg-stone-900/30 rounded-lg p-4 border border-stone-700/50 space-y-3">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">Flame Type</p>
-                <p className="text-sm md:text-base font-bold text-amber-400 mt-1">
-                  {flameCharacteristics.color}
-                </p>
+          {/* Gas and Oxygen Controls */}
+          <div className="space-y-6 w-full max-w-md mx-auto">
+            {/* Gas Valve Slider */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 text-sm font-semibold text-stone-200">
+                  <Volume2 className="w-4 h-4 text-orange-500" />
+                  Gas Valve
+                </label>
+                <span className="text-sm font-bold text-amber-400">{gasFlow.toFixed(1)} PSI</span>
               </div>
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">Temperature</p>
-                <p className="text-sm md:text-base font-bold text-red-400 mt-1">
-                  {flameCharacteristics.temperature}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">Shape</p>
-                <p className="text-xs md:text-sm text-stone-300 mt-1">
-                  {flameCharacteristics.shape}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">Intensity</p>
-                <p className="text-xs md:text-sm text-stone-300 mt-1">
-                  {flameCharacteristics.intensity.toFixed(0)}%
-                </p>
-              </div>
-            </div>
-            <div className="pt-3 border-t border-stone-700/50">
-              <p className="text-xs text-stone-400 font-semibold mb-2">Description</p>
-              <p className="text-xs md:text-sm text-stone-300">
-                {flameCharacteristics.description}
-              </p>
-            </div>
-          </div>
-
-          {/* Control Valves */}
-          <div className="space-y-6">
-            <p className="text-sm font-semibold text-stone-200 flex items-center gap-2">
-              <Volume2 className="w-4 h-4 text-amber-400" />
-              Valve Controls (Rotate Counterclockwise to Increase)
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-              <CircularSlider
+              <input
+                type="range"
+                min="0"
+                max="10"
+                step="0.1"
                 value={gasFlow}
                 onChange={handleGasChange}
-                min={0}
-                max={10}
-                label="Gas Valve"
-                unit="PSI"
-                icon={Flame}
+                className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
               />
-              <CircularSlider
+              <p className="text-xs text-stone-400">
+                {gasFlow < 3.33 && 'Low flow'}
+                {gasFlow >= 3.33 && gasFlow < 6.66 && 'Medium flow'}
+                {gasFlow >= 6.66 && 'High flow'}
+              </p>
+            </div>
+
+            {/* Oxygen Valve Slider */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 text-sm font-semibold text-stone-200">
+                  <Wind className="w-4 h-4 text-blue-500" />
+                  Oxygen Valve
+                </label>
+                <span className="text-sm font-bold text-amber-400">{oxygenFlow.toFixed(1)} PSI</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="15"
+                step="0.1"
                 value={oxygenFlow}
                 onChange={handleOxygenChange}
-                min={0}
-                max={15}
-                label="Oxygen Valve"
-                unit="PSI"
-                icon={Wind}
+                className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
               />
+              <p className="text-xs text-stone-400">
+                {oxygenFlow < 5 && 'Low flow'}
+                {oxygenFlow >= 5 && oxygenFlow < 10 && 'Medium flow'}
+                {oxygenFlow >= 10 && 'High flow'}
+              </p>
             </div>
           </div>
 
@@ -377,55 +261,42 @@ export function FlameEmulator() {
             </button>
           </div>
 
-          {/* Safety and Reference Information */}
-          <div className="space-y-3">
-            <p className="text-xs md:text-sm font-semibold text-stone-200 flex items-center gap-2">
-              <Info className="w-4 h-4 text-blue-400" />
-              Flame Type Reference
+          {/* Flame Information */}
+          <div className="space-y-4 bg-stone-900/50 rounded-lg p-4 border border-stone-700/50">
+            <div className="flex items-start gap-3">
+              <Flame className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-stone-200">
+                  Flame Type: <span className="text-amber-400">{flameCharacteristics.color}</span>
+                </p>
+                <p className="text-xs text-stone-400">{flameCharacteristics.description}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 text-xs">
+              <div>
+                <p className="text-stone-400">Temperature</p>
+                <p className="font-semibold text-stone-200">{flameCharacteristics.temperature}</p>
+              </div>
+              <div>
+                <p className="text-stone-400">Shape</p>
+                <p className="font-semibold text-stone-200">{flameCharacteristics.shape}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Safety Information */}
+          <div className="space-y-3 bg-stone-900/50 rounded-lg p-4 border border-amber-700/30">
+            <p className="text-xs md:text-sm font-semibold text-amber-400 flex items-center gap-2">
+              <Info className="w-4 h-4" />
+              Safety & Reference
             </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Reducing */}
-              <div className="bg-orange-900/20 border border-orange-700/50 rounded-lg p-4">
-                <p className="text-xs md:text-sm font-semibold text-orange-300 mb-2">Reducing Flame</p>
-                <p className="text-xs text-orange-200 space-y-1">
-                  <span className="block">• Gas: 6-8 PSI</span>
-                  <span className="block">• Oxygen: 2-4 PSI</span>
-                  <span className="block">• Ratio: &lt;1.5:1</span>
-                  <span className="block">• Use: Metallic effects, silver migration</span>
-                </p>
-              </div>
-
-              {/* Neutral */}
-              <div className="bg-blue-900/20 border border-blue-700/50 rounded-lg p-4">
-                <p className="text-xs md:text-sm font-semibold text-blue-300 mb-2">Neutral Flame</p>
-                <p className="text-xs text-blue-200 space-y-1">
-                  <span className="block">• Gas: 5 PSI</span>
-                  <span className="block">• Oxygen: 10 PSI</span>
-                  <span className="block">• Ratio: 1.5-2.5:1</span>
-                  <span className="block">• Use: Standard glassblowing</span>
-                </p>
-              </div>
-
-              {/* Oxidizing */}
-              <div className="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4">
-                <p className="text-xs md:text-sm font-semibold text-cyan-300 mb-2">Oxidizing Flame</p>
-                <p className="text-xs text-cyan-200 space-y-1">
-                  <span className="block">• Gas: 2-3 PSI</span>
-                  <span className="block">• Oxygen: 12-15 PSI</span>
-                  <span className="block">• Ratio: &gt;2.5:1</span>
-                  <span className="block">• Use: Fast heating, chrome safety</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Safety Warning */}
-            <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-4">
-              <p className="text-xs md:text-sm font-semibold text-red-300 mb-2">⚠️ Safety Rule</p>
-              <p className="text-xs text-red-200">
-                Minimum 2 PSI oxygen per 1 PSI propane. Below this ratio, the torch may backflash or pop. Always maintain safe gas ratios.
-              </p>
-            </div>
+            <ul className="text-xs text-stone-300 space-y-1">
+              <li>• Minimum 2 PSI oxygen per 1 PSI gas for safe operation</li>
+              <li>• Reducing flame: Good for silver colors and metallic effects</li>
+              <li>• Neutral flame: Ideal for general glasswork and color development</li>
+              <li>• Oxidizing flame: Best for chrome colors and preventing cracking</li>
+            </ul>
           </div>
         </div>
       </Card>
