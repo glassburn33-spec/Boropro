@@ -6610,3 +6610,5 @@
 [2026-05-18T00:45:22.572Z] [OAuth] Initialized with baseURL: https://api.manus.im
 [2026-05-18T00:45:22.958Z] Server running on http://localhost:3000/
 [2026-05-18T00:57:45.695Z] 8:57:45 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-18T01:33:56.801Z] 9:33:56 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-18T01:34:20.033Z] 9:34:20 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
