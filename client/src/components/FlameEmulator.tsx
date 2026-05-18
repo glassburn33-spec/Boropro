@@ -23,7 +23,7 @@ interface FlameCharacteristics {
 export function FlameEmulator() {
   const [gasFlow, setGasFlow] = useState(5);
   const [oxygenFlow, setOxygenFlow] = useState(10);
-  const [isLit, setIsLit] = useState(false);
+  const [isLit, setIsLit] = useState(true);
 
   // Calculate flame characteristics based on gas/oxygen ratio
   const flameCharacteristics = useMemo((): FlameCharacteristics => {
