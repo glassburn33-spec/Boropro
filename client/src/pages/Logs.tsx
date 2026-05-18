@@ -1030,6 +1030,36 @@ export default function Logs() {
                           </button>
 
                           <button
+                            onClick={() => {
+                              try {
+                                const element = document.createElement('div');
+                                element.innerHTML = generatePDFContent(log);
+                                element.style.padding = '20px';
+                                element.style.backgroundColor = 'white';
+                                element.style.color = 'black';
+                                
+                                const opt = {
+                                  margin: 10,
+                                  filename: `${log.name}-${new Date().toISOString().split('T')[0]}.pdf`,
+                                  image: { type: 'png' as const, quality: 0.98 },
+                                  html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+                                  jsPDF: { orientation: 'portrait' as const, unit: 'mm', format: 'a4' }
+                                };
+                                
+                                html2pdf().set(opt).from(element).save();
+                                toast.success('PDF downloaded successfully');
+                              } catch (error) {
+                                console.error('PDF generation error:', error);
+                                toast.error('Failed to generate PDF');
+                              }
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded transition-colors text-xs sm:text-sm"
+                            title="Save log as PDF"
+                          >
+                            <span>Save PDF</span>
+                          </button>
+
+                          <button
                             onClick={() => handleDelete(log.id)}
                             className="flex items-center gap-2 px-3 py-2 bg-red-900/50 hover:bg-red-900 text-red-300 rounded transition-colors"
                             title="Delete log (requires confirmation)"
