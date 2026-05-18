@@ -127,20 +127,33 @@ export function ThermochromismSimulator() {
               </p>
             </div>
 
-            {/* Slider */}
-            <input
-              type="range"
-              min="20"
-              max="1220"
-              value={temperature}
-              onChange={(e) => setTemperature(Number(e.target.value))}
-              className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer"
-            />
+            {/* Slider and Color Bar Container - Side by side on desktop, stacked on mobile */}
+            <div className="flex flex-col lg:flex-row gap-3 items-stretch">
+              {/* Slider Section */}
+              <div className="flex-1 flex flex-col justify-center">
+                <input
+                  type="range"
+                  min="20"
+                  max="1220"
+                  value={temperature}
+                  onChange={(e) => setTemperature(Number(e.target.value))}
+                  className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer"
+                />
+                {/* Temperature Range Labels */}
+                <div className="flex justify-between text-xs text-stone-500 gap-2 mt-2">
+                  <span className="truncate">20°C</span>
+                  <span className="truncate">1220°C</span>
+                </div>
+              </div>
 
-            {/* Temperature Range Labels */}
-            <div className="flex justify-between text-xs text-stone-500 gap-2">
-              <span className="truncate">20°C</span>
-              <span className="truncate">1220°C</span>
+              {/* Color Bar Section */}
+              <div className="flex-1 border border-stone-700/50 rounded-lg overflow-hidden bg-stone-900/30 p-3">
+                {isSelectedDragonTears ? (
+                  <DragonTearsBar temperatureC={temperature} />
+                ) : (
+                  <FeaturedColorBar color={selectedColor as any} temperatureC={temperature} />
+                )}
+              </div>
             </div>
           </div>
 
@@ -160,18 +173,7 @@ export function ThermochromismSimulator() {
             </div>
           </div>
 
-          {/* Selected Color Display */}
-          <div className="border-t border-stone-700/50 pt-6">
-            <div className="border border-stone-700/50 rounded-lg overflow-hidden">
-              <div className="p-6 bg-stone-900/30">
-                {isSelectedDragonTears ? (
-                  <DragonTearsBar temperatureC={temperature} />
-                ) : (
-                  <FeaturedColorBar color={selectedColor as any} temperatureC={temperature} />
-                )}
-              </div>
-            </div>
-          </div>
+
         </div>
       </Card>
     </div>
