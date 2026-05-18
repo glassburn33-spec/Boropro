@@ -1030,10 +1030,10 @@ export default function Logs() {
                           </button>
 
                           <button
-                            onClick={() => {
+                            onClick={async () => {
                               try {
                                 const element = document.createElement('div');
-                                element.innerHTML = generatePDFContent(log);
+                                element.innerHTML = pdfPreviewContent || generatePDFContent(log);
                                 element.style.padding = '20px';
                                 element.style.backgroundColor = 'white';
                                 element.style.color = 'black';
@@ -1046,7 +1046,7 @@ export default function Logs() {
                                   jsPDF: { orientation: 'portrait' as const, unit: 'mm', format: 'a4' }
                                 };
                                 
-                                html2pdf().set(opt).from(element).save();
+                                await html2pdf().set(opt).from(element).save();
                                 toast.success('PDF downloaded successfully');
                               } catch (error) {
                                 console.error('PDF generation error:', error);
