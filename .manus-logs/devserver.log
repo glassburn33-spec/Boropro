@@ -6701,3 +6701,5 @@
 [2026-05-18T02:13:30.981Z] 1048 |
 [2026-05-18T02:13:30.981Z] 1049 |        {/* Preview Modal */}
 [2026-05-18T02:13:44.540Z] 10:13:44 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
+[2026-05-18T02:16:39.489Z] 10:16:39 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-18T02:16:45.541Z] 10:16:45 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css

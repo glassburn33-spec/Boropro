@@ -8,7 +8,7 @@ import { Flame, Info, ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { ThermochromismSimulator } from "@/components/ThermochromismSimulator";
 import { ColorFamilyList } from "@/components/ColorFamilyList";
 import { ColorStrikingSimulator } from "@/components/ColorStrikingSimulator";
-import { FlameEmulator } from "@/components/FlameEmulator";
+
 
 interface FlameEffect {
   colorFamily: string;
@@ -430,37 +430,7 @@ export default function FlameChemistryCharacterization() {
               )}
             </div>
 
-            {/* Section 5: Flame Emulator */}
-            <div className="border border-white/10 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm">
-              <button
-                onClick={() => toggleSection("flameEmulator")}
-                className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/10 transition-colors"
-              >
-                <h2 className="text-2xl font-bold text-yellow-400">Flame Emulator</h2>
-                <ChevronDown
-                  className={`w-6 h-6 text-amber-500 transition-transform ${
-                    expandedSection === "flameEmulator" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {expandedSection === "flameEmulator" && (
-                <div className="px-6 py-6 border-t border-white/10 space-y-6">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-                    <FlameEmulator />
-                  </div>
-                  <div className="rounded-2xl border border-stone-700/50 bg-stone-800/50 p-6">
-                    <div className="space-y-2 text-sm text-stone-300">
-                      <p>
-                        <span className="font-semibold text-amber-400">The Flame Emulator</span> provides an interactive visualization of how oxygen and fuel gas mixture ratios affect torch flame characteristics. Adjust the gas and oxygen valve controls to see how different ratios produce reducing (soft, red), neutral (smooth, blue), and oxidizing (sharp, bright blue) flames.
-                      </p>
-                      <p>
-                        Use this tool to understand the relationship between gas/oxygen ratios and flame behavior. The emulator displays real-time flame visualization, temperature estimates, and practical PSI settings based on actual lampworking torch specifications.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+
           </div>
         </section>
       </main>
