@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Thermometer, Flame, Zap, Info } from 'lucide-react';
+import { Flame, Zap, AlertCircle } from 'lucide-react';
 
 interface StrikingPhase {
   name: string;
@@ -204,26 +204,39 @@ export function ColorStrikingSimulator() {
   const [selectedColorId, setSelectedColorId] = useState('amazon-night');
   const [selectedPhaseIndex, setSelectedPhaseIndex] = useState(0);
   const [flameAtmosphere, setFlameAtmosphere] = useState<'neutral' | 'oxidizing' | 'reducing'>('neutral');
-  const [showCrystalGrowth, setShowCrystalGrowth] = useState(true);
   const [cycleCount, setCycleCount] = useState(1);
 
   const selectedColor = colorFamilies.find(c => c.id === selectedColorId)!;
   const selectedPhase = selectedColor.phases[selectedPhaseIndex];
 
-  // Calculate visual representation of crystal growth
-  const crystalGrowthPercentage = ((selectedPhaseIndex + 1) / selectedColor.phases.length) * 100;
+  // Get the color based on cycles
+  const getCycleColor = () => {
+    const cycleIndex = Math.min(cycleCount - 1, selectedPhase.colorProgression.length - 1);
+    return selectedPhase.colorProgression[cycleIndex];
+  };
 
-  // Determine color output based on flame atmosphere
-  const getColorOutput = () => {
+  // Apply flame atmosphere effects
+  const getDisplayColor = () => {
     if (selectedColor.id === 'chrome-opal') {
       if (flameAtmosphere === 'reducing') return '#FF0000';
       if (flameAtmosphere === 'oxidizing') return '#A9A9A9';
-      return selectedPhase.colorProgression[1];
+      return getCycleColor();
     }
     if (flameAtmosphere === 'reducing' && selectedPhaseIndex === selectedColor.phases.length - 1) {
-      return '#FFD700'; // Metallic luster effect
+      return '#FFD700';
     }
-    return selectedPhase.colorProgression[Math.min(cycleCount - 1, selectedPhase.colorProgression.length - 1)];
+    return getCycleColor();
+  };
+
+  const getAtmosphereLabel = () => {
+    if (selectedColor.id === 'chrome-opal') {
+      if (flameAtmosphere === 'reducing') return 'Chrome oxide REDUCED to RED (⚠️ DANGER)';
+      if (flameAtmosphere === 'oxidizing') return 'Chrome oxidized to GRAY (muddy)';
+      return 'Neutral flame - maintains TRUE GREEN';
+    }
+    if (flameAtmosphere === 'reducing') return 'Adds metallic LUSTER at full strike';
+    if (flameAtmosphere === 'oxidizing') return 'Brightens and STABILIZES colors';
+    return 'Balanced striking progression';
   };
 
   const flameColor = {
@@ -237,7 +250,7 @@ export function ColorStrikingSimulator() {
       {/* Header */}
       <div className="border-l-4 border-amber-500 pl-4 md:pl-6">
         <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-2">Color Striking Simulator</h2>
-        <p className="text-stone-300 text-xs md:text-sm">Explore crystal growth, flame atmosphere effects, and striking progression for sensitive colors</p>
+        <p className="text-stone-300 text-xs md:text-sm">Adjust flame atmosphere and heat cycles to see how they affect color development</p>
       </div>
 
       {/* Main Simulator Card */}
@@ -268,7 +281,7 @@ export function ColorStrikingSimulator() {
             </div>
           </div>
 
-          {/* Color Preview and Strike Cycle */}
+          {/* Main Display Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left: Color Preview */}
             <div className="space-y-4">
@@ -283,51 +296,62 @@ export function ColorStrikingSimulator() {
                     />
                   </div>
 
-                  {/* Current Strike Color */}
+                  {/* Current Strike Color - AFFECTED BY TOGGLES */}
                   <div>
-                    <p className="text-xs text-stone-400 mb-2">Current Strike Color</p>
+                    <p className="text-xs text-stone-400 mb-2">Struck Color (Flame + Cycles)</p>
                     <div
-                      className="w-full h-24 rounded-lg border-2 border-amber-500 shadow-lg transition-colors duration-300"
-                      style={{ backgroundColor: getColorOutput() }}
+                      className="w-full h-32 rounded-lg border-2 border-amber-500 shadow-xl transition-colors"
+                      style={{ backgroundColor: getDisplayColor() }}
                     />
+                    <p className="text-xs text-amber-300 mt-2 font-semibold">{getAtmosphereLabel()}</p>
                   </div>
 
-                  {/* Crystal Growth Visualization */}
-                  {showCrystalGrowth && (
-                    <div>
-                      <p className="text-xs text-stone-400 mb-2">Crystal Growth Progress</p>
-                      <div className="bg-stone-900/50 rounded-lg p-3 border border-stone-700/50">
-                        <div className="w-full bg-stone-800 rounded-full h-3 overflow-hidden">
-                          <div
-                            className="bg-gradient-to-r from-amber-500 via-red-500 to-blue-500 h-full transition-all duration-500"
-                            style={{ width: `${crystalGrowthPercentage}%` }}
-                          />
-                        </div>
-                        <p className="text-xs text-stone-400 mt-2 text-center">
-                          {selectedPhase.crystalSize} crystals
-                        </p>
+                  {/* Cycle Counter - AFFECTS COLOR */}
+                  <div>
+                    <p className="text-xs md:text-sm font-semibold text-stone-200 mb-3 flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-amber-400" />
+                      Heat/Cool Cycles
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCycleCount(Math.max(1, cycleCount - 1))}
+                        className="text-xs"
+                      >
+                        −
+                      </Button>
+                      <div className="flex-1 bg-stone-900/50 rounded-lg p-2 text-center">
+                        <p className="text-lg font-bold text-amber-400">{cycleCount}</p>
+                        <p className="text-xs text-stone-400">cycles</p>
                       </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCycleCount(cycleCount + 1)}
+                        className="text-xs"
+                      >
+                        +
+                      </Button>
                     </div>
-                  )}
+                    <p className="text-xs text-stone-400 mt-2">More cycles = deeper color progression</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right: Strike Cycle and Controls */}
+            {/* Right: Controls */}
             <div className="space-y-4">
               {/* Strike Phase Selector */}
               <div>
-                <p className="text-xs md:text-sm font-semibold text-stone-200 mb-3">Strike Cycle Progression</p>
-                <div className="space-y-2">
-                  {selectedColor.phases.map((phase, index) => (
+                <p className="text-xs md:text-sm font-semibold text-stone-200 mb-3">Strike Phase</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {selectedColor.phases.map((phase, idx) => (
                     <button
-                      key={index}
-                      onClick={() => {
-                        setSelectedPhaseIndex(index);
-                        setCycleCount(1);
-                      }}
-                      className={`w-full p-3 rounded-lg border text-left transition-colors text-xs md:text-sm ${
-                        selectedPhaseIndex === index
+                      key={idx}
+                      onClick={() => setSelectedPhaseIndex(idx)}
+                      className={`p-2 rounded-lg border text-xs font-semibold transition-colors ${
+                        selectedPhaseIndex === idx
                           ? 'bg-blue-700/30 border-blue-500 text-blue-300'
                           : 'bg-stone-900/30 border-stone-700/50 text-stone-300 hover:bg-stone-800/30'
                       }`}
@@ -339,7 +363,7 @@ export function ColorStrikingSimulator() {
                 </div>
               </div>
 
-              {/* Flame Atmosphere Selector */}
+              {/* Flame Atmosphere Selector - AFFECTS COLOR */}
               <div>
                 <p className="text-xs md:text-sm font-semibold text-stone-200 mb-3 flex items-center gap-2">
                   <Flame className="w-4 h-4 text-amber-400" />
@@ -350,7 +374,7 @@ export function ColorStrikingSimulator() {
                     <button
                       key={atm}
                       onClick={() => setFlameAtmosphere(atm)}
-                      className={`p-2 rounded-lg border text-xs font-semibold transition-colors ${
+                      className={`p-3 rounded-lg border text-xs font-semibold transition-colors ${
                         flameAtmosphere === atm
                           ? 'bg-opacity-30 border-opacity-100'
                           : 'bg-stone-900/30 border-stone-700/50 text-stone-400 hover:bg-stone-800/30'
@@ -369,89 +393,51 @@ export function ColorStrikingSimulator() {
                     </button>
                   ))}
                 </div>
+                <p className="text-xs text-stone-400 mt-2">Watch the color change above ↑</p>
               </div>
 
-              {/* Cycle Counter */}
-              <div>
-                <p className="text-xs md:text-sm font-semibold text-stone-200 mb-3 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-amber-400" />
-                  Heat/Cool Cycles
-                </p>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setCycleCount(Math.max(1, cycleCount - 1))}
-                    className="text-xs"
-                  >
-                    −
-                  </Button>
-                  <div className="flex-1 bg-stone-900/50 rounded-lg p-2 text-center">
-                    <p className="text-lg font-bold text-amber-400">{cycleCount}</p>
-                    <p className="text-xs text-stone-400">cycles</p>
+              {/* Phase Information */}
+              <div className="border-t border-stone-700/50 pt-4">
+                <div className="bg-stone-900/30 rounded-lg p-4 border border-stone-700/50 space-y-3">
+                  <div>
+                    <p className="text-xs text-stone-400 font-semibold">CURRENT PHASE</p>
+                    <p className="text-sm md:text-base font-bold text-amber-400 mt-1">{selectedPhase.name}</p>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setCycleCount(cycleCount + 1)}
-                    className="text-xs"
-                  >
-                    +
-                  </Button>
+                  <div>
+                    <p className="text-xs text-stone-400 font-semibold">DESCRIPTION</p>
+                    <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.description}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 pt-3 border-t border-stone-700/50">
+                    <div>
+                      <p className="text-xs text-stone-400 font-semibold">Temperature</p>
+                      <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.tempRange}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-stone-400 font-semibold">Crystal Size</p>
+                      <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.crystalSize}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Warning for Chrome Opal */}
+              {selectedColor.id === 'chrome-opal' && flameAtmosphere !== 'neutral' && (
+                <div className="bg-red-900/30 border border-red-700 rounded-lg p-4 flex gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-semibold text-red-300">CRITICAL WARNING</p>
+                    <p className="text-xs text-red-200 mt-1">Chrome Opal MUST be worked in strict neutral flame only. Reducing or oxidizing flames will cause color shift and potential cracking.</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Phase Information */}
+          {/* Color Family Notes */}
           <div className="border-t border-stone-700/50 pt-6">
-            <div className="bg-stone-900/30 rounded-lg p-4 border border-stone-700/50 space-y-3">
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">CURRENT PHASE</p>
-                <p className="text-sm md:text-base font-bold text-amber-400 mt-1">{selectedPhase.name}</p>
-              </div>
-              <div>
-                <p className="text-xs text-stone-400 font-semibold">DESCRIPTION</p>
-                <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.description}</p>
-              </div>
-              <div className="grid grid-cols-2 gap-4 pt-3 border-t border-stone-700/50">
-                <div>
-                  <p className="text-xs text-stone-400 font-semibold">Temperature Range</p>
-                  <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.tempRange}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-stone-400 font-semibold">Crystal Size</p>
-                  <p className="text-xs md:text-sm text-stone-300 mt-1">{selectedPhase.crystalSize}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Color-Specific Notes */}
-          <div className="bg-blue-900/20 border border-blue-700/50 rounded-lg p-4 space-y-2">
-            <p className="text-xs md:text-sm font-semibold text-blue-300 flex items-center gap-2">
-              <Info className="w-4 h-4" />
-              Color Notes
-            </p>
-            <p className="text-xs md:text-sm text-blue-200">{selectedColor.notes}</p>
-            <p className="text-xs text-blue-300 pt-2">
-              <span className="font-semibold">Optimal Flame:</span> {selectedColor.flamePreference}
-            </p>
-          </div>
-
-          {/* Flame Atmosphere Effects Guide */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-amber-900/20 border border-amber-700/50 rounded-lg p-4">
-              <p className="text-xs md:text-sm font-semibold text-amber-300 mb-2">Neutral Flame</p>
-              <p className="text-xs text-amber-200">Balanced oxygen/fuel ratio. Safest for most colors; maintains vibrancy and prevents chrome cracking.</p>
-            </div>
-            <div className="bg-blue-900/20 border border-blue-700/50 rounded-lg p-4">
-              <p className="text-xs md:text-sm font-semibold text-blue-300 mb-2">Oxidizing Flame</p>
-              <p className="text-xs text-blue-200">Excess oxygen; cooler than neutral. Good for ruby striking; prevents metallic deposit; suppresses silver reduction.</p>
-            </div>
-            <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-4">
-              <p className="text-xs md:text-sm font-semibold text-red-300 mb-2">Reducing Flame</p>
-              <p className="text-xs text-red-200">Excess fuel; hotter than neutral. Strips oxygen; creates metallic effects and luster; can muddy colors if overused.</p>
+            <div className="bg-stone-900/30 rounded-lg p-4 border border-stone-700/50">
+              <p className="text-xs text-stone-400 font-semibold mb-2">NOTES</p>
+              <p className="text-xs md:text-sm text-stone-300">{selectedColor.notes}</p>
             </div>
           </div>
         </div>

@@ -6703,3 +6703,6 @@
 [2026-05-18T02:13:44.540Z] 10:13:44 PM [vite] (client) hmr update /src/pages/Logs.tsx, /src/index.css
 [2026-05-18T02:16:39.489Z] 10:16:39 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
 [2026-05-18T02:16:45.541Z] 10:16:45 PM [vite] (client) hmr update /src/pages/FlameSimulator.tsx, /src/index.css
+[2026-05-18T02:21:19.652Z] [Auth] Missing session cookie
+[2026-05-18T02:22:03.090Z] 10:22:03 PM [vite] (client) hmr update /src/index.css, /src/components/ColorStrikingSimulator.tsx
+[2026-05-18T02:22:03.748Z] [Auth] Missing session cookie
