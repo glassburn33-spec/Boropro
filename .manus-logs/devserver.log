@@ -6706,3 +6706,11 @@
 [2026-05-18T02:21:19.652Z] [Auth] Missing session cookie
 [2026-05-18T02:22:03.090Z] 10:22:03 PM [vite] (client) hmr update /src/index.css, /src/components/ColorStrikingSimulator.tsx
 [2026-05-18T02:22:03.748Z] [Auth] Missing session cookie
+[2026-05-18T02:33:45.490Z] Starting dev server with command: pnpm run dev
+[2026-05-18T02:33:46.189Z] 
+[2026-05-18T02:33:46.190Z] > boropro@1.0.0 dev /home/ubuntu/boro_kiln_research
+[2026-05-18T02:33:46.191Z] > NODE_ENV=development tsx watch server/_core/index.ts
+[2026-05-18T02:33:46.191Z] 
+[2026-05-18T02:33:47.735Z] [OAuth] Initialized with baseURL: https://api.manus.im
+[2026-05-18T02:33:47.959Z] Server running on http://localhost:3000/
+[2026-05-18T02:34:12.848Z] 10:34:12 PM [vite] (client) hmr update /src/pages/References.tsx, /src/index.css
