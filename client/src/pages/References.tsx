@@ -303,7 +303,7 @@ export default function References() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-3 md:py-4 px-3 md:px-0">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-20 md:h-32 w-20 md:w-32 object-contain" />
+            <img src="/manus-storage/boroprologoicon_47146e54.png" alt="BoroPrologo" className="h-16 md:h-24 w-16 md:w-24 object-contain" />
           </a>
           
           {/* Desktop Navigation */}
