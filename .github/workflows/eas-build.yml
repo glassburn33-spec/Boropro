@@ -53,7 +53,7 @@ jobs:
         run: eas build --platform android --non-interactive --wait
 
       - name: Upload APK to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: android-build
           path: |
