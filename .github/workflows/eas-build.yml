@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,16 +22,31 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build web app
         run: pnpm build
 
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Build Android app with EAS
-        run: eas build --platform android --non-interactive
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Sync to Capacitor
+        run: npx cap sync android
+
+      - name: Build Android APK
+        working-directory: ./android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: boropro-release
+          path: android/app/build/outputs/apk/release/*.apk
